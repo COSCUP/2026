@@ -1,13 +1,5 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
   <div>
-    About us page
+    {{ $t('aboutUs') }} {{ $t('page') }}
   </div>
 </template>
-
-<style scoped>
-
-</style>

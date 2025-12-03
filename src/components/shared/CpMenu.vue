@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import CpPopover from '@/components/shared/CpPopover.vue'
 
-interface Options {
+export interface CpMenuOption {
   label: string
   value: string
 }
 
 defineProps<{
-  active: string
-  options: Options
+  options: CpMenuOption[]
 }>()
 
-defineEmits(['select'])
+const model = defineModel()
 </script>
 
 <template>
@@ -25,8 +24,8 @@ defineEmits(['select'])
           v-for="option in options"
           :key="option.value"
           class="cp-menu__option"
-          :class="{ 'cp-menu__option-active': active === option.value }"
-          @click="$emit('select', option)"
+          :class="{ 'cp-menu__option-active': model === option.value }"
+          @click="model = option.value"
         >
           {{ option.label }}
         </li>

@@ -1,4 +1,5 @@
 import { resolve } from 'node:path'
+import I18n from '@intlify/unplugin-vue-i18n/vite'
 import Vue from '@vitejs/plugin-vue'
 import UnoCss from 'unocss/vite'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
@@ -24,6 +25,9 @@ export default defineConfig(() => ({
       customCollections: {
         cp: FileSystemIconLoader('./src/assets/icons'),
       },
+    }),
+    I18n({
+      include: resolve(__dirname, './src/locales/**'),
     }),
   ],
   build: {
