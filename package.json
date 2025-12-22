@@ -28,7 +28,9 @@
     "@unocss/preset-wind4": "66.5.10",
     "@unocss/transformer-directives": "66.5.10",
     "eslint-plugin-format": "1.1.0",
+    "typescript": "5.9.3",
     "unocss": "66.5.10",
-    "unocss-preset-theme": "0.14.1"
+    "unocss-preset-theme": "0.14.1",
+    "vue-tsc": "3.2.0"
   }
 }

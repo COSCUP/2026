@@ -9,6 +9,10 @@ export default defineNuxtConfig({
     scan: false,
   },
 
+  typescript: {
+    typeCheck: true,
+  },
+
   modules: [
     '@unocss/nuxt',
     '@nuxt/content',
