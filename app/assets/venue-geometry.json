@@ -1,0 +1,218 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "relation/5355856",
+      "properties": {
+        "addr:city": "臺北市",
+        "addr:country": "TW",
+        "addr:district": "大安區",
+        "addr:full": "10607臺北市大安區基隆路四段43號",
+        "addr:full:en": "No.43, Sec. 4, Keelung Rd., Da’an Dist., Taipei 106, Taiwan (R.O.C.)",
+        "addr:housenumber": "43",
+        "addr:postcode": "10607",
+        "addr:street": "基隆路四段",
+        "alt_name": "國立台灣科技大學",
+        "amenity": "university",
+        "education": "university",
+        "int_name": "National Taiwan University of Science and Technology",
+        "name": "國立臺灣科技大學",
+        "name:en": "National Taiwan University of Science and Technology",
+        "name:fr": "Université nationale des sciences et des technologies de Taiwan",
+        "name:nan": "Kok-li̍p Tâi-oân Kho-ki Tāi-ha̍k",
+        "name:nan-Hant": "國立臺灣科技大學",
+        "name:nan-Latn-pehoeji": "Kok-li̍p Tâi-oân Kho-ki Tāi-ha̍k",
+        "name:nan-Latn-tailo": "Kok-li̍p-tâi-uân-kho-ki-tāi-ha̍k",
+        "name:vi": "Đại học quốc lập Khoa học và Công nghệ Đài Loan",
+        "name:yue-Hant": "國立臺灣科技大學",
+        "name:zh": "國立臺灣科技大學",
+        "name:zh-Hans": "国立台湾科技大学",
+        "name:zh-Hant": "國立臺灣科技大學",
+        "phone": "+886-2-27333141",
+        "postal_code": "10607",
+        "short_name": "臺科大",
+        "short_name:en": "TaiwanTech",
+        "short_name:nan": "Tâi-kho-tāi",
+        "short_name:nan-Hant": "臺科大",
+        "short_name:nan-Latn-pehoeji": "Tâi-kho-tāi",
+        "short_name:nan-Latn-tailo": "Tâi-kho-tāi",
+        "short_name:zh": "臺科大",
+        "type": "multipolygon",
+        "website": "https://www.ntust.edu.tw/",
+        "wikidata": "Q699543",
+        "wikipedia": "zh:國立臺灣科技大學",
+        "id": "relation/5355856"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                121.5416153,
+                25.0115026
+              ],
+              [
+                121.5417149,
+                25.0115661
+              ],
+              [
+                121.5417533,
+                25.0115178
+              ],
+              [
+                121.5425276,
+                25.0118626
+              ],
+              [
+                121.5423204,
+                25.0121234
+              ],
+              [
+                121.5417172,
+                25.0117099
+              ],
+              [
+                121.5415449,
+                25.0115918
+              ],
+              [
+                121.5416153,
+                25.0115026
+              ]
+            ]
+          ],
+          [
+            [
+              [
+                121.5400222,
+                25.012692
+              ],
+              [
+                121.5400275,
+                25.0126853
+              ],
+              [
+                121.5400724,
+                25.0126308
+              ],
+              [
+                121.540132,
+                25.0125585
+              ],
+              [
+                121.5401883,
+                25.0124889
+              ],
+              [
+                121.5402178,
+                25.012453
+              ],
+              [
+                121.5402674,
+                25.012394
+              ],
+              [
+                121.5402812,
+                25.0123777
+              ],
+              [
+                121.5402863,
+                25.0123714
+              ],
+              [
+                121.5410551,
+                25.0114306
+              ],
+              [
+                121.5416267,
+                25.0118136
+              ],
+              [
+                121.5419104,
+                25.0120036
+              ],
+              [
+                121.5431737,
+                25.0128463
+              ],
+              [
+                121.5428213,
+                25.0132705
+              ],
+              [
+                121.5428818,
+                25.0133096
+              ],
+              [
+                121.5438429,
+                25.0139522
+              ],
+              [
+                121.5431666,
+                25.0148271
+              ],
+              [
+                121.5428647,
+                25.0152161
+              ],
+              [
+                121.5426154,
+                25.0155345
+              ],
+              [
+                121.5415737,
+                25.0146284
+              ],
+              [
+                121.5406598,
+                25.0138412
+              ],
+              [
+                121.5406586,
+                25.0137973
+              ],
+              [
+                121.5406009,
+                25.013748
+              ],
+              [
+                121.5406109,
+                25.0137384
+              ],
+              [
+                121.5405857,
+                25.0137168
+              ],
+              [
+                121.5405539,
+                25.0136897
+              ],
+              [
+                121.5403453,
+                25.0135124
+              ],
+              [
+                121.5403372,
+                25.0135218
+              ],
+              [
+                121.5397667,
+                25.0130396
+              ],
+              [
+                121.539755,
+                25.0130179
+              ],
+              [
+                121.5400222,
+                25.012692
+              ]
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

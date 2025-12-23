@@ -1,4 +1,5 @@
 import type { Theme } from '@unocss/preset-wind4'
+import extractorMdc from '@unocss/extractor-mdc'
 import { presetWind4 } from '@unocss/preset-wind4'
 import transformerDirectives from '@unocss/transformer-directives'
 import { defineConfig, presetTypography } from 'unocss'
@@ -6,6 +7,12 @@ import presetThemes from 'unocss-preset-theme'
 
 export default defineConfig({
   mergeSelectors: true,
+  extractors: [
+    extractorMdc(),
+  ],
+  content: {
+    filesystem: ['../content/**/*.md'],
+  },
   transformers: [
     transformerDirectives(),
   ],

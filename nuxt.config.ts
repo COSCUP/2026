@@ -27,6 +27,12 @@ export default defineNuxtConfig({
     config: { standalone: false },
   },
 
+  icon: {
+    customCollections: [
+      { prefix: 'local', dir: './app/assets/icons' },
+    ],
+  },
+
   i18n: {
     locales: [
       { code: 'en', name: 'English', language: 'en-US' },

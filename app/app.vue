@@ -1,11 +1,11 @@
 <script setup lang="ts">
-const { locale, locales, t } = useI18n()
+const { locale, locales, defaultLocale, t } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 
 const menu = computed(() => [
   { key: 'home', path: '/' },
   { key: 'about', path: '/about' },
-  { key: 'event', path: '#' },
+  { key: 'transportation', path: '/transportation' },
   { key: 'sessions', path: '#' },
   { key: 'topics', path: '#' },
   { key: 'sponsors', path: '#' },
@@ -17,8 +17,8 @@ const menu = computed(() => [
 ])
 
 const otherLocale = computed(() => {
-  const defaultLocale = locales.value.find((l) => l.code === 'zh')!
-  return locales.value.find((l) => l.code !== locale.value) ?? defaultLocale
+  const defaultLocaleObject = locales.value.find((l) => l.code === defaultLocale)!
+  return locales.value.find((l) => l.code !== locale.value) ?? defaultLocaleObject
 })
 </script>
 
@@ -26,11 +26,11 @@ const otherLocale = computed(() => {
   <div>
     <NuxtRouteAnnouncer />
 
-    <nav class="text-gray-700 px-3 py-1 bg-white flex h-16 shadow-lg justify-between *:h-full">
-      <div>
+    <nav class="text-gray-700 px-3 py-1 bg-#f9f9f9 flex h-16 justify-between *:h-full">
+      <div class="flex items-center">
         <NuxtPicture
           :alt="t('logo_alt')"
-          :img-attrs="{ class: 'h-full' }"
+          :img-attrs="{ class: 'object-cover h-8' }"
           src="/coscup_logo.png"
         />
       </div>
@@ -63,7 +63,7 @@ const otherLocale = computed(() => {
       </div>
     </nav>
 
-    <NuxtPage />
+    <NuxtPage class="mx-auto py-2" />
   </div>
 </template>
 
@@ -73,7 +73,7 @@ en:
   menu:
     home: "Home"
     about: "About"
-    event: "Event"
+    transportation: "Transportation"
     sessions: "Sessions"
     topics: "Topics"
     sponsors: "Sponsors"
@@ -87,7 +87,7 @@ zh:
   menu:
     home: "首頁"
     about: "關於我們"
-    event: "年會資訊"
+    transportation: "交通"
     sessions: "議程表"
     topics: "議程主題"
     sponsors: "贊助夥伴"

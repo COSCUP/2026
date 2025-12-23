@@ -13,7 +13,7 @@ const page = await useLocaleContent(slug, locale, defaultLocale)
 <template>
   <ContentRenderer
     v-if="page"
-    class="mx-auto w-screen prose"
+    class="prose"
     :value="page"
   />
   <div v-else>
