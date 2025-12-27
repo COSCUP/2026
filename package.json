@@ -9,20 +9,20 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxt/content": "3.9.0",
+    "@nuxt/content": "3.10.0",
     "@nuxt/eslint": "1.12.1",
-    "@nuxt/icon": "2.1.0",
+    "@nuxt/icon": "2.1.1",
     "@nuxt/image": "2.0.0",
     "@nuxtjs/i18n": "10.2.1",
     "eslint": "9.39.2",
     "nuxt": "4.2.2",
     "ufo": "1.6.1",
-    "vue": "3.5.25",
+    "vue": "3.5.26",
     "vue-router": "4.6.4"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "6.7.1",
-    "@iconify-json/tabler": "1.2.23",
+    "@antfu/eslint-config": "6.7.3",
+    "@iconify-json/tabler": "1.2.25",
     "@unocss/eslint-plugin": "66.5.10",
     "@unocss/nuxt": "66.5.10",
     "@unocss/preset-wind4": "66.5.10",
