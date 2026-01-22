@@ -4,6 +4,11 @@ import { defineNuxtConfig } from 'nuxt/config'
 export default defineNuxtConfig({
   app: {
     baseURL: '/2026/',
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/2026/favicon.svg' },
+      ],
+    },
   },
 
   compatibilityDate: '2025-07-15',
