@@ -16,6 +16,9 @@ definePageMeta({
         COSCUP 2026
       </h1>
       <p class="text-2xl text-cp-green">
+        {{ t('co-host') }}
+      </p>
+      <p class="text-2xl text-cp-green">
         {{ t('coming_soon') }}
       </p>
     </section>
@@ -45,7 +48,8 @@ definePageMeta({
 
 <i18n lang="yaml">
 en:
-  coming_soon: "Coming soon"
+  coming_soon: "Coming Soon — COSCUP 8/8 ~ 8/9. See you there."
+  co-host: "UbuCon Asia co-hosting confirmed!"
   call_for_sponsor:
     title: "Support COSCUP"
     desc: "If you are interested in sponsoring COSCUP 2026, please feel free to contact us at sponsorship{'@'}coscup.org"
@@ -53,7 +57,8 @@ en:
     title: "Support COSCUP"
     desc: "If you are interested in volunteering for COSCUP 2026, please feel free to contact us at volunteer{'@'}coscup.org"
 zh:
-  coming_soon: "敬請期待"
+  coming_soon: "敬請期待｜COSCUP 將於 8/8 ~ 8/9 與你相見。"
+  co-host: "UbuCon Asia 合辦確定！"
   call_for_sponsor:
     title: "贊助 COSCUP"
     desc: "若您對贊助 COSCUP 2026 有興趣，歡迎透過電子郵件與我們聯繫：sponsorship{'@'}coscup.org"
