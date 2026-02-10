@@ -10,7 +10,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="text-center flex flex-col gap-12 min-h-screen items-center justify-center from-blue-50 to-white bg-gradient-to-b">
+  <div class="px-4 text-center flex flex-col gap-4 min-h-screen items-center justify-center from-blue-50 to-white bg-gradient-to-b">
     <section class="prose">
       <h1 class="text-5xl text-cp-green">
         COSCUP 2026
@@ -28,6 +28,11 @@ definePageMeta({
       </h3>
       <p>
         {{ t('call_for_sponsor.desc') }}
+      </p>
+      <p>
+        <NuxtLink to="mailto:sponsorship@coscup.org">
+          sponsorship@coscup.org
+        </NuxtLink>
       </p>
     </section>
     <section class="prose">
@@ -68,10 +73,10 @@ en:
   co-host: "Co-hosted with UbuCon Asia!"
   call_for_sponsor:
     title: "Support COSCUP"
-    desc: "If you are interested in sponsoring COSCUP 2026, please feel free to contact us at sponsorship{'@'}coscup.org"
+    desc: "If you are interested in sponsoring COSCUP 2026, please feel free to contact us."
   call_for_volunteer:
     title: "Support COSCUP"
-    desc: "If you are interested in volunteering for COSCUP 2026, please feel free to contact us at volunteer{'@'}coscup.org"
+    desc: "If you are interested in volunteering for COSCUP 2026, please feel free to contact us."
   early_bird_cfp:
     title: "Early Bird CfP"
     desc: "Early Bird Call for Proposals is now open — let the community see your ideas sooner!"
@@ -82,10 +87,10 @@ zh:
   co-host: "UbuCon Asia 合辦確定！"
   call_for_sponsor:
     title: "贊助 COSCUP"
-    desc: "若您對贊助 COSCUP 2026 有興趣，歡迎透過電子郵件與我們聯繫：sponsorship{'@'}coscup.org"
+    desc: "若您對贊助 COSCUP 2026 有興趣，歡迎透過電子郵件與我們聯繫。"
   call_for_volunteer:
     title: "參與 COSCUP"
-    desc: "若您對參與 COSCUP 2026 有興趣，歡迎透過電子郵件與我們聯繫：volunteer{'@'}coscup.org"
+    desc: "若您對參與 COSCUP 2026 有興趣，歡迎透過電子郵件與我們聯繫。"
   early_bird_cfp:
     title: "Early Bird CfP"
     desc: "早鳥徵稿已經開跑，讓社群夥伴更早看見您的想法！"
