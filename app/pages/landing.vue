@@ -24,6 +24,23 @@ definePageMeta({
     </section>
     <section class="prose">
       <h3 class="text-center">
+        {{ t('early_bird_cfp.title') }}
+      </h3>
+      <p>
+        {{ t('early_bird_cfp.desc') }}
+      </p>
+      <p>
+        <NuxtLink
+          class="text-decoration-none text-white px-4 py-2 rounded bg-cp-green shadow hover:shadow-lg"
+          target="_blank"
+          :to="`https://blog.coscup.org/2026/02/lead-trend-coscup-2026-early-bird-cfp.html#${t('early_bird_cfp.anchor')}`"
+        >
+          {{ t('early_bird_cfp.link_text') }}
+        </NuxtLink>
+      </p>
+    </section>
+    <section class="prose">
+      <h3 class="text-center">
         {{ t('call_for_sponsor.title') }}
       </h3>
       <p>
@@ -32,22 +49,6 @@ definePageMeta({
       <p>
         <NuxtLink to="mailto:sponsorship@coscup.org">
           sponsorship@coscup.org
-        </NuxtLink>
-      </p>
-    </section>
-    <section class="prose">
-      <h3 class="text-center">
-        {{ t('early_bird_cfp.title') }}
-      </h3>
-      <p>
-        {{ t('early_bird_cfp.desc') }}
-      </p>
-      <p>
-        <NuxtLink
-          target="_blank"
-          :to="`https://blog.coscup.org/2026/02/lead-trend-coscup-2026-early-bird-cfp.html#${t('early_bird_cfp.anchor')}`"
-        >
-          {{ t('early_bird_cfp.link_text') }}
         </NuxtLink>
       </p>
     </section>
