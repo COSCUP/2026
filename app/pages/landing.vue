@@ -31,7 +31,7 @@ definePageMeta({
       </p>
       <p>
         <NuxtLink
-          class="text-decoration-none text-white px-4 py-2 rounded bg-cp-green shadow hover:shadow-lg"
+          class="not-prose text-white px-4 py-2 rounded bg-cp-green shadow hover:shadow-lg"
           target="_blank"
           :to="`https://blog.coscup.org/2026/02/lead-trend-coscup-2026-early-bird-cfp.html#${t('early_bird_cfp.anchor')}`"
         >
