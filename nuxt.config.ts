@@ -11,6 +11,12 @@ export default defineNuxtConfig({
     },
   },
 
+  nitro: {
+    output: {
+      publicDir: process.env.NUXT_OUTPUT_DIR || '.output/public',
+    },
+  },
+
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
