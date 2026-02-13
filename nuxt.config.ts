@@ -2,6 +2,9 @@ import { defineNuxtConfig } from 'nuxt/config'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  compatibilityDate: '2025-07-15',
+  devtools: { enabled: true },
+
   app: {
     baseURL: '/2026/',
     head: {
@@ -16,9 +19,6 @@ export default defineNuxtConfig({
       publicDir: process.env.NUXT_OUTPUT_DIR || '.output/public',
     },
   },
-
-  compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
 
   imports: {
     scan: false,
@@ -59,5 +59,6 @@ export default defineNuxtConfig({
       { code: 'zh', name: '中文', language: 'zh-Hant-TW' },
     ],
     defaultLocale: 'zh',
+    detectBrowserLanguage: false, // https://github.com/nuxt-modules/i18n/issues/3262
   },
 })
