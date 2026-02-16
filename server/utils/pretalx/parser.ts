@@ -1,4 +1,4 @@
-import type { IAnswer, IPretalxResult, ISlot } from './type'
+import type { IAnswer, IPretalxResult, ISlot, ISubmissionType } from './type'
 
 const QUESTION_MAP: Record<string, number | null> = {
   language: 269,
@@ -82,4 +82,9 @@ export function parseSpeaker(speakerIds: ISubmission['speakers'], pretalxData: I
       },
     }
   })
+}
+
+export function parseType(typeId: ISubmissionType['id'], pretalxData: IPretalxResult) {
+  const typeMap = pretalxData['submission-types'].map
+  return typeMap[typeId]
 }
