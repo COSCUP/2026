@@ -14,6 +14,13 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  if (submission.state !== 'accepted') {
+    throw createError({
+      statusCode: 404,
+      statusMessage: 'Not Found',
+    })
+  }
+
   const answers = parseAnswer(submission.answers, data)
   const slot = parseSlot(submission.slots[0], data)
   const speakers = parseSpeaker(submission.speakers, data)
