@@ -7,6 +7,8 @@ on:
 
 jobs:
   checks:
+    env:
+      PRETALX_API_TOKEN: ${{ secrets.PRETALX_API_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
