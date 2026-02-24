@@ -41,6 +41,23 @@ definePageMeta({
     </section>
     <section class="prose">
       <h3 class="text-center">
+        {{ t('call_for_participation.title') }}
+      </h3>
+      <p>
+        {{ t('call_for_participation.desc') }}
+      </p>
+      <p>
+        <NuxtLink
+          class="not-prose text-white px-4 py-2 rounded bg-cp-green shadow hover:shadow-lg"
+          target="_blank"
+          :to="`https://blog.coscup.org/2026/02/coscup-2026-call-for-participation.html#${t('call_for_participation.anchor')}`"
+        >
+          {{ t('call_for_participation.link_text') }}
+        </NuxtLink>
+      </p>
+    </section>
+    <section class="prose">
+      <h3 class="text-center">
         {{ t('call_for_sponsor.title') }}
       </h3>
       <p>
@@ -83,6 +100,11 @@ en:
     desc: "Early Bird Call for Proposals is now open — let the community see your ideas sooner!"
     link_text: "Learn more"
     anchor: "cfp-en"
+  call_for_participation:
+    title: "Call for Participation"
+    desc: "We're now accepting community track and booth applications — bring your community to COSCUP 2026!"
+    link_text: "Learn more"
+    anchor: "anchor2"
 zh:
   coming_soon: "敬請期待——COSCUP 將於 8/8 ~ 8/9 與你相見。"
   co-host: "UbuCon Asia 合辦確定！"
@@ -97,4 +119,9 @@ zh:
     desc: "早鳥徵稿已經開跑，讓社群夥伴更早看見您的想法！"
     link_text: "瞭解更多"
     anchor: "cfp-zh"
+  call_for_participation:
+    title: "徵求社群參與"
+    desc: "社群議程軌與社群攤位開放申請中，帶領您的社群參與 COSCUP 2026！"
+    link_text: "瞭解更多"
+    anchor: "Blog1"
 </i18n>
