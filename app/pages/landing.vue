@@ -123,5 +123,5 @@ zh:
     title: "徵求社群參與"
     desc: "社群議程軌與社群攤位開放申請中，帶領您的社群參與 COSCUP 2026！"
     link_text: "瞭解更多"
-    anchor: ""
+    anchor: "Blog1"
 </i18n>
