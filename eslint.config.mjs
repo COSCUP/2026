@@ -16,6 +16,11 @@ export default withNuxt(
       'style/arrow-parens': ['error', 'always'],
       'style/brace-style': ['error', '1tbs'],
       'style/operator-linebreak': ['error', 'after', { overrides: { '?': 'before', ':': 'before' } }],
+    },
+  },
+  {
+    files: ['**/*.vue'],
+    rules: {
       'vue/max-attributes-per-line': ['error'],
       'vue/attributes-order': ['error', { alphabetical: true }],
     },
