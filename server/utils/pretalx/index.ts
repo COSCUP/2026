@@ -1,7 +1,7 @@
 import type { IPretalxData, IPretalxResponse, IPretalxResult } from './type'
 
 const TOKEN = process.env.PRETALX_API_TOKEN
-const BASE_RUL = 'https://pretalx.coscup.org/api/events/coscup-2025'
+const BASE_URL = process.env.PRETALX_API_URL
 
 export default defineCachedFunction(
   async () => {
@@ -16,7 +16,7 @@ export default defineCachedFunction(
         const response = await $fetch<IPretalxResponse<typeof table>>(
           url,
           {
-            baseURL: BASE_RUL,
+            baseURL: BASE_URL,
             headers: {
               Authorization: `Token ${TOKEN}`,
             },
