@@ -20,7 +20,7 @@ export default defineEventHandler(async () => {
         room: slot.room?.name,
         start: slot.start,
         end: slot.end,
-        lanaguage: answers.language,
+        language: answers.language,
         speakers,
         zh: {
           title: submission.title,

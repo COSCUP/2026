@@ -22,7 +22,7 @@ export function pretalx2Opass(pretalxData: IPretalxResult) {
         room: slot.room?.id,
         start: slot.start,
         end: slot.end,
-        lanaguage: answer.language,
+        language: answer.language,
         speakers: submission.speakers,
         zh: {
           title: submission.title,
