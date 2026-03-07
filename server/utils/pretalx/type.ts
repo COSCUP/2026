@@ -24,6 +24,7 @@ export interface ISpeaker {
   name: string
   biography: string
   answers: number[]
+  avatar_url: string
 }
 
 export interface IRoom {
