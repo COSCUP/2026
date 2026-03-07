@@ -5,7 +5,7 @@ import pretalxData from '~~/server/utils/pretalx'
 
 export default defineNitroPlugin((nitroApp) => {
   nitroApp.hooks.hook('close', async () => {
-    if (process.env.NODE_ENV !== 'prerender') {
+    if (!import.meta.prerender) {
       return
     }
 
