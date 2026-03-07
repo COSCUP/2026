@@ -29,8 +29,8 @@ export function pretalx2Opass(pretalxData: IPretalxResult) {
           describe: submission.abstract,
         },
         en: {
-          title: answer.EnTitle || submission.title,
-          describe: answer.EnDesc || submission.abstract,
+          title: answer.enTitle || submission.title,
+          describe: answer.enDesc || submission.abstract,
         },
         tags: [],
         uri: `https://coscup.org/2026/session/${submission.code}`,
