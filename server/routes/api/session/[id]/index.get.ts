@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  if (submission.state !== 'accepted') {
+  if (submission.state !== 'confirmed') {
     throw createError({
       statusCode: 404,
       statusMessage: 'Not Found',
