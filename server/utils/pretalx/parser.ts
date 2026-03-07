@@ -1,4 +1,4 @@
-import type { IAnswer, IPretalxResult, ISlot, ISubmissionType } from './type'
+import type { IAnswer, IPretalxResult, ISlot, ISubmission, ISubmissionType } from './type'
 
 const QUESTION_MAP: Record<string, number | null> = {
   language: 269,
