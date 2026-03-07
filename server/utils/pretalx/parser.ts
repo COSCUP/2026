@@ -57,9 +57,9 @@ export function parseSlot(slotId: ISlot['id'], pretalxData: IPretalxResult) {
   }
 
   const roomId = slot.room
-  slot.room = roomMap[roomId]
+  const room = roomMap[roomId]
 
-  return slot
+  return { ...slot, room }
 }
 
 export function parseSpeaker(speakerIds: ISubmission['speakers'], pretalxData: IPretalxResult) {
