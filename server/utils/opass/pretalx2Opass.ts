@@ -1,4 +1,4 @@
-import type { IPretalxResult, IRoom, ISubmission, ISubmissionType } from '~~/server/utils/pretalx/type'
+import type { IPretalxResult, IRoom, ISpeaker, ISubmission, ISubmissionType } from '~~/server/utils/pretalx/type'
 import { parseAnswer, parseSlot } from '~~/server/utils/pretalx/parser'
 
 export function pretalx2Opass(pretalxData: IPretalxResult) {

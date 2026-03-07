@@ -1,4 +1,4 @@
-import type { IPretalxResponse, IPretalxResult } from './type'
+import type { IPretalxData, IPretalxResponse, IPretalxResult } from './type'
 
 const TOKEN = process.env.PRETALX_API_TOKEN
 const BASE_RUL = 'https://pretalx.coscup.org/api/events/coscup-2025'
