@@ -28,8 +28,8 @@ export default defineEventHandler(async () => {
           type: type.name['zh-hans'] || type.name.en,
         },
         en: {
-          title: answers.EnTitle || submission.title,
-          describe: answers.EnDesc || submission.abstract,
+          title: answers.enTitle || submission.title,
+          describe: answers.enDesc || submission.abstract,
           type: type.name.en || type.name['zh-hans'],
         },
         tags: [],
