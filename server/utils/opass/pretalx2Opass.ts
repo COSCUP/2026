@@ -49,12 +49,12 @@ export function pretalx2Opass(pretalxData: IPretalxResult) {
       id: speaker.code,
       avatar: speaker.avatar_url,
       zh: {
-        name: answer.enName || speaker.name,
-        bio: answer.enBio || speaker.biography,
-      },
-      en: {
         name: answer.zhName || speaker.name,
         bio: answer.zhBio || speaker.biography,
+      },
+      en: {
+        name: answer.enName || speaker.name,
+        bio: answer.enBio || speaker.biography,
       },
     }
   })
