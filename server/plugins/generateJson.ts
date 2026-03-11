@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
-import { pretalx2Opass } from '~~/server/utils/opass/pretalx2Opass'
+import { pretalxToOpass } from '~~/server/utils/opass/pretalxToOpass'
 import pretalxData from '~~/server/utils/pretalx'
 
 export default defineNitroPlugin((nitroApp) => {
@@ -10,7 +10,7 @@ export default defineNitroPlugin((nitroApp) => {
     }
 
     const data = await pretalxData()
-    const opass = pretalx2Opass(data)
+    const opass = pretalxToOpass(data)
 
     const dirs = resolve('.output', 'public', 'json')
 

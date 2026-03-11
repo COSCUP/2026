@@ -1,7 +1,7 @@
 import type { IPretalxResult, IRoom, ISpeaker, ISubmission, ISubmissionType } from '~~/server/utils/pretalx/type'
 import { parseAnswer, parseSlot } from '~~/server/utils/pretalx/parser'
 
-export function pretalx2Opass(pretalxData: IPretalxResult) {
+export function pretalxToOpass(pretalxData: IPretalxResult) {
   const speakerIds: Set<ISpeaker['code']> = new Set()
   const roomIds: Set<IRoom['id']> = new Set()
   const typeIds: Set<ISubmissionType['id']> = new Set()
