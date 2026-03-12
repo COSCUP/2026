@@ -1,5 +1,9 @@
 import type { IAnswer, IPretalxResult, ISlot, ISubmission, ISubmissionType } from './type'
 
+// 對應 pretalx 的問題 ID。
+// key 為系統內使用的欄位名稱，value 為 pretalx 的 question id。
+// 這個對應表會被 `parseAnswer` 使用，將 pretalx 的 answers
+// 轉換為以 key 為索引的 Record 物件並回傳。
 const QUESTION_MAP: Record<string, number | null> = {
   language: 269,
   languageOther: 300,
