@@ -1,4 +1,4 @@
-import type { ISubmission } from '~~/server/utils/pretalx/type'
+import type { Submission } from '~~/server/utils/pretalx/type'
 import pretalxData from '~~/server/utils/pretalx'
 import { parseAnswer, parseSlot, parseSpeaker, parseType } from '~~/server/utils/pretalx/parser'
 
@@ -8,8 +8,8 @@ export default defineEventHandler(async () => {
   const submissions = data.submissions?.arr || []
 
   return submissions
-    .filter((submission: ISubmission) => submission.state === 'confirmed')
-    .map((submission: ISubmission) => {
+    .filter((submission: Submission) => submission.state === 'confirmed')
+    .map((submission: Submission) => {
       const answers = parseAnswer(submission.answers, data)
       const slot = parseSlot(submission.slots[0]!, data)
       const speakers = parseSpeaker(submission.speakers, data)

@@ -1,4 +1,4 @@
-import type { IPretalxData, IPretalxResponse, IPretalxResult } from './type'
+import type { PretalxData, PretalxResponse, PretalxResult } from './type'
 
 const TOKEN = process.env.PRETALX_API_TOKEN
 const BASE_URL = process.env.PRETALX_API_URL
@@ -6,14 +6,14 @@ const BASE_URL = process.env.PRETALX_API_URL
 export default defineCachedFunction(
   async () => {
     const tables = ['submissions', 'submission-types', 'speakers', 'rooms', 'answers', 'slots'] as const
-    const results: Partial<IPretalxResult> = {}
+    const results: Partial<PretalxResult> = {}
 
     for (const table of tables) {
       let url: string = table
-      results[table] = { arr: [], map: {} } satisfies IPretalxData<typeof table>
+      results[table] = { arr: [], map: {} } satisfies PretalxData<typeof table>
 
       while (url) {
-        const response = await $fetch<IPretalxResponse<typeof table>>(
+        const response = await $fetch<PretalxResponse<typeof table>>(
           url,
           {
             baseURL: BASE_URL,
@@ -29,7 +29,7 @@ export default defineCachedFunction(
       }
     }
 
-    return results as IPretalxResult
+    return results as PretalxResult
   },
   {
     maxAge: 99999,

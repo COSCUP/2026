@@ -1,4 +1,4 @@
-import type { IAnswer, IPretalxResult, ISlot, ISubmission, ISubmissionType } from './type'
+import type { Answer, PretalxResult, Slot, Submission, SubmissionType } from './type'
 
 // 對應 pretalx 的問題 ID。
 // key 為系統內使用的欄位名稱，value 為 pretalx 的 question id。
@@ -20,11 +20,11 @@ const QUESTION_MAP: Record<string, number | null> = {
   record: null,
 } as const
 
-export function parseAnswer(answers: IAnswer['id'][], pretalxData: IPretalxResult): any {
+export function parseAnswer(answers: Answer['id'][], pretalxData: PretalxResult): any {
   const answerMap = pretalxData.answers.map
   const results: Record<keyof typeof QUESTION_MAP, unknown> = {}
 
-  const questionMap = answers.reduce((acc: Record<IAnswer['id'], IAnswer>, cur: IAnswer['id']) => {
+  const questionMap = answers.reduce((acc: Record<Answer['id'], Answer>, cur: Answer['id']) => {
     const ans = answerMap[cur]
 
     if (!ans) {
@@ -49,7 +49,7 @@ export function parseAnswer(answers: IAnswer['id'][], pretalxData: IPretalxResul
   return results
 }
 
-export function parseSlot(slotId: ISlot['id'], pretalxData: IPretalxResult) {
+export function parseSlot(slotId: Slot['id'], pretalxData: PretalxResult) {
   const slotMap = pretalxData.slots.map
   const roomMap = pretalxData.rooms.map
 
@@ -66,7 +66,7 @@ export function parseSlot(slotId: ISlot['id'], pretalxData: IPretalxResult) {
   return { ...slot, room }
 }
 
-export function parseSpeaker(speakerIds: ISubmission['speakers'], pretalxData: IPretalxResult) {
+export function parseSpeaker(speakerIds: Submission['speakers'], pretalxData: PretalxResult) {
   const speakerMap = pretalxData.speakers.map
 
   return speakerIds.map((speakerId: string) => {
@@ -88,7 +88,7 @@ export function parseSpeaker(speakerIds: ISubmission['speakers'], pretalxData: I
   })
 }
 
-export function parseType(typeId: ISubmissionType['id'], pretalxData: IPretalxResult) {
+export function parseType(typeId: SubmissionType['id'], pretalxData: PretalxResult) {
   const typeMap = pretalxData['submission-types'].map
   return typeMap[typeId]
 }

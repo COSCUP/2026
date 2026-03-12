@@ -1,14 +1,14 @@
-import type { IPretalxResult, IRoom, ISpeaker, ISubmission, ISubmissionType } from '~~/server/utils/pretalx/type'
+import type { PretalxResult, Room, Speaker, Submission, SubmissionType } from '~~/server/utils/pretalx/type'
 import { parseAnswer, parseSlot } from '~~/server/utils/pretalx/parser'
 
-export function pretalxToOpass(pretalxData: IPretalxResult) {
-  const speakerIds: Set<ISpeaker['code']> = new Set()
-  const roomIds: Set<IRoom['id']> = new Set()
-  const typeIds: Set<ISubmissionType['id']> = new Set()
+export function pretalxToOpass(pretalxData: PretalxResult) {
+  const speakerIds: Set<Speaker['code']> = new Set()
+  const roomIds: Set<Room['id']> = new Set()
+  const typeIds: Set<SubmissionType['id']> = new Set()
 
   const sessions = pretalxData.submissions.arr
-    .filter((submission: ISubmission) => submission.state === 'confirmed')
-    .map((submission: ISubmission) => {
+    .filter((submission: Submission) => submission.state === 'confirmed')
+    .map((submission: Submission) => {
       const answer = parseAnswer(submission.answers, pretalxData)
       const slot = parseSlot(submission.slots[0]!, pretalxData)
 
@@ -41,7 +41,7 @@ export function pretalxToOpass(pretalxData: IPretalxResult) {
       }
     })
 
-  const speakers = [...speakerIds].map((id: ISpeaker['code']) => {
+  const speakers = [...speakerIds].map((id: Speaker['code']) => {
     const speaker = pretalxData.speakers.map[id]
     const answer = parseAnswer(speaker.answers, pretalxData)
 
@@ -59,7 +59,7 @@ export function pretalxToOpass(pretalxData: IPretalxResult) {
     }
   })
 
-  const types = [...typeIds].map((id: ISubmissionType['id']) => {
+  const types = [...typeIds].map((id: SubmissionType['id']) => {
     const type = pretalxData['submission-types'].map[id]
     return {
       id: type.id,
@@ -74,7 +74,7 @@ export function pretalxToOpass(pretalxData: IPretalxResult) {
 
   const rooms = [...roomIds]
     .filter(Boolean)
-    .map((id: IRoom['id']) => {
+    .map((id: Room['id']) => {
       const room = pretalxData.rooms.map[id]
       return {
         id: room.id,
