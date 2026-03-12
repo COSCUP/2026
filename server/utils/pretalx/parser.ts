@@ -39,7 +39,7 @@ export function parseAnswer(answers: IAnswer['id'][], pretalxData: IPretalxResul
       continue
     }
 
-    results[questionId] = questionMap[questionId]?.answer
+    results[question] = questionMap[questionId]?.answer
   }
 
   return results
