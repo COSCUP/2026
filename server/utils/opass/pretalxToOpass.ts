@@ -41,7 +41,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
       }
     })
 
-  const speakers = Array.from(speakerIds).map((id: Speaker['code']) => {
+  const speakers = Array.from(speakerIds, (id: Speaker['code']) => {
     const speaker = pretalxData.speakers.map[id]
     const answer = parseAnswer(speaker.answers, pretalxData)
 
@@ -59,7 +59,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
     }
   })
 
-  const types = Array.from(typeIds).map((id: SubmissionType['id']) => {
+  const types = Array.from(typeIds, (id: SubmissionType['id']) => {
     const type = pretalxData['submission-types'].map[id]
     return {
       id: type.id,
@@ -72,7 +72,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
     }
   })
 
-  const rooms = Array.from(roomIds)
+  const rooms = [...roomIds]
     .filter(Boolean)
     .map((id: Room['id']) => {
       const room = pretalxData.rooms.map[id]
