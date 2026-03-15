@@ -1,6 +1,5 @@
 import type { PretalxData, PretalxResponse, PretalxResult } from './type'
 
-
 export default defineCachedFunction(
   async () => {
     const config = useRuntimeConfig()
@@ -32,7 +31,7 @@ export default defineCachedFunction(
     return results as PretalxResult
   },
   {
-    maxAge: 99999,
+    maxAge: Infinity,
     name: 'pretalxData',
   },
 )
