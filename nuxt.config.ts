@@ -61,4 +61,9 @@ export default defineNuxtConfig({
     defaultLocale: 'zh',
     detectBrowserLanguage: false, // https://github.com/nuxt-modules/i18n/issues/3262
   },
+
+  runtimeConfig: {
+    TOKEN: process.env.PRETALX_API_TOKEN,
+    BASE_URL: process.env.PRETALX_API_URL,
+  },
 })
