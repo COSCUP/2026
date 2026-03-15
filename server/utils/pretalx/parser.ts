@@ -82,7 +82,7 @@ export function parseSpeaker(speakerIds: Submission['speakers'], pretalxData: Pr
       },
       en: {
         name: answer.enName || speaker.name,
-        bio: answer.Bio || speaker.biography,
+        bio: answer.enBio || speaker.biography,
       },
     }
   })
