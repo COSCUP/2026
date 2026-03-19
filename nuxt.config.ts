@@ -69,7 +69,7 @@ export default defineNuxtConfig({
   },
 
   gtag: {
-    id: process.env.GOOGLE_GTAG,
+    id: 'G-C9EMTMDSS1',
     enabled: process.env.NODE_ENV === 'production',
     config: {
       page_title: 'COSCUP 2026',

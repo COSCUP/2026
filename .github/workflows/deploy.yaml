@@ -14,7 +14,6 @@ jobs:
     env:
       PRETALX_API_TOKEN: ${{ secrets.PRETALX_API_TOKEN }}
       PRETALX_API_URL: ${{ secrets.PRETALX_API_URL }}
-      GOOGLE_GTAG: ${{ secrets.GOOGLE_GTAG }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
