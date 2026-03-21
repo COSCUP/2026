@@ -6,6 +6,10 @@ export default defineEventHandler(async (event) => {
 
   const data = await $fetch<PretalxResult>('/2026/json/pretalx.json')
 
+  if (!data) {
+    return (await $fetch('https://coscup.org/2026/json/pretalx.json'))
+  }
+
   const submission = data.submissions?.map[id]
 
   if (!submission) {
