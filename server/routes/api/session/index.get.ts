@@ -5,6 +5,10 @@ import { parseAnswer, parseSlot, parseSpeaker, parseType } from '~~/server/utils
 export default defineEventHandler(async () => {
   const data = await pretalxData()
 
+  if (!data) {
+    return (await $fetch('https://coscup.org/2026/api/session'))
+  }
+
   const submissions = data.submissions?.arr || []
 
   return submissions

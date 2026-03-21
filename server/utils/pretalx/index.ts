@@ -2,7 +2,11 @@ import type { PretalxData, PretalxResponse, PretalxResult } from './type'
 
 export default defineCachedFunction(
   async () => {
-    const config = useRuntimeConfig()
+    const { TOKEN, BASE_URL } = useRuntimeConfig()
+
+    if (!TOKEN || !BASE_URL) {
+      return null
+    }
 
     const tables = ['submissions', 'submission-types', 'speakers', 'rooms', 'answers', 'slots'] as const
     const results: Partial<PretalxResult> = {}
@@ -15,9 +19,9 @@ export default defineCachedFunction(
         const response = await $fetch<PretalxResponse<typeof table>>(
           url,
           {
-            baseURL: config.BASE_URL,
+            baseURL: BASE_URL,
             headers: {
-              Authorization: `Token ${config.TOKEN}`,
+              Authorization: `Token ${TOKEN}`,
             },
           },
         )

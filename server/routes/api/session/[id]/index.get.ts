@@ -1,10 +1,11 @@
-import pretalxData from '~~/server/utils/pretalx'
+import type { PretalxResult } from '~~/server/utils/pretalx/type'
 import { parseAnswer, parseSlot, parseSpeaker, parseType } from '~~/server/utils/pretalx/parser'
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')!
 
-  const data = await pretalxData()
+  const data = await $fetch<PretalxResult>('/2026/api/session')
+
   const submission = data.submissions?.map[id]
 
   if (!submission) {
