@@ -3,7 +3,7 @@ import { prerenderRoutes } from 'nuxt/app'
 
 prerenderRoutes([
   '/json/session.json',
-  '/api/session',
+  '/json/pretalx.json',
 ])
 </script>
 

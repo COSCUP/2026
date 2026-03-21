@@ -4,7 +4,7 @@ import { parseAnswer, parseSlot, parseSpeaker, parseType } from '~~/server/utils
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')!
 
-  const data = await $fetch<PretalxResult>('/2026/api/session')
+  const data = await $fetch<PretalxResult>('/2026/json/pretalx.json')
 
   const submission = data.submissions?.map[id]
 
