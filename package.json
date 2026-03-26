@@ -21,6 +21,7 @@
     "@nuxt/image": "2.0.0",
     "@nuxtjs/i18n": "10.2.3",
     "@vueuse/core": "14.2.1",
+    "csv-parse": "6.2.1",
     "eslint": "10.1.0",
     "leaflet": "1.9.4",
     "nuxt": "4.4.2",
