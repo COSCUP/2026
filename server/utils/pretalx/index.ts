@@ -15,9 +15,9 @@ export default defineCachedFunction(
         const response = await $fetch<PretalxResponse<typeof table>>(
           url,
           {
-            baseURL: config.BASE_URL,
+            baseURL: config.pretalxApiUrl,
             headers: {
-              Authorization: `Token ${config.TOKEN}`,
+              Authorization: `Token ${config.pretalxApiToken}`,
             },
           },
         )
