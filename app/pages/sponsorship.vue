@@ -16,9 +16,6 @@ const communityTier = computed(() =>
   tiers.value?.find((tier) => tier.level === 'community'),
 )
 
-function l<T extends Record<string, unknown>>(obj: T, field: string): string {
-  return String(obj[`${field}_${locale.value}`] ?? '')
-}
 </script>
 
 <template>
@@ -60,7 +57,7 @@ function l<T extends Record<string, unknown>>(obj: T, field: string): string {
             v-for="tier in regularTiers.slice(0, 3)"
             :key="tier.level"
           >
-            <strong>{{ l(tier, 'value') }}</strong>
+            <strong>{{ tier.value[locale] }}</strong>
           </td>
         </tr>
         <tr>
@@ -68,7 +65,7 @@ function l<T extends Record<string, unknown>>(obj: T, field: string): string {
           <td
             v-for="tier in regularTiers.slice(0, 3)"
             :key="tier.level"
-            v-html="renderMarkdown(l(tier, 'benefits'))"
+            v-html="renderMarkdown(tier.benefits[locale])"
           />
         </tr>
       </tbody>
@@ -95,7 +92,7 @@ function l<T extends Record<string, unknown>>(obj: T, field: string): string {
             v-for="tier in regularTiers.slice(3)"
             :key="tier.level"
           >
-            <strong>{{ l(tier, 'value') }}</strong>
+            <strong>{{ tier.value[locale] }}</strong>
           </td>
         </tr>
         <tr>
@@ -103,7 +100,7 @@ function l<T extends Record<string, unknown>>(obj: T, field: string): string {
           <td
             v-for="tier in regularTiers.slice(3)"
             :key="tier.level"
-            v-html="renderMarkdown(l(tier, 'benefits'))"
+            v-html="renderMarkdown(tier.benefits[locale])"
           />
         </tr>
       </tbody>
@@ -123,12 +120,12 @@ function l<T extends Record<string, unknown>>(obj: T, field: string): string {
         <tr>
           <td><strong>{{ t('tiers.method') }}</strong></td>
           <td>
-            <strong>{{ l(communityTier, 'value') }}</strong>
+            <strong>{{ communityTier.value[locale] }}</strong>
           </td>
         </tr>
         <tr>
           <td><strong>{{ t('tiers.benefits') }}</strong></td>
-          <td v-html="renderMarkdown(l(communityTier, 'benefits'))" />
+          <td v-html="renderMarkdown(communityTier.benefits[locale])" />
         </tr>
       </tbody>
     </table>
@@ -151,16 +148,16 @@ function l<T extends Record<string, unknown>>(obj: T, field: string): string {
       </thead>
       <tbody>
         <tr
-          v-for="(addon, idx) in addOns?.[locale]"
+          v-for="(addon, idx) in addOns"
           :key="idx"
         >
-          <td v-html="renderMarkdown(addon.item)" />
+          <td v-html="renderMarkdown(addon.item[locale])" />
           <td
             v-for="level in tierLevels"
             :key="level"
             class="text-center"
           >
-            <strong>{{ addon[`${level}_amount`] }}</strong>
+            <strong>{{ addon[`${level}_amount`][locale] }}</strong>
           </td>
         </tr>
       </tbody>
