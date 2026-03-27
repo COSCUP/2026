@@ -10,15 +10,9 @@ export const TierLevelSchema = z.enum([
 ])
 export type TierLevel = z.infer<typeof TierLevelSchema>
 
-const MethodSchema = z.enum([
-  'amount', // 贊助金額
-  'requirement', // 贊助方式
-])
-
 // sponsorshipTiers sheet
 export const SponsorshipTierSchema = z.object({
   level: TierLevelSchema.or(z.literal('community')),
-  method: MethodSchema,
   value_zh: z.string(),
   value_en: z.string(),
   benefits_zh: z.string(),

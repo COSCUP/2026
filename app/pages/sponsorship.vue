@@ -132,9 +132,6 @@ zh:
   title: "COSCUP 2026 贊助方案"
   tiers:
     heading: "贊助方案（單位：新台幣，外稅）"
-    amount: "贊助金額"
-    benefits: "贊助福利"
-    method: "贊助方式"
   addons:
     heading: "贊助方案加價購（單位：新台幣，外稅）"
     item: "加價項目"
@@ -152,9 +149,6 @@ en:
   title: "COSCUP 2026 Sponsorship Program"
   tiers:
     heading: "Sponsorship Package (Unit: TWD, before tax)"
-    amount: "Cost"
-    benefits: "Benefits"
-    method: "Methods"
   addons:
     heading: "Sponsorship Add-ons (Unit: TWD, before tax)"
     item: "Additional Purchase"
