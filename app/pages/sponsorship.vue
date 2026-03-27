@@ -14,16 +14,10 @@ const faq = await useLocaleContent('/sponsorship/faq', locale, defaultLocale)
 const about = await useLocaleContent('/sponsorship/about', locale, defaultLocale)
 
 const tierLevels = TierLevelSchema.options
-const regularTiers = computed(() =>
-  tiers.value?.filter((tier) => tier.method === 'amount') ?? [],
-)
-const communityTier = computed(() =>
-  tiers.value?.find((tier) => tier.level === 'community'),
-)
 </script>
 
 <template>
-  <div class="mx-auto px-4 py-8 max-w-5xl prose">
+  <div class="mx-auto prose">
     <h1 class="text-center">
       {{ t('title') }}
     </h1>
@@ -36,132 +30,79 @@ const communityTier = computed(() =>
     <!-- Sponsorship Tiers -->
     <h2>{{ t('tiers.heading') }}</h2>
 
-    <!-- Top 3 tiers: titanium, diamond, gold -->
-    <table>
-      <thead>
-        <tr>
-          <th />
-          <th
-            v-for="level in tierLevels.slice(0, 3)"
-            :key="level"
-            class="text-center"
-          >
-            {{ t(`levels.${level}`) }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>{{ t('tiers.amount') }}</strong></td>
-          <td
-            v-for="tier in regularTiers.slice(0, 3)"
-            :key="tier.level"
-          >
-            <strong>{{ tier.value[locale] }}</strong>
-          </td>
-        </tr>
-        <tr>
-          <td><strong>{{ t('tiers.benefits') }}</strong></td>
-          <td
-            v-for="tier in regularTiers.slice(0, 3)"
-            :key="tier.level"
-            v-html="renderMarkdown(tier.benefits[locale])"
+    <div class="flex gap-6 overflow-x-auto *:shrink-0 md:flex-wrap *:max-w-full md:*:basis-[calc(33.3%-1rem)]">
+      <div
+        v-for="tier in tiers"
+        :key="tier.level"
+        class="p-4 rounded-lg bg-gray-100 flex flex-col"
+        :class="{ 'md:basis-full': tier.level === 'community' }"
+      >
+        <div class="flex flex-col items-center">
+          <NuxtPicture
+            :alt="t(`levels.${tier.level}`)"
+            class="w-fit"
+            height="80"
+            :src="`/sponsorship/${tier.level}.png`"
+            width="80"
           />
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Bottom 3 tiers: silver, bronze, friend -->
-    <table>
-      <thead>
-        <tr>
-          <th />
-          <th
-            v-for="level in tierLevels.slice(3)"
-            :key="level"
+          <h3 class="text-lg font-bold text-center">
+            {{ t(`levels.${tier.level}`) }}
+          </h3>
+          <div
             class="text-center"
-          >
-            {{ t(`levels.${level}`) }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>{{ t('tiers.amount') }}</strong></td>
-          <td
-            v-for="tier in regularTiers.slice(3)"
-            :key="tier.level"
-          >
-            <strong>{{ tier.value[locale] }}</strong>
-          </td>
-        </tr>
-        <tr>
-          <td><strong>{{ t('tiers.benefits') }}</strong></td>
-          <td
-            v-for="tier in regularTiers.slice(3)"
-            :key="tier.level"
-            v-html="renderMarkdown(tier.benefits[locale])"
+            v-html="renderMarkdown(tier.value[locale])"
           />
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Community custom plan -->
-    <table v-if="communityTier">
-      <thead>
-        <tr>
-          <th />
-          <th class="text-center">
-            {{ t('levels.community') }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>{{ t('tiers.method') }}</strong></td>
-          <td>
-            <strong>{{ communityTier.value[locale] }}</strong>
-          </td>
-        </tr>
-        <tr>
-          <td><strong>{{ t('tiers.benefits') }}</strong></td>
-          <td v-html="renderMarkdown(communityTier.benefits[locale])" />
-        </tr>
-      </tbody>
-    </table>
+        </div>
+        <div
+          class="prose-sm"
+          v-html="renderMarkdown(tier.benefits[locale])"
+        />
+      </div>
+    </div>
 
     <!-- Add-ons -->
     <h2>{{ t('addons.heading') }}</h2>
 
-    <table>
-      <thead>
-        <tr>
-          <th>{{ t('addons.item') }}</th>
-          <th
-            v-for="level in tierLevels"
-            :key="level"
-            class="text-center"
+    <div class="overflow-x-auto">
+      <table>
+        <thead>
+          <tr>
+            <th class="min-w-40">
+              {{ t('addons.item') }}
+            </th>
+            <th
+              v-for="level in tierLevels"
+              :key="level"
+              class="text-center whitespace-nowrap"
+            >
+              <NuxtPicture
+                :alt="t(`levels.${level}`)"
+                class="mx-auto w-fit"
+                height="60"
+                :src="`/sponsorship/${level}.png`"
+                width="60"
+              />
+              {{ t(`levels.${level}`) }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(addon, idx) in addOns"
+            :key="idx"
           >
-            {{ t(`levels.${level}`) }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(addon, idx) in addOns"
-          :key="idx"
-        >
-          <td v-html="renderMarkdown(addon.item[locale])" />
-          <td
-            v-for="level in tierLevels"
-            :key="level"
-            class="text-center"
-          >
-            <strong>{{ addon[`${level}_amount`][locale] }}</strong>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <td v-html="renderMarkdown(addon.item[locale])" />
+            <td
+              v-for="level in tierLevels"
+              :key="level"
+              class="text-center vertical-middle"
+            >
+              {{ addon[`${level}_amount`][locale] }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <!-- Deadline & Contact -->
     <p>
@@ -210,12 +151,12 @@ zh:
 en:
   title: "COSCUP 2026 Sponsorship Program"
   tiers:
-    heading: "Sponsorship Package (Unit: TWD, tax excluded)"
+    heading: "Sponsorship Package (Unit: TWD, before tax)"
     amount: "Cost"
     benefits: "Benefits"
     method: "Methods"
   addons:
-    heading: "Sponsorship Add-ons (Unit: TWD, tax excluded)"
+    heading: "Sponsorship Add-ons (Unit: TWD, before tax)"
     item: "Additional Purchase"
   levels:
     titanium: "Titanium"
