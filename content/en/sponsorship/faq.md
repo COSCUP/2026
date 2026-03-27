@@ -1,6 +1,6 @@
 ## FAQ
 
-### Besides the current sponsorship plan, can I sponsor other projects or items?
+### Besides the current sponsorship plan, can I sponsor other projects or items? Or swap out certain items for a discount?
 
 Yes, contact us at [sponsorship@coscup.org](mailto:sponsorship@coscup.org) to create custom sponsorship packages.
 

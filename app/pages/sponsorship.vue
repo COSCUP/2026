@@ -136,7 +136,7 @@ zh:
     benefits: "贊助福利"
     method: "贊助方式"
   addons:
-    heading: "贊助方案加價購（單位：新台幣，外税）"
+    heading: "贊助方案加價購（單位：新台幣，外稅）"
     item: "加價項目"
   levels:
     titanium: "鈦金級"
