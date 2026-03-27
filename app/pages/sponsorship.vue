@@ -2,7 +2,6 @@
 import { TierLevelSchema } from '#shared/types/sponsorship'
 import { useI18n } from 'vue-i18n'
 import useLocaleContent from '~/composables/useLocaleContent'
-import { renderMarkdown } from '~/utils/renderMarkdown'
 
 const { t, locale, defaultLocale } = useI18n()
 
@@ -48,14 +47,14 @@ const tierLevels = TierLevelSchema.options
           <h3 class="text-lg font-bold text-center">
             {{ t(`levels.${tier.level}`) }}
           </h3>
-          <div
+          <MDC
             class="text-center"
-            v-html="renderMarkdown(tier.value[locale])"
+            :value="tier.value[locale]"
           />
         </div>
-        <div
+        <MDC
           class="prose-sm"
-          v-html="renderMarkdown(tier.benefits[locale])"
+          :value="tier.benefits[locale]"
         />
       </div>
     </div>
@@ -91,7 +90,7 @@ const tierLevels = TierLevelSchema.options
             v-for="(addon, idx) in addOns"
             :key="idx"
           >
-            <td v-html="renderMarkdown(addon.item[locale])" />
+            <td><MDC :value="addon.item[locale]" /></td>
             <td
               v-for="level in tierLevels"
               :key="level"

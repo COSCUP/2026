@@ -24,7 +24,6 @@
     "csv-parse": "6.2.1",
     "eslint": "10.1.0",
     "leaflet": "1.9.4",
-    "marked": "17.0.5",
     "nuxt": "4.4.2",
     "nuxt-gtag": "4.1.0",
     "ufo": "1.6.3",
