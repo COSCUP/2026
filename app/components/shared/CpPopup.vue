@@ -22,7 +22,10 @@ onClickOutside(target, close)
     />
 
     <Teleport to="body">
-      <div class="flex items-center inset-0 justify-center absolute">
+      <div
+        v-show="isOpen"
+        class="bg-black/50 flex items-center inset-0 justify-center fixed z-50"
+      >
         <transition
           enter-active-class="ease-out duration-100"
           enter-from-class="transform opacity-0 scale-95"
