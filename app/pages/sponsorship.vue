@@ -5,6 +5,10 @@ import useLocaleContent from '~/composables/useLocaleContent'
 
 const { t, locale, defaultLocale } = useI18n()
 
+definePageMeta({
+  layout: 'empty',
+})
+
 const { data: tiers } = await useFetch('/api/sponsorship/tiers')
 const { data: addOns } = await useFetch('/api/sponsorship/add-ons')
 
@@ -16,7 +20,7 @@ const tierLevels = TierLevelSchema.options
 </script>
 
 <template>
-  <div class="mx-auto prose">
+  <div class="mx-auto my-8 prose">
     <h1 class="text-center">
       {{ t('title') }}
     </h1>
