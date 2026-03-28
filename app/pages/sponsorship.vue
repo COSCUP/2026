@@ -20,7 +20,7 @@ const tierLevels = TierLevelSchema.options
 </script>
 
 <template>
-  <div class="mx-auto my-8 prose">
+  <div class="mx-auto my-8 max-w-[80vw] w-[1200px] prose">
     <h1 class="text-center">
       {{ t('title') }}
     </h1>
