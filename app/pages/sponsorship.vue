@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { TierLevelSchema } from '#shared/types/sponsorship'
 import { useI18n } from 'vue-i18n'
+import CpPopup from '~/components/shared/CpPopup.vue'
 import useLocaleContent from '~/composables/useLocaleContent'
 
 const { t, locale, defaultLocale } = useI18n()
@@ -94,7 +95,28 @@ const tierLevels = TierLevelSchema.options
             v-for="(addon, idx) in addOns"
             :key="idx"
           >
-            <td><MDC :value="addon.item[locale]" /></td>
+            <td>
+              <CpPopup v-if="addon.tooltip[locale].trim()">
+                <template #trigger="props">
+                  <span
+                    class="flex gap-2 items-center"
+                    v-bind="props"
+                  >
+                    {{ addon.item[locale] }}
+                    <Icon name="tabler:info-circle" />
+                  </span>
+                </template>
+                <template #content>
+                  <div class="p-4 rounded bg-white w-[80%] shadow">
+                    <MDC :value="addon.tooltip[locale]" />
+                  </div>
+                </template>
+              </CpPopup>
+              <MDC
+                v-else
+                :value="addon.item[locale]"
+              />
+            </td>
             <td
               v-for="level in tierLevels"
               :key="level"
