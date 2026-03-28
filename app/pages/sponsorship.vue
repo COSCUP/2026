@@ -33,11 +33,11 @@ const tierLevels = TierLevelSchema.options
     <!-- Sponsorship Tiers -->
     <h2>{{ t('tiers.heading') }}</h2>
 
-    <div class="flex gap-6 overflow-x-auto *:shrink-0 md:flex-wrap *:max-w-full md:*:basis-[calc(33.3%-1rem)]">
+    <div class="flex gap-6 overflow-x-auto snap-x snap-mandatory *:shrink-0 md:flex-wrap *:max-w-full md:*:basis-[calc(33.3%-1rem)]">
       <div
         v-for="tier in tiers"
         :key="tier.level"
-        class="p-4 rounded-lg bg-gray-100 flex flex-col"
+        class="p-4 rounded-lg bg-gray-100 flex flex-col snap-center"
         :class="{ 'md:basis-full': tier.level === 'community' }"
       >
         <div class="flex flex-col items-center">
