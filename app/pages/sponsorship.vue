@@ -4,7 +4,8 @@ import { useI18n } from 'vue-i18n'
 import CpPopup from '~/components/shared/CpPopup.vue'
 import useLocaleContent from '~/composables/useLocaleContent'
 
-const { t, locale, defaultLocale } = useI18n()
+const { t, locale, locales, defaultLocale } = useI18n()
+const switchLocalePath = useSwitchLocalePath()
 
 definePageMeta({
   layout: 'empty',
@@ -25,6 +26,20 @@ const tierLevels = TierLevelSchema.options
     <h1 class="text-center">
       {{ t('title') }}
     </h1>
+
+    <section class="flex gap-4 justify-center *:text-gray-500">
+      <template
+        v-for="(l, index) in locales"
+        :key="l.code"
+      >
+        <span v-if="index !== 0"> · </span>
+        <NuxtLink
+          :to="switchLocalePath(l.code)"
+        >
+          {{ l.name }}
+        </NuxtLink>
+      </template>
+    </section>
 
     <ContentRenderer
       v-if="overview"
