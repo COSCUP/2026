@@ -1,3 +1,5 @@
+saveExact: true
+
 shellEmulator: true
 
 ignoredBuiltDependencies:
