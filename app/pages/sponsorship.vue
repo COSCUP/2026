@@ -158,20 +158,20 @@ const tierLevels = TierLevelSchema.options
       </figure>
       <figure class="text-center flex flex-col items-center">
         <NuxtPicture
-          :alt="t('addons.lanyards')"
-          src="/sponsorship/lanyards.webp"
-        />
-        <figcaption class="text-center">
-          {{ t('addons.lanyards') }}
-        </figcaption>
-      </figure>
-      <figure class="text-center flex flex-col items-center">
-        <NuxtPicture
           :alt="t('addons.promotion')"
           src="/sponsorship/promotion.webp"
         />
         <figcaption class="text-center">
           {{ t('addons.promotion') }}
+        </figcaption>
+      </figure>
+      <figure class="text-center flex flex-col items-center">
+        <NuxtPicture
+          :alt="t('addons.lanyards')"
+          src="/sponsorship/lanyards.webp"
+        />
+        <figcaption class="text-center">
+          {{ t('addons.lanyards') }}
         </figcaption>
       </figure>
       <figure class="text-center flex flex-col items-center">
@@ -210,7 +210,7 @@ const tierLevels = TierLevelSchema.options
 
 <i18n lang="yaml">
 zh:
-  title: "COSCUP 2026 贊助方案"
+  title: "COSCUP Taiwan 2026 贊助方案"
   tiers:
     heading: "贊助方案（單位：新台幣，外稅）"
     hint: ""
@@ -230,16 +230,16 @@ zh:
     bronze: "青銅級"
     friend: "好朋友級"
     community: "贊助社群客製化方案"
-  deadline: "因應相關製作物所需的工作時間，贊助截止日期：2026 年 7 月 10 日"
+  deadline: "因應相關製作物所需的工作時間，贊助截止日期：2026 年 7 月 06 日。"
   contact: "聯絡我們："
 en:
-  title: "COSCUP 2026 Sponsorship Program"
+  title: "COSCUP Taiwan 2026 Sponsorship Program"
   tiers:
     heading: "Sponsorship Package"
-    hint: "(Unit: USD. Please note that actual foreign exchange rates will be applied to your sponsor fee, which will differ from the following prices that take 1 USD= 28 TWD)"
+    hint: "(Unit: USD. Please note that actual foreign exchange rates will be applied to your sponsor fee, which will differ from the following prices that take 1 USD = 28 TWD)"
   addons:
     heading: "Sponsorship Add-ons"
-    hint: "(Unit: USD. Please note that actual foreign exchange rates that will be applied to your sponsor fee will differ from these examples: FOREX as 1 USD= 28 TWD)"
+    hint: "(Unit: USD. Please note that actual foreign exchange rates that will be applied to your sponsor fee will differ from these examples: FOREX as 1 USD = 28 TWD)"
     item: "Additional Purchase"
     flag: "Logo on Stage Flag in Keynote Hall (co-branded with COSCUP)"
     lanyards: "Lanyards (Exclusive Sponsorship)"
@@ -253,6 +253,6 @@ en:
     bronze: "Bronze"
     friend: "Friend"
     community: "Customized Community Sponsorship Program"
-  deadline: "Deadline for sponsorship: July 10, 2026"
+  deadline: "Deadline for sponsorship: July 06, 2026"
   contact: "Contact us:"
 </i18n>
