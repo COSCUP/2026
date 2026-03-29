@@ -144,6 +144,45 @@ const tierLevels = TierLevelSchema.options
       </table>
     </div>
 
+    <div class="not-prose gap-4 grid grid-cols-1 md:grid-cols-2">
+      <figure class="text-center flex flex-col items-center">
+        <NuxtPicture
+          :alt="t('addons.flag')"
+          src="/sponsorship/flag.webp"
+        />
+        <figcaption class="text-center">
+          {{ t('addons.flag') }}
+        </figcaption>
+      </figure>
+      <figure class="text-center flex flex-col items-center">
+        <NuxtPicture
+          :alt="t('addons.lanyards')"
+          src="/sponsorship/lanyards.webp"
+        />
+        <figcaption class="text-center">
+          {{ t('addons.lanyards') }}
+        </figcaption>
+      </figure>
+      <figure class="text-center flex flex-col items-center">
+        <NuxtPicture
+          :alt="t('addons.promotion')"
+          src="/sponsorship/promotion.webp"
+        />
+        <figcaption class="text-center">
+          {{ t('addons.promotion') }}
+        </figcaption>
+      </figure>
+      <figure class="text-center flex flex-col items-center">
+        <NuxtPicture
+          :alt="t('addons.website_and_agenda_ads')"
+          src="/sponsorship/website-agenda-ads.webp"
+        />
+        <figcaption class="text-center">
+          {{ t('addons.website_and_agenda_ads') }}
+        </figcaption>
+      </figure>
+    </div>
+
     <!-- Deadline & Contact -->
     <p>
       {{ t('deadline') }}
@@ -175,6 +214,10 @@ zh:
   addons:
     heading: "贊助方案加價購（單位：新台幣，外稅）"
     item: "加價項目"
+    flag: "Keynote 演講廳 垂吊布條"
+    lanyards: "頸帶獨家贊助"
+    promotion: "大會點心區桌旗（兩天）"
+    website_and_agenda_ads: "網站議程頁面廣告"
   levels:
     titanium: "鈦金級"
     diamond: "鑽石級"
@@ -192,6 +235,10 @@ en:
   addons:
     heading: "Sponsorship Add-ons (Unit: TWD, before tax)"
     item: "Additional Purchase"
+    flag: "Logo on Stage Flag in Keynote Hall (co-branded with COSCUP)"
+    lanyards: "Lanyards (Exclusive Sponsorship)"
+    promotion: "Promotion at the Snack Area (2 days)"
+    website_and_agenda_ads: "Agenda Page Ads"
   levels:
     titanium: "Titanium"
     diamond: "Diamond"
