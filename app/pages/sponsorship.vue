@@ -48,6 +48,7 @@ const tierLevels = TierLevelSchema.options
 
     <!-- Sponsorship Tiers -->
     <h2>{{ t('tiers.heading') }}</h2>
+    <p>{{ t('tiers.hint') }}</p>
 
     <div class="flex gap-6 overflow-x-auto snap-x snap-mandatory *:shrink-0 md:flex-wrap *:max-w-full md:*:basis-[calc(33.3%-1rem)]">
       <div
@@ -81,6 +82,7 @@ const tierLevels = TierLevelSchema.options
 
     <!-- Add-ons -->
     <h2>{{ t('addons.heading') }}</h2>
+    <p>{{ t('addons.hint') }}</p>
 
     <div class="overflow-x-auto">
       <table>
@@ -211,8 +213,10 @@ zh:
   title: "COSCUP 2026 贊助方案"
   tiers:
     heading: "贊助方案（單位：新台幣，外稅）"
+    hint: ""
   addons:
     heading: "贊助方案加價購（單位：新台幣，外稅）"
+    hint: ""
     item: "加價項目"
     flag: "Keynote 演講廳 垂吊布條"
     lanyards: "頸帶獨家贊助"
@@ -231,9 +235,11 @@ zh:
 en:
   title: "COSCUP 2026 Sponsorship Program"
   tiers:
-    heading: "Sponsorship Package (Unit: TWD, before tax)"
+    heading: "Sponsorship Package"
+    hint: "(Unit: USD. Please note that actual foreign exchange rates will be applied to your sponsor fee, which will differ from the following prices that take 1 USD= 28 TWD)"
   addons:
-    heading: "Sponsorship Add-ons (Unit: TWD, before tax)"
+    heading: "Sponsorship Add-ons"
+    hint: "(Unit: USD. Please note that actual foreign exchange rates that will be applied to your sponsor fee will differ from these examples: FOREX as 1 USD= 28 TWD)"
     item: "Additional Purchase"
     flag: "Logo on Stage Flag in Keynote Hall (co-branded with COSCUP)"
     lanyards: "Lanyards (Exclusive Sponsorship)"
