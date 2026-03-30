@@ -49,8 +49,7 @@ definePageMeta({
       <p>
         <NuxtLink
           class="not-prose text-white px-4 py-2 rounded bg-cp-green shadow hover:shadow-lg"
-          target="_blank"
-          to="/sponsorship"
+          :to="t('call_for_sponsor.link')"
         >
           {{ t('call_for_sponsor.link_text') }}
         </NuxtLink>
@@ -113,6 +112,7 @@ en:
   call_for_sponsor:
     title: "Support COSCUP"
     desc: "If you are interested in sponsoring COSCUP 2026, please refer to our sponsorship package or contact us directly via email."
+    link: "/en/sponsorship"
     link_text: "I want to sponsor"
   call_for_volunteer:
     title: "Support COSCUP"
@@ -134,6 +134,7 @@ zh:
   call_for_sponsor:
     title: "贊助 COSCUP"
     desc: "若您對贊助 COSCUP 2026 有興趣，歡迎參考贊助方案，或直接透過電子郵件與我們聯繫。"
+    link: "/sponsorship"
     link_text: "我要贊助"
   call_for_volunteer:
     title: "參與 COSCUP"
