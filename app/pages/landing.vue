@@ -127,7 +127,6 @@ en:
     title: "Call for Participation"
     desc: "We're now accepting community track and booth applications — bring your community to COSCUP 2026!"
     link_text: "Learn more"
-    anchor: "anchor2"
 zh:
   coming_soon: "敬請期待——COSCUP 將於 8/8 ~ 8/9 與你相見。"
   co-host: "UbuCon Asia 合辦確定！"
@@ -149,5 +148,4 @@ zh:
     title: "徵求社群參與"
     desc: "社群議程軌與社群攤位開放申請中，帶領您的社群參與 COSCUP 2026！"
     link_text: "瞭解更多"
-    anchor: "Blog1"
 </i18n>
