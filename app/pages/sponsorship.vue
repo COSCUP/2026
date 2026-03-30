@@ -22,12 +22,12 @@ const tierLevels = TierLevelSchema.options
 </script>
 
 <template>
-  <div class="mx-auto my-8 max-w-[80vw] w-[1200px] prose">
+  <div class="mx-auto my-8 max-w-[80vw] w-[1200px] prose print:m-0 print:max-w-full print:w-full">
     <h1 class="text-center">
       {{ t('title') }}
     </h1>
 
-    <section class="flex gap-4 justify-center *:text-gray-500">
+    <section class="flex gap-4 justify-center *:text-gray-500 print:hidden">
       <template
         v-for="(l, index) in locales"
         :key="l.code"
@@ -47,15 +47,22 @@ const tierLevels = TierLevelSchema.options
     />
 
     <!-- Sponsorship Tiers -->
-    <h2>{{ t('tiers.heading') }}</h2>
-    <p>{{ t('tiers.hint') }}</p>
+    <h2 class="print:break-after-avoid">
+      {{ t('tiers.heading') }}
+    </h2>
+    <p
+      v-if="t('tiers.hint')"
+      class="print:break-after-avoid"
+    >
+      {{ t('tiers.hint') }}
+    </p>
 
-    <div class="flex gap-6 overflow-x-auto snap-x snap-mandatory *:shrink-0 md:flex-wrap *:max-w-full md:*:basis-[calc(33.3%-1rem)]">
+    <div class="flex gap-6 overflow-x-auto snap-x snap-mandatory *:shrink-0 md:flex-wrap print:flex-wrap *:max-w-full md:*:basis-[calc(33.3%-1rem)] print:*:basis-[calc(50%-1rem)]">
       <div
         v-for="tier in tiers"
         :key="tier.level"
-        class="p-4 rounded-lg bg-gray-100 flex flex-col snap-center"
-        :class="{ 'md:basis-full': tier.level === 'community' }"
+        class="p-4 rounded-lg bg-gray-100 flex flex-col snap-center print:flex-row print:gap-4 print:break-inside-avoid"
+        :class="{ 'md:basis-full print:basis-full': tier.level === 'community' }"
       >
         <div class="flex flex-col items-center">
           <NuxtPicture
@@ -81,11 +88,13 @@ const tierLevels = TierLevelSchema.options
     </div>
 
     <!-- Add-ons -->
-    <h2>{{ t('addons.heading') }}</h2>
+    <h2 class="print:m-0 print:break-before-page">
+      {{ t('addons.heading') }}
+    </h2>
     <p>{{ t('addons.hint') }}</p>
 
     <div class="overflow-x-auto">
-      <table>
+      <table class="print:m-0">
         <thead>
           <tr>
             <th class="min-w-40">
@@ -112,7 +121,7 @@ const tierLevels = TierLevelSchema.options
             v-for="(addon, idx) in addOns"
             :key="idx"
           >
-            <td>
+            <td class="print:p-0">
               <CpPopup v-if="addon.tooltip[locale].trim()">
                 <template #trigger="props">
                   <span
@@ -137,7 +146,7 @@ const tierLevels = TierLevelSchema.options
             <td
               v-for="level in tierLevels"
               :key="level"
-              class="text-center vertical-middle"
+              class="text-center vertical-middle print:p-0"
             >
               {{ addon[`${level}_amount`][locale] }}
             </td>
@@ -146,7 +155,7 @@ const tierLevels = TierLevelSchema.options
       </table>
     </div>
 
-    <div class="not-prose gap-4 grid grid-cols-1 md:grid-cols-2">
+    <div class="not-prose gap-4 grid grid-cols-1 md:grid-cols-2 print:grid-cols-2">
       <figure class="text-center flex flex-col items-center">
         <NuxtPicture
           :alt="t('addons.flag')"
@@ -256,3 +265,11 @@ en:
   deadline: "Deadline for sponsorship: July 06, 2026"
   contact: "Contact us:"
 </i18n>
+
+<style scoped>
+@media print {
+  @page {
+    margin: 0.8cm;
+  }
+}
+</style>
