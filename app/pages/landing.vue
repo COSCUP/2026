@@ -10,7 +10,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="px-4 text-center flex flex-col gap-4 min-h-screen items-center justify-center from-blue-50 to-white bg-gradient-to-b">
+  <div class="pa-4 text-center flex flex-col gap-4 min-h-screen items-center justify-center from-blue-50 to-white bg-gradient-to-b">
     <section class="prose">
       <h1 class="text-5xl text-cp-green">
         COSCUP 2026
