@@ -46,5 +46,10 @@
     "scss",
     "pcss",
     "postcss"
-  ]
+  ],
+
+  // Ignore first-line-heading rule for markdown files
+  "markdownlint.config": {
+    "first-line-heading": false
+  }
 }
