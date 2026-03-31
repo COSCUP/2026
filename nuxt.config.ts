@@ -64,8 +64,8 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    TOKEN: process.env.PRETALX_API_TOKEN,
-    BASE_URL: process.env.PRETALX_API_URL,
+    pretalxApiToken: '',
+    pretalxApiUrl: '',
     googleSheetId: '',
   },
 
