@@ -19,6 +19,15 @@ const faq = await useLocaleContent('/sponsorship/faq', locale, defaultLocale)
 const about = await useLocaleContent('/sponsorship/about', locale, defaultLocale)
 
 const tierLevels = TierLevelSchema.options
+
+const tiersHint = computed(() => t('tiers.hint'))
+
+const addOnFigures = computed(() => [
+  { src: '/sponsorship/flag.webp', alt: t('addons.flag') },
+  { src: '/sponsorship/lanyards.webp', alt: t('addons.lanyards') },
+  { src: '/sponsorship/promotion.webp', alt: t('addons.promotion') },
+  { src: '/sponsorship/website-agenda-ads.webp', alt: t('addons.website_and_agenda_ads') },
+])
 </script>
 
 <template>
@@ -51,10 +60,10 @@ const tierLevels = TierLevelSchema.options
       {{ t('tiers.heading') }}
     </h2>
     <p
-      v-if="t('tiers.hint')"
+      v-if="tiersHint"
       class="print:break-after-avoid"
     >
-      {{ t('tiers.hint') }}
+      {{ tiersHint }}
     </p>
 
     <div class="flex gap-6 overflow-x-auto snap-x snap-mandatory *:shrink-0 md:flex-wrap print:flex-wrap *:max-w-full md:*:basis-[calc(33.3%-1rem)] print:*:basis-[calc(50%-1rem)]">
@@ -156,40 +165,17 @@ const tierLevels = TierLevelSchema.options
     </div>
 
     <div class="not-prose gap-4 grid grid-cols-1 md:grid-cols-2 print:grid-cols-2">
-      <figure class="text-center flex flex-col items-center">
+      <figure
+        v-for="fig in addOnFigures"
+        :key="fig.src"
+        class="text-center flex flex-col items-center"
+      >
         <NuxtPicture
-          :alt="t('addons.flag')"
-          src="/sponsorship/flag.webp"
+          :alt="fig.alt"
+          :src="fig.src"
         />
         <figcaption class="text-center">
-          {{ t('addons.flag') }}
-        </figcaption>
-      </figure>
-      <figure class="text-center flex flex-col items-center">
-        <NuxtPicture
-          :alt="t('addons.promotion')"
-          src="/sponsorship/promotion.webp"
-        />
-        <figcaption class="text-center">
-          {{ t('addons.promotion') }}
-        </figcaption>
-      </figure>
-      <figure class="text-center flex flex-col items-center">
-        <NuxtPicture
-          :alt="t('addons.lanyards')"
-          src="/sponsorship/lanyards.webp"
-        />
-        <figcaption class="text-center">
-          {{ t('addons.lanyards') }}
-        </figcaption>
-      </figure>
-      <figure class="text-center flex flex-col items-center">
-        <NuxtPicture
-          :alt="t('addons.website_and_agenda_ads')"
-          src="/sponsorship/website-agenda-ads.webp"
-        />
-        <figcaption class="text-center">
-          {{ t('addons.website_and_agenda_ads') }}
+          {{ fig.alt }}
         </figcaption>
       </figure>
     </div>
