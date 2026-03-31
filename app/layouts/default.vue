@@ -61,7 +61,7 @@ const otherLocale = computed(() => {
       </div>
     </nav>
 
-    <main class="mx-auto py-2 prose">
+    <main class="px-4 py-4">
       <slot />
     </main>
   </div>

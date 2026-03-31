@@ -35,6 +35,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/icon',
     '@nuxtjs/i18n',
+    'nuxt-gtag',
   ],
 
   content: {
@@ -63,7 +64,16 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    TOKEN: process.env.PRETALX_API_TOKEN,
-    BASE_URL: process.env.PRETALX_API_URL,
+    pretalxApiToken: '',
+    pretalxApiUrl: '',
+    googleSheetId: '',
+  },
+
+  gtag: {
+    id: 'G-C9EMTMDSS1',
+    enabled: process.env.NODE_ENV === 'production',
+    config: {
+      page_title: 'COSCUP 2026',
+    },
   },
 })

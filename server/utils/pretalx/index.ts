@@ -2,9 +2,9 @@ import type { PretalxData, PretalxResponse, PretalxResult } from './type'
 
 export default defineCachedFunction(
   async () => {
-    const { TOKEN, BASE_URL } = useRuntimeConfig()
+    const config = useRuntimeConfig()
 
-    if (!TOKEN || !BASE_URL) {
+    if (!config.pretalxApiToken || !config.pretalxApiUrl) {
       return null
     }
 
@@ -19,9 +19,9 @@ export default defineCachedFunction(
         const response = await $fetch<PretalxResponse<typeof table>>(
           url,
           {
-            baseURL: BASE_URL,
+            baseURL: config.pretalxApiUrl,
             headers: {
-              Authorization: `Token ${TOKEN}`,
+              Authorization: `Token ${config.pretalxApiToken}`,
             },
           },
         )
