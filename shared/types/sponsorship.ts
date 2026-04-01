@@ -1,14 +1,14 @@
 import { z } from 'zod'
 
-export const TierLevelSchema = z.enum([
+export const TIER_LEVELS = [
   'titanium', // 鈦金級
   'diamond', // 鑽石級
   'gold', // 黃金級
   'silver', // 白銀級
   'bronze', // 青銅級
   'friend', // 好朋友級
-])
-export type TierLevel = z.infer<typeof TierLevelSchema>
+] as const
+export const TierLevelSchema = z.enum(TIER_LEVELS)
 
 // sponsorshipTiers sheet
 export const SponsorshipTierSchema = z.object({

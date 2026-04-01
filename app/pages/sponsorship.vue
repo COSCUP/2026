@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TierLevelSchema } from '#shared/types/sponsorship'
+import { TIER_LEVELS } from '#shared/types/sponsorship'
 import { useI18n } from 'vue-i18n'
 import CpPopup from '~/components/shared/CpPopup.vue'
 import useLocaleContent from '~/composables/useLocaleContent'
@@ -18,7 +18,7 @@ const overview = await useLocaleContent('/sponsorship/overview', locale, default
 const faq = await useLocaleContent('/sponsorship/faq', locale, defaultLocale)
 const about = await useLocaleContent('/sponsorship/about', locale, defaultLocale)
 
-const tierLevels = TierLevelSchema.options
+const tierLevels = TIER_LEVELS
 
 const tiersHint = computed(() => t('tiers.hint'))
 

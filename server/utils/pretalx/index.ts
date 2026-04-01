@@ -2,7 +2,13 @@ import type { PretalxData, PretalxResponse, PretalxResult } from './type'
 
 export default defineCachedFunction(
   async () => {
-    const config = useRuntimeConfig()
+    const { pretalxApiUrl, pretalxApiToken } = useRuntimeConfig()
+    if (!pretalxApiUrl || !pretalxApiToken) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: 'Missing NUXT_PRETALX_API_URL or NUXT_PRETALX_API_TOKEN environment variable',
+      })
+    }
 
     const tables = ['submissions', 'submission-types', 'speakers', 'rooms', 'answers', 'slots'] as const
     const results: Partial<PretalxResult> = {}
@@ -15,9 +21,9 @@ export default defineCachedFunction(
         const response = await $fetch<PretalxResponse<typeof table>>(
           url,
           {
-            baseURL: config.BASE_URL,
+            baseURL: pretalxApiUrl,
             headers: {
-              Authorization: `Token ${config.TOKEN}`,
+              Authorization: `Token ${pretalxApiToken}`,
             },
           },
         )
