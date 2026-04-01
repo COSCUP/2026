@@ -21,6 +21,7 @@ const about = await useLocaleContent('/sponsorship/about', locale, defaultLocale
 const tierLevels = TIER_LEVELS
 
 const tiersHint = computed(() => t('tiers.hint'))
+const addOnsHint = computed(() => t('addons.hint'))
 
 const addOnFigures = computed(() => [
   { src: '/sponsorship/flag.webp', alt: t('addons.flag') },
@@ -100,7 +101,12 @@ const addOnFigures = computed(() => [
     <h2 class="print:m-0 print:break-before-page">
       {{ t('addons.heading') }}
     </h2>
-    <p>{{ t('addons.hint') }}</p>
+    <p
+      v-if="addOnsHint"
+      class="print:break-after-avoid"
+    >
+      {{ addOnsHint }}
+    </p>
 
     <div class="overflow-x-auto">
       <table class="print:m-0">
