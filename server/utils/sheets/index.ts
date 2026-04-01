@@ -14,6 +14,13 @@ export async function fetchSheet<K extends keyof typeof SHEETS>(
   sheetName: K,
 ): Promise<SheetResult<K>[]> {
   const { googleSheetId } = useRuntimeConfig()
+  if (!googleSheetId) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Missing NUXT_GOOGLE_SHEET_ID environment variable',
+    })
+  }
+
   const sheet = SHEETS[sheetName]
   const url = `https://docs.google.com/spreadsheets/d/${googleSheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheet.name)}`
   const csv = await $fetch<string>(url, { responseType: 'text' })
