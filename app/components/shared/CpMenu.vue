@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { onClickOutside } from '@vueuse/core'
+import { onClickOutside, useToggle } from '@vueuse/core'
 import { ref } from 'vue'
-import useToggle from '~/composables/useToggle'
 
-const { isOpen, close, toggle } = useToggle()
+const [isOpen, toggle] = useToggle()
 const target = ref(null)
+const close = () => toggle(false)
+function onTriggerClick() {
+  toggle()
+}
 
 onClickOutside(target, close)
 </script>
@@ -18,7 +21,7 @@ onClickOutside(target, close)
       class="cursor-pointer"
       :is-open="isOpen"
       name="trigger"
-      @click="toggle"
+      @click="onTriggerClick"
     />
     <transition
       enter-active-class="ease-out duration-100"
