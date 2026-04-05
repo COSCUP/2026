@@ -1,4 +1,4 @@
-import type { Submission } from '~~/server/utils/pretalx/type'
+import type { Submission } from '#shared/types/pretalx'
 import pretalxData from '~~/server/utils/pretalx'
 import { parseAnswer, parseSlot, parseSpeaker, parseType } from '~~/server/utils/pretalx/parser'
 
@@ -17,9 +17,9 @@ export default defineEventHandler(async () => {
 
       return {
         id: submission.code,
-        room: slot.room?.name,
-        start: slot.start,
-        end: slot.end,
+        room: slot?.room?.name,
+        start: slot?.start,
+        end: slot?.end,
         language: answers.language,
         speakers,
         zh: {

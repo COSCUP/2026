@@ -1,4 +1,4 @@
-import type { PretalxResult, Room, Speaker, Submission, SubmissionType } from '~~/server/utils/pretalx/type'
+import type { PretalxResult, Room, Speaker, Submission, SubmissionType } from '#shared/types/pretalx'
 import { parseAnswer, parseSlot } from '~~/server/utils/pretalx/parser'
 
 export function pretalxToOpass(pretalxData: PretalxResult) {
@@ -13,15 +13,19 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
       const slot = parseSlot(submission.slots[0]!, pretalxData)
 
       submission.speakers.forEach((id) => speakerIds.add(id))
-      roomIds.add(slot.room?.id)
+
       typeIds.add(submission.submission_type)
+
+      if (slot?.room?.id) {
+        roomIds.add(slot.room.id)
+      }
 
       return {
         id: submission.code,
         type: submission.submission_type,
-        room: slot.room?.id,
-        start: slot.start,
-        end: slot.end,
+        room: slot?.room?.id,
+        start: slot?.start,
+        end: slot?.end,
         language: answer.language,
         speakers: submission.speakers,
         zh: {
@@ -42,7 +46,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
     })
 
   const speakers = Array.from(speakerIds, (id: Speaker['code']) => {
-    const speaker = pretalxData.speakers.map[id]
+    const speaker = pretalxData.speakers.map[id]!
     const answer = parseAnswer(speaker.answers, pretalxData)
 
     return {
@@ -60,7 +64,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
   })
 
   const types = Array.from(typeIds, (id: SubmissionType['id']) => {
-    const type = pretalxData['submission-types'].map[id]
+    const type = pretalxData['submission-types'].map[id]!
     return {
       id: type.id,
       zh: {
@@ -75,7 +79,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
   const rooms = [...roomIds]
     .filter(Boolean)
     .map((id: Room['id']) => {
-      const room = pretalxData.rooms.map[id]
+      const room = pretalxData.rooms.map[id]!
       return {
         id: room.id,
         zh: {

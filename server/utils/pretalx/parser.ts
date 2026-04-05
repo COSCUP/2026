@@ -1,4 +1,5 @@
-import type { Answer, PretalxResult, Slot, Submission, SubmissionType } from './type'
+import type { Answer, PretalxResult, Room, Slot, Submission, SubmissionType } from '#shared/types/pretalx'
+import type { SessionSpeaker } from '#shared/types/session'
 
 // 對應 pretalx 的問題 ID。
 // key 為系統內使用的欄位名稱，value 為 pretalx 的 question id。
@@ -20,9 +21,12 @@ const QUESTION_MAP: Record<string, number | null> = {
   record: null,
 } as const
 
-export function parseAnswer(answers: Answer['id'][], pretalxData: PretalxResult): any {
+type QuestionKey = keyof typeof QUESTION_MAP
+type ParsedAnswer = Partial<Record<QuestionKey, string>>
+
+export function parseAnswer(answers: Answer['id'][], pretalxData: PretalxResult): ParsedAnswer {
   const answerMap = pretalxData.answers.map
-  const results: Record<keyof typeof QUESTION_MAP, unknown> = {}
+  const results: ParsedAnswer = {}
 
   const questionMap = answers.reduce((acc: Record<Answer['id'], Answer>, cur: Answer['id']) => {
     const ans = answerMap[cur]
@@ -49,15 +53,18 @@ export function parseAnswer(answers: Answer['id'][], pretalxData: PretalxResult)
   return results
 }
 
-export function parseSlot(slotId: Slot['id'], pretalxData: PretalxResult) {
+export function parseSlot(slotId: Slot['id'], pretalxData: PretalxResult): (Omit<Slot, 'room'> & { room?: Room }) | null {
   const slotMap = pretalxData.slots.map
   const roomMap = pretalxData.rooms.map
 
   const slot = slotMap[slotId]
 
   if (!slot) {
-    console.warn('slot not found', slotId)
-    return {}
+    throw createError({
+      statusCode: 500,
+      statusMessage: `Slot not found: ${slotId}`,
+    })
+    return null
   }
 
   const roomId = slot.room
@@ -66,11 +73,19 @@ export function parseSlot(slotId: Slot['id'], pretalxData: PretalxResult) {
   return { ...slot, room }
 }
 
-export function parseSpeaker(speakerIds: Submission['speakers'], pretalxData: PretalxResult) {
+export function parseSpeaker(speakerIds: Submission['speakers'], pretalxData: PretalxResult): SessionSpeaker[] {
   const speakerMap = pretalxData.speakers.map
 
   return speakerIds.map((speakerId: string) => {
     const speaker = speakerMap[speakerId]
+
+    if (!speaker) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: `Speaker not found: ${speakerId}`,
+      })
+    }
+
     const answer = parseAnswer(speaker.answers, pretalxData)
 
     return {
@@ -88,7 +103,15 @@ export function parseSpeaker(speakerIds: Submission['speakers'], pretalxData: Pr
   })
 }
 
-export function parseType(typeId: SubmissionType['id'], pretalxData: PretalxResult) {
+export function parseType(typeId: SubmissionType['id'], pretalxData: PretalxResult): SubmissionType {
   const typeMap = pretalxData['submission-types'].map
+
+  if (!typeMap[typeId]) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: `Submission type not found: ${typeId}`,
+    })
+  }
+
   return typeMap[typeId]
 }
