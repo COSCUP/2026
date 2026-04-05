@@ -67,6 +67,11 @@ export function parseSlot(slotId: Slot['id'], pretalxData: PretalxResult): (Omit
   }
 
   const roomId = slot.room
+
+  if (!roomId) {
+    return null
+  }
+
   const room = roomMap[roomId]
 
   return { ...slot, room }
