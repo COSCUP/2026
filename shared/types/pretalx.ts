@@ -76,9 +76,9 @@ export const AnswerSchema = z.object({
 
 export const SlotSchema = z.object({
   id: z.number(),
-  room: z.number().transform((value) => value),
-  start: z.string().nullable().transform((value) => value ?? undefined),
-  end: z.string().nullable().transform((value) => value ?? undefined),
+  room: z.number().nullable().transform((value) => value),
+  start: z.string().nullable().transform((value) => value),
+  end: z.string().nullable().transform((value) => value),
   duration: z.number(),
 })
 
