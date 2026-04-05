@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
 
   return {
     id: submission.code,
-    room: slot.room?.name,
+    room: slot.room?.name.en,
     start: slot.start,
     end: slot.end,
     language: answers.language,
