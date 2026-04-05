@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { SessionSummary } from '#shared/types/session'
 import { useI18n } from '#imports'
+import { useDragScroll } from '~/composables/useDragScroll'
 import CpSessionItem from './CpSessionItem.vue'
 
 const { sessions: _sessions, day, timeRange, interval, rowHeight } = defineProps<{
@@ -12,6 +13,8 @@ const { sessions: _sessions, day, timeRange, interval, rowHeight } = defineProps
 }>()
 
 const { locale } = useI18n()
+
+const { containerRef, isDragging } = useDragScroll({ vertical: false })
 
 function parseMinutes(isoStr: string) {
   const d = new Date(isoStr)
@@ -92,7 +95,9 @@ const sessions = computed(() => {
 
 <template>
   <div
+    ref="containerRef"
     class="border border-gray-200 rounded-xl grid overflow-x-auto"
+    :class="isDragging ? 'cursor-grabbing select-none' : 'cursor-grab'"
     :style="{
       gridTemplateColumns: `4.5rem repeat(${rooms.length}, minmax(11rem, 1fr))`,
       gridTemplateRows: `3rem repeat(${totalGridRows}, ${rowHeight}px)`,
@@ -146,11 +151,13 @@ const sessions = computed(() => {
       v-for="session in sessions"
       :key="session.id"
       class="overflow-hidden"
+      :draggable="false"
       :style="{
         'grid-row': `${session.row[0]} / ${session.row[1]}`,
         'grid-column': session.col,
       }"
       :to="`/sessions/${session.id}`"
+      @dragstart.prevent
     >
       <CpSessionItem
         class="h-full"
