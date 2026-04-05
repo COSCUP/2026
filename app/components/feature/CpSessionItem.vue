@@ -13,7 +13,7 @@ defineProps<{
 <template>
   <div class="text-primary-600 p-2 border border-primary-100 border-rounded bg-primary-50 relative">
     <div class="flex flex-col">
-      <h1 class="text-base text-inherit font-normal my-1 text-justify">
+      <h1 class="text-base text-inherit font-normal my-1">
         {{ title }}
       </h1>
       <time class="text-md opacity-50">{{ start }} ~ {{ end }}</time>
