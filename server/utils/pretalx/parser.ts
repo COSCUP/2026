@@ -64,7 +64,6 @@ export function parseSlot(slotId: Slot['id'], pretalxData: PretalxResult): (Omit
       statusCode: 500,
       statusMessage: `Slot not found: ${slotId}`,
     })
-    return null
   }
 
   const roomId = slot.room
