@@ -92,15 +92,14 @@ const sessions = computed(() => {
 
 <template>
   <div
-    class="grid overflow-x-auto rounded-xl border border-gray-200"
+    class="border border-gray-200 rounded-xl grid overflow-x-auto"
     :style="{
       gridTemplateColumns: `4.5rem repeat(${rooms.length}, minmax(11rem, 1fr))`,
       gridTemplateRows: `3rem repeat(${totalGridRows}, ${rowHeight}px)`,
     }"
   >
-
-  <div
-      class="left-0 top-0 sticky z-20 bg-gray-50 border-b border-gray-200" 
+    <div
+      class="border-b border-gray-200 bg-gray-50 left-0 top-0 sticky z-20"
       :style="{
         'grid-row': 1,
         'grid-column': 1,
@@ -110,11 +109,11 @@ const sessions = computed(() => {
     <div
       v-for="(room, i) in rooms"
       :key="room"
+      class="text-sm text-primary-400 font-medium border-b border-gray-200 bg-gray-50 flex items-center justify-center"
       :style="{
         'grid-row': 1,
         'grid-column': i + 2,
       }"
-      class="bg-gray-50 flex justify-center items-center text-primary-400 border-b border-gray-200 font-medium text-sm"
     >
       {{ room }}
     </div>
@@ -124,7 +123,7 @@ const sessions = computed(() => {
       :key="label.label"
     >
       <div
-        class="text-xs bg-gray-50 text-gray-400 pr-2 pt-0.5 text-right border-t border-gray-100 flex justify-center items-start"
+        class="text-xs text-gray-400 pr-2 pt-0.5 text-right border-t border-gray-100 bg-gray-50 flex items-start justify-center"
         :style="{
           'grid-row': `${label.row} / ${label.row + 6}`,
           'grid-column': 1,
@@ -146,12 +145,12 @@ const sessions = computed(() => {
     <NuxtLink
       v-for="session in sessions"
       :key="session.id"
-      :to="`/sessions/${session.id}`"
       class="overflow-hidden"
       :style="{
         'grid-row': `${session.row[0]} / ${session.row[1]}`,
         'grid-column': session.col,
       }"
+      :to="`/sessions/${session.id}`"
     >
       <CpSessionItem
         class="h-full"
