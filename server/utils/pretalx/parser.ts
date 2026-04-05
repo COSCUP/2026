@@ -5,7 +5,7 @@ import type { SessionSpeaker } from '#shared/types/session'
 // key 為系統內使用的欄位名稱，value 為 pretalx 的 question id。
 // 這個對應表會被 `parseAnswer` 使用，將 pretalx 的 answers
 // 轉換為以 key 為索引的 Record 物件並回傳。
-const QUESTION_MAP: Record<string, number | null> = {
+const QUESTION_MAP = {
   language: 269,
   languageOther: 300,
   enTitle: 257,
@@ -19,7 +19,7 @@ const QUESTION_MAP: Record<string, number | null> = {
   qa: null,
   slide: null,
   record: null,
-} as const
+} as const satisfies Record<string, number | null>
 
 type QuestionKey = keyof typeof QUESTION_MAP
 type ParsedAnswer = Partial<Record<QuestionKey, string>>
@@ -40,7 +40,7 @@ export function parseAnswer(answers: Answer['id'][], pretalxData: PretalxResult)
     return acc
   }, {})
 
-  for (const question in QUESTION_MAP) {
+  for (const question of Object.keys(QUESTION_MAP) as QuestionKey[]) {
     const questionId = QUESTION_MAP[question]
 
     if (!questionId) {
