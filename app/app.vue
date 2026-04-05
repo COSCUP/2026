@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { prerenderRoutes } from 'nuxt/app'
 
-prerenderRoutes(['/json/session.json'])
+prerenderRoutes(['/api/opass.json'])
 </script>
 
 <template>
