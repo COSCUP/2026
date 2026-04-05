@@ -21,7 +21,7 @@ export const SubmissionSchema = z.object({
   speakers: z.array(z.string()),
   submission_type: z.number(),
   track: z.number().nullable().optional(),
-  tags: z.array(z.string()),
+  tags: z.array(z.number()),
   state: z.string(),
   abstract: z.string().nullable().transform((value) => value ?? ''),
   slots: z.array(z.number()),
