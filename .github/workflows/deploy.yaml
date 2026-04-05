@@ -12,8 +12,8 @@ permissions:
 jobs:
   build:
     env:
-      PRETALX_API_TOKEN: ${{ secrets.NUXT_PRETALX_API_TOKEN }}
-      PRETALX_API_URL: ${{ secrets.NUXT_PRETALX_API_URL }}
+      NUXT_PRETALX_API_TOKEN: ${{ secrets.NUXT_PRETALX_API_TOKEN }}
+      NUXT_PRETALX_API_URL: ${{ secrets.NUXT_PRETALX_API_URL }}
       NUXT_GOOGLE_SHEET_ID: ${{ secrets.NUXT_GOOGLE_SHEET_ID }}
     runs-on: ubuntu-latest
     steps:
