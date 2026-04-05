@@ -14,6 +14,13 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  if (submission.slots[0] === undefined) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: 'Slot not found',
+    })
+  }
+
   if (submission.state !== 'confirmed') {
     throw createError({
       statusCode: 404,
@@ -22,7 +29,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const answers = parseAnswer(submission.answers, data)
-  const slot = parseSlot(submission.slots[0]!, data)
+  const slot = parseSlot(submission.slots[0], data)
   const speakers = parseSpeaker(submission.speakers, data)
   const type = parseType(submission.submission_type, data)
 
