@@ -22,8 +22,8 @@ const SessionContentSchema = z.object({
 export const SessionSummarySchema = z.object({
   id: z.string(),
   room: PretalxLocaleSchema.optional(),
-  start: z.string().optional(),
-  end: z.string().optional(),
+  start: z.string().nullable().optional(),
+  end: z.string().nullable().optional(),
   language: z.string().optional(),
   speakers: z.array(SessionSpeakerSchema),
   zh: SessionContentSchema,
