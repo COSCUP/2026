@@ -19,11 +19,15 @@ export default defineEventHandler(async () => {
       const speakers = parseSpeaker(submission.speakers, data)
       const type = parseType(submission.submission_type, data)
 
+      if (!slot || !slot.start || !slot.end || !slot.room) {
+        return null
+      }
+
       return {
         id: submission.code,
-        room: slot?.room?.name,
-        start: slot?.start,
-        end: slot?.end,
+        room: slot.room.name,
+        start: slot.start,
+        end: slot.end,
         language: answers.language,
         speakers,
         zh: {
