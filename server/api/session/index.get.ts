@@ -1,4 +1,5 @@
 import type { Submission } from '#shared/types/pretalx'
+import type { SessionSummary } from '~~/shared/types/session'
 import pretalxData from '~~/server/utils/pretalx'
 import { parseAnswer, parseSlot, parseSpeaker, parseType } from '~~/server/utils/pretalx/parser'
 
@@ -44,5 +45,13 @@ export default defineEventHandler(async () => {
         uri: `https://coscup.org/2026/session/${submission.code}`,
       }
     })
-    .filter(Boolean)
+    .filter((session) => session !== null)
+    .reduce((acc, session) => {
+      const day = session.start.slice(0, 10)
+      if (!acc[day]) {
+        acc[day] = []
+      }
+      acc[day].push(session)
+      return acc
+    }, {} as Record<string, SessionSummary[]>)
 })
