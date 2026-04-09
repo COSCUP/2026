@@ -63,15 +63,11 @@ const sessions = computed(() => {
   }
 
   return _sessions
-    .filter((session) => {
-      session.start?.startsWith(day)
-
-      return [
-        session.start?.startsWith(day),
-        session.end,
-        session.room,
-      ].every(Boolean)
-    })
+    .filter((session) => [
+      session.start?.startsWith(day),
+      session.end,
+      session.room,
+    ].every(Boolean))
     .map((session) => {
       const startMins = parseMinutes(session.start!)
       const endMins = parseMinutes(session.end!)
