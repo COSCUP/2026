@@ -152,7 +152,7 @@ const sessions = computed(() => {
         'grid-row': `${session.row[0]} / ${session.row[1]}`,
         'grid-column': session.col,
       }"
-      :to="`/sessions/${session.id}`"
+      :to="`/session/${session.id}`"
       @dragstart.prevent
     >
       <CpSessionItem
