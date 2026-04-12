@@ -15,7 +15,14 @@ const props = withDefaults(defineProps<{
   to: undefined,
 })
 
-const componentType = computed(() => props.to ? resolveComponent('NuxtLink') : 'button')
+const isDisabledLink = computed(() => Boolean(props.to) && props.disabled)
+const componentType = computed(() => {
+  if (isDisabledLink.value) {
+    return 'span'
+  }
+
+  return props.to ? resolveComponent('NuxtLink') : 'button'
+})
 
 const baseStyles = 'inline-flex items-center justify-center rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
 
@@ -56,14 +63,33 @@ const disabledStyles = computed(() => {
     default: return ''
   }
 })
+
+const componentProps = computed(() => {
+  if (isDisabledLink.value) {
+    return {
+      'aria-disabled': 'true',
+      'tabindex': -1,
+    }
+  }
+
+  if (props.to) {
+    return {
+      to: props.to,
+    }
+  }
+
+  return {
+    disabled: props.disabled,
+    type: 'button',
+  }
+})
 </script>
 
 <template>
   <component
     :is="componentType"
-    :class="[baseStyles, variantStyles, disabled && disabledStyles, icon ? iconSize : sizeStyles]"
-    :disabled="disabled"
-    :to="to"
+    :class="[baseStyles, variantStyles, disabled && disabledStyles, disabled && 'opacity-50 cursor-not-allowed', icon ? iconSize : sizeStyles]"
+    v-bind="componentProps"
   >
     <Icon
       v-if="icon"
