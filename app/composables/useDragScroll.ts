@@ -28,8 +28,6 @@ export function useDragScroll({ horizontal = true, vertical = true }: UseDragScr
     dragState.scrollTop = containerRef.value.scrollTop
     isDragging.value = true
     suppressClick.value = false
-
-    containerRef.value.setPointerCapture(event.pointerId)
   }
 
   function handlePointerMove(event: PointerEvent) {
