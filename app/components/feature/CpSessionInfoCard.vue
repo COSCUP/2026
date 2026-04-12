@@ -68,6 +68,7 @@ const speakerNames = computed(() =>
               <a
                 v-if="coWrite?.startsWith('http')"
                 class="underline cursor-pointer"
+                :href="coWrite"
               >{{ coWrite }}</a>
               <span
                 v-else
