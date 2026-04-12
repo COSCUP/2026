@@ -98,7 +98,7 @@ export interface PretalxResponse<T extends PretalxTable> {
 
 export interface PretalxData<T extends PretalxTable> {
   arr: TableTypeMap[T][]
-  map: Record<string, TableTypeMap[T]>
+  map: Record<string | number, TableTypeMap[T]>
 }
 
 export type PretalxResult = {
