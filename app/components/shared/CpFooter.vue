@@ -82,7 +82,7 @@ const communities = [
             :href="social.url"
             rel="noopener noreferrer"
             target="_blank"
-            :title="t(`social.${social.name}`)"
+            title="social.name"
           >
             <Icon :name="social.icon" />
           </a>
