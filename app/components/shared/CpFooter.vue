@@ -9,12 +9,42 @@ const pastYears = Array.from(
 )
 
 const socials = [
-  { name: 'facebook', icon: 'tabler:brand-facebook', url: 'https://www.facebook.com/coscup/' },
-  { name: 'x', icon: 'tabler:brand-x', url: 'https://twitter.com/coscup' },
-  { name: 'youtube', icon: 'tabler:brand-youtube', url: 'https://www.youtube.com/user/thecoscup' },
-  { name: 'telegram', icon: 'tabler:brand-telegram', url: 'https://t.me/coscupchat' },
-  { name: 'mastodon', icon: 'tabler:brand-mastodon', url: 'https://floss.social/@COSCUP' },
-  { name: 'linkedin', icon: 'tabler:brand-linkedin', url: 'https://www.linkedin.com/company/coscup-tw/' },
+  {
+    name: 'facebook',
+    icon: 'tabler:brand-facebook',
+    url: 'https://www.facebook.com/coscup/',
+    label: { en: 'Facebook', zh: 'Facebook' },
+  },
+  {
+    name: 'x',
+    icon: 'tabler:brand-x',
+    url: 'https://twitter.com/coscup',
+    label: { en: 'X', zh: 'X' },
+  },
+  {
+    name: 'youtube',
+    icon: 'tabler:brand-youtube',
+    url: 'https://www.youtube.com/user/thecoscup',
+    label: { en: 'YouTube', zh: 'YouTube' },
+  },
+  {
+    name: 'telegram',
+    icon: 'tabler:brand-telegram',
+    url: 'https://t.me/coscupchat',
+    label: { en: 'Telegram', zh: 'Telegram' },
+  },
+  {
+    name: 'mastodon',
+    icon: 'tabler:brand-mastodon',
+    url: 'https://floss.social/@COSCUP',
+    label: { en: 'Mastodon', zh: 'Mastodon' },
+  },
+  {
+    name: 'linkedin',
+    icon: 'tabler:brand-linkedin',
+    url: 'https://www.linkedin.com/company/coscup-tw/',
+    label: { en: 'LinkedIn', zh: 'LinkedIn' },
+  },
 ]
 
 const contacts = [
@@ -84,7 +114,7 @@ const communities = [
             :href="social.url"
             rel="noopener noreferrer"
             target="_blank"
-            title="social.name"
+            :title="social.label[locale]"
           >
             <Icon :name="social.icon" />
           </a>
