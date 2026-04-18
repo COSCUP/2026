@@ -48,8 +48,7 @@ const resources = [
   },
   {
     name: 'newsletter',
-    url:
-    'https://secretary.coscup.org/subscribe/coscup',
+    url: 'https://secretary.coscup.org/subscribe/coscup',
     label: { en: 'Newsletter Subscription', zh: '訂閱電子報' },
   },
   {
