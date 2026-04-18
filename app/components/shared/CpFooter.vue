@@ -3,7 +3,10 @@ import { useI18n } from '#imports'
 
 const { t, locale } = useI18n()
 
-const pastYears = Array.from({ length: 19 }, (_, i) => 2006 + i)
+const pastYears = Array.from(
+  { length: new Date().getFullYear() - 2006 },
+  (_, i) => 2006 + i,
+)
 
 const socials = [
   { name: 'facebook', icon: 'tabler:brand-facebook', url: 'https://www.facebook.com/coscup/' },
