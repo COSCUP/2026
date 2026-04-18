@@ -110,6 +110,7 @@ const communities = [
           <a
             v-for="social in socials"
             :key="social.name"
+            :aria-label="social.label[locale]"
             class="text-gray-500 rounded-full bg-gray-100 flex h-9 w-9 transition-colors items-center justify-center hover:text-white hover:bg-cp-green"
             :href="social.url"
             rel="noopener noreferrer"
