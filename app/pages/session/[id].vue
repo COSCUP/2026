@@ -60,7 +60,10 @@ onMounted(() => {
 
 <template>
   <div
+    :aria-label="sessionInfo?.title"
+    aria-modal="true"
     class="bg-black/50 inset-0 fixed z-50"
+    role="dialog"
     @click.self="close"
   >
     <div class="bg-white flex flex-row-reverse h-full w-120 right-0 top-0 fixed">
@@ -71,7 +74,9 @@ onMounted(() => {
       <div class="p-3 h-full overflow-y-auto">
         <div class="flex top-0 justify-end sticky z-10">
           <button
+            aria-label="close"
             class="text-gray-500 rounded-full flex h-8 w-8 transition-colors items-center justify-center hover:bg-gray-100"
+            type="button"
             @click="close"
           >
             <Icon
