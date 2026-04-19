@@ -94,7 +94,7 @@ const speakerNames = computed(() =>
         {{ t("abstract") }}
       </h2>
       <div
-        class="text-gray-700 leading-relaxed text-justify whitespace-pre-wrap"
+        class="text-gray-700 leading-relaxed whitespace-pre-wrap"
       >
         {{ description }}
       </div>
