@@ -20,6 +20,6 @@ Follow @CONTRIBUTING.md for commit, branch, code style, and workflow conventions
 
 - `session/` — Fetches from Pretalx API
 - `sponsorship/` — Fetches from Google Sheets (CSV export)
-- `opass.get.ts` — OPass integration
+- `opass.json.get.ts` — OPass integration
 
 **Icons:** Custom icon collection in `app/assets/icons/`, referenced as `local:icon-name`.

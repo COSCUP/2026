@@ -23,7 +23,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 - `feat: add session detail page`
 - `fix(pretalx): handle empty speaker response`
-- `chore(i18n): add English translations for venue page`
+- `chore: add English translations for venue page`
 
 ## Branch Names
 
@@ -35,13 +35,13 @@ Use kebab-case: `add-session-page`, `fix-sponsor-logo`
 pnpm install    # install dependencies
 pnpm dev        # start dev server
 pnpm build      # static generation (nuxt generate)
-pnpm lint       # ESLint (also formats)
+pnpm lint       # ESLint (check only; append --fix to auto-fix)
 pnpm typecheck  # Vue type checking
 ```
 
 ## Code Style
 
-ESLint is the sole formatter — no Prettier. Run `pnpm lint` before committing. Fix formatting and lint errors in the same commit as the code change, not as a separate commit.
+ESLint is the sole formatter — no Prettier. Run `pnpm lint` before committing to check for errors, and `pnpm lint --fix` to auto-fix formatting and lint issues. Fix formatting and lint errors in the same commit as the code change, not as a separate commit.
 
 ## Auto-imports
 
