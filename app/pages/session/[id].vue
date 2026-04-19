@@ -69,7 +69,7 @@ onMounted(() => {
       </div>
 
       <div class="p-3 h-full overflow-y-auto">
-        <div class="bg-white/80 flex top-0 justify-end sticky z-10 backdrop-blur-sm">
+        <div class="flex top-0 justify-end sticky z-10">
           <button
             class="text-gray-500 rounded-full flex h-8 w-8 transition-colors items-center justify-center hover:bg-gray-100"
             @click="close"
