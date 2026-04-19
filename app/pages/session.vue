@@ -12,6 +12,8 @@ const selectedDay = ref(days.value[0]!)
 
 <template>
   <main>
+    <NuxtPage />
+
     <CpSessionDaySelector
       v-model="selectedDay"
       :days="days"

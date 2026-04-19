@@ -94,9 +94,9 @@ const speakerNames = computed(() =>
         {{ t("abstract") }}
       </h2>
       <div
-        class="text-gray-700 leading-relaxed text-justify whitespace-pre-wrap"
+        class="text-gray-700 leading-relaxed whitespace-pre-wrap"
       >
-        {{ description }}
+        <MDC :value="description" />
       </div>
     </section>
     <section>
@@ -138,7 +138,7 @@ const speakerNames = computed(() =>
           <div
             class="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap"
           >
-            {{ speaker.bio }}
+            <MDC :value="speaker.bio" />
           </div>
         </div>
       </div>
