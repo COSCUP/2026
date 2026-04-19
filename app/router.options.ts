@@ -1,12 +1,16 @@
 import type { RouterConfig } from '@nuxt/schema'
 
+const SESSION_PATH_RE = /^\/(?:[^/]+\/)?session(?:\/|$)/
+
 export default {
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     }
 
-    if (to.path.startsWith('/session') && from.path.startsWith('/session')) {
+    const isSessionPath = (path: string) => SESSION_PATH_RE.test(path)
+
+    if (isSessionPath(to.path) && isSessionPath(from.path)) {
       return false
     }
 
