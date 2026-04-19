@@ -40,21 +40,20 @@ function close() {
   router.push('/session')
 }
 
+function onKeydown(e: KeyboardEvent) {
+  if (e.key === 'Escape') {
+    close()
+  }
+}
+
 onMounted(() => {
   document.body.style.overflow = 'hidden'
-
-  function onKeydown(e: KeyboardEvent) {
-    if (e.key === 'Escape') {
-      close()
-    }
-  }
-
   window.addEventListener('keydown', onKeydown)
+})
 
-  onUnmounted(() => {
-    document.body.style.overflow = ''
-    window.removeEventListener('keydown', onKeydown)
-  })
+onUnmounted(() => {
+  document.body.style.overflow = ''
+  window.removeEventListener('keydown', onKeydown)
 })
 </script>
 
