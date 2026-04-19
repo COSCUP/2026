@@ -5,6 +5,7 @@ import CpSessionInfoCard from '~/components/feature/CpSessionInfoCard.vue'
 const { locale } = useI18n()
 const route = useRoute()
 const router = useRouter()
+const localePath = useLocalePath()
 
 const { data } = await useFetch<SessionDetail>(`/api/session/${route.params.id}`)
 
@@ -37,7 +38,7 @@ const sessionInfo = computed(() => {
 })
 
 function close() {
-  router.push('/session')
+  router.push(localePath('/session'))
 }
 
 function onKeydown(e: KeyboardEvent) {
