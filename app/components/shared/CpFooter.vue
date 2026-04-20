@@ -54,7 +54,6 @@ const communities = computed(() => tm('community.items') as CommunityItem[])
             :aria-label="rt(social.label)"
             class="text-gray-500 rounded-full bg-gray-100 flex size-9 transition-colors items-center justify-center hover:text-white hover:bg-cp-green"
             :href="rt(social.url)"
-            rel="noopener noreferrer"
             target="_blank"
             :title="rt(social.label)"
           >
@@ -94,7 +93,6 @@ const communities = computed(() => tm('community.items') as CommunityItem[])
             <NuxtLink
               class="text-sm text-gray-600 transition-colors hover:text-cp-green"
               :href="rt(resource.url)"
-              rel="noopener noreferrer"
               target="_blank"
             >
               {{ rt(resource.label) }}
@@ -115,7 +113,6 @@ const communities = computed(() => tm('community.items') as CommunityItem[])
             <NuxtLink
               class="text-sm text-gray-600 transition-colors hover:text-cp-green"
               :href="rt(community.url)"
-              rel="noopener noreferrer"
               target="_blank"
             >
               {{ rt(community.name) }}
@@ -132,7 +129,6 @@ const communities = computed(() => tm('community.items') as CommunityItem[])
           :key="year"
           class="text-xs text-gray-400 px-2 py-1 rounded transition-colors hover:text-cp-green hover:bg-cp-green/6"
           :href="`https://coscup.org/${year}/`"
-          rel="noopener noreferrer"
           target="_blank"
         >
           {{ year }}
