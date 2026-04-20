@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from '#imports'
 
-const { t, tm } = useI18n()
+const { t, tm, rt } = useI18n()
 
 interface ContactItem {
   name: string
@@ -50,15 +50,15 @@ const communities = computed(() => tm('community.items') as CommunityItem[])
         <div class="mt-6 flex gap-2">
           <NuxtLink
             v-for="social in socials"
-            :key="social.name"
-            :aria-label="social.label"
+            :key="rt(social.name)"
+            :aria-label="rt(social.label)"
             class="text-gray-500 rounded-full bg-gray-100 flex size-9 transition-colors items-center justify-center hover:text-white hover:bg-cp-green"
-            :href="social.url"
+            :href="rt(social.url)"
             rel="noopener noreferrer"
             target="_blank"
-            :title="social.label"
+            :title="rt(social.label)"
           >
-            <Icon :name="social.icon" />
+            <Icon :name="rt(social.icon)" />
           </NuxtLink>
         </div>
       </div>
@@ -70,13 +70,13 @@ const communities = computed(() => tm('community.items') as CommunityItem[])
         <ul class="space-y-3">
           <li
             v-for="contact in contacts"
-            :key="contact.name"
+            :key="rt(contact.name)"
           >
             <NuxtLink
               class="text-sm text-gray-600 transition-colors hover:text-cp-green"
-              :href="`mailto:${contact.email}`"
+              :href="`mailto:${rt(contact.email)}`"
             >
-              {{ contact.name }}
+              {{ rt(contact.name) }}
             </NuxtLink>
           </li>
         </ul>
@@ -89,15 +89,15 @@ const communities = computed(() => tm('community.items') as CommunityItem[])
         <ul class="space-y-3">
           <li
             v-for="resource in resources"
-            :key="resource.name"
+            :key="rt(resource.name)"
           >
             <NuxtLink
               class="text-sm text-gray-600 transition-colors hover:text-cp-green"
-              :href="resource.url"
+              :href="rt(resource.url)"
               rel="noopener noreferrer"
               target="_blank"
             >
-              {{ resource.label }}
+              {{ rt(resource.label) }}
             </NuxtLink>
           </li>
         </ul>
@@ -110,15 +110,15 @@ const communities = computed(() => tm('community.items') as CommunityItem[])
         <ul class="space-y-3">
           <li
             v-for="community in communities"
-            :key="community.name"
+            :key="rt(community.name)"
           >
             <NuxtLink
               class="text-sm text-gray-600 transition-colors hover:text-cp-green"
-              :href="community.url"
+              :href="rt(community.url)"
               rel="noopener noreferrer"
               target="_blank"
             >
-              {{ community.name }}
+              {{ rt(community.name) }}
             </NuxtLink>
           </li>
         </ul>
