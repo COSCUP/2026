@@ -98,7 +98,7 @@ const communities = [
 
 <template>
   <footer class="px-8 pb-8 pt-16 border-t border-gray-200 bg-white">
-    <div class="mx-auto gap-12 grid grid-cols-[2fr_1fr_1fr_1fr] max-w-[1100px] lt-md:grid-cols-2 lt-sm:grid-cols-1">
+    <div class="mx-auto gap-12 grid grid-cols-[2fr_repeat(3,1fr)] max-w-[1100px] lt-md:grid-cols-2 lt-sm:grid-cols-1">
       <div class="lt-md:col-span-2 lt-sm:col-span-1">
         <h2 class="text-2xl text-gray-900 font-bold mb-2">
           COSCUP 2026
@@ -111,7 +111,7 @@ const communities = [
             v-for="social in socials"
             :key="social.name"
             :aria-label="social.label[locale]"
-            class="text-gray-500 rounded-full bg-gray-100 flex h-9 w-9 transition-colors items-center justify-center hover:text-white hover:bg-cp-green"
+            class="text-gray-500 rounded-full bg-gray-100 flex size-9 transition-colors items-center justify-center hover:text-white hover:bg-cp-green"
             :href="social.url"
             rel="noopener noreferrer"
             target="_blank"
