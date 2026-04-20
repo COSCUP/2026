@@ -1,99 +1,40 @@
 <script setup lang="ts">
 import { useI18n } from '#imports'
 
-const { t, locale } = useI18n()
+const { t, tm } = useI18n()
+
+interface ContactItem {
+  name: string
+  email: string
+}
+
+interface SocialItem {
+  icon: string
+  label: string
+  name: string
+  url: string
+}
+
+interface ResourceItem {
+  label: string
+  name: string
+  url: string
+}
+
+interface CommunityItem {
+  name: string
+  url: string
+}
 
 const pastYears = Array.from(
   { length: new Date().getFullYear() - 2006 },
   (_, i) => 2006 + i,
 )
 
-const socials = [
-  {
-    name: 'facebook',
-    icon: 'tabler:brand-facebook',
-    url: 'https://www.facebook.com/coscup/',
-    label: { en: 'Facebook', zh: 'Facebook' },
-  },
-  {
-    name: 'x',
-    icon: 'tabler:brand-x',
-    url: 'https://twitter.com/coscup',
-    label: { en: 'X', zh: 'X' },
-  },
-  {
-    name: 'youtube',
-    icon: 'tabler:brand-youtube',
-    url: 'https://www.youtube.com/user/thecoscup',
-    label: { en: 'YouTube', zh: 'YouTube' },
-  },
-  {
-    name: 'telegram',
-    icon: 'tabler:brand-telegram',
-    url: 'https://t.me/coscupchat',
-    label: { en: 'Telegram', zh: 'Telegram' },
-  },
-  {
-    name: 'mastodon',
-    icon: 'tabler:brand-mastodon',
-    url: 'https://floss.social/@COSCUP',
-    label: { en: 'Mastodon', zh: 'Mastodon' },
-  },
-  {
-    name: 'linkedin',
-    icon: 'tabler:brand-linkedin',
-    url: 'https://www.linkedin.com/company/coscup-tw/',
-    label: { en: 'LinkedIn', zh: 'LinkedIn' },
-  },
-]
-
-const contacts = [
-  {
-    name: 'attendee',
-    email: 'attendee@coscup.org',
-    label: { en: 'Attendee Services', zh: '會眾服務' },
-  },
-  {
-    name: 'sponsorship',
-    email: 'sponsorship@coscup.org',
-    label: { en: 'Sponsorship', zh: '贊助合作' },
-  },
-  {
-    name: 'program',
-    email: 'program@coscup.org',
-    label: { en: 'Call for Proposals', zh: '議程投稿' },
-  },
-  {
-    name: 'marketing',
-    email: 'marketing@coscup.org',
-    label: { en: 'Marketing', zh: '行銷方案' },
-  },
-]
-
-const resources = [
-  {
-    name: 'blog',
-    url: 'https://blog.coscup.org/',
-    label: { en: 'COSCUP Blog', zh: 'COSCUP 部落格' },
-  },
-  {
-    name: 'newsletter',
-    url: 'https://secretary.coscup.org/subscribe/coscup',
-    label: { en: 'Newsletter Subscription', zh: '訂閱電子報' },
-  },
-  {
-    name: 'photos',
-    url: 'https://www.flickr.com/photos/coscup/',
-    label: { en: 'Event Photos', zh: '活動照片' },
-  },
-]
-
-const communities = [
-  { name: 'Facebook', url: 'https://www.facebook.com/coscup/' },
-  { name: 'X / Twitter', url: 'https://twitter.com/coscup' },
-  { name: 'Telegram', url: 'https://t.me/coscupchat' },
-  { name: 'Mastodon', url: 'https://floss.social/@COSCUP' },
-]
+const socials = computed(() => tm('socials') as SocialItem[])
+const contacts = computed(() => tm('contact.items') as ContactItem[])
+const resources = computed(() => tm('resources.items') as ResourceItem[])
+const communities = computed(() => tm('community.items') as CommunityItem[])
 </script>
 
 <template>
@@ -110,12 +51,12 @@ const communities = [
           <NuxtLink
             v-for="social in socials"
             :key="social.name"
-            :aria-label="social.label[locale]"
+            :aria-label="social.label"
             class="text-gray-500 rounded-full bg-gray-100 flex size-9 transition-colors items-center justify-center hover:text-white hover:bg-cp-green"
             :href="social.url"
             rel="noopener noreferrer"
             target="_blank"
-            :title="social.label[locale]"
+            :title="social.label"
           >
             <Icon :name="social.icon" />
           </NuxtLink>
@@ -124,7 +65,7 @@ const communities = [
 
       <div>
         <h3 class="text-xs text-cp-green tracking-wider font-semibold mb-5 uppercase">
-          {{ t('contact') }}
+          {{ t('contact.title') }}
         </h3>
         <ul class="space-y-3">
           <li
@@ -135,7 +76,7 @@ const communities = [
               class="text-sm text-gray-600 transition-colors hover:text-cp-green"
               :href="`mailto:${contact.email}`"
             >
-              {{ contact.label[locale] }}
+              {{ contact.name }}
             </NuxtLink>
           </li>
         </ul>
@@ -143,7 +84,7 @@ const communities = [
 
       <div>
         <h3 class="text-xs text-cp-green tracking-wider font-semibold mb-5 uppercase">
-          {{ t('resources') }}
+          {{ t('resources.title') }}
         </h3>
         <ul class="space-y-3">
           <li
@@ -156,7 +97,7 @@ const communities = [
               rel="noopener noreferrer"
               target="_blank"
             >
-              {{ resource.label[locale] }}
+              {{ resource.label }}
             </NuxtLink>
           </li>
         </ul>
@@ -164,7 +105,7 @@ const communities = [
 
       <div>
         <h3 class="text-xs text-cp-green tracking-wider font-semibold mb-5 uppercase">
-          {{ t('community') }}
+          {{ t('community.title') }}
         </h3>
         <ul class="space-y-3">
           <li
@@ -207,15 +148,128 @@ zh:
   tagline: |
    Conference for Open Source Coders, Users, and Promoters
    亞洲最大開源年會，由社群自發舉辦。
-  contact: 聯絡我們
-  resources: 相關資源
-  community: 社群連結
+  socials:
+    - name: facebook
+      icon: tabler:brand-facebook
+      label: Facebook
+      url: https://www.facebook.com/coscup/
+    - name: x
+      icon: tabler:brand-x
+      label: X
+      url: https://twitter.com/coscup
+    - name: youtube
+      icon: tabler:brand-youtube
+      label: YouTube
+      url: https://www.youtube.com/user/thecoscup
+    - name: telegram
+      icon: tabler:brand-telegram
+      label: Telegram
+      url: https://t.me/coscupchat
+    - name: mastodon
+      icon: tabler:brand-mastodon
+      label: Mastodon
+      url: https://floss.social/@COSCUP
+    - name: linkedin
+      icon: tabler:brand-linkedin
+      label: LinkedIn
+      url: https://www.linkedin.com/company/coscup-tw/
+  contact:
+    title: 聯絡我們
+    items:
+      - name: 會眾服務
+        email: attendee@coscup.org
+      - name: 贊助合作
+        email: sponsorship@coscup.org
+      - name: 議程投稿
+        email: program@coscup.org
+      - name: 行銷方案
+        email: marketing@coscup.org
+
+  resources:
+    title: 相關資源
+    items:
+      - name: blog
+        label: COSCUP 部落格
+        url: https://blog.coscup.org/
+      - name: newsletter
+        label: 訂閱電子報
+        url: https://secretary.coscup.org/subscribe/coscup
+      - name: photos
+        label: 活動照片
+        url: https://www.flickr.com/photos/coscup/
+  community:
+    title: 社群連結
+    items:
+      - name: Facebook
+        url: https://www.facebook.com/coscup/
+      - name: X / Twitter
+        url: https://twitter.com/coscup
+      - name: Telegram
+        url: https://t.me/coscupchat
+      - name: Mastodon
+        url: https://floss.social/@COSCUP
 en:
   sponsors: Sponsors
   tagline: |
    Conference for Open Source Coders, Users, and Promoters
    Asia's largest open source community conference.
-  contact: Contact
-  resources: Resources
-  community: Community
+  socials:
+    - name: facebook
+      icon: tabler:brand-facebook
+      label: Facebook
+      url: https://www.facebook.com/coscup/
+    - name: x
+      icon: tabler:brand-x
+      label: X
+      url: https://twitter.com/coscup
+    - name: youtube
+      icon: tabler:brand-youtube
+      label: YouTube
+      url: https://www.youtube.com/user/thecoscup
+    - name: telegram
+      icon: tabler:brand-telegram
+      label: Telegram
+      url: https://t.me/coscupchat
+    - name: mastodon
+      icon: tabler:brand-mastodon
+      label: Mastodon
+      url: https://floss.social/@COSCUP
+    - name: linkedin
+      icon: tabler:brand-linkedin
+      label: LinkedIn
+      url: https://www.linkedin.com/company/coscup-tw/
+  contact:
+    title: Contact
+    items:
+      - name: Attendee Services
+        email: attendee@coscup.org
+      - name: Sponsorship
+        email: sponsorship@coscup.org
+      - name: Call for Proposals
+        email: program@coscup.org
+      - name: Marketing
+        email: marketing@coscup.org
+  resources:
+    title: Resources
+    items:
+      - name: blog
+        label: COSCUP Blog
+        url: https://blog.coscup.org/
+      - name: newsletter
+        label: Newsletter Subscription
+        url: https://secretary.coscup.org/subscribe/coscup
+      - name: photos
+        label: Event Photos
+        url: https://www.flickr.com/photos/coscup/
+  community:
+    title: Community
+    items:
+      - name: Facebook
+        url: https://www.facebook.com/coscup/
+      - name: X / Twitter
+        url: https://twitter.com/coscup
+      - name: Telegram
+        url: https://t.me/coscupchat
+      - name: Mastodon
+        url: https://floss.social/@COSCUP
 </i18n>
