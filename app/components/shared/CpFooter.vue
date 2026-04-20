@@ -168,7 +168,7 @@ zh:
     - name: mastodon
       icon: tabler:brand-mastodon
       label: Mastodon
-      url: https://floss.social/@COSCUP
+      url: https://floss.social/%40COSCUP
     - name: linkedin
       icon: tabler:brand-linkedin
       label: LinkedIn
@@ -177,13 +177,13 @@ zh:
     title: 聯絡我們
     items:
       - name: 會眾服務
-        email: attendee@coscup.org
+        email: attendee%40coscup.org
       - name: 贊助合作
-        email: sponsorship@coscup.org
+        email: sponsorship%40coscup.org
       - name: 議程投稿
-        email: program@coscup.org
+        email: program%40coscup.org
       - name: 行銷方案
-        email: marketing@coscup.org
+        email: marketing%40coscup.org
 
   resources:
     title: 相關資源
@@ -207,7 +207,7 @@ zh:
       - name: Telegram
         url: https://t.me/coscupchat
       - name: Mastodon
-        url: https://floss.social/@COSCUP
+        url: https://floss.social/%40COSCUP
 en:
   sponsors: Sponsors
   tagline: |
@@ -233,7 +233,7 @@ en:
     - name: mastodon
       icon: tabler:brand-mastodon
       label: Mastodon
-      url: https://floss.social/@COSCUP
+      url: https://floss.social/%40COSCUP
     - name: linkedin
       icon: tabler:brand-linkedin
       label: LinkedIn
@@ -242,13 +242,13 @@ en:
     title: Contact
     items:
       - name: Attendee Services
-        email: attendee@coscup.org
+        email: attendee%40coscup.org
       - name: Sponsorship
-        email: sponsorship@coscup.org
+        email: sponsorship%40coscup.org
       - name: Call for Proposals
-        email: program@coscup.org
+        email: program%40coscup.org
       - name: Marketing
-        email: marketing@coscup.org
+        email: marketing%40coscup.org
   resources:
     title: Resources
     items:
@@ -271,5 +271,5 @@ en:
       - name: Telegram
         url: https://t.me/coscupchat
       - name: Mastodon
-        url: https://floss.social/@COSCUP
+        url: https://floss.social/%40COSCUP
 </i18n>
