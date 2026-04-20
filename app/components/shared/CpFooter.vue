@@ -197,7 +197,6 @@ const communities = [
           {{ year }}
         </NuxtLink>
       </div>
-      <span class="text-xs text-gray-300">COSCUP 2026</span>
     </div>
   </footer>
 </template>
