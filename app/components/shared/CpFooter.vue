@@ -107,7 +107,7 @@ const communities = [
           {{ t('tagline') }}
         </p>
         <div class="mt-6 flex gap-2">
-          <a
+          <NuxtLink
             v-for="social in socials"
             :key="social.name"
             :aria-label="social.label[locale]"
@@ -118,7 +118,7 @@ const communities = [
             :title="social.label[locale]"
           >
             <Icon :name="social.icon" />
-          </a>
+          </NuxtLink>
         </div>
       </div>
 
@@ -131,12 +131,12 @@ const communities = [
             v-for="contact in contacts"
             :key="contact.name"
           >
-            <a
+            <NuxtLink
               class="text-sm text-gray-600 transition-colors hover:text-cp-green"
               :href="`mailto:${contact.email}`"
             >
               {{ contact.label[locale] }}
-            </a>
+            </NuxtLink>
           </li>
         </ul>
       </div>
@@ -150,12 +150,14 @@ const communities = [
             v-for="resource in resources"
             :key="resource.name"
           >
-            <a
+            <NuxtLink
               class="text-sm text-gray-600 transition-colors hover:text-cp-green"
               :href="resource.url"
               rel="noopener noreferrer"
               target="_blank"
-            >{{ resource.label[locale] }}</a>
+            >
+              {{ resource.label[locale] }}
+            </NuxtLink>
           </li>
         </ul>
       </div>
@@ -169,12 +171,14 @@ const communities = [
             v-for="community in communities"
             :key="community.name"
           >
-            <a
+            <NuxtLink
               class="text-sm text-gray-600 transition-colors hover:text-cp-green"
               :href="community.url"
               rel="noopener noreferrer"
               target="_blank"
-            >{{ community.name }}</a>
+            >
+              {{ community.name }}
+            </NuxtLink>
           </li>
         </ul>
       </div>
@@ -182,14 +186,16 @@ const communities = [
 
     <div class="mx-auto mt-12 pt-6 border-t border-gray-100 flex flex-wrap gap-4 max-w-[1100px] items-center justify-between">
       <div class="flex flex-wrap gap-1">
-        <a
+        <NuxtLink
           v-for="year in pastYears"
           :key="year"
           class="text-xs text-gray-400 px-2 py-1 rounded transition-colors hover:text-cp-green hover:bg-cp-green/6"
           :href="`https://coscup.org/${year}/`"
           rel="noopener noreferrer"
           target="_blank"
-        >{{ year }}</a>
+        >
+          {{ year }}
+        </NuxtLink>
       </div>
       <span class="text-xs text-gray-300">COSCUP 2026</span>
     </div>
