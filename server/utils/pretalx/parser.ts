@@ -23,6 +23,7 @@ const QUESTION_MAP = {
 
 type QuestionKey = keyof typeof QUESTION_MAP
 type ParsedAnswer = Partial<Record<QuestionKey, string>>
+type ParsedSlot = Omit<Slot, 'room'> & { room?: Room }
 
 export function parseAnswer(answers: Answer['id'][], pretalxData: PretalxResult): ParsedAnswer {
   const answerMap = pretalxData.answers.map
@@ -53,7 +54,7 @@ export function parseAnswer(answers: Answer['id'][], pretalxData: PretalxResult)
   return results
 }
 
-export function parseSlot(slotId: Slot['id'], pretalxData: PretalxResult): (Omit<Slot, 'room'> & { room?: Room }) | null {
+export function parseSlot(slotId: Slot['id'], pretalxData: PretalxResult): ParsedSlot | null {
   const slotMap = pretalxData.slots.map
   const roomMap = pretalxData.rooms.map
 
