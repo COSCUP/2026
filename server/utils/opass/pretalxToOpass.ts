@@ -68,7 +68,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
       },
     }
   })
-    .filter(Boolean)
+    .filter((x): x is NonNullable<typeof x> => x !== null)
 
   const types = Array.from(typeIds, (id: SubmissionType['id']) => {
     const type = pretalxData['submission-types'].map[id]
@@ -88,10 +88,10 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
       },
     }
   })
-    .filter(Boolean)
+    .filter((x): x is NonNullable<typeof x> => x !== null)
 
   const rooms = [...roomIds]
-    .filter(Boolean)
+    .filter((x): x is NonNullable<typeof x> => x !== null)
     .map((id: Room['id']) => {
       const room = pretalxData.rooms.map[id]
 
@@ -110,7 +110,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
         },
       }
     })
-    .filter(Boolean)
+    .filter((x): x is NonNullable<typeof x> => x !== null)
 
   // TODO: tags
 

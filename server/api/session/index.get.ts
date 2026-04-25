@@ -40,5 +40,5 @@ export default defineEventHandler(async () => {
         uri: `https://coscup.org/2026/session/${submission.code}`,
       }
     })
-    .filter(Boolean)
+    .filter((x): x is NonNullable<typeof x> => x !== null)
 })
