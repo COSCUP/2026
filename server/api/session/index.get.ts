@@ -1,4 +1,4 @@
-import type { Submission } from '~~/server/utils/pretalx/type'
+import type { Submission } from '#shared/types/pretalx'
 import pretalxData from '~~/server/utils/pretalx'
 import { parseAnswer, parseSlot, parseSpeaker, parseType } from '~~/server/utils/pretalx/parser'
 
@@ -10,16 +10,20 @@ export default defineEventHandler(async () => {
   return submissions
     .filter((submission: Submission) => submission.state === 'confirmed')
     .map((submission: Submission) => {
+      if (!submission.slots[0]) {
+        return null
+      }
+
       const answers = parseAnswer(submission.answers, data)
-      const slot = parseSlot(submission.slots[0]!, data)
+      const slot = parseSlot(submission.slots[0], data)
       const speakers = parseSpeaker(submission.speakers, data)
       const type = parseType(submission.submission_type, data)
 
       return {
         id: submission.code,
-        room: slot.room?.name,
-        start: slot.start,
-        end: slot.end,
+        room: slot?.room?.name,
+        start: slot?.start,
+        end: slot?.end,
         language: answers.language,
         speakers,
         zh: {
@@ -36,4 +40,5 @@ export default defineEventHandler(async () => {
         uri: `https://coscup.org/2026/session/${submission.code}`,
       }
     })
+    .filter((x): x is NonNullable<typeof x> => x !== null)
 })

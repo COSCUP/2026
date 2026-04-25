@@ -1,4 +1,4 @@
-import type { PretalxResult, Room, Speaker, Submission, SubmissionType } from '~~/server/utils/pretalx/type'
+import type { PretalxResult, Room, Speaker, Submission, SubmissionType } from '#shared/types/pretalx'
 import { parseAnswer, parseSlot } from '~~/server/utils/pretalx/parser'
 
 export function pretalxToOpass(pretalxData: PretalxResult) {
@@ -13,15 +13,19 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
       const slot = parseSlot(submission.slots[0]!, pretalxData)
 
       submission.speakers.forEach((id) => speakerIds.add(id))
-      roomIds.add(slot.room?.id)
+
       typeIds.add(submission.submission_type)
+
+      if (slot?.room?.id) {
+        roomIds.add(slot.room.id)
+      }
 
       return {
         id: submission.code,
         type: submission.submission_type,
-        room: slot.room?.id,
-        start: slot.start,
-        end: slot.end,
+        room: slot?.room?.id,
+        start: slot?.start,
+        end: slot?.end,
         language: answer.language,
         speakers: submission.speakers,
         zh: {
@@ -43,6 +47,12 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
 
   const speakers = Array.from(speakerIds, (id: Speaker['code']) => {
     const speaker = pretalxData.speakers.map[id]
+
+    if (!speaker) {
+      console.error(`Speaker with code ${id} not found in pretalx data.`)
+      return null
+    }
+
     const answer = parseAnswer(speaker.answers, pretalxData)
 
     return {
@@ -58,9 +68,16 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
       },
     }
   })
+    .filter((x): x is NonNullable<typeof x> => x !== null)
 
   const types = Array.from(typeIds, (id: SubmissionType['id']) => {
     const type = pretalxData['submission-types'].map[id]
+
+    if (!type) {
+      console.error(`Submission type with id ${id} not found in pretalx data.`)
+      return null
+    }
+
     return {
       id: type.id,
       zh: {
@@ -71,11 +88,18 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
       },
     }
   })
+    .filter((x): x is NonNullable<typeof x> => x !== null)
 
   const rooms = [...roomIds]
-    .filter(Boolean)
+    .filter((x): x is NonNullable<typeof x> => x !== null)
     .map((id: Room['id']) => {
       const room = pretalxData.rooms.map[id]
+
+      if (!room) {
+        console.error(`Room with id ${id} not found in pretalx data.`)
+        return null
+      }
+
       return {
         id: room.id,
         zh: {
@@ -86,6 +110,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
         },
       }
     })
+    .filter((x): x is NonNullable<typeof x> => x !== null)
 
   // TODO: tags
 

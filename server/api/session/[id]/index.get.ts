@@ -14,6 +14,13 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  if (submission.slots[0] === undefined) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: 'Slot not found',
+    })
+  }
+
   if (submission.state !== 'confirmed') {
     throw createError({
       statusCode: 404,
@@ -28,9 +35,9 @@ export default defineEventHandler(async (event) => {
 
   return {
     id: submission.code,
-    room: slot.room?.name,
-    start: slot.start,
-    end: slot.end,
+    room: slot?.room?.name,
+    start: slot?.start,
+    end: slot?.end,
     language: answers.language,
     speakers,
     zh: {

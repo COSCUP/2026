@@ -15,10 +15,7 @@ export async function fetchSheet<K extends keyof typeof SHEETS>(
 ): Promise<SheetResult<K>[]> {
   const { googleSheetId } = useRuntimeConfig()
   if (!googleSheetId) {
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Missing NUXT_GOOGLE_SHEET_ID environment variable',
-    })
+    throw createError('Missing NUXT_GOOGLE_SHEET_ID environment variable')
   }
 
   const sheet = SHEETS[sheetName]
