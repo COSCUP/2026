@@ -1,5 +1,5 @@
-import { pretalxToOpass } from '~~/server/utils/opass/pretalxToOpass'
-import pretalxData from '~~/server/utils/pretalx'
+import { pretalxToOpass } from '#server/utils/opass/pretalxToOpass'
+import pretalxData from '#server/utils/pretalx'
 
 export default defineEventHandler(async () => {
   const data = await pretalxData()
