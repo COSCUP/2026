@@ -39,7 +39,10 @@ export const SpeakerSchema = z.object({
   name: z.string(),
   biography: z.string().nullable().transform((value) => value ?? ''),
   answers: z.array(z.number()),
-  avatar_url: z.url(),
+  avatar_url: z.union([
+    z.url(),
+    z.literal(''),
+  ]).transform((value) => value || null),
 })
 
 export const RoomSchema = z.object({
