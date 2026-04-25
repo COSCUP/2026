@@ -1,4 +1,5 @@
 import type { z } from 'zod'
+import { SponsorListRowSchema } from '#shared/types/sponsor'
 import { SponsorshipAddOnSchema, SponsorshipTierSchema } from '#shared/types/sponsorship'
 import { parse } from 'csv-parse/sync'
 
@@ -6,6 +7,7 @@ const SHEETS = {
   sponsorshipTiers: { name: '贊助方案', schema: SponsorshipTierSchema },
   sponsorshipAddOnsZh: { name: '贊助方案加價購（中文）', schema: SponsorshipAddOnSchema },
   sponsorshipAddOnsEn: { name: '贊助方案加價購（英文）', schema: SponsorshipAddOnSchema },
+  sponsorList: { name: '贊助列表', schema: SponsorListRowSchema },
 }
 
 type SheetResult<K extends keyof typeof SHEETS> = z.infer<(typeof SHEETS)[K]['schema']>
