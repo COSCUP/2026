@@ -6,10 +6,7 @@ export default defineCachedFunction(
   async () => {
     const { pretalxApiUrl, pretalxApiToken } = useRuntimeConfig()
     if (!pretalxApiUrl || !pretalxApiToken) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: 'Missing NUXT_PRETALX_API_URL or NUXT_PRETALX_API_TOKEN environment variable',
-      })
+      throw createError('Missing NUXT_PRETALX_API_URL or NUXT_PRETALX_API_TOKEN environment variable')
     }
 
     const [submissions, submissionTypes, speakers, rooms, answers, slots] = await Promise.all([

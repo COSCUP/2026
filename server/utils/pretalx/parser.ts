@@ -60,19 +60,13 @@ export function parseSlot(slotId: Slot['id'], pretalxData: PretalxResult): (Omit
   const slot = slotMap[slotId]
 
   if (!slot) {
-    throw createError({
-      statusCode: 500,
-      statusMessage: `Slot not found: ${slotId}`,
-    })
+    throw createError(`Slot not found: ${slotId}`)
   }
 
   const roomId = slot.room
 
   if (!roomId) {
-    throw createError({
-      statusCode: 500,
-      statusMessage: `Slot not found: ${slotId}`,
-    })
+    throw createError(`Room not found for slot: ${slotId}`)
   }
 
   const room = roomMap[roomId]
@@ -87,10 +81,7 @@ export function parseSpeaker(speakerIds: Submission['speakers'], pretalxData: Pr
     const speaker = speakerMap[speakerId]
 
     if (!speaker) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: `Speaker not found: ${speakerId}`,
-      })
+      throw createError(`Speaker not found: ${speakerId}`)
     }
 
     const answer = parseAnswer(speaker.answers, pretalxData)
@@ -114,10 +105,7 @@ export function parseType(typeId: SubmissionType['id'], pretalxData: PretalxResu
   const typeMap = pretalxData['submission-types'].map
 
   if (!typeMap[typeId]) {
-    throw createError({
-      statusCode: 500,
-      statusMessage: `Submission type not found: ${typeId}`,
-    })
+    throw createError(`Submission type not found: ${typeId}`)
   }
 
   return typeMap[typeId]
