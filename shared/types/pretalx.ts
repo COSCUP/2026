@@ -26,6 +26,7 @@ export const SubmissionSchema = z.object({
   abstract: z.string().nullable().transform((value) => value ?? ''),
   slots: z.array(z.number()),
   answers: z.array(z.number()),
+  resources: z.array(z.number()),
 })
 
 export const SubmissionTypeSchema = z.object({
@@ -38,40 +39,19 @@ export const SpeakerSchema = z.object({
   name: z.string(),
   biography: z.string().nullable().transform((value) => value ?? ''),
   answers: z.array(z.number()),
-  avatar_url: z.string().nullable(),
+  avatar_url: z.url(),
 })
 
 export const RoomSchema = z.object({
   id: z.number(),
   name: PretalxLocaleSchema,
-  description: PretalxLocaleSchema,
+  description: PretalxLocaleSchema.nullable(),
 })
-
-const AnswerValueSchema = z
-  .union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    z.array(z.string()),
-    z.array(z.number()),
-    z.null(),
-  ])
-  .transform((value) => {
-    if (value === null) {
-      return ''
-    }
-
-    if (Array.isArray(value)) {
-      return value.join(', ')
-    }
-
-    return String(value)
-  })
 
 export const AnswerSchema = z.object({
   id: z.number(),
   question: z.number(),
-  answer: AnswerValueSchema,
+  answer: z.string(),
 })
 
 export const SlotSchema = z.object({
@@ -80,6 +60,9 @@ export const SlotSchema = z.object({
   start: z.string().nullable().transform((value) => value),
   end: z.string().nullable().transform((value) => value),
   duration: z.number(),
+  description: z.string().nullable().transform((value) => value),
+  submission: SubmissionSchema.shape.code,
+  schedule: z.number(),
 })
 
 export const PRETALX_TABLE_SCHEMAS = {
