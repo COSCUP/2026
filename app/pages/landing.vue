@@ -5,7 +5,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <div class="pa-4 text-center flex flex-col gap-4 min-h-screen items-center justify-center">
+  <div class="pa-4 text-center flex flex-col gap-4 items-center">
     <section class="prose">
       <h1 class="text-5xl text-cp-green">
         COSCUP 2026
