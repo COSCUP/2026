@@ -122,7 +122,7 @@ const communities = computed(() => tm('community.items') as CommunityItem[])
       </div>
     </div>
 
-    <div class="mx-auto mt-12 pt-6 border-t border-gray-100 flex flex-wrap gap-4 max-w-[1100px] items-center justify-between">
+    <div class="mx-auto mt-12 pt-6 border-t border-gray-100 flex flex-wrap gap-1 max-w-[1100px]">
       <div class="flex flex-wrap gap-1">
         <NuxtLink
           v-for="year in pastYears"
