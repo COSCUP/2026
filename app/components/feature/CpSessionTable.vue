@@ -17,8 +17,12 @@ const { locale } = useI18n()
 const { containerRef, isDragging } = useDragScroll({ vertical: false })
 
 function parseMinutes(isoStr: string) {
-  const d = new Date(isoStr)
-  return d.getHours() * 60 + d.getMinutes()
+  const match = isoStr.match(/T(\d{2}):(\d{2})/)
+  if (!match) {
+    throw new Error(`Invalid ISO time string: ${isoStr}`)
+  }
+  const [, hours, minutes] = match
+  return Number(hours) * 60 + Number(minutes)
 }
 
 const timeStart = computed(() => parseMinutes(`${day}T${timeRange[0]}+08:00`))
