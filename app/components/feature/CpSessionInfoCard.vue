@@ -152,7 +152,7 @@ en:
     co-write: Co-write
     room: Room
     speaker: Speaker
-    time: time
+    time: Time
 zh:
     abstract: 摘要
     room: 位置
