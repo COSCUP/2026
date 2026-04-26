@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 
-const { t, locales } = useI18n()
-const switchLocalePath = useSwitchLocalePath()
+const { t } = useI18n()
 </script>
 
 <template>
@@ -84,19 +83,6 @@ const switchLocalePath = useSwitchLocalePath()
           {{ t('call_for_participation.link_text') }}
         </NuxtLink>
       </p>
-    </section>
-    <section class="prose *:text-gray-500">
-      <template
-        v-for="(l, index) in locales"
-        :key="l.code"
-      >
-        <span v-if="index !== 0"> · </span>
-        <NuxtLink
-          :to="switchLocalePath(l.code)"
-        >
-          {{ l.name }}
-        </NuxtLink>
-      </template>
     </section>
   </div>
 </template>
