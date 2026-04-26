@@ -3,9 +3,9 @@ import { fetchSheet } from '../utils/sheets'
 function transformImageUrl(source: string) {
   if (source.startsWith('https://drive.google.com/file/d/')) {
     const id = source.split('/')[5]
-    const url = `https://drive.google.com/uc?export=download&id=${id}`
+    const url = `https://drive.google.com/thumbnail?id=${id}`
 
-    return `/api/img?url=${encodeURIComponent(url)}`
+    return url
   }
 
   return source

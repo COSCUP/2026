@@ -22,11 +22,11 @@ const shouldCollapse = computed(() => sponsor.intro[locale.value].length > 180)
       target="_blank"
       :to="sponsor.link"
     >
-      <img
+      <NuxtImg
         :alt="sponsor.name[locale]"
         class="h-full w-full object-contain"
         :src="sponsor.image"
-      >
+      />
     </NuxtLink>
 
     <div class="flex-1 min-w-0">
