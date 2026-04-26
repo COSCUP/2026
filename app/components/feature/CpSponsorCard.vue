@@ -6,11 +6,9 @@ const { sponsor } = defineProps<{
   sponsor: Sponsor
 }>()
 
-const { t, locale } = useI18n()
+const { locale, t } = useI18n()
 
-const expanded = ref(false)
-
-const shouldCollapse = computed(() => sponsor.intro[locale.value].length > 180)
+const needsExpand = computed(() => sponsor.intro[locale.value]?.length > 200)
 </script>
 
 <template>
@@ -42,21 +40,35 @@ const shouldCollapse = computed(() => sponsor.intro[locale.value].length > 180)
         </NuxtLink>
       </h3>
 
-      <p
-        class="text-sm text-primary-700 leading-7 mt-3 whitespace-pre-line"
-        :class="{ 'line-clamp-5': shouldCollapse && !expanded }"
-      >
-        {{ sponsor.intro[locale] }}
-      </p>
+      <template v-if="needsExpand">
+        <input
+          :id="`expand-${sponsor.id}`"
+          class="peer sr-only"
+          type="checkbox"
+        >
+        <p class="text-sm text-primary-700 leading-7 mt-3 text-left line-clamp-5 peer-checked:line-clamp-none">
+          <MDC :value="sponsor.intro[locale]" />
+        </p>
+        <label
+          class="text-xs text-primary-500 mt-1 block cursor-pointer hover:underline peer-checked:hidden"
+          :for="`expand-${sponsor.id}`"
+        >
+          {{ t('Read more') }}
+        </label>
+        <label
+          class="text-xs text-primary-500 mt-1 hidden cursor-pointer hover:underline peer-checked:block"
+          :for="`expand-${sponsor.id}`"
+        >
+          {{ t('Show less') }}
+        </label>
+      </template>
 
-      <button
-        v-if="shouldCollapse"
-        class="text-sm text-primary-400 font-600 mt-3 p-0 border-none bg-transparent"
-        type="button"
-        @click="expanded = !expanded"
+      <p
+        v-else
+        class="text-sm text-primary-700 leading-7 mt-3 text-left"
       >
-        {{ expanded ? t('Show less') : t('Read more') }}
-      </button>
+        <MDC :value="sponsor.intro[locale]" />
+      </p>
     </div>
   </article>
 </template>
