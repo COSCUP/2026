@@ -113,7 +113,6 @@ const sitemaps = computed(() => tm('sitemap.items') as CommunityItem[])
             <NuxtLink
               class="text-sm text-gray-600 transition-colors hover:text-cp-green"
               :href="rt(sitemap.url)"
-              target="_blank"
             >
               {{ rt(sitemap.name) }}
             </NuxtLink>
