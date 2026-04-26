@@ -3,14 +3,10 @@ import { useI18n } from 'vue-i18n'
 
 const { t, locales } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
-
-definePageMeta({
-  layout: 'empty',
-})
 </script>
 
 <template>
-  <div class="pa-4 text-center flex flex-col gap-4 min-h-screen items-center justify-center from-blue-50 to-white bg-gradient-to-b">
+  <div class="pa-4 text-center flex flex-col gap-4 min-h-screen items-center justify-center">
     <section class="prose">
       <h1 class="text-5xl text-cp-green">
         COSCUP 2026
