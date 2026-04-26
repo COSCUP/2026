@@ -28,6 +28,10 @@ export function useDragScroll({ horizontal = true, vertical = true }: UseDragScr
     dragState.scrollTop = containerRef.value.scrollTop
     isDragging.value = true
     suppressClick.value = false
+
+    window.addEventListener('pointermove', handlePointerMove)
+    window.addEventListener('pointerup', stopDragging)
+    window.addEventListener('pointercancel', stopDragging)
   }
 
   function handlePointerMove(event: PointerEvent) {
@@ -54,20 +58,16 @@ export function useDragScroll({ horizontal = true, vertical = true }: UseDragScr
   }
 
   function stopDragging(event?: PointerEvent) {
-    if (!containerRef.value) {
-      return
-    }
-
     if (event && event.pointerId !== dragState.pointerId) {
       return
     }
 
-    if (dragState.pointerId >= 0 && containerRef.value.hasPointerCapture(dragState.pointerId)) {
-      containerRef.value.releasePointerCapture(dragState.pointerId)
-    }
-
     dragState.pointerId = -1
     isDragging.value = false
+
+    window.removeEventListener('pointermove', handlePointerMove)
+    window.removeEventListener('pointerup', stopDragging)
+    window.removeEventListener('pointercancel', stopDragging)
   }
 
   function handleClickCapture(event: MouseEvent) {
@@ -91,19 +91,17 @@ export function useDragScroll({ horizontal = true, vertical = true }: UseDragScr
     }
 
     el.addEventListener('pointerdown', handlePointerDown)
-    el.addEventListener('pointermove', handlePointerMove)
-    el.addEventListener('pointerup', stopDragging)
-    el.addEventListener('pointercancel', stopDragging)
     el.addEventListener('click', handleClickCapture, { capture: true })
     el.addEventListener('dragstart', handleDragStart)
 
     onCleanup(() => {
       el.removeEventListener('pointerdown', handlePointerDown)
-      el.removeEventListener('pointermove', handlePointerMove)
-      el.removeEventListener('pointerup', stopDragging)
-      el.removeEventListener('pointercancel', stopDragging)
       el.removeEventListener('click', handleClickCapture, { capture: true })
       el.removeEventListener('dragstart', handleDragStart)
+      // Clean up window listeners in case drag was in progress
+      window.removeEventListener('pointermove', handlePointerMove)
+      window.removeEventListener('pointerup', stopDragging)
+      window.removeEventListener('pointercancel', stopDragging)
     })
   })
 
