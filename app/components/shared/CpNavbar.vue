@@ -79,6 +79,13 @@ function closeMenu() {
       </button>
     </div>
 
+    <!-- Mobile backdrop -->
+    <div
+      v-if="menuOpen"
+      class="bg-black/30 inset-0 top-16 fixed z-40 sm:hidden"
+      @click="closeMenu"
+    />
+
     <!-- Mobile dropdown -->
     <div
       v-if="menuOpen"
