@@ -142,7 +142,7 @@ const communities = computed(() => tm('community.items') as CommunityItem[])
 zh:
   sponsors: 贊助夥伴 Sponsors
   tagline: |
-   Conference for Open Source Coders, Users, and Promoters
+   Conference for Open Source Coders, Users, and Promoters \|
    亞洲最大開源年會，由社群自發舉辦。
   socials:
     - name: facebook
@@ -207,7 +207,7 @@ zh:
 en:
   sponsors: Sponsors
   tagline: |
-   Conference for Open Source Coders, Users, and Promoters
+   Conference for Open Source Coders, Users, and Promoters \|
    Asia's largest open source community conference.
   socials:
     - name: facebook
