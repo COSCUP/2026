@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import CpFooter from '~/components/shared/CpFooter.vue'
+
 const { locale, locales, defaultLocale, t } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 
@@ -64,6 +66,8 @@ const otherLocale = computed(() => {
     <main class="px-4 py-4">
       <slot />
     </main>
+
+    <CpFooter />
   </div>
 </template>
 
