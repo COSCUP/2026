@@ -1,5 +1,5 @@
 import type { PretalxResult, Room, Speaker, Submission, SubmissionType } from '#shared/types/pretalx'
-import { parseAnswer, parseSlot } from '~~/server/utils/pretalx/parser'
+import { parseAnswer, parseSlot } from '#server/utils/pretalx/parser'
 
 export function pretalxToOpass(pretalxData: PretalxResult) {
   const speakerIds: Set<Speaker['code']> = new Set()

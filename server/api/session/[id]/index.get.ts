@@ -1,5 +1,5 @@
-import pretalxData from '~~/server/utils/pretalx'
-import { parseAnswer, parseSlot, parseSpeaker, parseType } from '~~/server/utils/pretalx/parser'
+import pretalxData from '#server/utils/pretalx'
+import { parseAnswer, parseSlot, parseSpeaker, parseType } from '#server/utils/pretalx/parser'
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')!

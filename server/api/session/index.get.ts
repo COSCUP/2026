@@ -1,6 +1,7 @@
 import type { Submission } from '#shared/types/pretalx'
-import pretalxData from '~~/server/utils/pretalx'
-import { parseAnswer, parseSlot, parseSpeaker, parseType } from '~~/server/utils/pretalx/parser'
+import type { SessionSummary } from '#shared/types/session'
+import pretalxData from '#server/utils/pretalx'
+import { parseAnswer, parseSlot, parseSpeaker, parseType } from '#server/utils/pretalx/parser'
 
 export default defineEventHandler(async () => {
   const data = await pretalxData()
@@ -19,11 +20,15 @@ export default defineEventHandler(async () => {
       const speakers = parseSpeaker(submission.speakers, data)
       const type = parseType(submission.submission_type, data)
 
+      if (!slot || !slot.start || !slot.end || !slot.room) {
+        return null
+      }
+
       return {
         id: submission.code,
-        room: slot?.room?.name,
-        start: slot?.start,
-        end: slot?.end,
+        room: slot.room.name,
+        start: slot.start,
+        end: slot.end,
         language: answers.language,
         speakers,
         zh: {
@@ -40,5 +45,13 @@ export default defineEventHandler(async () => {
         uri: `https://coscup.org/2026/session/${submission.code}`,
       }
     })
-    .filter((x): x is NonNullable<typeof x> => x !== null)
+    .filter((session): session is NonNullable<typeof session> => session !== null)
+    .reduce((acc, session) => {
+      const day = session.start.slice(0, 10)
+      if (!acc[day]) {
+        acc[day] = []
+      }
+      acc[day].push(session)
+      return acc
+    }, {} as Record<string, SessionSummary[]>)
 })
