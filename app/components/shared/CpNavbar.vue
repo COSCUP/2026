@@ -14,10 +14,16 @@ const otherLocale = computed(() => {
   const defaultLocaleObject = locales.value.find((l) => l.code === defaultLocale)!
   return locales.value.find((l) => l.code !== locale.value) ?? defaultLocaleObject
 })
+
+const menuOpen = ref(false)
+
+function closeMenu() {
+  menuOpen.value = false
+}
 </script>
 
 <template>
-  <nav class="text-gray-700 px-3 py-1 border-b border-gray-300 flex h-16 justify-between *:h-full">
+  <nav class="text-gray-700 px-3 py-1 border-b border-gray-300 bg-white flex h-16 justify-between relative *:h-full">
     <div class="flex items-center">
       <NuxtPicture
         :alt="t('logo_alt')"
@@ -25,7 +31,9 @@ const otherLocale = computed(() => {
         src="/coscup_logo.png"
       />
     </div>
-    <ul class="flex gap-3 items-center justify-center">
+
+    <!-- Desktop menu -->
+    <ul class="gap-3 hidden items-center justify-center sm:flex">
       <li
         v-for="item in menu"
         :key="item.key"
@@ -43,7 +51,9 @@ const otherLocale = computed(() => {
         </NuxtLinkLocale>
       </li>
     </ul>
-    <div class="flex items-center">
+
+    <!-- Desktop locale switcher -->
+    <div class="hidden items-center sm:flex">
       <NuxtLink
         class="flex gap-1 items-center"
         :to="switchLocalePath(otherLocale.code)"
@@ -52,12 +62,65 @@ const otherLocale = computed(() => {
         {{ otherLocale.name }}
       </NuxtLink>
     </div>
+
+    <!-- Mobile hamburger button -->
+    <div class="flex items-center sm:hidden">
+      <button
+        :aria-expanded="menuOpen"
+        :aria-label="t('menu_toggle')"
+        class="p-2 rounded hover:bg-gray-100"
+        type="button"
+        @click="menuOpen = !menuOpen"
+      >
+        <Icon
+          :name="menuOpen ? 'tabler:x' : 'tabler:menu-2'"
+          size="24"
+        />
+      </button>
+    </div>
+
+    <!-- Mobile dropdown -->
+    <div
+      v-if="menuOpen"
+      class="border-b border-gray-300 bg-white h-max shadow-md left-0 right-0 top-16 absolute z-50 sm:hidden"
+    >
+      <ul class="py-2 flex flex-col">
+        <li
+          v-for="item in menu"
+          :key="item.key"
+        >
+          <NuxtLinkLocale
+            class="px-4 py-3 flex gap-1 items-center hover:bg-gray-50"
+            :external="item.external"
+            :to="item.path"
+            @click="closeMenu"
+          >
+            {{ t(`menu.${item.key}`) }}
+            <Icon
+              v-if="item.external"
+              name="tabler:external-link"
+            />
+          </NuxtLinkLocale>
+        </li>
+        <li class="mt-1 pt-1 border-t border-gray-200">
+          <NuxtLink
+            class="px-4 py-3 flex gap-1 items-center hover:bg-gray-50"
+            :to="switchLocalePath(otherLocale.code)"
+            @click="closeMenu"
+          >
+            <Icon name="tabler:world" />
+            {{ otherLocale.name }}
+          </NuxtLink>
+        </li>
+      </ul>
+    </div>
   </nav>
 </template>
 
 <i18n lang="yaml">
 en:
   logo_alt: "COSCUP 2026 Logo"
+  menu_toggle: "Toggle menu"
   menu:
     home: "Home"
     about: "About"
@@ -72,6 +135,7 @@ en:
     coc: "CoC"
 zh:
   logo_alt: "COSCUP 2026 標誌"
+  menu_toggle: "切換選單"
   menu:
     home: "首頁"
     about: "關於我們"
