@@ -17,7 +17,7 @@ const otherLocale = computed(() => {
 </script>
 
 <template>
-  <nav class="text-gray-700 px-3 py-1 bg-#f9f9f9 flex h-16 justify-between *:h-full">
+  <nav class="text-gray-700 px-3 py-1 border-b border-gray-300 flex h-16 justify-between *:h-full">
     <div class="flex items-center">
       <NuxtPicture
         :alt="t('logo_alt')"
