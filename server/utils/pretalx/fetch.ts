@@ -1,6 +1,6 @@
 import type { PretalxData, PretalxResponse, PretalxTable, TableTypeMap } from '#shared/types/pretalx'
-import { PRETALX_TABLE_SCHEMAS } from '#shared/types/pretalx'
 import { z } from 'zod'
+import { PRETALX_TABLE_SCHEMAS } from '#shared/types/pretalx'
 
 function parsePretalxResponse<T extends PretalxTable>(
   table: T,

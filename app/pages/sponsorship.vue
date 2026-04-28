@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { TIER_LEVELS } from '#shared/types/sponsorship'
 import { useI18n } from 'vue-i18n'
+import { TIER_LEVELS } from '#shared/types/sponsorship'
 import CpPopup from '~/components/shared/CpPopup.vue'
 import useLocaleContent from '~/composables/useLocaleContent'
 

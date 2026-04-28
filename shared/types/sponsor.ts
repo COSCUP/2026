@@ -1,5 +1,5 @@
-import { TIER_LEVELS } from '#shared/types/sponsorship'
 import { z } from 'zod'
+import { TIER_LEVELS } from '#shared/types/sponsorship'
 
 export const SPONSOR_LEVELS = [
   ...TIER_LEVELS,
