@@ -53,13 +53,13 @@ const needsExpand = computed(() => sponsor.intro[locale.value]?.length > 200)
           class="text-xs text-primary-500 mt-1 block cursor-pointer hover:underline peer-checked:hidden"
           :for="`expand-${sponsor.id}`"
         >
-          {{ t('Read more') }}
+          {{ t('read_more') }}
         </label>
         <label
           class="text-xs text-primary-500 mt-1 hidden cursor-pointer hover:underline peer-checked:block"
           :for="`expand-${sponsor.id}`"
         >
-          {{ t('Show less') }}
+          {{ t('show_less') }}
         </label>
       </template>
 
@@ -75,9 +75,9 @@ const needsExpand = computed(() => sponsor.intro[locale.value]?.length > 200)
 
 <i18n lang="yaml">
 zh:
-  Show less: "收合"
-  Read more: "更多"
+  show_less: "收合"
+  read_more: "更多"
 en:
-  Show less: "Show less"
-  Read more: "Read more"
+  show_less: "Show less"
+  read_more: "Read more"
 </i18n>
