@@ -34,7 +34,7 @@ const pastYears = Array.from(
 const socials = computed(() => tm('socials') as SocialItem[])
 const contacts = computed(() => tm('contact.items') as ContactItem[])
 const resources = computed(() => tm('resources.items') as ResourceItem[])
-const communities = computed(() => tm('community.items') as CommunityItem[])
+const sitemaps = computed(() => tm('sitemap.items') as CommunityItem[])
 </script>
 
 <template>
@@ -103,19 +103,18 @@ const communities = computed(() => tm('community.items') as CommunityItem[])
 
       <div>
         <h3 class="text-xs text-cp-green tracking-wider font-semibold mb-5 uppercase">
-          {{ t('community.title') }}
+          {{ t('sitemap.title') }}
         </h3>
         <ul class="space-y-3">
           <li
-            v-for="community in communities"
-            :key="rt(community.name)"
+            v-for="sitemap in sitemaps"
+            :key="rt(sitemap.name)"
           >
             <NuxtLink
               class="text-sm text-gray-600 transition-colors hover:text-cp-green"
-              :href="rt(community.url)"
-              target="_blank"
+              :href="rt(sitemap.url)"
             >
-              {{ rt(community.name) }}
+              {{ rt(sitemap.name) }}
             </NuxtLink>
           </li>
         </ul>
@@ -193,17 +192,15 @@ zh:
       - name: photos
         label: 活動照片
         url: https://www.flickr.com/photos/coscup/
-  community:
-    title: 社群連結
+  sitemap:
+    title: 網站導覽
     items:
-      - name: Facebook
-        url: https://www.facebook.com/coscup/
-      - name: X / Twitter
-        url: https://twitter.com/coscup
-      - name: Telegram
-        url: https://t.me/coscupchat
-      - name: Mastodon
-        url: https://floss.social/%40COSCUP
+      - name: 首頁
+        url: /
+      - name: 關於我們
+        url: /about
+      - name: 交通資訊
+        url: /transportation
 en:
   sponsors: Sponsors
   tagline: |
@@ -257,15 +254,13 @@ en:
       - name: photos
         label: Event Photos
         url: https://www.flickr.com/photos/coscup/
-  community:
-    title: Community
+  sitemap:
+    title: Sitemap
     items:
-      - name: Facebook
-        url: https://www.facebook.com/coscup/
-      - name: X / Twitter
-        url: https://twitter.com/coscup
-      - name: Telegram
-        url: https://t.me/coscupchat
-      - name: Mastodon
-        url: https://floss.social/%40COSCUP
+      - name: Home
+        url: /
+      - name: About
+        url: /about
+      - name: Transportation
+        url: /transportation
 </i18n>

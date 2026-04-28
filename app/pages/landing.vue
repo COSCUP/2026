@@ -1,16 +1,11 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 
-const { t, locales } = useI18n()
-const switchLocalePath = useSwitchLocalePath()
-
-definePageMeta({
-  layout: 'empty',
-})
+const { t } = useI18n()
 </script>
 
 <template>
-  <div class="pa-4 text-center flex flex-col gap-4 min-h-screen items-center justify-center from-blue-50 to-white bg-gradient-to-b">
+  <div class="pa-4 text-center flex flex-col gap-4 items-center">
     <section class="prose">
       <h1 class="text-5xl text-cp-green">
         COSCUP 2026
@@ -88,19 +83,6 @@ definePageMeta({
           {{ t('call_for_participation.link_text') }}
         </NuxtLink>
       </p>
-    </section>
-    <section class="prose *:text-gray-500">
-      <template
-        v-for="(l, index) in locales"
-        :key="l.code"
-      >
-        <span v-if="index !== 0"> · </span>
-        <NuxtLink
-          :to="switchLocalePath(l.code)"
-        >
-          {{ l.name }}
-        </NuxtLink>
-      </template>
     </section>
   </div>
 </template>
