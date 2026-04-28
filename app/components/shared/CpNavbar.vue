@@ -82,14 +82,14 @@ function closeMenu() {
     <!-- Mobile backdrop -->
     <div
       v-if="menuOpen"
-      class="bg-black/30 inset-0 top-16 fixed z-40 sm:hidden"
+      class="bg-black/30 inset-0 top-16 fixed z-1200 sm:hidden"
       @click="closeMenu"
     />
 
     <!-- Mobile dropdown -->
     <div
       v-if="menuOpen"
-      class="border-b border-gray-300 bg-white h-max shadow-md left-0 right-0 top-16 absolute z-50 sm:hidden"
+      class="border-b border-gray-300 bg-white h-max shadow-md left-0 right-0 top-16 absolute z-1500 sm:hidden"
     >
       <ul class="py-2 flex flex-col">
         <li
