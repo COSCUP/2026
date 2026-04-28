@@ -121,18 +121,16 @@ const sitemaps = computed(() => tm('sitemap.items') as CommunityItem[])
       </div>
     </div>
 
-    <div class="mx-auto mt-12 pt-6 border-t border-gray-100 flex flex-wrap gap-1 max-w-[1100px]">
-      <div class="flex flex-wrap gap-1">
-        <NuxtLink
-          v-for="year in pastYears"
-          :key="year"
-          class="text-xs text-gray-400 px-2 py-1 rounded transition-colors hover:text-cp-green hover:bg-cp-green/6"
-          :href="`https://coscup.org/${year}/`"
-          target="_blank"
-        >
-          {{ year }}
-        </NuxtLink>
-      </div>
+    <div class="mx-auto mt-12 pt-6 border-t border-gray-100 flex flex-wrap gap-1 max-w-[1100px] tabular-nums">
+      <NuxtLink
+        v-for="year in pastYears"
+        :key="year"
+        class="text-xs text-gray-400 px-2 py-1 rounded transition-colors hover:text-cp-green hover:bg-cp-green/6"
+        :href="`https://coscup.org/${year}/`"
+        target="_blank"
+      >
+        {{ year }}
+      </NuxtLink>
     </div>
   </footer>
 </template>
