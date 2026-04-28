@@ -1,7 +1,7 @@
 import type { z } from 'zod'
+import { parse } from 'csv-parse/sync'
 import { SponsorListRowSchema } from '#shared/types/sponsor'
 import { SponsorshipAddOnSchema, SponsorshipTierSchema } from '#shared/types/sponsorship'
-import { parse } from 'csv-parse/sync'
 
 const SHEETS = {
   sponsorshipTiers: { name: '贊助方案', schema: SponsorshipTierSchema },
