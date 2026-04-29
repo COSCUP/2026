@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import type { SessionSummary } from '#shared/types/session'
 import { useI18n } from 'vue-i18n'
 import CpSessionDaySelector from '~/components/feature/CpSessionDaySelector.vue'
 import CpSessionTable from '~/components/feature/CpSessionTable.vue'
 
 const { t } = useI18n()
 
-const { data } = await useFetch<Record<string, SessionSummary[]>>('/api/session')
+const { data } = await useFetch('/api/session')
 
 const days = computed(() => Object.keys(data?.value ?? {}).sort())
 
