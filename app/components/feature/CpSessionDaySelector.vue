@@ -1,8 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{
-  days: string[]
-  selectedDay?: string
-}>()
+const props = defineProps<{ days: string[] }>()
 
 const selectedDay = defineModel<string>()
 
