@@ -25,8 +25,8 @@ function parseMinutes(isoStr: string) {
   return Number(hours) * 60 + Number(minutes)
 }
 
-const timeStart = computed(() => parseMinutes(`${day}T${timeRange[0]}+08:00`))
-const timeEnd = computed(() => parseMinutes(`${day}T${timeRange[1]}+08:00`))
+const timeStart = computed(() => parseMinutes(`T${timeRange[0]}`))
+const timeEnd = computed(() => parseMinutes(`T${timeRange[1]}`))
 const totalGridRows = computed(() => Math.round((timeEnd.value - timeStart.value) / interval))
 
 function formatTime(minutes: number) {
