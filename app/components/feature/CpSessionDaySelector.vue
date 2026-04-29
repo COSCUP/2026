@@ -25,10 +25,8 @@ const activeDay = computed(() => selectedDay.value ?? props.days[0] ?? '')
       <button
         v-for="day in days"
         :key="day"
-        class="text-2xl text-white font-bold px-8 py-2 border-3 rounded-full min-w-34 cursor-pointer italic shadow-[0_4px_0_0_var(--un-shadow-color)] transition-colors"
-        :class="day === activeDay
-          ? 'border-primary-700 bg-primary-400 shadow-primary-700'
-          : 'border-primary-700 bg-gray-200 shadow-primary-700'"
+        class="text-2xl text-white font-bold px-8 py-2 border-3 border-primary-700 rounded-full min-w-34 cursor-pointer italic shadow-[0_4px_0_0_var(--un-shadow-color)] shadow-primary-700 transition-colors"
+        :class="day === activeDay ? 'bg-primary-400' : 'bg-gray-200'"
         type="button"
         @click="selectedDay = day"
       >
