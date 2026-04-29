@@ -54,7 +54,7 @@ const rooms = computed(() => {
 const timeLabels = computed(() => {
   const labels: { label: string, row: number }[] = []
   let m = Math.ceil(timeStart.value / 30) * 30
-  while (m <= timeEnd.value) {
+  while (m < timeEnd.value) {
     labels.push({ label: formatTime(m), row: toRow(m) })
     m += 30
   }
