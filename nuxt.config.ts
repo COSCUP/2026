@@ -18,6 +18,12 @@ export default defineNuxtConfig({
     output: {
       publicDir: process.env.NUXT_OUTPUT_DIR || '.output/public',
     },
+
+    storage: {
+      cache: {
+        driver: 'fs',
+      },
+    },
   },
 
   imports: {
