@@ -1,6 +1,6 @@
-import type { SheetID } from '~~/shared/types/sheets'
+import type { SheetID } from '#shared/types/sheets'
 import { z } from 'zod'
-import { SHEET_SCHEMAS } from '~~/shared/types/sheets'
+import { SHEET_SCHEMAS } from '#shared/types/sheets'
 
 type SheetResult<K extends SheetID> = z.infer<(typeof SHEET_SCHEMAS)[K]>
 

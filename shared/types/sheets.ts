@@ -1,4 +1,4 @@
-import type z from 'zod'
+import type * as z from 'zod'
 import { SponsorListRowSchema } from './sponsor'
 import { SponsorshipAddOnSchema, SponsorshipTierSchema } from './sponsorship'
 

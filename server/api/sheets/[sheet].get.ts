@@ -1,6 +1,6 @@
 import { parse } from 'csv-parse/sync'
 import * as z from 'zod'
-import { SHEET_IDS, SHEET_NAMES } from '~~/shared/types/sheets'
+import { SHEET_IDS, SHEET_NAMES } from '#shared/types/sheets'
 
 const requestSchema = z.object({
   sheet: z.enum(SHEET_IDS),
