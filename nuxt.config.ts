@@ -3,7 +3,7 @@ import { defineNuxtConfig } from 'nuxt/config'
 const YEAR = '2026'
 const TITLE = 'COSCUP 2026 x UbuCon Asia'
 const DESC = 'Conference for Open Source Coders, Users, and Promoters is a free annual conference providing a platform to connect FLOSS folks across Asia since 2006. It\'s a major force of free software movement advocacy in Taiwan.'
-const URL = `https://coscup.org/${YEAR}`
+const URL = `https://coscup.org/${YEAR}/`
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
