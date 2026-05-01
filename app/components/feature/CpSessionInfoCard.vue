@@ -129,7 +129,7 @@ const speakerNames = computed(() =>
               </div>
             </div>
             <div>
-              <h3 class="text-font-bold text-lg text-gray-700">
+              <h3 class="text-lg text-gray-700 font-bold">
                 {{ speaker.name }}
               </h3>
             </div>
