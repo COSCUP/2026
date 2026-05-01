@@ -18,6 +18,7 @@ const selectedDay = computed({
 
 <template>
   <main>
+    <NuxtPage />
     <template v-if="selectedDay">
       <CpSessionDaySelector
         v-model="selectedDay"
