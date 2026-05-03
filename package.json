@@ -24,12 +24,12 @@
     "csv-parse": "6.2.1",
     "eslint": "10.2.1",
     "leaflet": "1.9.4",
-    "nuxt": "4.4.2",
+    "nuxt": "4.4.4",
     "nuxt-gtag": "4.1.0",
-    "ufo": "1.6.3",
+    "ufo": "1.6.4",
     "vue": "3.5.33",
     "vue-router": "5.0.6",
-    "zod": "4.3.6"
+    "zod": "4.4.1"
   },
   "devDependencies": {
     "@antfu/eslint-config": "8.2.0",
