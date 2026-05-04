@@ -67,6 +67,7 @@ export default defineNuxtConfig({
     pretalxApiToken: '',
     pretalxApiUrl: '',
     googleSheetId: '',
+    coscupBaseUrl: 'https://coscup.org/2026',
   },
 
   gtag: {
