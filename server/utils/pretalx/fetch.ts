@@ -1,26 +1,31 @@
-import type { PretalxData, PretalxTable, TableTypeMap } from '#shared/types/pretalx'
-import { z } from 'zod'
-import { PRETALX_TABLE_SCHEMAS } from '#shared/types/pretalx'
+import type { PretalxData } from '#shared/types/pretalx'
 
-function getPretalxItemKey<T extends PretalxTable>(item: TableTypeMap[T]): string | number {
-  if ('code' in item) {
-    return item.code
-  }
-
-  return item.id
+export async function fetchSubmissions(): Promise<PretalxData<'submissions'>> {
+  const arr = await $fetch('/api/pretalx/submissions')
+  return { arr, map: Object.fromEntries(arr.map((s) => [s.code, s])) }
 }
 
-export async function fetchPretalxTable<T extends PretalxTable>(
-  table: T,
-): Promise<PretalxData<T>> {
-  const tableSchema = PRETALX_TABLE_SCHEMAS[table]
-  if (!tableSchema) {
-    throw new Error(`Unknown table: ${table}`)
-  }
+export async function fetchSpeakers(): Promise<PretalxData<'speakers'>> {
+  const arr = await $fetch('/api/pretalx/speakers')
+  return { arr, map: Object.fromEntries(arr.map((s) => [s.code, s])) }
+}
 
-  const content = await $fetch(`/api/pretalx/${table}`)
-  const parsed = z.array(tableSchema).parse(content) as TableTypeMap[T][]
-  const map = Object.fromEntries(parsed.map((item) => [getPretalxItemKey(item), item]))
+export async function fetchSubmissionTypes(): Promise<PretalxData<'submission-types'>> {
+  const arr = await $fetch('/api/pretalx/submission-types')
+  return { arr, map: Object.fromEntries(arr.map((t) => [t.id, t])) }
+}
 
-  return { arr: parsed, map }
+export async function fetchRooms(): Promise<PretalxData<'rooms'>> {
+  const arr = await $fetch('/api/pretalx/rooms')
+  return { arr, map: Object.fromEntries(arr.map((r) => [r.id, r])) }
+}
+
+export async function fetchAnswers(): Promise<PretalxData<'answers'>> {
+  const arr = await $fetch('/api/pretalx/answers')
+  return { arr, map: Object.fromEntries(arr.map((a) => [a.id, a])) }
+}
+
+export async function fetchSlots(): Promise<PretalxData<'slots'>> {
+  const arr = await $fetch('/api/pretalx/slots')
+  return { arr, map: Object.fromEntries(arr.map((s) => [s.id, s])) }
 }

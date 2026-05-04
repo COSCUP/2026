@@ -1,15 +1,14 @@
 import type { PretalxResult } from '#shared/types/pretalx'
-
-import { fetchPretalxTable } from './fetch'
+import { fetchAnswers, fetchRooms, fetchSlots, fetchSpeakers, fetchSubmissions, fetchSubmissionTypes } from './fetch'
 
 export default async () => {
   const [submissions, submissionTypes, speakers, rooms, answers, slots] = await Promise.all([
-    fetchPretalxTable('submissions'),
-    fetchPretalxTable('submission-types'),
-    fetchPretalxTable('speakers'),
-    fetchPretalxTable('rooms'),
-    fetchPretalxTable('answers'),
-    fetchPretalxTable('slots'),
+    fetchSubmissions(),
+    fetchSubmissionTypes(),
+    fetchSpeakers(),
+    fetchRooms(),
+    fetchAnswers(),
+    fetchSlots(),
   ])
 
   return {

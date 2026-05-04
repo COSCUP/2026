@@ -1,9 +1,13 @@
+import * as z from 'zod'
 import pretalxData from '#server/utils/pretalx'
 import { parseAnswer, parseSlot, parseSpeaker, parseType } from '#server/utils/pretalx/parser'
 
-export default defineEventHandler(async (event) => {
-  const id = getRouterParam(event, 'id')!
+const requestSchema = z.object({
+  id: z.string(),
+})
 
+export default defineEventHandler(async (event) => {
+  const { id } = await getValidatedRouterParams(event, requestSchema.parse)
   const data = await pretalxData()
   const submission = data.submissions?.map[id]
 
@@ -18,13 +22,6 @@ export default defineEventHandler(async (event) => {
     throw createError({
       statusCode: 404,
       statusMessage: 'Slot not found',
-    })
-  }
-
-  if (submission.state !== 'confirmed') {
-    throw createError({
-      statusCode: 404,
-      statusMessage: 'Not Found',
     })
   }
 

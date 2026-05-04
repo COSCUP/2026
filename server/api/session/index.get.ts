@@ -9,7 +9,6 @@ export default defineEventHandler(async () => {
   const submissions = data.submissions?.arr || []
 
   return submissions
-    .filter((submission: Submission) => submission.state === 'confirmed')
     .map((submission: Submission) => {
       if (!submission.slots[0]) {
         return null
