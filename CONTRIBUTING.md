@@ -60,3 +60,13 @@ Use **UnoCSS** classes (Tailwind Wind4 preset). Do not use Tailwind CSS directly
 ## Server API
 
 Nitro server routes live in `server/api/`. External API responses should be cached using `defineCachedFunction`. Shared request/response types go in `shared/types/` as Zod schemas.
+
+## Review Process
+
+- Anyone can review a PR
+- PRs must be merged by the project leader
+- No issue is required to open a PR, but link it to a related issue if one exists
+- PRs should include a clear description of the change and its purpose
+- Updating a branch from the base branch: prefer rebase, but use merge if the branch contains commits from other contributors (rebase rewrites authorship) or if there are conflicts
+- AI review comments should be addressed and resolved by the PR author
+- Human review comments should be resolved by the reviewer
