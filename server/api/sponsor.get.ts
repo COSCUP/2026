@@ -12,7 +12,7 @@ function transformImageUrl(source: string) {
 }
 
 export default defineEventHandler(async () => {
-  const sheets = await fetchSheet('sponsorList')
+  const sheets = await fetchSheet('sponsor-list')
 
   const sponsors = import.meta.dev
     ? sheets

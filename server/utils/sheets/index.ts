@@ -1,28 +1,14 @@
-import type { z } from 'zod'
-import { parse } from 'csv-parse/sync'
-import { SponsorListRowSchema } from '#shared/types/sponsor'
-import { SponsorshipAddOnSchema, SponsorshipTierSchema } from '#shared/types/sponsorship'
+import type { SheetID } from '#shared/types/sheets'
+import { z } from 'zod'
+import { SHEET_SCHEMAS } from '#shared/types/sheets'
 
-const SHEETS = {
-  sponsorshipTiers: { name: '贊助方案', schema: SponsorshipTierSchema },
-  sponsorshipAddOnsZh: { name: '贊助方案加價購（中文）', schema: SponsorshipAddOnSchema },
-  sponsorshipAddOnsEn: { name: '贊助方案加價購（英文）', schema: SponsorshipAddOnSchema },
-  sponsorList: { name: '贊助列表', schema: SponsorListRowSchema },
-}
+type SheetResult<K extends SheetID> = z.infer<(typeof SHEET_SCHEMAS)[K]>
 
-type SheetResult<K extends keyof typeof SHEETS> = z.infer<(typeof SHEETS)[K]['schema']>
-
-export async function fetchSheet<K extends keyof typeof SHEETS>(
-  sheetName: K,
+export async function fetchSheet<K extends SheetID>(
+  sheetID: K,
 ): Promise<SheetResult<K>[]> {
-  const { googleSheetId } = useRuntimeConfig()
-  if (!googleSheetId) {
-    throw createError('Missing NUXT_GOOGLE_SHEET_ID environment variable')
-  }
+  const records = await $fetch(`/api/sheets/${sheetID}`)
+  const recordsSchema = z.array(SHEET_SCHEMAS[sheetID])
 
-  const sheet = SHEETS[sheetName]
-  const url = `https://docs.google.com/spreadsheets/d/${googleSheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheet.name)}`
-  const csv = await $fetch<string>(url, { responseType: 'text' })
-  const records = parse(csv, { columns: true, skip_empty_lines: true })
-  return records.map((row) => sheet.schema.parse(row)) as SheetResult<K>[]
+  return recordsSchema.parse(records)
 }

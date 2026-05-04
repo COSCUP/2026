@@ -1,5 +1,5 @@
 export default defineEventHandler(async () => {
-  const sheet = await fetchSheet('sponsorshipTiers')
+  const sheet = await fetchSheet('sponsorship-tiers')
 
   return sheet.map(({
     level,

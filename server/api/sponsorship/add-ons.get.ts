@@ -1,7 +1,7 @@
 export default defineEventHandler(async () => {
   const [addOnsZh, addOnsEn] = await Promise.all([
-    fetchSheet('sponsorshipAddOnsZh'),
-    fetchSheet('sponsorshipAddOnsEn'),
+    fetchSheet('sponsorship-add-ons-zh'),
+    fetchSheet('sponsorship-add-ons-en'),
   ])
 
   return addOnsZh.map((zh, index) => {
