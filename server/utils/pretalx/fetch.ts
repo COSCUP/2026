@@ -1,6 +1,6 @@
 import type { PretalxData } from '#shared/types/pretalx'
 
-function pretalxFetchOptions(): { baseURL: string } | Record<never, never> {
+function pretalxFetchOptions(): { baseURL?: string } {
   const { pretalxApiToken, pretalxApiUrl, coscupBaseUrl } = useRuntimeConfig()
   if (pretalxApiToken && pretalxApiUrl) {
     return {}
