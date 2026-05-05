@@ -46,9 +46,10 @@ const needsExpand = computed(() => sponsor.intro[locale.value]?.length > 200)
           class="peer sr-only"
           type="checkbox"
         >
-        <p class="text-sm text-primary-700 leading-7 mt-3 text-left line-clamp-5 peer-checked:line-clamp-none">
-          <MDC :value="sponsor.intro[locale]" />
-        </p>
+        <MDC
+          class="text-sm text-primary-700 leading-7 mt-3 text-left line-clamp-5 peer-checked:line-clamp-none"
+          :value="sponsor.intro[locale]"
+        />
         <label
           class="text-xs text-primary-500 mt-1 block cursor-pointer hover:underline peer-checked:hidden"
           :for="`expand-${sponsor.id}`"
@@ -63,12 +64,11 @@ const needsExpand = computed(() => sponsor.intro[locale.value]?.length > 200)
         </label>
       </template>
 
-      <p
+      <MDC
         v-else
         class="text-sm text-primary-700 leading-7 mt-3 text-left"
-      >
-        <MDC :value="sponsor.intro[locale]" />
-      </p>
+        :value="sponsor.intro[locale]"
+      />
     </div>
   </article>
 </template>
