@@ -17,7 +17,6 @@ export default defineNuxtConfig({
       titleTemplate: `%s | ${TITLE}`,
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/2026/favicon.svg' },
-        { rel: 'canonical', href: URL },
       ],
       meta: [
         { name: 'title', content: TITLE },
@@ -114,6 +113,7 @@ export default defineNuxtConfig({
     pretalxApiToken: '',
     pretalxApiUrl: '',
     googleSheetId: '',
+    baseUrl: URL,
   },
 
   gtag: {
