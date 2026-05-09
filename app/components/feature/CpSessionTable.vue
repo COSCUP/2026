@@ -130,7 +130,7 @@ const sessions = computed(() => {
       <div
         class="text-xs text-gray-400 pr-2 pt-0.5 text-right border-t border-gray-100 bg-gray-50 flex items-start justify-center"
         :style="{
-          'grid-row': `${label.row} / ${label.row + 6}`,
+          'grid-row': `${label.row} / ${label.row + 30 / interval}`,
           'grid-column': 1,
         }"
       >
