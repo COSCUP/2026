@@ -13,6 +13,8 @@ export default defineNuxtConfig({
   app: {
     baseURL: '/2026/',
     head: {
+      title: TITLE,
+      titleTemplate: `%s | ${TITLE}`,
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/2026/favicon.svg' },
         { rel: 'canonical', href: URL },
@@ -25,10 +27,12 @@ export default defineNuxtConfig({
         { property: 'og:url', content: URL },
         { property: 'og:site_name', content: TITLE },
         { property: 'og:type', content: 'website' },
-        { property: 'twitter:card', content: 'summary_large_image' },
-        { property: 'twitter:title', content: TITLE },
-        { property: 'twitter:description', content: DESC },
-        { property: 'twitter:site', content: '@coscup' },
+        { property: 'og:image', content: `${URL}coscup_logo.png` },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: TITLE },
+        { name: 'twitter:description', content: DESC },
+        { name: 'twitter:site', content: '@coscup' },
+        { name: 'twitter:image', content: `${URL}coscup_logo.png` },
       ],
       script: [
         {
