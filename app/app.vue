@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { prerenderRoutes } from 'nuxt/app'
-import { useSecretFeature } from '~/composables/useSecretFeature'
+import { useSecretFeature } from '~/secrets/useSecretFeature'
 
 prerenderRoutes(['/api/opass.json'])
 useSecretFeature()
