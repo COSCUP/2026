@@ -7,15 +7,13 @@ const { t } = useI18n()
 
 const { data } = await useFetch('/api/session')
 
+const manualSelectedDay = ref<string | null>(null)
 const days = computed(() => Object.keys(data?.value ?? {}).sort())
 
-const selectedDay = ref<string | null>(null)
-
-watch(days, (newDays) => {
-  if (selectedDay.value === null && newDays.length > 0) {
-    selectedDay.value = newDays[0]!
-  }
-}, { immediate: true })
+const selectedDay = computed({
+  get: () => manualSelectedDay.value ?? days.value[0] ?? null,
+  set: (value) => void (manualSelectedDay.value = value),
+})
 </script>
 
 <template>
