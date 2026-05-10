@@ -1,12 +1,17 @@
 <script setup lang="ts">
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import { prerenderRoutes } from 'nuxt/app'
 import { useI18n } from 'vue-i18n'
 import CpSessionDaySelector from '~/components/feature/CpSessionDaySelector.vue'
+import CpSessionList from '~/components/feature/CpSessionList.vue'
 import CpSessionTable from '~/components/feature/CpSessionTable.vue'
 
 const { t } = useI18n()
 
+const breakpoints = useBreakpoints(breakpointsTailwind)
+
 const { data } = await useFetch('/api/session')
+const isMobile = breakpoints.smaller('sm')
 
 const manualSelectedDay = ref<string | null>(null)
 const days = computed(() => Object.keys(data?.value ?? {}).sort())
@@ -27,17 +32,31 @@ prerenderRoutes(
   <main v-if="selectedDay">
     <NuxtPage />
 
-    <CpSessionDaySelector
-      v-model="selectedDay"
-      :days="days"
-    />
-    <CpSessionTable
-      :day="selectedDay"
-      :interval="5"
-      :row-height="50"
-      :sessions="data?.[selectedDay] ?? []"
-      :time-range="['09:00', '17:30']"
-    />
+    <ClientOnly>
+      <div
+        class="flex"
+        :class="isMobile ? 'flex-col-reverse' : 'flex-col'"
+      >
+        <CpSessionDaySelector
+          v-model="selectedDay"
+          class="bottom-0 sticky z-10"
+          :days="days"
+        />
+
+        <CpSessionList
+          v-if="isMobile"
+          :sessions="data?.[selectedDay] ?? []"
+        />
+        <CpSessionTable
+          v-else
+          :day="selectedDay"
+          :interval="5"
+          :row-height="50"
+          :sessions="data?.[selectedDay] ?? []"
+          :time-range="['09:00', '17:30']"
+        />
+      </div>
+    </ClientOnly>
 
     <p v-if="!data?.[selectedDay]">
       {{ t('noSession') }}
