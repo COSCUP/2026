@@ -49,7 +49,7 @@ prerenderRoutes(
       />
     </div>
 
-    <p v-if="!data?.[selectedDay]">
+    <p v-if="!data?.[selectedDay]?.length">
       {{ t('noSession') }}
     </p>
   </main>
