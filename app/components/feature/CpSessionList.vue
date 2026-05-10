@@ -35,7 +35,7 @@ const times = Object.keys(sessions.value).sort()
       v-for="time in times"
       :key="time"
     >
-      <h3 class="text-lg text-primary-400 font-medium mb-2">
+      <h3 class="text-lg text-primary-400 font-medium mb-2 py-1 bg-white top-0 sticky z-1">
         {{ time }}
       </h3>
       <div class="flex flex-col gap-2">
