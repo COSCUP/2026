@@ -7,7 +7,7 @@ const { sessions: _sessions } = defineProps<{ sessions: SessionSummary[] }>()
 
 const { locale } = useI18n()
 
-const times = computed(() => {
+const sessions = computed(() => {
   if (!_sessions) {
     return {}
   }
@@ -25,12 +25,14 @@ const times = computed(() => {
     (session) => session.start,
   )
 })
+
+const times = Object.keys(sessions.value).sort()
 </script>
 
 <template>
   <div class="flex flex-col gap-6">
     <section
-      v-for="(sess, time) in times"
+      v-for="time in times"
       :key="time"
     >
       <h3 class="text-lg text-primary-400 font-medium mb-2">
@@ -38,7 +40,7 @@ const times = computed(() => {
       </h3>
       <div class="flex flex-col gap-2">
         <NuxtLink
-          v-for="session in sess"
+          v-for="session in sessions[time]"
           :key="session.id"
           :to="`/session/${session.id}`"
         >
