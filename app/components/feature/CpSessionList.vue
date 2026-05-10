@@ -14,7 +14,7 @@ const times = computed(() => {
 
   return Object.groupBy(
     _sessions
-      .filter((session) => session.start && session.room).map((session) => ({
+      .filter((session) => session.start && session.end && session.room).map((session) => ({
         id: session.id,
         title: session[locale.value].title,
         speakers: session.speakers?.map((s) => s[locale.value].name).join(', '),
