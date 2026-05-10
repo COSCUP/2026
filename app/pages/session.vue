@@ -24,22 +24,27 @@ prerenderRoutes(
 </script>
 
 <template>
-  <main>
+  <main v-if="selectedDay">
     <NuxtPage />
-    <template v-if="selectedDay">
-      <CpSessionDaySelector
-        v-model="selectedDay"
-        :days="days"
-      />
-      <CpSessionTable
-        :day="selectedDay"
-        :interval="5"
-        :row-height="50"
-        :sessions="data?.[selectedDay] ?? []"
-        :time-range="['09:00', '17:30']"
-      />
-    </template>
-    <p v-else>
+
+    <CpSessionDaySelector
+      v-model="selectedDay"
+      :days="days"
+    />
+    <CpSessionTable
+      :day="selectedDay"
+      :interval="5"
+      :row-height="50"
+      :sessions="data?.[selectedDay] ?? []"
+      :time-range="['09:00', '17:30']"
+    />
+
+    <p v-if="!data?.[selectedDay]">
+      {{ t('noSession') }}
+    </p>
+  </main>
+  <main v-else>
+    <p>
       {{ t('noSession') }}
     </p>
   </main>
