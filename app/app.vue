@@ -12,6 +12,9 @@ useHead({
   link: [
     { rel: 'canonical', href: canonicalUrl },
   ],
+  meta: [
+    { property: 'og:url', content: canonicalUrl },
+  ],
 })
 </script>
 

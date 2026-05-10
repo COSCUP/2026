@@ -4,7 +4,7 @@ const YEAR = '2026'
 const TITLE = 'COSCUP 2026 x UbuCon Asia'
 const TITLE_ZH = '開源人年會 2026 x UbuCon Asia'
 const DESC = 'Conference for Open Source Coders, Users, and Promoters is a free annual conference providing a platform to connect FLOSS folks across Asia since 2006. It\'s a major force of free software movement advocacy in Taiwan.'
-const URL = `https://coscup.org/${YEAR}/`
+const URL = `https://coscup.org/${YEAR}`
 
 const EVENT_COMMON = {
   startDate: '2026-08-08T09:00:00+08:00',
@@ -38,7 +38,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   app: {
-    baseURL: '/2026/',
+    baseURL: '/2026',
     head: {
       title: TITLE,
       titleTemplate: `%s | ${TITLE}`,
@@ -50,15 +50,14 @@ export default defineNuxtConfig({
         { name: 'description', content: DESC },
         { property: 'og:title', content: TITLE },
         { property: 'og:description', content: DESC },
-        { property: 'og:url', content: URL },
         { property: 'og:site_name', content: TITLE },
         { property: 'og:type', content: 'website' },
-        { property: 'og:image', content: `${URL}coscup_logo.png` },
+        { property: 'og:image', content: `${URL}/coscup_logo.png` },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: TITLE },
         { name: 'twitter:description', content: DESC },
         { name: 'twitter:site', content: '@coscup' },
-        { name: 'twitter:image', content: `${URL}coscup_logo.png` },
+        { name: 'twitter:image', content: `${URL}/coscup_logo.png` },
       ],
       script: [
         {
@@ -72,7 +71,7 @@ export default defineNuxtConfig({
             'url': URL,
             ...EVENT_COMMON,
             'isAccessibleForFree': true,
-            'image': [`${URL}coscup_logo.png`],
+            'image': [`${URL}/coscup_logo.png`],
             'organizer': {
               '@type': 'Organization',
               'name': 'COSCUP',
