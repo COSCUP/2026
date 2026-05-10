@@ -9,7 +9,7 @@ const { locale } = useI18n()
 
 const times = computed(() => {
   if (!_sessions) {
-    return []
+    return {}
   }
 
   return Object.groupBy(
