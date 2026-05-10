@@ -46,7 +46,6 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/x-icon', href: '/2026/favicon.svg' },
       ],
       meta: [
-        { name: 'title', content: TITLE },
         { name: 'description', content: DESC },
         { property: 'og:title', content: TITLE },
         { property: 'og:description', content: DESC },
