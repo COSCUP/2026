@@ -1,20 +1,13 @@
 import type { Collections } from '@nuxt/content'
 import { withLeadingSlash, withoutTrailingSlash } from 'ufo'
 
-function normalizeContentPath(path: string) {
-  if (!path || path === '/') {
-    return '/'
-  }
-
-  return withoutTrailingSlash(withLeadingSlash(path))
-}
-
 export default async function useLocaleContent(
-  path: MaybeRefOrGetter<string>,
+  _path: MaybeRefOrGetter<string>,
   locale: Ref<string>,
   defaultLocale: string,
 ) {
-  const normalizedPath = computed(() => normalizeContentPath(toValue(path)))
+  const path = toValue(_path)
+  const normalizedPath = computed(() => withoutTrailingSlash(withLeadingSlash(path)))
   const asyncDataKey = `page-${locale.value}-${normalizedPath.value}`
 
   const { data: content } = await useAsyncData(asyncDataKey, async () => {
