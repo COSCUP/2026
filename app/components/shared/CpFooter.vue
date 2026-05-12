@@ -256,9 +256,9 @@ en:
     title: Sitemap
     items:
       - name: Home
-        url: /
+        url: /en
       - name: About
-        url: /about
+        url: /en/about
       - name: Transportation
-        url: /transportation
+        url: /en/transportation
 </i18n>
