@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { onClickOutside } from '@vueuse/core'
+import { onClickOutside, useToggle } from '@vueuse/core'
 import { ref } from 'vue'
-import useToggle from '~/composables/useToggle'
 
-const { isOpen, close, toggle } = useToggle()
+const [isOpen, toggle] = useToggle()
+const close = () => toggle(false)
 const target = ref(null)
 
 onClickOutside(target, close)
@@ -18,7 +18,7 @@ onClickOutside(target, close)
       class="cursor-pointer"
       :is-open="isOpen"
       name="trigger"
-      @click="toggle"
+      @click="() => toggle()"
     />
 
     <Teleport to="body">
