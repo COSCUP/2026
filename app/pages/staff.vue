@@ -1,0 +1,79 @@
+<script setup lang="ts">
+import type { StaffGroup } from '#shared/types/staff'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const { data: staffGroups } = await useFetch<StaffGroup[]>('/api/staff')
+const noStaff = computed(() => !staffGroups.value || staffGroups.value.length === 0)
+</script>
+
+<template>
+  <div class="mx-auto my-8 max-w-[80vw] w-[1200px]">
+    <section v-if="noStaff">
+      <p class="text-primary-500 mt-8 text-center">
+        {{ t('noStaff') }}
+      </p>
+    </section>
+
+    <section v-else>
+      <div
+        v-for="{ group, members } in staffGroups"
+        :key="group"
+        class="mb-16"
+      >
+        <h2 class="text-2xl text-gray-900 font-semibold mb-6">
+          {{ t(`group.${group}`) }}
+        </h2>
+        <ul class="gap-6 grid grid-cols-3 justify-items-center md:grid-cols-[repeat(auto-fill,minmax(7.5rem,1fr))]">
+          <li
+            v-for="member in members"
+            :key="member.hash"
+            class="flex flex-col gap-2 max-w-30 w-full"
+          >
+            <div class="rounded-full aspect-square ring-4 ring-gray-200 overflow-hidden">
+              <img
+                :alt="member.name"
+                :src="member.avatar"
+              >
+            </div>
+            <span class="text-gray-900 text-center">{{ member.name }}</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</template>
+
+<i18n lang="yaml">
+zh:
+  noStaff: 工作人員目前尚未公布
+  group:
+    coordinator: 總召組
+    secretary: 行政組
+    program: 議程組
+    sponsorship: 贊助組
+    engagement: 交流組
+    pr: 公關組
+    it: 資訊組
+    design: 設計組
+    documentary: 紀錄組
+    finance: 財務組
+    service: 場務組
+    production: 製播組
+en:
+  noStaff: The staff list has not been announced yet.
+  group:
+    coordinator: General Coordinator
+    secretary: Secretary Team
+    program: Program Team
+    sponsorship: Sponsorship
+    engagement: Engagement Team
+    pr: Public Relations
+    it: IT Team
+    design: Design Team
+    documentary: Documentary
+    finance: Finance
+    service: Service Team
+    production: Production
+</i18n>
