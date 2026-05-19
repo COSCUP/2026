@@ -32,7 +32,7 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "8.3.0",
+    "@antfu/eslint-config": "9.0.0",
     "@iconify-json/tabler": "1.2.35",
     "@types/geojson": "7946.0.16",
     "@types/leaflet": "1.9.21",
