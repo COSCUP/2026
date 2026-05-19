@@ -31,12 +31,13 @@ const noStaff = computed(() => !staffGroups.value || staffGroups.value.length ==
             :key="member.hash"
             class="flex flex-col gap-2 max-w-30 w-full"
           >
-            <div class="rounded-full aspect-square ring-4 ring-gray-200 overflow-hidden">
-              <img
-                :alt="member.name"
-                :src="member.avatar"
-              >
-            </div>
+            <NuxtImg
+              :alt="member.name"
+              class="rounded-full aspect-square ring-4 ring-gray-200 overflow-hidden"
+              decoding="async"
+              loading="lazy"
+              :src="member.avatar"
+            />
             <span class="text-gray-900 text-center">{{ member.name }}</span>
           </li>
         </ul>
