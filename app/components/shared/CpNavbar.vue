@@ -15,6 +15,13 @@ const menu = computed<MenuItem[]>(() => [
   { key: 'home', path: '/' },
   { key: 'about', path: '/about' },
   { key: 'transportation', path: '/transportation' },
+  {
+    key: 'participate',
+    path: '/participate',
+    children: [
+      { label: t('menu.invitation_letter_guide'), path: '/participate/invitation-letter-guide' },
+    ],
+  },
   { key: 'blog', path: 'https://blog.coscup.org/', external: true },
   { key: 'coc', path: `https://hackmd.io/@coscup/cococo-${locale.value}`, external: true },
 ])
@@ -180,12 +187,8 @@ en:
     home: "Home"
     about: "About"
     transportation: "Transportation"
-    sessions: "Sessions"
-    topics: "Topics"
-    sponsors: "Sponsors"
-    communities: "Communities"
-    staff: "Staff"
-    fringe: "Fringe"
+    participate: "Participate"
+    invitation_letter_guide: "Invitation Letter Guide"
     blog: "Blog"
     coc: "CoC"
 zh:
@@ -195,12 +198,8 @@ zh:
     home: "首頁"
     about: "關於我們"
     transportation: "交通"
-    sessions: "議程表"
-    topics: "議程主題"
-    sponsors: "贊助夥伴"
-    communities: "社群夥伴"
-    staff: "工作人員"
-    fringe: "周邊活動"
+    participate: "參與指南"
+    invitation_letter_guide: "邀請函申請指南"
     blog: "部落格"
     coc: "社群守則"
 </i18n>
