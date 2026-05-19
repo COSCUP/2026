@@ -4,12 +4,13 @@ import CpDropdown from './CpDropdown.vue'
 const { locale, locales, defaultLocale, t } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 
-interface MenuItem {
+type MenuItem = {
   key: string
-  path: string
   external?: boolean
-  children?: { label: string, path: string }[]
-}
+} & (
+  | { path: string, children?: never } |
+  { path?: never, children: { label: string, path: string }[] }
+)
 
 const menu = computed<MenuItem[]>(() => [
   { key: 'home', path: '/' },
@@ -17,7 +18,6 @@ const menu = computed<MenuItem[]>(() => [
   { key: 'transportation', path: '/transportation' },
   {
     key: 'participate',
-    path: '/participate',
     children: [
       { label: t('menu.invitation_letter_guide'), path: '/participate/invitation-letter-guide' },
     ],
