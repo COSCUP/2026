@@ -33,7 +33,6 @@ export type StaffRow = z.infer<typeof StaffRowSchema>
 
 export const StaffMemberSchema = z.object({
   name: z.string(),
-  title: z.string(),
   hash: z.string(),
   avatar: z.string(),
 })

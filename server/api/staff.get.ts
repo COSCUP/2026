@@ -9,10 +9,10 @@ export default defineEventHandler(async () => {
   const staffRows = await fetchSheet('staff')
   const initialMembersByGroup = Object.fromEntries(STAFF_GROUP_KEYS.map((groupKey) => [groupKey, [] as StaffMember[]])) as Record<StaffGroupKey, StaffMember[]>
 
-  const membersByGroup = staffRows.reduce<Record<StaffGroupKey, StaffMember[]>>((membersByGroup, { group, name, title, hash }) => {
+  const membersByGroup = staffRows.reduce<Record<StaffGroupKey, StaffMember[]>>((membersByGroup, { group, name, hash }) => {
     const groupKey = staffGroupKeyByName[group]
     const groupMembers = membersByGroup[groupKey]
-    groupMembers.push({ name, title, hash, avatar: gravatar(hash) })
+    groupMembers.push({ name, hash, avatar: gravatar(hash) })
 
     return membersByGroup
   }, initialMembersByGroup)
