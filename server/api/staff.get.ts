@@ -2,7 +2,7 @@ import type { StaffGroupKey, StaffMember } from '#shared/types/staff'
 import { STAFF_GROUP_KEYS, staffGroupKeyByName } from '#shared/types/staff'
 import { fetchSheet } from '../utils/sheets'
 
-const FALLBACK_AVATAR = 'https://volunteer.coscup.org/img/nonavatar.png'
+const FALLBACK_AVATAR = 'https://coscup.org/2026/staff/nonavatar.webp'
 const gravatar = (hash: string) => `https://www.gravatar.com/avatar/${hash}?s=320&r=g&d=${encodeURIComponent(FALLBACK_AVATAR)}`
 
 export default defineEventHandler(async () => {
