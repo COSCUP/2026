@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import type { StaffGroup } from '#shared/types/staff'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
-const { data: staffGroups } = await useFetch<StaffGroup[]>('/api/staff')
+const { data: staffGroups } = await useFetch('/api/staff')
 const noStaff = computed(() => !staffGroups.value || staffGroups.value.length === 0)
 </script>
 
