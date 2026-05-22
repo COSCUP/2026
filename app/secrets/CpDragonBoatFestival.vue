@@ -1,15 +1,15 @@
 <script setup>
 const show = ref(false)
-let weight = 0.95
+let weight = 0.9
 let interval = null
 let timeout = null
 
 function rollDice() {
   if (Math.random() > weight) {
-    weight = 0.95
+    weight = 0.9
     return true
   } else {
-    weight -= 0.01
+    weight -= 0.1
     return false
   }
 }
