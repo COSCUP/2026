@@ -3,8 +3,8 @@ import { onClickOutside, useToggle } from '@vueuse/core'
 import { ref } from 'vue'
 
 const [isOpen, toggle] = useToggle()
-const close = () => toggle(false)
 const target = ref(null)
+const close = () => toggle(false)
 
 onClickOutside(target, close)
 </script>
