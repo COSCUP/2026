@@ -17,7 +17,7 @@ const activeDay = computed(() => selectedDay.value ?? props.days[0] ?? '')
 </script>
 
 <template>
-  <div class="px-6 pb-4 pt-3 border-b border-primary-100 flex justify-center">
+  <div class="px-6 pb-4 pt-3 flex justify-center">
     <div class="flex flex-wrap gap-3 items-center justify-center">
       <button
         v-for="day in days"
