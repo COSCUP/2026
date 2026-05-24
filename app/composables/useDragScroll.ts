@@ -59,8 +59,8 @@ export function useDragScroll({ horizontal = true, vertical = true, scrollTarget
 
     if (scrollTarget === 'window') {
       window.scrollTo({
-        left: horizontal ? dragState.scrollLeft - deltaX : undefined,
-        top: vertical ? dragState.scrollTop - deltaY : undefined,
+        left: horizontal ? dragState.scrollLeft - deltaX : window.scrollX,
+        top: vertical ? dragState.scrollTop - deltaY : window.scrollY,
       })
     } else {
       if (horizontal) {
