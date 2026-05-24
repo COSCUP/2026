@@ -1,9 +1,10 @@
 interface UseDragScrollOptions {
   horizontal?: boolean
   vertical?: boolean
+  scrollTarget?: 'container' | 'window'
 }
 
-export function useDragScroll({ horizontal = true, vertical = true }: UseDragScrollOptions = {}) {
+export function useDragScroll({ horizontal = true, vertical = true, scrollTarget = 'container' }: UseDragScrollOptions = {}) {
   const containerRef = ref<HTMLElement>()
   const isDragging = ref(false)
   const suppressClick = ref(false)
@@ -24,8 +25,15 @@ export function useDragScroll({ horizontal = true, vertical = true }: UseDragScr
     dragState.pointerId = event.pointerId
     dragState.startX = event.clientX
     dragState.startY = event.clientY
-    dragState.scrollLeft = containerRef.value.scrollLeft
-    dragState.scrollTop = containerRef.value.scrollTop
+
+    if (scrollTarget === 'window') {
+      dragState.scrollLeft = window.scrollX
+      dragState.scrollTop = window.scrollY
+    } else {
+      dragState.scrollLeft = containerRef.value.scrollLeft
+      dragState.scrollTop = containerRef.value.scrollTop
+    }
+
     isDragging.value = true
     suppressClick.value = false
 
@@ -49,11 +57,18 @@ export function useDragScroll({ horizontal = true, vertical = true }: UseDragScr
       suppressClick.value = true
     }
 
-    if (horizontal) {
-      containerRef.value.scrollLeft = dragState.scrollLeft - deltaX
-    }
-    if (vertical) {
-      containerRef.value.scrollTop = dragState.scrollTop - deltaY
+    if (scrollTarget === 'window') {
+      window.scrollTo({
+        left: horizontal ? dragState.scrollLeft - deltaX : undefined,
+        top: vertical ? dragState.scrollTop - deltaY : undefined,
+      })
+    } else {
+      if (horizontal) {
+        containerRef.value.scrollLeft = dragState.scrollLeft - deltaX
+      }
+      if (vertical) {
+        containerRef.value.scrollTop = dragState.scrollTop - deltaY
+      }
     }
   }
 
