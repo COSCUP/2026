@@ -22,6 +22,10 @@ prerenderRoutes(
     .flat()
     .map((s) => `/session/${s.id}`),
 )
+
+definePageMeta({
+  layout: 'session-table',
+})
 </script>
 
 <template>
@@ -31,7 +35,7 @@ prerenderRoutes(
     <div class="flex flex-col-reverse sm:flex-col">
       <CpSessionDaySelector
         v-model="selectedDay"
-        class="bottom-0 sticky z-10 sm:bottom-auto"
+        class="w-screen-noscroll bottom-0 left-0 sticky z-10 sm:bottom-auto"
         :days="days"
       />
 

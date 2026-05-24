@@ -7,12 +7,18 @@ defineProps<{
   end: string
   speaker: string
   tags: string[]
+  sticky?: boolean
+  stickyTop?: number
 }>()
 </script>
 
 <template>
   <div class="text-primary-600 p-2 border border-primary-100 rounded bg-primary-50 relative">
-    <div class="flex flex-col">
+    <div
+      class="flex flex-col"
+      :class="{ sticky }"
+      :style="sticky ? { top: `${stickyTop ?? 0}px` } : undefined"
+    >
       <h3 class="text-base text-inherit font-normal my-1">
         {{ title }}
       </h3>
