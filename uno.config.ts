@@ -7,6 +7,7 @@ import presetThemes from 'unocss-preset-theme'
 
 export default defineConfig({
   shortcuts: {
+    'icon': '-align-0.125em',
     'w-screen-noscroll': 'w-[calc(100vw-12px)]',
   },
   extractors: [
