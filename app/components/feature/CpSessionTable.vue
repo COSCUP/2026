@@ -150,7 +150,6 @@ const sessions = computed(() => {
     <NuxtLink
       v-for="session in sessions"
       :key="session.id"
-      class="overflow-ckip"
       :draggable="false"
       :style="{
         'grid-row': `${session.row[0]} / ${session.row[1]}`,
