@@ -4,12 +4,13 @@ import { useI18n } from '#imports'
 import { useDragScroll } from '~/composables/useDragScroll'
 import CpSessionItem from './CpSessionItem.vue'
 
-const { sessions: _sessions, day, timeRange, interval, rowHeight } = defineProps<{
+const { sessions: _sessions, day, timeRange, interval, rowHeight, columnWidth } = defineProps<{
   day: string
   timeRange: [string, string]
   sessions: SessionSummary[]
   interval: number
   rowHeight: number
+  columnWidth: number
 }>()
 
 const { locale } = useI18n()
@@ -99,7 +100,7 @@ const sessions = computed(() => {
     class="border border-gray-200 rounded-xl grid overflow-x-auto"
     :class="isDragging ? 'cursor-grabbing select-none' : 'cursor-grab'"
     :style="{
-      gridTemplateColumns: `4.5rem repeat(${rooms.length}, minmax(11rem, 1fr))`,
+      gridTemplateColumns: `4.5rem repeat(${rooms.length}, ${columnWidth}px)`,
       gridTemplateRows: `3rem repeat(${totalGridRows}, ${rowHeight}px)`,
     }"
   >
