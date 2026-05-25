@@ -1,15 +1,29 @@
 <script setup lang="ts">
 import CpFooter from '~/components/shared/CpFooter.vue'
 import CpNavbar from '~/components/shared/CpNavbar.vue'
+
+function updateViewportWidth() {
+  document.documentElement.style.setProperty('--viewport-width', `${document.documentElement.clientWidth}px`)
+}
+
+onMounted(() => {
+  updateViewportWidth()
+  window.addEventListener('resize', updateViewportWidth)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateViewportWidth)
+  document.documentElement.style.removeProperty('--viewport-width')
+})
 </script>
 
 <template>
   <div class="w-max">
-    <CpNavbar class="w-screen-noscroll left-0 sticky z-10" />
+    <CpNavbar class="w-[var(--viewport-width,100vw)] left-0 sticky z-10" />
     <main class="w-max">
       <slot />
     </main>
 
-    <CpFooter class="w-screen-noscroll left-0 sticky" />
+    <CpFooter class="w-[var(--viewport-width,100vw)] left-0 sticky" />
   </div>
 </template>
