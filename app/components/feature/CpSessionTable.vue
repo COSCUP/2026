@@ -97,7 +97,7 @@ const sessions = computed(() => {
 <template>
   <div
     ref="containerRef"
-    class="border border-gray-200 rounded-xl grid overflow-x-auto"
+    class="border border-gray-200 rounded-xl grid overflow-clip"
     :class="isDragging ? 'cursor-grabbing select-none' : 'cursor-grab'"
     :style="{
       gridTemplateColumns: `4.5rem repeat(${rooms.length}, ${columnWidth}px)`,
@@ -115,7 +115,7 @@ const sessions = computed(() => {
     <div
       v-for="(room, i) in rooms"
       :key="room"
-      class="text-sm text-primary-400 font-medium border-b border-gray-200 bg-gray-50 flex items-center justify-center"
+      class="text-sm text-primary-400 font-medium border-b border-gray-200 bg-gray-50 flex items-center top-0 justify-center sticky z-10"
       :style="{
         'grid-row': 1,
         'grid-column': i + 2,
@@ -129,7 +129,7 @@ const sessions = computed(() => {
       :key="label.label"
     >
       <div
-        class="text-xs text-gray-400 pr-2 pt-0.5 text-right border-t border-gray-100 bg-gray-50 flex items-start justify-center"
+        class="text-xs text-gray-400 pr-2 pt-0.5 text-right border-t border-gray-100 bg-gray-50 flex items-start left-0 justify-center sticky z-10"
         :style="{
           'grid-row': `${label.row} / ${label.row + 30 / interval}`,
           'grid-column': 1,
