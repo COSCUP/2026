@@ -1,11 +1,27 @@
 <script setup lang="ts">
+import CpDropdown from './CpDropdown.vue'
+
 const { locale, locales, defaultLocale, t } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 
-const menu = computed(() => [
+type MenuItem = {
+  key: string
+  external?: boolean
+} & (
+  | { path: string, children?: never } |
+  { path?: never, children: { label: string, path: string }[] }
+)
+
+const menu = computed<MenuItem[]>(() => [
   { key: 'home', path: '/' },
   { key: 'about', path: '/about' },
   { key: 'transportation', path: '/transportation' },
+  {
+    key: 'participate',
+    children: [
+      { label: t('menu.invitation_letter_guide'), path: '/participate/invitation-letter-guide' },
+    ],
+  },
   { key: 'blog', path: 'https://blog.coscup.org/', external: true },
   { key: 'coc', path: `https://hackmd.io/@coscup/cococo-${locale.value}`, external: true },
 ])
@@ -16,9 +32,11 @@ const otherLocale = computed(() => {
 })
 
 const menuOpen = ref(false)
+const mobileDropdownOpen = ref(false)
 
 function closeMenu() {
   menuOpen.value = false
+  mobileDropdownOpen.value = false
 }
 </script>
 
@@ -39,6 +57,7 @@ function closeMenu() {
         :key="item.key"
       >
         <NuxtLinkLocale
+          v-if="!item.children"
           class="flex gap-1 whitespace-nowrap items-center"
           :external="item.external"
           :to="item.path"
@@ -49,6 +68,11 @@ function closeMenu() {
             name="tabler:external-link"
           />
         </NuxtLinkLocale>
+        <CpDropdown
+          v-else
+          :items="item.children"
+          :label="t(`menu.${item.key}`)"
+        />
       </li>
     </ul>
 
@@ -92,23 +116,54 @@ function closeMenu() {
       class="border-b border-gray-300 bg-white h-max shadow-md left-0 right-0 top-16 absolute z-1500 sm:hidden"
     >
       <ul class="py-2 flex flex-col">
-        <li
+        <template
           v-for="item in menu"
           :key="item.key"
         >
-          <NuxtLinkLocale
-            class="px-4 py-3 flex gap-1 items-center hover:bg-gray-50"
-            :external="item.external"
-            :to="item.path"
-            @click="closeMenu"
-          >
-            {{ t(`menu.${item.key}`) }}
-            <Icon
-              v-if="item.external"
-              name="tabler:external-link"
-            />
-          </NuxtLinkLocale>
-        </li>
+          <li v-if="!item.children">
+            <NuxtLinkLocale
+              class="px-4 py-3 flex gap-1 items-center hover:bg-gray-50"
+              :external="item.external"
+              :to="item.path"
+              @click="closeMenu"
+            >
+              {{ t(`menu.${item.key}`) }}
+              <Icon
+                v-if="item.external"
+                name="tabler:external-link"
+              />
+            </NuxtLinkLocale>
+          </li>
+          <li v-else>
+            <button
+              class="px-4 py-3 flex gap-1 w-full items-center hover:bg-gray-50"
+              type="button"
+              @click="mobileDropdownOpen = !mobileDropdownOpen"
+            >
+              {{ t(`menu.${item.key}`) }}
+              <Icon
+                class="transition-transform"
+                :class="mobileDropdownOpen ? 'rotate-180' : ''"
+                name="tabler:chevron-down"
+                size="16"
+              />
+            </button>
+            <ul v-if="mobileDropdownOpen">
+              <li
+                v-for="child in item.children"
+                :key="child.path"
+              >
+                <NuxtLinkLocale
+                  class="px-4 py-3 pl-8 flex gap-1 items-center hover:bg-gray-50"
+                  :to="child.path"
+                  @click="closeMenu"
+                >
+                  {{ child.label }}
+                </NuxtLinkLocale>
+              </li>
+            </ul>
+          </li>
+        </template>
         <li class="mt-1 pt-1 border-t border-gray-200">
           <NuxtLink
             class="px-4 py-3 flex gap-1 items-center hover:bg-gray-50"
@@ -132,12 +187,8 @@ en:
     home: "Home"
     about: "About"
     transportation: "Transportation"
-    sessions: "Sessions"
-    topics: "Topics"
-    sponsors: "Sponsors"
-    communities: "Communities"
-    staff: "Staff"
-    fringe: "Fringe"
+    participate: "Participate"
+    invitation_letter_guide: "Invitation Letter Guide"
     blog: "Blog"
     coc: "CoC"
 zh:
@@ -147,12 +198,8 @@ zh:
     home: "首頁"
     about: "關於我們"
     transportation: "交通"
-    sessions: "議程表"
-    topics: "議程主題"
-    sponsors: "贊助夥伴"
-    communities: "社群夥伴"
-    staff: "工作人員"
-    fringe: "周邊活動"
+    participate: "參與指南"
+    invitation_letter_guide: "邀請函申請指南"
     blog: "部落格"
     coc: "社群守則"
 </i18n>
