@@ -96,8 +96,25 @@ const sessions = computed(() => {
 })
 
 const nowLineTop = computed(() => {
-  const sec = time.value.getHours() * 60 + time.value.getMinutes() + time.value.getSeconds() / 60
-  return rowHeight + ((sec - timeStart.value) / interval) * rowHeight
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Taipei',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    hour12: false,
+  })
+  const parts = formatter.formatToParts(time.value)
+  const h = Number(parts.find((p) => p.type === 'hour')!.value)
+  const m = Number(parts.find((p) => p.type === 'minute')!.value)
+  const s = Number(parts.find((p) => p.type === 'second')!.value)
+  const mins = h * 60 + m + s / 60
+  return rowHeight + ((mins - timeStart.value) / interval) * rowHeight
+})
+
+const showRealtimeLine = computed(() => {
+  const iso = time.value.toISOString()
+  const todayStr = iso.slice(0, 10)
+  return day === todayStr && timeStart.value <= parseMinutes(iso) && parseMinutes(iso) <= timeEnd.value
 })
 </script>
 
@@ -179,6 +196,7 @@ const nowLineTop = computed(() => {
 
     <ClientOnly>
       <div
+        v-if="showRealtimeLine"
         class="border-t-1 border-red-500 w-full pointer-events-none left-0 absolute z-10"
         :style="{ top: `${nowLineTop}px` }"
       />
