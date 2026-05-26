@@ -17,7 +17,7 @@ export function useSecretFeature() {
     const container = document.createElement('div')
     document.body.appendChild(container)
 
-    if (now.getMonth() === 5 && now.getDate() === 25) {
+    if (now >= new Date(2026, 5, 13) && now <= new Date(2026, 5, 20)) {
       const { default: CpSecretFeature } = await import('./CpDragonBoatFestival.vue')
       render(h(CpSecretFeature), container)
     }
