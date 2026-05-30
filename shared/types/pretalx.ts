@@ -7,6 +7,8 @@ export const PRETALX_TABLES = [
   'rooms',
   'answers',
   'slots',
+  'tracks',
+  'tags',
 ] as const
 export const PretalxTableSchema = z.enum(PRETALX_TABLES)
 
@@ -51,6 +53,19 @@ export const RoomSchema = z.object({
   description: PretalxLocaleSchema.nullable(),
 })
 
+export const TrackSchema = z.object({
+  id: z.number(),
+  name: PretalxLocaleSchema,
+  description: PretalxLocaleSchema.nullable().optional(),
+})
+
+export const TagSchema = z.object({
+  id: z.number(),
+  tag: z.string(),
+  description: PretalxLocaleSchema.nullable().optional(),
+  color: z.string().optional(),
+})
+
 export const AnswerSchema = z.object({
   id: z.number(),
   question: z.number(),
@@ -75,6 +90,8 @@ export const PRETALX_TABLE_SCHEMAS = {
   'rooms': RoomSchema,
   'answers': AnswerSchema,
   'slots': SlotSchema,
+  'tracks': TrackSchema,
+  'tags': TagSchema,
 } as const
 
 export type PretalxTable = z.infer<typeof PretalxTableSchema>
@@ -85,6 +102,8 @@ export type Speaker = z.infer<typeof SpeakerSchema>
 export type Room = z.infer<typeof RoomSchema>
 export type Answer = z.infer<typeof AnswerSchema>
 export type Slot = z.infer<typeof SlotSchema>
+export type Track = z.infer<typeof TrackSchema>
+export type Tag = z.infer<typeof TagSchema>
 export type TableTypeMap = {
   [K in PretalxTable]: z.infer<(typeof PRETALX_TABLE_SCHEMAS)[K]>
 }

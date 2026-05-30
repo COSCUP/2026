@@ -1,5 +1,5 @@
 import pretalxData from '#server/utils/pretalx'
-import { parseAnswer, parseSlot, parseSpeaker, parseType } from '#server/utils/pretalx/parser'
+import { parseAnswer, parseDifficulty, parseSlot, parseSpeaker, parseTags, parseTrack, parseType } from '#server/utils/pretalx/parser'
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')!
@@ -39,6 +39,8 @@ export default defineEventHandler(async (event) => {
     start: slot?.start,
     end: slot?.end,
     language: answers.language,
+    difficulty: parseDifficulty(answers.difficulty),
+    track: parseTrack(submission.track, data),
     speakers,
     zh: {
       title: submission.title,
@@ -50,7 +52,7 @@ export default defineEventHandler(async (event) => {
       describe: answers.enDesc || submission.abstract,
       type: type.name.en || type.name['zh-hans'],
     },
-    tags: [],
+    tags: parseTags(submission.tags, data),
     uri: `https://coscup.org/2026/session/${submission.code}`,
     co_write: null,
     qa: null,

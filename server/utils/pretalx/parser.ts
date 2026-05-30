@@ -1,5 +1,5 @@
-import type { Answer, PretalxResult, Room, Slot, Submission, SubmissionType } from '#shared/types/pretalx'
-import type { SessionSpeaker } from '#shared/types/session'
+import type { Answer, PretalxResult, Room, Slot, Submission, SubmissionType, Track } from '#shared/types/pretalx'
+import type { SessionDifficulty, SessionSpeaker, SessionTrack } from '#shared/types/session'
 
 // 對應 pretalx 的問題 ID。
 // key 為系統內使用的欄位名稱，value 為 pretalx 的 question id。
@@ -24,6 +24,21 @@ const QUESTION_MAP = {
 type QuestionKey = keyof typeof QUESTION_MAP
 type ParsedAnswer = Partial<Record<QuestionKey, string>>
 type ParsedSlot = Omit<Slot, 'room'> & { room?: Room }
+
+// 議程難度正規化表。pretalx 的難度欄位是投稿者自由填寫的自訂問題答案，
+// 各種寫法（中英文、大小寫）都收斂成統一的英文 enum，方便前端對應翻譯。
+const DIFFICULTY_GENERALIZE_MAP: Record<string, SessionDifficulty> = {
+  初學者: 'Elementary',
+  入門: 'Elementary',
+  中階: 'Intermediate',
+  進階: 'Advanced',
+  專業: 'Professional',
+  Beginner: 'Elementary',
+  Elementary: 'Elementary',
+  Intermediate: 'Intermediate',
+  Advanced: 'Advanced',
+  Professional: 'Professional',
+}
 
 export function parseAnswer(answers: Answer['id'][], pretalxData: PretalxResult): ParsedAnswer {
   const answerMap = pretalxData.answers.map
@@ -110,4 +125,36 @@ export function parseType(typeId: SubmissionType['id'], pretalxData: PretalxResu
   }
 
   return typeMap[typeId]
+}
+
+export function parseTrack(trackId: Submission['track'], pretalxData: PretalxResult): SessionTrack | undefined {
+  if (trackId == null) {
+    return undefined
+  }
+
+  const track: Track | undefined = pretalxData.tracks.map[trackId]
+
+  if (!track) {
+    return undefined
+  }
+
+  return { id: track.id, name: track.name }
+}
+
+export function parseTags(tagIds: Submission['tags'], pretalxData: PretalxResult): string[] {
+  const tagMap = pretalxData.tags.map
+
+  return tagIds
+    .map((tagId) => tagMap[tagId])
+    .filter((tag) => tag !== undefined)
+    .map((tag) => tag.tag)
+}
+
+// 將投稿者填寫的難度原始字串正規化成統一的英文 enum，無法對應時回傳 undefined。
+export function parseDifficulty(difficulty: string | undefined): SessionDifficulty | undefined {
+  if (!difficulty) {
+    return undefined
+  }
+
+  return DIFFICULTY_GENERALIZE_MAP[difficulty.trim()]
 }

@@ -19,12 +19,26 @@ const SessionContentSchema = z.object({
   type: z.string(),
 })
 
+export const SessionDifficultySchema = z.enum([
+  'Elementary',
+  'Intermediate',
+  'Advanced',
+  'Professional',
+])
+
+export const SessionTrackSchema = z.object({
+  id: z.number(),
+  name: PretalxLocaleSchema,
+})
+
 export const SessionSummarySchema = z.object({
   id: z.string(),
   room: PretalxLocaleSchema.optional(),
   start: z.string().nullable().optional(),
   end: z.string().nullable().optional(),
   language: z.string().optional(),
+  difficulty: SessionDifficultySchema.optional(),
+  track: SessionTrackSchema.optional(),
   speakers: z.array(SessionSpeakerSchema),
   zh: SessionContentSchema,
   en: SessionContentSchema,
@@ -40,5 +54,7 @@ export const SessionDetailSchema = SessionSummarySchema.extend({
 })
 
 export type SessionSpeaker = z.infer<typeof SessionSpeakerSchema>
+export type SessionDifficulty = z.infer<typeof SessionDifficultySchema>
+export type SessionTrack = z.infer<typeof SessionTrackSchema>
 export type SessionSummary = z.infer<typeof SessionSummarySchema>
 export type SessionDetail = z.infer<typeof SessionDetailSchema>

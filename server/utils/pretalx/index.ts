@@ -9,13 +9,15 @@ export default defineCachedFunction(
       throw createError('Missing NUXT_PRETALX_API_URL or NUXT_PRETALX_API_TOKEN environment variable')
     }
 
-    const [submissions, submissionTypes, speakers, rooms, answers, slots] = await Promise.all([
+    const [submissions, submissionTypes, speakers, rooms, answers, slots, tracks, tags] = await Promise.all([
       fetchPretalxTable('submissions'),
       fetchPretalxTable('submission-types'),
       fetchPretalxTable('speakers'),
       fetchPretalxTable('rooms'),
       fetchPretalxTable('answers'),
       fetchPretalxTable('slots'),
+      fetchPretalxTable('tracks'),
+      fetchPretalxTable('tags'),
     ])
 
     return {
@@ -24,6 +26,8 @@ export default defineCachedFunction(
       rooms,
       answers,
       slots,
+      tracks,
+      tags,
       'submission-types': submissionTypes,
     } satisfies PretalxResult
   },
