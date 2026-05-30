@@ -89,6 +89,7 @@ zh:
     bronze: "青銅級"
     friend: "好朋友級"
     community: "社群夥伴"
+    thanks: "特別感謝"
 en:
   hero:
     title: "Become a Sponsor"
@@ -104,4 +105,5 @@ en:
     bronze: "Bronze Sponsor"
     friend: "Friend Sponsor"
     community: "Community Partner"
+    thanks: "Special-thanks"
 </i18n>

@@ -4,6 +4,7 @@ import { TIER_LEVELS } from '#shared/types/sponsorship'
 export const SPONSOR_LEVELS = [
   ...TIER_LEVELS,
   'community',
+  'thanks',
 ] as const
 
 export const SponsorLevelSchema = z.enum(SPONSOR_LEVELS)
