@@ -70,6 +70,7 @@ zh:
     bronze: 青銅級
     friend: 好朋友級
     community: 社群夥伴
+    thanks: 特別感謝
 en:
   title: Sponsors
   level:
@@ -80,4 +81,5 @@ en:
     bronze: Bronze
     friend: Friend
     community: Community Partner
+    thinks: Special Thanks
 </i18n>
