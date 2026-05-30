@@ -16,6 +16,7 @@ const menu = computed<MenuItem[]>(() => [
   { key: 'home', path: '/' },
   { key: 'about', path: '/about' },
   { key: 'transportation', path: '/transportation' },
+  { key: 'sponsors', path: '/sponsor' },
   {
     key: 'participate',
     children: [

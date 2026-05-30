@@ -199,6 +199,8 @@ zh:
         url: /about
       - name: 交通資訊
         url: /transportation
+      - name: 贊助夥伴
+        url: /sponsor
 en:
   sponsors: Sponsors
   tagline: |
