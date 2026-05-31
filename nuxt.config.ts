@@ -158,5 +158,8 @@ export default defineNuxtConfig({
 
   image: {
     domains: ['drive.usercontent.google.com'],
+    alias: {
+      gdrive: 'https://drive.usercontent.google.com',
+    },
   },
 })
