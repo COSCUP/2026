@@ -155,4 +155,8 @@ export default defineNuxtConfig({
       page_title: 'COSCUP 2026',
     },
   },
+
+  image: {
+    domains: ['drive.usercontent.google.com'],
+  },
 })
