@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Sponsor } from '#shared/types/sponsor'
 import { useI18n } from 'vue-i18n'
+import { SPONSOR_LEVELS } from '#shared/types/sponsor'
 import SponsorCard from '~/components/feature/CpSponsorCard.vue'
 
 const { t } = useI18n()
@@ -12,7 +13,12 @@ const hasSponsor = computed(() => {
   return data.value && data.value.length > 0
 })
 
-const sponsorGroups = computed(() => Object.groupBy(data.value || [], (sponsor) => sponsor.level))
+const sponsorGroups = computed(() => {
+  const grouped = Object.groupBy(data.value || [], (sponsor) => sponsor.level)
+  return SPONSOR_LEVELS
+    .filter((level) => grouped[level] && grouped[level].length > 0)
+    .map((level) => grouped[level])
+})
 </script>
 
 <template>
