@@ -17,7 +17,7 @@ const sponsorGroups = computed(() => {
   const grouped = Object.groupBy(data.value || [], (sponsor) => sponsor.level)
   return SPONSOR_LEVELS
     .filter((level) => grouped[level] && grouped[level].length > 0)
-    .map((level) => grouped[level])
+    .map((level) => ({ level, sponsors: grouped[level] }))
 })
 </script>
 
@@ -59,7 +59,7 @@ const sponsorGroups = computed(() => {
       class="mt-8"
     >
       <div
-        v-for="(sponsors, level) in sponsorGroups"
+        v-for="({ sponsors, level }) in sponsorGroups"
         :key="level"
         class="mb-6"
       >
