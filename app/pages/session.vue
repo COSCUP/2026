@@ -2,6 +2,7 @@
 import { prerenderRoutes } from 'nuxt/app'
 import { useI18n } from 'vue-i18n'
 import CpSessionDaySelector from '~/components/feature/CpSessionDaySelector.vue'
+import CpSessionList from '~/components/feature/CpSessionList.vue'
 import CpSessionTable from '~/components/feature/CpSessionTable.vue'
 
 const { t } = useI18n()
@@ -24,22 +25,36 @@ prerenderRoutes(
 </script>
 
 <template>
-  <main>
+  <main v-if="selectedDay">
     <NuxtPage />
-    <template v-if="selectedDay">
+
+    <div class="flex flex-col-reverse sm:flex-col">
       <CpSessionDaySelector
         v-model="selectedDay"
+        class="bottom-0 sticky z-10 sm:bottom-auto"
         :days="days"
       />
+
+      <CpSessionList
+        class="sm:hidden"
+        :sessions="data?.[selectedDay] ?? []"
+      />
       <CpSessionTable
+        class="hidden sm:grid"
         :day="selectedDay"
         :interval="5"
         :row-height="50"
         :sessions="data?.[selectedDay] ?? []"
         :time-range="['09:00', '17:30']"
       />
-    </template>
-    <p v-else>
+    </div>
+
+    <p v-if="!data?.[selectedDay]?.length">
+      {{ t('noSession') }}
+    </p>
+  </main>
+  <main v-else>
+    <p>
       {{ t('noSession') }}
     </p>
   </main>
