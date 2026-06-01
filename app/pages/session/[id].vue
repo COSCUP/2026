@@ -71,7 +71,7 @@ onUnmounted(() => {
         <!-- AD -->
       </div>
 
-      <div class="p-3 h-full overflow-y-auto">
+      <div class="p-3 h-full w-full overflow-y-auto">
         <div class="flex top-0 justify-end sticky z-10">
           <button
             aria-label="close"
