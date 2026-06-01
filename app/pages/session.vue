@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { prerenderRoutes } from 'nuxt/app'
 import { useI18n } from 'vue-i18n'
 import CpSessionDaySelector from '~/components/feature/CpSessionDaySelector.vue'
 import CpSessionTable from '~/components/feature/CpSessionTable.vue'
@@ -14,10 +15,17 @@ const selectedDay = computed({
   get: () => manualSelectedDay.value ?? days.value[0] ?? null,
   set: (value) => void (manualSelectedDay.value = value),
 })
+
+prerenderRoutes(
+  Object.values(data.value ?? {})
+    .flat()
+    .map((s) => `/session/${s.id}`),
+)
 </script>
 
 <template>
   <main>
+    <NuxtPage />
     <template v-if="selectedDay">
       <CpSessionDaySelector
         v-model="selectedDay"
