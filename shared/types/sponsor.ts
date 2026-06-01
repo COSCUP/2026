@@ -18,7 +18,7 @@ export const SponsorListRowSchema = z.object({
   intro_zh: z.string(),
   link: z.string(),
   image: z.string(),
-  publish: z.string(),
+  publish: z.string().transform((val) => val.toLowerCase() === 'true'),
 })
 
 export const SponsorSchema = z.object({
