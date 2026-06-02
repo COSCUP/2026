@@ -1,4 +1,4 @@
-import type { Answer, PretalxResult, Room, Slot, Submission, SubmissionType, Track } from '#shared/types/pretalx'
+import type { Answer, PretalxResult, Room, Slot, Submission, SubmissionType, Tag, Track } from '#shared/types/pretalx'
 import type { SessionDifficulty, SessionSpeaker, SessionTrack } from '#shared/types/session'
 
 // 對應 pretalx 的問題 ID。
@@ -146,7 +146,7 @@ export function parseTags(tagIds: Submission['tags'], pretalxData: PretalxResult
 
   return tagIds
     .map((tagId) => tagMap[tagId])
-    .filter((tag) => tag !== undefined)
+    .filter((tag): tag is Tag => tag !== undefined && tag.is_public)
     .map((tag) => tag.tag)
 }
 
