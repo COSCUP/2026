@@ -64,6 +64,7 @@ export const TagSchema = z.object({
   tag: z.string(),
   description: PretalxLocaleSchema.nullable().optional(),
   color: z.string().optional(),
+  is_public: z.boolean(),
 })
 
 export const AnswerSchema = z.object({
