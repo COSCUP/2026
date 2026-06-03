@@ -63,7 +63,7 @@ definePageMeta({
         v-model:search-query="searchQuery"
         v-model:selected-room-ids="selectedRoomIds"
         v-model:selected-tag-ids="selectedTagIds"
-        class="p-4 left-0 sticky z-50"
+        class="p-4 left-0 sticky z-10"
         :room-options="roomOptions"
         :tag-options="tagOptions"
       />
