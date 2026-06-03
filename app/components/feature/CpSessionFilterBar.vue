@@ -32,7 +32,7 @@ const searchQuery = defineModel<string>('searchQuery', { default: '' })
 
     <CpSessionSearchField
       v-model="searchQuery"
-      class="min-w-0 w-full sm:flex-none sm:w-80"
+      class="min-w-0 w-full sm:flex-none sm:h-9 sm:w-80"
     />
   </div>
 </template>
