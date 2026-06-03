@@ -2,20 +2,28 @@
 import type { SessionSummary } from '#shared/types/session'
 import { useI18n } from '#imports'
 import { useDragScroll } from '~/composables/useDragScroll'
+import { useFavorites } from '~/composables/useFavorites'
 import { useRealtime } from '~/composables/useRealtime'
 import CpSessionItem from './CpSessionItem.vue'
 
-const { sessions: _sessions, day, timeRange, interval, rowHeight, columnWidth } = defineProps<{
+const { sessions: _sessions, day, timeRange, interval, rowHeight, columnWidth, preview = false } = defineProps<{
   day: string
   timeRange: [string, string]
   sessions: SessionSummary[]
   interval: number
   rowHeight: number
   columnWidth: number
+  // Shared-list preview: render every session as a read-only favorite.
+  preview?: boolean
 }>()
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const { time } = useRealtime()
+const { isFavorite, toggleFavorite } = useFavorites()
+
+function favoriteLabel(id: string) {
+  return (preview || isFavorite(id)) ? t('removeFavorite') : t('addFavorite')
+}
 
 const { containerRef, isDragging } = useDragScroll({ scrollTarget: 'window' })
 
@@ -187,10 +195,14 @@ const showRealtimeLine = computed(() => {
       <CpSessionItem
         class="h-full"
         :end="session.end"
+        :favorite="preview || isFavorite(session.id)"
+        :favorite-label="favoriteLabel(session.id)"
+        :readonly="preview"
         :speaker="session.speaker"
         :start="session.start"
         :tags="session.tags"
         :title="session.title"
+        @toggle-favorite="toggleFavorite(session.id)"
       />
     </NuxtLink>
 
@@ -203,3 +215,12 @@ const showRealtimeLine = computed(() => {
     </ClientOnly>
   </div>
 </template>
+
+<i18n lang="yaml">
+  en:
+    addFavorite: 'Add to favorites'
+    removeFavorite: 'Remove from favorites'
+  zh:
+    addFavorite: '加入收藏'
+    removeFavorite: '取消收藏'
+</i18n>

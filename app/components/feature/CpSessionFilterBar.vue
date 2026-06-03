@@ -30,9 +30,14 @@ const searchQuery = defineModel<string>('searchQuery', { default: '' })
       />
     </div>
 
-    <CpSessionSearchField
-      v-model="searchQuery"
-      class="min-w-0 w-full sm:flex-none sm:h-9 sm:w-80"
-    />
+    <!-- Controls below the search field on mobile, to its left on desktop. -->
+    <div class="flex flex-col-reverse gap-3 items-center sm:flex-row sm:items-center">
+      <slot name="controls" />
+
+      <CpSessionSearchField
+        v-model="searchQuery"
+        class="min-w-0 w-full sm:flex-none sm:h-9 sm:w-80"
+      />
+    </div>
   </div>
 </template>
