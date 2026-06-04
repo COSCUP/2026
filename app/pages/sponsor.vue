@@ -2,7 +2,7 @@
 import type { Sponsor } from '#shared/types/sponsor'
 import { useI18n } from 'vue-i18n'
 import { SPONSOR_LEVELS } from '#shared/types/sponsor'
-import SponsorCard from '~/components/feature/CpSponsorCard.vue'
+import CpContentCard from '~/components/shared/CpContentCard.vue'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -71,7 +71,15 @@ const sponsorGroups = computed(() => {
             v-for="sponsor in sponsors"
             :key="sponsor.id"
           >
-            <SponsorCard :sponsor="sponsor" />
+            <CpContentCard
+              :item="{
+                id: `sponsor-${sponsor.id}`,
+                title: sponsor.name,
+                intro: sponsor.intro,
+                link: sponsor.link,
+                image: sponsor.image,
+              }"
+            />
           </div>
         </div>
       </div>
