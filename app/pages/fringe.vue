@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Fringe } from '#shared/types/fringe'
 import { useI18n } from 'vue-i18n'
-import CpFringeCard from '~/components/feature/CpFringeCard.vue'
+import CpContentCard from '~/components/shared/CpContentCard.vue'
 
 const { t } = useI18n()
 
@@ -20,10 +20,16 @@ const noFringe = computed(() => !fringes.value || fringes.value.length === 0)
       v-else
       class="gap-4 grid"
     >
-      <CpFringeCard
+      <CpContentCard
         v-for="fringe in fringes"
         :key="fringe.id"
-        :fringe="fringe"
+        :item="{
+          id: `fringe-${fringe.id}`,
+          title: fringe.title,
+          intro: fringe.intro,
+          link: fringe.link,
+          image: fringe.logo,
+        }"
       />
     </section>
   </main>

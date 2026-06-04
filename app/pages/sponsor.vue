@@ -2,7 +2,7 @@
 import type { Sponsor } from '#shared/types/sponsor'
 import { useI18n } from 'vue-i18n'
 import { SPONSOR_LEVELS } from '#shared/types/sponsor'
-import SponsorCard from '~/components/feature/CpSponsorCard.vue'
+import CpContentCard from '~/components/shared/CpContentCard.vue'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -80,7 +80,17 @@ useSeoMeta({
             v-for="sponsor in sponsors"
             :key="sponsor.id"
           >
-            <SponsorCard :sponsor="sponsor" />
+            <CpContentCard
+              :item="{
+                id: `sponsor-${sponsor.id}`,
+                title: sponsor.name,
+                intro: sponsor.intro,
+                link: sponsor.link,
+                image: sponsor.image,
+                reward_type: sponsor.reward_type,
+                reward_data: sponsor.reward_data,
+              }"
+            />
           </div>
         </div>
       </div>
