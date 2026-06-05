@@ -3,7 +3,6 @@ import { prerenderRoutes } from 'nuxt/app'
 import { useI18n } from 'vue-i18n'
 import CpSessionDaySelector from '~/components/feature/CpSessionDaySelector.vue'
 import CpSessionList from '~/components/feature/CpSessionList.vue'
-import CpSessionPagePlaceholder from '~/components/feature/CpSessionPagePlaceholder.vue'
 import CpSessionTable from '~/components/feature/CpSessionTable.vue'
 
 const { t } = useI18n()
@@ -33,9 +32,17 @@ definePageMeta({
   <main>
     <NuxtPage />
 
-    <ClientOnly placeholder-tag="div">
+    <ClientOnly>
       <template #placeholder>
-        <CpSessionPagePlaceholder />
+        <div class="flex flex-col-reverse sm:flex-col">
+          <!-- DaySelector -->
+          <div class="px-6 pb-4 pt-3 flex w-screen justify-center">
+            <div class="rounded-full bg-gray-200 h-12 w-1/2 animate-pulse" />
+          </div>
+
+          <!-- Session -->
+          <div class="rounded-xl bg-gray-200 h-screen w-[var(--viewport-width,100vw)] animate-pulse" />
+        </div>
       </template>
 
       <template v-if="selectedDay">
