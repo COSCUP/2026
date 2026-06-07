@@ -47,7 +47,7 @@ const needsExpand = computed(() => sponsor.intro[locale.value]?.length > 200)
           type="checkbox"
         >
         <MDC
-          class="text-sm text-primary-700 leading-7 mt-3 text-left line-clamp-5 peer-checked:line-clamp-none"
+          class="text-sm text-primary-700 leading-7 mt-3 text-left line-clamp-5 peer-checked:line-clamp-none prose"
           :value="sponsor.intro[locale]"
         />
         <label
