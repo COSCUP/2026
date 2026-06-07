@@ -93,7 +93,7 @@ en:
     bronze: Bronze
     friend: Friend
     community: Community Partner
-    thinks: Special Thanks
+    thanks: Special Thanks
   ribbon:
     consecutive: Consecutive
     cumulative: Cumulative
