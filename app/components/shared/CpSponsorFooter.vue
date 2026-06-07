@@ -81,5 +81,5 @@ en:
     bronze: Bronze
     friend: Friend
     community: Community Partner
-    thinks: Special Thanks
+    thanks: Special Thanks
 </i18n>
