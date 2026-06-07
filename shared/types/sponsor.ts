@@ -19,6 +19,8 @@ export const SponsorListRowSchema = z.object({
   link: z.string(),
   image: z.string(),
   publish: z.string().transform((val) => val.toLowerCase() === 'true'),
+  reward_type: z.string(),
+  reward_data: z.coerce.number().default(0),
 })
 
 export const SponsorSchema = z.object({
@@ -34,6 +36,8 @@ export const SponsorSchema = z.object({
   }),
   link: z.string(),
   image: z.string(),
+  reward_type: z.string(),
+  reward_data: z.coerce.number().default(0),
 })
 
 export type SponsorListRow = z.infer<typeof SponsorListRowSchema>

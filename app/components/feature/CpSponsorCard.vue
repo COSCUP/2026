@@ -9,10 +9,25 @@ const { sponsor } = defineProps<{
 const { locale, t } = useI18n()
 
 const needsExpand = computed(() => sponsor.intro[locale.value]?.length > 200)
+const hasRibbon = computed(() => sponsor.reward_type !== 'Null' && sponsor.reward_data > 0)
+const ribbonColorClass = computed(() =>
+  sponsor.reward_type === '連續贊助' ? 'bg-amber-400' : 'bg-teal-500',
+)
+const ribbonTypeKey = computed(() =>
+  sponsor.reward_type === '連續贊助' ? 'consecutive' : 'cumulative',
+)
 </script>
 
 <template>
-  <article class="p-4 border border-primary-200 rounded-lg flex flex-col gap-4 md:flex-row md:items-start">
+  <article class="p-4 border border-primary-200 rounded-lg flex flex-col gap-4 relative overflow-hidden md:flex-row md:items-start">
+    <span
+      v-if="hasRibbon"
+      class="text-[10px] text-white leading-tight font-700 py-1.5 text-center w-[140px] shadow-sm left-[-35px] top-[17px] absolute -rotate-45"
+      :class="ribbonColorClass"
+    >
+      <span class="block">{{ t(`ribbon.${ribbonTypeKey}`) }}</span>
+      <span class="block">{{ t('ribbon.years', { n: sponsor.reward_data }) }}</span>
+    </span>
     <NuxtLink
       class="p-4 rounded-xl bg-white flex shrink-0 w-full aspect-[3/2] items-center justify-center md:w-60 md:aspect-[3/2]"
       external
@@ -77,7 +92,15 @@ const needsExpand = computed(() => sponsor.intro[locale.value]?.length > 200)
 zh:
   show_less: "收合"
   read_more: "更多"
+  ribbon:
+    consecutive: "連續贊助"
+    cumulative: "累積贊助"
+    years: "{n} 年"
 en:
   show_less: "Show less"
   read_more: "Read more"
+  ribbon:
+    consecutive: "Consecutive"
+    cumulative: "Cumulative"
+    years: "{n} Yrs"
 </i18n>
