@@ -40,13 +40,21 @@ const hasSponsor = computed(() => !!data.value?.length)
           <NuxtLink
             v-for="sponsor in sponsors"
             :key="sponsor.id"
-            class="p-3 rounded-lg bg-white flex shadow-sm transition items-center justify-center hover:shadow-md hover:scale-105"
+            class="p-3 rounded-lg bg-white flex shadow-sm transition items-center justify-center relative overflow-hidden hover:shadow-md hover:scale-105"
             external
             rel="noreferrer"
             target="_blank"
             :title="sponsor.name[locale]"
             :to="sponsor.link"
           >
+            <span
+              v-if="sponsor.reward_type !== 'Null'"
+              class="text-[8px] text-white leading-tight font-700 py-1 text-center w-[90px] pointer-events-none left-[-24px] top-[8px] absolute -rotate-45"
+              :class="sponsor.reward_type === '連續贊助' ? 'bg-amber-400' : 'bg-teal-500'"
+            >
+              <span class="block">{{ t(`ribbon.${sponsor.reward_type === '連續贊助' ? 'consecutive' : 'cumulative'}`) }}</span>
+              <span class="block">{{ t('ribbon.years', { n: sponsor.reward_data }) }}</span>
+            </span>
             <NuxtImg
               :alt="sponsor.name[locale]"
               class="h-20 max-h-full max-w-full object-contain md:h-24"
@@ -71,6 +79,10 @@ zh:
     friend: 好朋友級
     community: 社群夥伴
     thanks: 特別感謝
+  ribbon:
+    consecutive: 連續贊助
+    cumulative: 累積贊助
+    years: "{n} 年"
 en:
   title: Sponsors
   level:
@@ -82,4 +94,8 @@ en:
     friend: Friend
     community: Community Partner
     thinks: Special Thanks
+  ribbon:
+    consecutive: Consecutive
+    cumulative: Cumulative
+    years: "{n} Yrs"
 </i18n>
