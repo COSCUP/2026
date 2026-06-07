@@ -47,7 +47,7 @@ const needsExpand = computed(() => sponsor.intro[locale.value]?.length > 200)
           type="checkbox"
         >
         <MDC
-          class="text-sm text-primary-700 leading-7 mt-3 text-left line-clamp-5 peer-checked:line-clamp-none"
+          class="text-sm text-primary-700 leading-7 mt-3 text-left line-clamp-5 prose peer-checked:line-clamp-none"
           :value="sponsor.intro[locale]"
         />
         <label
@@ -66,7 +66,7 @@ const needsExpand = computed(() => sponsor.intro[locale.value]?.length > 200)
 
       <MDC
         v-else
-        class="text-sm text-primary-700 leading-7 mt-3 text-left"
+        class="text-sm text-primary-700 leading-7 mt-3 text-left prose"
         :value="sponsor.intro[locale]"
       />
     </div>
