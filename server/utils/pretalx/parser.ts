@@ -141,13 +141,17 @@ export function parseTrack(trackId: Submission['track'], pretalxData: PretalxRes
   return { id: track.id, name: track.name }
 }
 
-export function parseTags(tagIds: Submission['tags'], pretalxData: PretalxResult): string[] {
+// 解析議程標籤，並把正規化後的難度（若有）一併併入標籤清單，
+// 讓難度成為標籤的一部分而非獨立欄位。
+export function parseTags(tagIds: Submission['tags'], pretalxData: PretalxResult, difficulty?: SessionDifficulty): string[] {
   const tagMap = pretalxData.tags.map
 
-  return tagIds
+  const tags = tagIds
     .map((tagId) => tagMap[tagId])
     .filter((tag): tag is Tag => tag !== undefined && tag.is_public)
     .map((tag) => tag.tag)
+
+  return difficulty ? [difficulty, ...tags] : tags
 }
 
 // 將投稿者填寫的難度原始字串正規化成統一的英文 enum，無法對應時回傳 undefined。

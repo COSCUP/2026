@@ -37,7 +37,6 @@ export const SessionSummarySchema = z.object({
   start: z.string().nullable().optional(),
   end: z.string().nullable().optional(),
   language: z.string().optional(),
-  difficulty: SessionDifficultySchema.optional(),
   track: SessionTrackSchema.optional(),
   speakers: z.array(SessionSpeakerSchema),
   zh: SessionContentSchema,

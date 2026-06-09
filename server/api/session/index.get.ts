@@ -1,7 +1,7 @@
 import type { Submission } from '#shared/types/pretalx'
 import type { SessionSummary } from '#shared/types/session'
 import pretalxData from '#server/utils/pretalx'
-import { parseAnswer, parseDifficulty, parseSlot, parseSpeaker, parseTags, parseTrack, parseType } from '#server/utils/pretalx/parser'
+import { parseAnswer, parseSlot, parseSpeaker, parseTags, parseTrack, parseType } from '#server/utils/pretalx/parser'
 
 export default defineEventHandler(async () => {
   const data = await pretalxData()
@@ -30,7 +30,6 @@ export default defineEventHandler(async () => {
         start: slot.start,
         end: slot.end,
         language: answers.language,
-        difficulty: parseDifficulty(answers.difficulty),
         track: parseTrack(submission.track, data),
         speakers,
         zh: {
@@ -43,7 +42,7 @@ export default defineEventHandler(async () => {
           describe: answers.enDesc || submission.abstract,
           type: type.name.en || type.name['zh-hans'],
         },
-        tags: parseTags(submission.tags, data),
+        tags: parseTags(submission.tags, data, parseDifficulty(answers.difficulty)),
         uri: `https://coscup.org/2026/session/${submission.code}`,
       }
     })
