@@ -1,7 +1,7 @@
 import type { Submission } from '#shared/types/pretalx'
 import type { SessionSummary } from '#shared/types/session'
 import pretalxData from '#server/utils/pretalx'
-import { parseAnswer, parseSlot, parseSpeaker, parseTags, parseTrack, parseType } from '#server/utils/pretalx/parser'
+import { parseAnswer, parseDifficulty, parseSlot, parseSpeaker, parseTags, parseTrack, parseType } from '#server/utils/pretalx/parser'
 
 export default defineEventHandler(async () => {
   const data = await pretalxData()
