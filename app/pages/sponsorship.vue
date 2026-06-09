@@ -220,7 +220,7 @@ const addOnFigures = computed(() => [
 
 <i18n lang="yaml">
 zh:
-  title: "COSCUP Taiwan 2026 贊助方案"
+  title: "COSCUP 2026 x UbuCon Asia 贊助方案"
   metaDescription: "瞭解 COSCUP 2026 x UbuCon Asia 的贊助方案、級別與加價購選項。"
   tiers:
     heading: "贊助方案（單位：新台幣，外稅）"
@@ -244,7 +244,7 @@ zh:
   deadline: "因應相關製作物所需的工作時間，贊助截止日期：2026 年 7 月 06 日。"
   contact: "聯絡我們："
 en:
-  title: "COSCUP Taiwan 2026 Sponsorship Program"
+  title: "COSCUP 2026 x UbuCon Asia Sponsorship Program"
   metaDescription: "Explore sponsorship packages, tiers, and add-ons for COSCUP 2026 x UbuCon Asia."
   tiers:
     heading: "Sponsorship Package"
