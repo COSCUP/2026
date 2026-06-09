@@ -34,6 +34,11 @@ useSeoMeta({
   twitterTitle: () => page.value?.title,
   twitterDescription: () => page.value?.description,
 })
+
+defineOgImage('Default', {
+  title: page.value?.title || 'COSCUP 2026 x UbuCon Asia',
+  subtitle: page.value?.description || '',
+})
 </script>
 
 <template>
