@@ -7,7 +7,12 @@ import presetThemes from 'unocss-preset-theme'
 
 export default defineConfig({
   shortcuts: {
-    icon: '-align-0.125em',
+    'icon': '-align-0.125em',
+    'z-content': 'z-10', // isolated 容器內的內容層（表格表頭、列表標題）
+    'z-sticky': 'z-20', // 頁面固定元素（導覽列、日期選擇器、篩選列）
+    'z-dropdown': 'z-30', // 下拉與彈出選單
+    'z-modal': 'z-40', // 全螢幕遮罩與對話框
+    'z-toast': 'z-50', // 最上層（手機選單、通知）
   },
   extractors: [
     extractorMdc(),
