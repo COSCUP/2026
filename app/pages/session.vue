@@ -66,7 +66,7 @@ definePageMeta({
           </div>
 
           <!-- FilterBar -->
-          <div class="p-4 flex flex-col gap-3 w-[var(--viewport-width,100vw)] items-stretch left-0 sticky z-10 sm:flex-row sm:items-center sm:justify-between">
+          <div class="p-4 flex flex-col gap-3 w-[var(--viewport-width,100vw)] items-stretch left-0 sticky z-sticky sm:flex-row sm:items-center sm:justify-between">
             <div class="flex shrink-0 gap-3 items-center justify-center sm:justify-start">
               <div class="rounded-md bg-gray-200 h-12 w-18 animate-pulse sm:h-9" />
               <div class="rounded-md bg-gray-200 h-12 w-18 animate-pulse sm:h-9" />
@@ -84,7 +84,7 @@ definePageMeta({
         <div class="flex flex-col">
           <CpSessionDaySelector
             v-model="selectedDay"
-            class="w-[var(--viewport-width,100vw)] bottom-0 left-0 order-last sticky z-10 sm:bottom-auto sm:order-none"
+            class="w-[var(--viewport-width,100vw)] bottom-0 left-0 order-last sticky z-sticky sm:bottom-auto sm:order-none"
             :days="days"
           />
 
@@ -92,7 +92,7 @@ definePageMeta({
             v-model:search-query="searchQuery"
             v-model:selected-room-ids="selectedRoomIds"
             v-model:selected-tag-ids="selectedTagIds"
-            class="p-4 left-0 sticky z-10"
+            class="p-4 left-0 sticky z-sticky"
             :room-options="roomOptions"
             :tag-options="tagOptions"
           />

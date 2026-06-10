@@ -19,7 +19,7 @@ onUnmounted(() => {
 
 <template>
   <div class="w-max">
-    <CpNavbar class="w-[var(--viewport-width,100vw)] left-0 sticky z-10" />
+    <CpNavbar class="w-[var(--viewport-width,100vw)] left-0 sticky z-sticky" />
     <main class="w-max">
       <slot />
     </main>
