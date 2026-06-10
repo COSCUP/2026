@@ -106,7 +106,7 @@ function clearSelection() {
 
     <div
       v-if="open"
-      class="mt-1 p-3 border border-gray-300 rounded-md bg-gray-50 flex flex-col gap-2 max-w-[calc(100vw-32px)] w-72 shadow-md left-1/2 absolute z-30 sm:p-2 sm:gap-1 sm:max-w-[calc(100vw-64px)] -translate-x-1/2 sm:translate-x-0 sm:left-0"
+      class="mt-1 p-3 border border-gray-300 rounded-md bg-gray-50 flex flex-col gap-2 max-w-[calc(100vw-32px)] w-72 shadow-md left-1/2 absolute z-dropdown sm:p-2 sm:gap-1 sm:max-w-[calc(100vw-64px)] -translate-x-1/2 sm:translate-x-0 sm:left-0"
     >
       <CpTextField
         v-model="searchQuery"

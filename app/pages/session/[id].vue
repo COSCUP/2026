@@ -62,7 +62,7 @@ onUnmounted(() => {
   <div
     :aria-label="sessionInfo?.title"
     aria-modal="true"
-    class="bg-black/50 inset-0 fixed z-50"
+    class="bg-black/50 inset-0 fixed z-modal"
     role="dialog"
     @click.self="close"
   >
@@ -72,7 +72,7 @@ onUnmounted(() => {
       </div>
 
       <div class="p-3 h-full w-full overflow-y-auto">
-        <div class="flex top-0 justify-end sticky z-10">
+        <div class="flex top-0 justify-end sticky z-content">
           <button
             aria-label="close"
             class="text-gray-500 rounded-full flex h-8 w-8 transition-colors items-center justify-center hover:bg-gray-100"
