@@ -6,6 +6,7 @@ import CpSessionItem from './CpSessionItem.vue'
 const { sessions: _sessions } = defineProps<{ sessions: SessionSummary[] }>()
 
 const { locale } = useI18n()
+const localePath = useLocalePath()
 
 const sessions = computed(() => {
   if (!_sessions) {
@@ -42,7 +43,7 @@ const times = Object.keys(sessions.value).sort()
         <NuxtLink
           v-for="session in sessions[time]"
           :key="session.id"
-          :to="`/session/${session.id}`"
+          :to="localePath(`/session/${session.id}`)"
         >
           <CpSessionItem
             :end="session.end"
