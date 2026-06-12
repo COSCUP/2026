@@ -16,6 +16,7 @@ const { sessions: _sessions, day, timeRange, interval, rowHeight, columnWidth } 
 
 const { locale } = useI18n()
 const { time } = useRealtime()
+const localePath = useLocalePath()
 
 const { containerRef, isDragging } = useDragScroll({ scrollTarget: 'window' })
 
@@ -181,7 +182,7 @@ const showRealtimeLine = computed(() => {
         'grid-row': `${session.row[0]} / ${session.row[1]}`,
         'grid-column': session.col,
       }"
-      :to="`/session/${session.id}`"
+      :to="localePath(`/session/${session.id}`)"
       @dragstart.prevent
     >
       <CpSessionItem
