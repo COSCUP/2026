@@ -4,9 +4,8 @@ import { ref } from 'vue'
 
 const [isOpen, toggle] = useToggle()
 const target = ref(null)
-const close = () => toggle(false)
 
-onClickOutside(target, close)
+onClickOutside(target, () => toggle(false))
 </script>
 
 <template>
@@ -36,7 +35,6 @@ onClickOutside(target, close)
         >
           <slot
             v-if="isOpen"
-            :close="close"
             name="content"
           />
         </transition>
