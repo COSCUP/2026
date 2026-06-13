@@ -1,5 +1,5 @@
-import type { Answer, PretalxResult, Room, Slot, Submission, SubmissionType } from '#shared/types/pretalx'
-import type { SessionSpeaker } from '#shared/types/session'
+import type { Answer, PretalxResult, Room, Slot, Submission, SubmissionType, Tag, Track } from '#shared/types/pretalx'
+import type { SessionDifficulty, SessionSpeaker, SessionTrack } from '#shared/types/session'
 
 // 對應 pretalx 的問題 ID。
 // key 為系統內使用的欄位名稱，value 為 pretalx 的 question id。
@@ -24,6 +24,20 @@ const QUESTION_MAP = {
 type QuestionKey = keyof typeof QUESTION_MAP
 type ParsedAnswer = Partial<Record<QuestionKey, string>>
 type ParsedSlot = Omit<Slot, 'room'> & { room?: Room }
+
+// 議程難度正規化表。pretalx 的難度欄位是一個有固定選項的自訂問題答案。
+const DIFFICULTY_GENERALIZE_MAP: Record<string, SessionDifficulty> = {
+  初學者: 'Elementary',
+  入門: 'Elementary',
+  中階: 'Intermediate',
+  進階: 'Advanced',
+  專業: 'Professional',
+  Beginner: 'Elementary',
+  Elementary: 'Elementary',
+  Intermediate: 'Intermediate',
+  Advanced: 'Advanced',
+  Professional: 'Professional',
+}
 
 export function parseAnswer(answers: Answer['id'][], pretalxData: PretalxResult): ParsedAnswer {
   const answerMap = pretalxData.answers.map
@@ -110,4 +124,40 @@ export function parseType(typeId: SubmissionType['id'], pretalxData: PretalxResu
   }
 
   return typeMap[typeId]
+}
+
+export function parseTrack(trackId: Submission['track'], pretalxData: PretalxResult): SessionTrack | undefined {
+  if (trackId == null) {
+    return undefined
+  }
+
+  const track: Track | undefined = pretalxData.tracks.map[trackId]
+
+  if (!track) {
+    return undefined
+  }
+
+  return { id: track.id, name: track.name }
+}
+
+// 解析議程標籤，並把正規化後的難度（若有）一併併入標籤清單，
+// 讓難度成為標籤的一部分而非獨立欄位。
+export function parseTags(tagIds: Submission['tags'], pretalxData: PretalxResult, difficulty?: SessionDifficulty): string[] {
+  const tagMap = pretalxData.tags.map
+
+  const tags = tagIds
+    .map((tagId) => tagMap[tagId])
+    .filter((tag): tag is Tag => tag !== undefined && tag.is_public)
+    .map((tag) => tag.tag)
+
+  return difficulty ? [difficulty, ...tags] : tags
+}
+
+// 將投稿者填寫的難度原始字串正規化成統一的英文 enum，無法對應時回傳 undefined。
+export function parseDifficulty(difficulty: string | undefined): SessionDifficulty | undefined {
+  if (!difficulty) {
+    return undefined
+  }
+
+  return DIFFICULTY_GENERALIZE_MAP[difficulty.trim()]
 }

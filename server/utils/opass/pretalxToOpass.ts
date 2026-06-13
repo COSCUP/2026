@@ -1,5 +1,5 @@
 import type { PretalxResult, Room, Speaker, Submission, SubmissionType } from '#shared/types/pretalx'
-import { parseAnswer, parseSlot } from '#server/utils/pretalx/parser'
+import { parseAnswer, parseDifficulty, parseSlot, parseTags } from '#server/utils/pretalx/parser'
 
 export function pretalxToOpass(pretalxData: PretalxResult) {
   const speakerIds: Set<Speaker['code']> = new Set()
@@ -36,7 +36,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
           title: answer.enTitle || submission.title,
           describe: answer.enDesc || submission.abstract,
         },
-        tags: [],
+        tags: parseTags(submission.tags, pretalxData, parseDifficulty(answer.difficulty)),
         uri: `https://coscup.org/2026/session/${submission.code}`,
         co_write: null,
         qa: null,
@@ -111,8 +111,6 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
       }
     })
     .filter((x): x is NonNullable<typeof x> => x !== null)
-
-  // TODO: tags
 
   return { sessions, speakers, session_types: types, rooms }
 }
