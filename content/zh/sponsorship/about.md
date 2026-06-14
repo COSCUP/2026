@@ -1,3 +1,8 @@
+---
+title: 關於 COSCUP
+description: 認識臺灣最大的開源社群年會 COSCUP。
+---
+
 ## 關於 COSCUP
 
 COSCUP（Conference for Open Source Coders, Users and Promoters；開源人年會）

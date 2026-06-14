@@ -1,3 +1,8 @@
+---
+title: About COSCUP
+description: Learn about COSCUP, Taiwan's largest open source community conference.
+---
+
 ## About COSCUP
 
 COSCUP (Conference for Open Source Coders, Users and Promoters)

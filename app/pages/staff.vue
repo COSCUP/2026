@@ -5,6 +5,15 @@ const { t } = useI18n()
 
 const { data: staffGroups } = await useFetch('/api/staff')
 const noStaff = computed(() => !staffGroups.value || staffGroups.value.length === 0)
+
+useSeoMeta({
+  title: () => t('meta.title'),
+  description: () => t('meta.description'),
+  ogTitle: () => t('meta.title'),
+  ogDescription: () => t('meta.description'),
+  twitterTitle: () => t('meta.title'),
+  twitterDescription: () => t('meta.description'),
+})
 </script>
 
 <template>
@@ -48,6 +57,9 @@ const noStaff = computed(() => !staffGroups.value || staffGroups.value.length ==
 <i18n lang="yaml">
 zh:
   noStaff: 工作人員目前尚未公布
+  meta:
+    title: 工作人員
+    description: 認識籌備 COSCUP 2026 x UbuCon Asia 的志工團隊。
   group:
     coordinator: 總召組
     secretary: 行政組
@@ -63,6 +75,9 @@ zh:
     production: 製播組
 en:
   noStaff: The staff information has not been announced yet.
+  meta:
+    title: Staff
+    description: Meet the volunteer teams organizing COSCUP 2026 x UbuCon Asia.
   group:
     coordinator: General Coordinator
     secretary: Secretary

@@ -37,6 +37,15 @@ const sessionInfo = computed(() => {
   }
 })
 
+useSeoMeta({
+  title: () => sessionInfo.value?.title,
+  description: () => sessionInfo.value?.description,
+  ogTitle: () => sessionInfo.value?.title,
+  ogDescription: () => sessionInfo.value?.description,
+  twitterTitle: () => sessionInfo.value?.title,
+  twitterDescription: () => sessionInfo.value?.description,
+})
+
 function close() {
   router.push(localePath('/session'))
 }

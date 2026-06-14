@@ -18,6 +18,15 @@ const slug = computed(() => {
 })
 
 const page = await useLocaleContent(slug, locale, defaultLocale)
+
+useSeoMeta({
+  title: () => page.value?.title,
+  description: () => page.value?.description,
+  ogTitle: () => page.value?.title,
+  ogDescription: () => page.value?.description,
+  twitterTitle: () => page.value?.title,
+  twitterDescription: () => page.value?.description,
+})
 </script>
 
 <template>

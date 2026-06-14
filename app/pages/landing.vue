@@ -2,6 +2,12 @@
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
+
+useSeoMeta({
+  description: () => t('meta.description'),
+  ogDescription: () => t('meta.description'),
+  twitterDescription: () => t('meta.description'),
+})
 </script>
 
 <template>
@@ -89,6 +95,8 @@ const { t } = useI18n()
 
 <i18n lang="yaml">
 en:
+  meta:
+    description: "COSCUP 2026 x UbuCon Asia — Taiwan's largest open source community conference."
   coming_soon: "August 8-9 — See you there."
   co-host: "Co-hosted with UbuCon Asia!"
   call_for_sponsor:
@@ -111,6 +119,8 @@ en:
     link_text: "Learn more"
     anchor: "anchor2"
 zh:
+  meta:
+    description: "COSCUP 2026 x UbuCon Asia——臺灣最大的開源社群年會。"
   coming_soon: "敬請期待——COSCUP 將於 8/8 ~ 8/9 與你相見。"
   co-host: "UbuCon Asia 合辦確定！"
   call_for_sponsor:

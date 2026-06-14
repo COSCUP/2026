@@ -1,5 +1,14 @@
 <script setup lang="ts">
-const { locale } = useI18n()
+const { t, locale } = useI18n()
+
+useSeoMeta({
+  title: () => t('meta.title'),
+  description: () => t('meta.description'),
+  ogTitle: () => t('meta.title'),
+  ogDescription: () => t('meta.description'),
+  twitterTitle: () => t('meta.title'),
+  twitterDescription: () => t('meta.description'),
+})
 
 const { data } = useFetch('/api/hackmd/ry2VoMnqWl', {
   key: 'hackmd:invitation-letter-guide',
@@ -39,3 +48,14 @@ const localizedContent = computed(() => {
     />
   </div>
 </template>
+
+<i18n lang="yaml">
+zh:
+  meta:
+    title: 邀請函申請指南
+    description: COSCUP 2026 x UbuCon Asia 參加者邀請函的申請說明。
+en:
+  meta:
+    title: Invitation Letter Guide
+    description: How to request an invitation letter for attending COSCUP 2026 x UbuCon Asia.
+</i18n>

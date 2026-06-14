@@ -1,3 +1,8 @@
+---
+title: Sponsorship FAQ
+description: Frequently asked questions about COSCUP 2026 x UbuCon Asia sponsorship.
+---
+
 ## FAQ
 
 ### Besides the current sponsorship plan, can I sponsor other projects or items?

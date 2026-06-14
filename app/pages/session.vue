@@ -23,6 +23,15 @@ prerenderRoutes(
     .map((s) => `/session/${s.id}`),
 )
 
+useSeoMeta({
+  title: () => t('meta.title'),
+  description: () => t('meta.description'),
+  ogTitle: () => t('meta.title'),
+  ogDescription: () => t('meta.description'),
+  twitterTitle: () => t('meta.title'),
+  twitterDescription: () => t('meta.description'),
+})
+
 definePageMeta({
   layout: 'session-table',
 })
@@ -83,6 +92,12 @@ definePageMeta({
 <i18n lang="yaml">
   en:
     noSession: 'Not announced yet, stay tuned.'
+    meta:
+      title: 'Sessions'
+      description: 'Browse the full session schedule for COSCUP 2026 x UbuCon Asia.'
   zh:
     noSession: '尚未公布，敬請期待。'
+    meta:
+      title: '議程'
+      description: '瀏覽 COSCUP 2026 x UbuCon Asia 的完整議程時間表。'
 </i18n>

@@ -1,3 +1,8 @@
+---
+title: 認識我們
+description: 認識 COSCUP——臺灣最大的開源社群年會——以及我們的理念與行為準則。
+---
+
 # 認識我們
 
 ::info{title="COSCUP 行為準則"}

@@ -1,3 +1,8 @@
+---
+title: About Us
+description: Get to know COSCUP — Taiwan's largest open source community conference — and our values and Code of Conduct.
+---
+
 # About Us
 
 ::info{title="COSCUP Code of Conduct"}
