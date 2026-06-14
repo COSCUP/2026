@@ -20,7 +20,7 @@ const sessions = computed(() => {
         speakers: session.speakers?.map((s) => s[locale.value].name).join(', '),
         start: session.start!.slice(11, 16),
         end: session.end!.slice(11, 16),
-        room: session.room?.en,
+        room: session.room?.[locale.value === 'zh' ? 'zh-hans' : locale.value],
         tags: [],
       })),
     (session) => session.start,
