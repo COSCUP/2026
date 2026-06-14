@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { prerenderRoutes } from 'nuxt/app'
-import { useI18n } from 'vue-i18n'
 import CpSessionDaySelector from '~/components/feature/CpSessionDaySelector.vue'
 import CpSessionList from '~/components/feature/CpSessionList.vue'
 import CpSessionTable from '~/components/feature/CpSessionTable.vue'
 
-const { t } = useI18n()
-
 const { data } = await useFetch('/api/session')
+const route = useRoute()
+const isSessionNotFound = ref(false)
 
 const manualSelectedDay = ref<string | null>(null)
 const days = computed(() => Object.keys(data?.value ?? {}).sort())
@@ -15,6 +14,16 @@ const days = computed(() => Object.keys(data?.value ?? {}).sort())
 const selectedDay = computed({
   get: () => manualSelectedDay.value ?? days.value[0] ?? null,
   set: (value) => void (manualSelectedDay.value = value),
+})
+
+provide('setSessionNotFound', (value: boolean) => {
+  isSessionNotFound.value = value
+})
+
+watch(() => route.params.id, (newId) => {
+  if (!newId) {
+    isSessionNotFound.value = false
+  }
 })
 
 prerenderRoutes(
@@ -34,7 +43,10 @@ definePageMeta({
 
     <ClientOnly>
       <template #fallback>
-        <div class="flex flex-col-reverse sm:flex-col">
+        <div
+          v-if="!isSessionNotFound"
+          class="flex flex-col-reverse sm:flex-col"
+        >
           <!-- DaySelector -->
           <div class="px-6 pb-4 pt-3 flex w-screen justify-center">
             <div class="rounded-full bg-gray-200 h-12 w-1/2 animate-pulse" />
@@ -45,7 +57,7 @@ definePageMeta({
         </div>
       </template>
 
-      <template v-if="selectedDay">
+      <template v-if="selectedDay && !isSessionNotFound">
         <div class="flex flex-col-reverse sm:flex-col">
           <CpSessionDaySelector
             v-model="selectedDay"
@@ -67,22 +79,7 @@ definePageMeta({
             :time-range="['09:00', '17:30']"
           />
         </div>
-
-        <p v-if="!data?.[selectedDay]?.length">
-          {{ t('noSession') }}
-        </p>
       </template>
-
-      <p v-else>
-        {{ t('noSession') }}
-      </p>
     </ClientOnly>
   </main>
 </template>
-
-<i18n lang="yaml">
-  en:
-    noSession: 'Not announced yet, stay tuned.'
-  zh:
-    noSession: '尚未公布，敬請期待。'
-</i18n>

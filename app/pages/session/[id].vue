@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { SessionDetail } from '#shared/types/session'
 import CpSessionInfoCard from '~/components/feature/CpSessionInfoCard.vue'
+import CpNotFound from '~/components/shared/CpNotFound.vue'
 
 const { locale } = useI18n()
 const route = useRoute()
@@ -9,7 +10,10 @@ const localePath = useLocalePath()
 
 const { data } = await useFetch<SessionDetail>(`/api/session/${route.params.id}`)
 
+const setSessionNotFound = inject<(value: boolean) => void>('setSessionNotFound')
+
 const localeKey = computed(() => locale.value === 'zh' ? 'zh' : 'en')
+const hasData = computed(() => !!data.value)
 
 const sessionInfo = computed(() => {
   if (!data.value) {
@@ -47,6 +51,12 @@ function onKeydown(e: KeyboardEvent) {
   }
 }
 
+watchEffect(() => {
+  if (setSessionNotFound) {
+    setSessionNotFound(!hasData.value)
+  }
+})
+
 onMounted(() => {
   document.body.style.overflow = 'hidden'
   window.addEventListener('keydown', onKeydown)
@@ -60,6 +70,14 @@ onUnmounted(() => {
 
 <template>
   <div
+    v-if="!hasData"
+    class="bg-white flex min-h-[70vh] w-[var(--viewport-width,100vw)] items-center justify-center"
+  >
+    <CpNotFound />
+  </div>
+
+  <div
+    v-else
     :aria-label="sessionInfo?.title"
     aria-modal="true"
     class="bg-black/50 inset-0 fixed z-50"
