@@ -20,7 +20,7 @@ const selectedDay = computed({
 prerenderRoutes(
   Object.values(data.value ?? {})
     .flat()
-    .map((s) => `/session/${s.id}`),
+    .flatMap((s) => [`/session/${s.id}`, `/en/session/${s.id}`]),
 )
 
 useSeoMeta({
