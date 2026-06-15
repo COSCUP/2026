@@ -19,22 +19,22 @@ const { t } = useI18n()
         </h1>
 
         <p class="text-base text-gray-400 tracking-widest font-semibold mt-4 uppercase">
-          PAGE NOT FOUND
+          {{ t('pageNotFound') }}
         </p>
 
         <div class="my-5 bg-primary-300 h-[2px] w-12" />
 
         <p class="text-sm text-gray-500 leading-relaxed max-w-md">
-          But if you don't change your direction, and if you keep looking, you may end up where you are heading.
+          {{ t('description') }}
         </p>
 
         <div class="mt-6">
-          <NuxtLink
+          <NuxtLinkLocale
             class="text-sm text-primary-300 tracking-wide font-semibold px-8 py-2.5 border-2 border-primary-300 rounded-full inline-flex duration-200 items-center justify-center hover:text-white focus:outline-none hover:border-primary-400 hover:bg-primary-400"
             to="/"
           >
             {{ t('takeMeHome') }}
-          </NuxtLink>
+          </NuxtLinkLocale>
         </div>
       </div>
     </div>
@@ -43,7 +43,11 @@ const { t } = useI18n()
 
 <i18n lang="yaml">
   en:
+    pageNotFound: 'Page not found'
+    description: "Sorry, we could not find the page you were looking for."
     takeMeHome: 'Take me home'
   zh:
-    takeMeHome: '返回首頁'
+    pageNotFound: '頁面不存在'
+    description: "抱歉我們找不到您要查找的頁面。"
+    takeMeHome: '帶我回首頁'
 </i18n>
