@@ -3,6 +3,7 @@ import { prerenderRoutes } from 'nuxt/app'
 import CpSessionDaySelector from '~/components/feature/CpSessionDaySelector.vue'
 import CpSessionList from '~/components/feature/CpSessionList.vue'
 import CpSessionTable from '~/components/feature/CpSessionTable.vue'
+import CpNotFound from '~/components/shared/CpNotFound.vue'
 
 const { data } = await useFetch('/api/session')
 const route = useRoute()
@@ -57,8 +58,8 @@ definePageMeta({
         </div>
       </template>
 
-      <template v-if="selectedDay && !isSessionNotFound">
-        <div class="flex flex-col-reverse sm:flex-col">
+      <template v-if="!isSessionNotFound">
+        <div v-if="selectedDay" class="flex flex-col-reverse sm:flex-col">
           <CpSessionDaySelector
             v-model="selectedDay"
             class="w-screen bottom-0 left-0 sticky z-10 sm:bottom-auto"
@@ -78,6 +79,10 @@ definePageMeta({
             :sessions="data?.[selectedDay] ?? []"
             :time-range="['09:00', '17:30']"
           />
+        </div>
+
+        <div v-else class="flex flex-col min-h-[60vh] w-[100vw] items-center justify-center">
+          <CpNotFound />
         </div>
       </template>
     </ClientOnly>
