@@ -96,6 +96,7 @@ export default defineNuxtConfig({
     },
     prerender: {
       failOnError: false,
+      concurrency: 4,
     },
   },
 
