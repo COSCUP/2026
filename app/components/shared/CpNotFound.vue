@@ -14,7 +14,7 @@ const { t } = useI18n()
       </div>
 
       <div class="text-center flex flex-col items-center lg:text-left lg:items-start">
-        <h1 class="text-5xl text-gray-700 leading-none tracking-tight font-bold sm:text-9xl">
+        <h1 class="text-5xl text-gray-500 leading-none tracking-tight font-bold sm:text-9xl">
           404
         </h1>
 
