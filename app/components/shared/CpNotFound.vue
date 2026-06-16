@@ -1,5 +1,10 @@
 <script setup lang="ts">
 const { t } = useI18n()
+const localePath = useLocalePath()
+
+function talkeMeHome() {
+  clearError({ redirect: localePath('/') })
+}
 </script>
 
 <template>
@@ -29,12 +34,12 @@ const { t } = useI18n()
         </p>
 
         <div class="mt-6">
-          <NuxtLinkLocale
+          <button
             class="text-sm text-primary-300 tracking-wide font-semibold px-8 py-2.5 border-2 border-primary-300 rounded-full inline-flex duration-200 items-center justify-center hover:text-white focus:outline-none hover:border-primary-400 hover:bg-primary-400"
-            to="/"
+            @click="talkeMeHome"
           >
             {{ t('takeMeHome') }}
-          </NuxtLinkLocale>
+          </button>
         </div>
       </div>
     </div>
