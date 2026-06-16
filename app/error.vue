@@ -9,4 +9,7 @@ defineProps({
 
 <template>
   <CpNotFound v-if="error?.status === 404" />
+  <p v-else>
+    {{ error?.status }} - {{ error?.statusText }}
+  </p>
 </template>
