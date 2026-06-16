@@ -19,6 +19,13 @@ const slug = computed(() => {
 
 const page = await useLocaleContent(slug, locale, defaultLocale)
 
+if (!page.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Page not found',
+  })
+}
+
 useSeoMeta({
   title: () => page.value?.title,
   description: () => page.value?.description,
@@ -35,8 +42,4 @@ useSeoMeta({
     class="m-auto prose"
     :value="page"
   />
-  <div v-else>
-    <h1>Page not found</h1>
-    <p>This page doesn't exist in {{ locale }} language.</p>
-  </div>
 </template>
