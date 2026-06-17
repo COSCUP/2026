@@ -2,6 +2,8 @@
 import CpBadge from '~/components/shared/CpBadge.vue'
 
 defineProps<{
+  // Session link target, rendered as an overlay so the bookmark isn't nested in the anchor.
+  to: string
   title: string
   start: string
   end: string
@@ -27,6 +29,14 @@ defineEmits<{
       ? 'text-cp-orange-700 border-cp-orange-300 bg-cp-orange-50'
       : 'text-primary-600 border-primary-100 bg-primary-50'"
   >
+    <!-- Overlay link, so the bookmark is a sibling rather than nested in the anchor.
+         Both are absolute; the bookmark follows in DOM order, so it paints on top. -->
+    <NuxtLink
+      :aria-label="title"
+      class="rounded inset-0 absolute"
+      :draggable="false"
+      :to="to"
+    />
     <span
       v-if="readonly"
       class="text-xl text-cp-orange-600 leading-none p-1 right-1 top-1 absolute"

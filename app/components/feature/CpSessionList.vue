@@ -50,24 +50,21 @@ const times = computed(() => Object.keys(sessions.value).sort())
         {{ time }}
       </h3>
       <div class="flex flex-col gap-2">
-        <NuxtLink
+        <CpSessionItem
           v-for="session in sessions[time]"
           :key="session.id"
+          :end="session.end"
+          :favorite="preview || isFavorite(session.id)"
+          :favorite-label="favoriteLabel(session.id, preview)"
+          :readonly="preview"
+          :room="session.room"
+          :speaker="session.speakers"
+          :start="session.start"
+          :tags="session.tags"
+          :title="session.title"
           :to="localePath(`/session/${session.id}`)"
-        >
-          <CpSessionItem
-            :end="session.end"
-            :favorite="preview || isFavorite(session.id)"
-            :favorite-label="favoriteLabel(session.id, preview)"
-            :readonly="preview"
-            :room="session.room"
-            :speaker="session.speakers"
-            :start="session.start"
-            :tags="session.tags"
-            :title="session.title"
-            @toggle-favorite="toggleFavorite(session.id)"
-          />
-        </NuxtLink>
+          @toggle-favorite="toggleFavorite(session.id)"
+        />
       </div>
     </section>
   </div>

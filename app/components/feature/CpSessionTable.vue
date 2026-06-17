@@ -178,31 +178,25 @@ const showRealtimeLine = computed(() => {
       />
     </template>
 
-    <NuxtLink
+    <CpSessionItem
       v-for="session in sessions"
       :key="session.id"
-      class="overflow-hidden"
-      :draggable="false"
+      class="h-full overflow-hidden"
+      :end="session.end"
+      :favorite="preview || isFavorite(session.id)"
+      :favorite-label="favoriteLabel(session.id, preview)"
+      :readonly="preview"
+      :speaker="session.speaker"
+      :start="session.start"
       :style="{
         'grid-row': `${session.row[0]} / ${session.row[1]}`,
         'grid-column': session.col,
       }"
+      :tags="session.tags"
+      :title="session.title"
       :to="localePath(`/session/${session.id}`)"
-      @dragstart.prevent
-    >
-      <CpSessionItem
-        class="h-full"
-        :end="session.end"
-        :favorite="preview || isFavorite(session.id)"
-        :favorite-label="favoriteLabel(session.id, preview)"
-        :readonly="preview"
-        :speaker="session.speaker"
-        :start="session.start"
-        :tags="session.tags"
-        :title="session.title"
-        @toggle-favorite="toggleFavorite(session.id)"
-      />
-    </NuxtLink>
+      @toggle-favorite="toggleFavorite(session.id)"
+    />
 
     <ClientOnly>
       <div
