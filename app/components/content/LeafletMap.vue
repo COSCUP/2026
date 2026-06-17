@@ -32,7 +32,7 @@ onMounted(async () => {
 <template>
   <div
     ref="mapEl"
-    class="not-prose h-100"
+    class="not-prose h-100 isolate"
   />
 </template>
 
