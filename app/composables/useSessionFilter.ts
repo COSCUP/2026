@@ -99,6 +99,7 @@ export function useSessionFilter({ sessionsByDay, selectedDay, locale }: UseSess
 
   return {
     searchQuery,
+    daySessions,
     filteredSessions,
     roomOptions,
     tagOptions,

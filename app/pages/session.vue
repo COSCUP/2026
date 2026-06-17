@@ -53,6 +53,7 @@ const selectedDay = computed({
 
 const {
   searchQuery,
+  daySessions,
   filteredSessions,
   roomOptions,
   tagOptions,
@@ -73,8 +74,10 @@ const viewItems = computed(() => [
 // The favorites / shared view on top of the room/tag/search filters.
 const displayedSessions = computed(() => {
   if (isSharing.value) {
+    // From unfiltered sessions: the filter bar is hidden while sharing, so a
+    // leftover filter must not hide valid shared sessions.
     const shared = new Set(sharedSessionIds.value)
-    return filteredSessions.value.filter((session) => shared.has(session.id))
+    return daySessions.value.filter((session) => shared.has(session.id))
   }
   if (view.value === 'favorite') {
     return filteredSessions.value.filter((session) => isFavorite(session.id))
