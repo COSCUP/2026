@@ -59,14 +59,14 @@ definePageMeta({
 
     <ClientOnly>
       <template #fallback>
-        <div class="flex flex-col-reverse sm:flex-col">
+        <div class="flex flex-col">
           <!-- DaySelector -->
-          <div class="px-6 pb-4 pt-3 flex w-screen justify-center">
+          <div class="px-6 pb-4 pt-3 flex w-[var(--viewport-width,100vw)] justify-center order-last sm:order-none">
             <div class="rounded-full bg-gray-200 h-12 w-1/2 animate-pulse" />
           </div>
 
           <!-- FilterBar -->
-          <div class="p-4 flex flex-col gap-3 w-screen items-stretch left-0 sticky z-10 sm:flex-row sm:items-center sm:justify-between">
+          <div class="p-4 flex flex-col gap-3 w-[var(--viewport-width,100vw)] items-stretch left-0 sticky z-10 sm:flex-row sm:items-center sm:justify-between">
             <div class="flex shrink-0 gap-3 items-center justify-center sm:justify-start">
               <div class="rounded-md bg-gray-200 h-12 w-18 animate-pulse sm:h-9" />
               <div class="rounded-md bg-gray-200 h-12 w-18 animate-pulse sm:h-9" />
@@ -81,10 +81,10 @@ definePageMeta({
       </template>
 
       <template v-if="selectedDay">
-        <div class="flex flex-col-reverse sm:flex-col">
+        <div class="flex flex-col">
           <CpSessionDaySelector
             v-model="selectedDay"
-            class="w-screen bottom-0 left-0 sticky z-10 sm:bottom-auto"
+            class="w-[var(--viewport-width,100vw)] bottom-0 left-0 order-last sticky z-10 sm:bottom-auto sm:order-none"
             :days="days"
           />
 
