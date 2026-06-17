@@ -31,7 +31,7 @@ const times = Object.keys(sessions.value).sort()
 </script>
 
 <template>
-  <div class="flex flex-col gap-6 w-screen">
+  <div class="flex flex-col gap-6 w-[var(--viewport-width,100vw)]">
     <section
       v-for="time in times"
       :key="time"

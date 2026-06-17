@@ -14,7 +14,7 @@ const searchQuery = defineModel<string>('searchQuery', { default: '' })
 </script>
 
 <template>
-  <div class="flex flex-col gap-3 w-screen items-stretch sm:flex-row sm:items-center sm:justify-between">
+  <div class="flex flex-col gap-3 w-[var(--viewport-width,100vw)] items-stretch sm:flex-row sm:items-center sm:justify-between">
     <div class="flex shrink-0 gap-3 items-center justify-center sm:justify-start">
       <CpSessionFilterDropdown
         v-model="selectedRoomIds"
