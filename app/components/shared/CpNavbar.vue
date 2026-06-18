@@ -43,10 +43,10 @@ function closeMenu() {
 
 <template>
   <nav class="text-gray-700 px-3 py-1 border-b border-gray-300 bg-white flex h-16 justify-between relative *:h-full">
-    <div class="flex items-center">
+    <div class="flex flex-shrink-0 items-center">
       <NuxtPicture
         :alt="t('logo_alt')"
-        :img-attrs="{ class: 'object-cover h-8' }"
+        :img-attrs="{ class: 'object-contain h-8' }"
         src="/coscup_logo.png"
       />
     </div>
