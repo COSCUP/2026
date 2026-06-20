@@ -1,58 +1,17 @@
 import type { Submission } from '#shared/types/pretalx'
 import type { SessionSummary } from '#shared/types/session'
 import pretalxData from '#server/utils/pretalx'
-import { parseAnswer, parseDifficulty, parseSlot, parseSpeaker, parseTags, parseTrack, parseType } from '#server/utils/pretalx/parser'
+import { buildSessionSummary, groupSessionsByDay } from '#server/utils/pretalx/sessions'
 
 export default defineEventHandler(async () => {
   const data = await pretalxData()
 
   const submissions = data.submissions?.arr || []
 
-  return submissions
+  const sessions = submissions
     .filter((submission: Submission) => submission.state === 'confirmed')
-    .map((submission: Submission) => {
-      if (!submission.slots[0]) {
-        return null
-      }
+    .map((submission: Submission) => buildSessionSummary(submission, data))
+    .filter((session): session is SessionSummary => session !== null)
 
-      const answers = parseAnswer(submission.answers, data)
-      const slot = parseSlot(submission.slots[0], data)
-      const speakers = parseSpeaker(submission.speakers, data)
-      const type = parseType(submission.submission_type, data)
-
-      if (!slot || !slot.start || !slot.end || !slot.room) {
-        return null
-      }
-
-      return {
-        id: submission.code,
-        room: slot.room.name,
-        start: slot.start,
-        end: slot.end,
-        language: answers.language,
-        track: parseTrack(submission.track, data),
-        speakers,
-        zh: {
-          title: submission.title,
-          describe: submission.abstract,
-          type: type.name['zh-hans'] || type.name.en,
-        },
-        en: {
-          title: answers.enTitle || submission.title,
-          describe: answers.enDesc || submission.abstract,
-          type: type.name.en || type.name['zh-hans'],
-        },
-        tags: parseTags(submission.tags, data, parseDifficulty(answers.difficulty)),
-        uri: `https://coscup.org/2026/session/${submission.code}`,
-      }
-    })
-    .filter((session): session is NonNullable<typeof session> => session !== null)
-    .reduce((acc, session) => {
-      const day = session.start.slice(0, 10)
-      if (!acc[day]) {
-        acc[day] = []
-      }
-      acc[day].push(session)
-      return acc
-    }, {} as Record<string, SessionSummary[]>)
+  return groupSessionsByDay(sessions)
 })
