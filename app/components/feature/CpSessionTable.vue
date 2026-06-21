@@ -122,7 +122,7 @@ const showRealtimeLine = computed(() => {
 <template>
   <div
     ref="containerRef"
-    class="border border-gray-200 rounded-xl grid relative overflow-clip"
+    class="border border-gray-200 rounded-xl grid relative overflow-clip isolate"
     :class="isDragging ? 'cursor-grabbing select-none' : 'cursor-grab'"
     :style="{
       gridTemplateColumns: `4.5rem repeat(${rooms.length}, ${columnWidth}px)`,
@@ -130,7 +130,7 @@ const showRealtimeLine = computed(() => {
     }"
   >
     <div
-      class="border-b border-gray-200 bg-gray-50 left-0 top-0 sticky z-20"
+      class="border-b border-gray-200 bg-gray-50 left-0 top-0 sticky z-sticky"
       :style="{
         'grid-row': 1,
         'grid-column': 1,
@@ -140,7 +140,7 @@ const showRealtimeLine = computed(() => {
     <div
       v-for="(room, i) in rooms"
       :key="room"
-      class="text-sm text-primary-400 font-medium border-b border-gray-200 bg-gray-50 flex items-center top-0 justify-center sticky z-20"
+      class="text-sm text-primary-400 font-medium border-b border-gray-200 bg-gray-50 flex items-center top-0 justify-center sticky z-sticky"
       :style="{
         'grid-row': 1,
         'grid-column': i + 2,
@@ -154,7 +154,7 @@ const showRealtimeLine = computed(() => {
       :key="label.label"
     >
       <div
-        class="text-xs text-gray-400 pr-2 pt-0.5 text-right border-t border-gray-100 bg-gray-50 flex items-start left-0 justify-center sticky z-10"
+        class="text-xs text-gray-400 pr-2 pt-0.5 text-right border-t border-gray-100 bg-gray-50 flex items-start left-0 justify-center sticky z-content"
         :style="{
           'grid-row': `${label.row} / ${label.row + 30 / interval}`,
           'grid-column': 1,
@@ -198,7 +198,7 @@ const showRealtimeLine = computed(() => {
     <ClientOnly>
       <div
         v-if="showRealtimeLine"
-        class="border-t-1 border-red-500 w-full pointer-events-none left-0 absolute z-10"
+        class="border-t-1 border-red-500 w-full pointer-events-none left-0 absolute z-content"
         :style="{ top: `${nowLineTop}px` }"
       />
     </ClientOnly>

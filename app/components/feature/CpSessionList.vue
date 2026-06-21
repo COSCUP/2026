@@ -34,12 +34,12 @@ const times = Object.keys(sessions.value).sort()
 </script>
 
 <template>
-  <div class="flex flex-col gap-6 w-[var(--viewport-width,100vw)]">
+  <div class="flex flex-col gap-6 w-[var(--viewport-width,100vw)] isolate">
     <section
       v-for="time in times"
       :key="time"
     >
-      <h3 class="text-lg text-primary-400 font-medium mb-2 py-1 bg-white top-0 sticky z-1">
+      <h3 class="text-lg text-primary-400 font-medium mb-2 py-1 bg-white top-0 sticky z-content">
         {{ time }}
       </h3>
       <div class="flex flex-col gap-2">

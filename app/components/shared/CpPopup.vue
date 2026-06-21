@@ -23,7 +23,7 @@ onClickOutside(target, () => toggle(false))
     <Teleport to="body">
       <div
         v-show="isOpen"
-        class="bg-black/50 flex items-center inset-0 justify-center fixed z-50"
+        class="bg-black/50 flex items-center inset-0 justify-center fixed z-modal"
       >
         <transition
           enter-active-class="ease-out duration-100"
