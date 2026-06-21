@@ -104,6 +104,18 @@ export default defineNuxtConfig({
 
   typescript: {
     typeCheck: true,
+    tsConfig: {
+      vueCompilerOptions: {
+        strictTemplates: true,
+        strictVModel: true,
+        strictCssModules: true,
+        checkUnknownProps: true,
+        checkUnknownEvents: true,
+        checkUnknownDirectives: true,
+        checkUnknownComponents: true,
+        target: 3.5,
+      },
+    },
   },
 
   modules: [
