@@ -75,7 +75,7 @@ onUnmounted(() => {
     role="dialog"
     @click.self="close"
   >
-    <div class="bg-white flex flex-row-reverse h-full w-120 right-0 top-0 fixed">
+    <div class="bg-white flex flex-row-reverse h-full w-full right-0 top-0 fixed sm:w-120">
       <div>
         <!-- AD -->
       </div>
