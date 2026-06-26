@@ -7,7 +7,13 @@ const route = useRoute()
 const router = useRouter()
 const localePath = useLocalePath()
 
-const { data } = await useFetch<SessionDetail>(`/api/session/${route.params.id}`)
+const { data, error } = await useFetch<SessionDetail>(`/api/session/${route.params.id}`)
+
+if (error.value) {
+  throw error.value.statusCode === 404
+    ? createError({ status: 404, statusText: 'Page Not Found' })
+    : error.value
+}
 
 const localeKey = computed(() => locale.value === 'zh' ? 'zh' : 'en')
 
