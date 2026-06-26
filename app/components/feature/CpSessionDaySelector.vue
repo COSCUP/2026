@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{ days: string[] }>()
 
-const selectedDay = defineModel<string>()
+const selectedDay = defineModel<string | null>({ required: true })
 
 function formatDayLabel(day: string) {
   return new Intl.DateTimeFormat('en-US', {

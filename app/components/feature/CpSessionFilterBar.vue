@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { FilterOption } from '~/composables/useSessionFilter'
+import CpTextField from '~/components/shared/CpTextField.vue'
 import CpSessionFilterDropdown from './CpSessionFilterDropdown.vue'
 
 defineProps<{
