@@ -2,7 +2,7 @@
   "name": "coscup-2026",
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@11.6.0",
+  "packageManager": "pnpm@11.9.0",
   "engines": {
     "node": ">=24.0.0"
   },
@@ -23,7 +23,7 @@
     "@nuxtjs/mdc": "0.22.0",
     "@vueuse/core": "14.3.0",
     "csv-parse": "6.2.1",
-    "eslint": "10.4.1",
+    "eslint": "10.5.0",
     "leaflet": "1.9.4",
     "nuxt": "4.4.8",
     "nuxt-gtag": "4.1.0",
@@ -46,6 +46,6 @@
     "typescript": "6.0.3",
     "unocss": "66.7.2",
     "unocss-preset-theme": "0.14.1",
-    "vue-tsc": "3.3.3"
+    "vue-tsc": "3.3.5"
   }
 }
