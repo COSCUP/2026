@@ -39,7 +39,8 @@ defineEmits<{
     />
     <span
       v-if="readonly"
-      class="text-xl text-cp-orange-600 leading-none p-1 right-1 top-1 absolute"
+      aria-hidden="true"
+      class="text-xl text-cp-orange-600 leading-none p-1 pointer-events-none right-1 top-1 absolute"
     >
       <Icon name="tabler:bookmark-filled" />
     </span>
