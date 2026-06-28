@@ -25,58 +25,66 @@ const speakerNames = computed(() =>
 </script>
 
 <template>
-  <article class="p-6 bg-white flex flex-col gap-3">
+  <article class="bg-white flex flex-col gap-3 min-w-0 sm:p-6">
     <header>
-      <h1 class="text-2xl text-primary-400 leading-tight font-bold mb-4">
+      <h1 class="text-xl text-primary-400 leading-tight font-bold mb-4 break-words sm:text-2xl">
         {{ title }}
       </h1>
-      <table class="border-separate border-spacing-4">
-        <tbody>
-          <tr class="border-none">
-            <td class="text-gray-400">
-              <Icon name="tabler:clock" />
-              {{ t("time") }}
-            </td>
-            <td class="text-gray-700">
-              {{ time }}
-            </td>
-          </tr>
-          <tr class="border-none">
-            <td class="text-gray-400">
-              <Icon name="tabler:user" />
-              {{ t("speaker") }}
-            </td>
-            <td class="text-gray-700">
-              {{ speakerNames }}
-            </td>
-          </tr>
-          <tr class="border-none">
-            <td class="text-gray-400">
-              <Icon name="tabler:map-pin" />
-              {{ t("room") }}
-            </td>
-            <td class="text-gray-700">
-              {{ room }}
-            </td>
-          </tr>
-          <tr class="border-none">
-            <td class="text-gray-400">
-              <Icon name="tabler:file-text" />
-              {{ t("co-write") }}
-            </td>
-            <td class="text-gray-700">
-              <a
-                v-if="coWrite?.startsWith('http')"
-                class="underline cursor-pointer"
-                :href="coWrite"
-              >{{ coWrite }}</a>
-              <span
-                v-else
-              >{{ coWrite }}</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <dl class="flex flex-col gap-3">
+        <div class="gap-1 grid sm:gap-4 sm:grid-cols-[7rem_minmax(0,1fr)]">
+          <dt class="text-sm text-gray-400 flex gap-1.5 items-center">
+            <Icon
+              class="shrink-0 h-4 w-4"
+              name="tabler:clock"
+            />
+            {{ t("time") }}
+          </dt>
+          <dd class="text-gray-700 ml-5 min-w-0 break-words sm:ml-0">
+            {{ time }}
+          </dd>
+        </div>
+        <div class="gap-1 grid sm:gap-4 sm:grid-cols-[7rem_minmax(0,1fr)]">
+          <dt class="text-sm text-gray-400 flex gap-1.5 items-center">
+            <Icon
+              class="shrink-0 h-4 w-4"
+              name="tabler:user"
+            />
+            {{ t("speaker") }}
+          </dt>
+          <dd class="text-gray-700 ml-5 min-w-0 break-words sm:ml-0">
+            {{ speakerNames }}
+          </dd>
+        </div>
+        <div class="gap-1 grid sm:gap-4 sm:grid-cols-[7rem_minmax(0,1fr)]">
+          <dt class="text-sm text-gray-400 flex gap-1.5 items-center">
+            <Icon
+              class="shrink-0 h-4 w-4"
+              name="tabler:map-pin"
+            />
+            {{ t("room") }}
+          </dt>
+          <dd class="text-gray-700 ml-5 min-w-0 break-words sm:ml-0">
+            {{ room }}
+          </dd>
+        </div>
+        <div class="gap-1 grid sm:gap-4 sm:grid-cols-[7rem_minmax(0,1fr)]">
+          <dt class="text-sm text-gray-400 flex gap-1.5 items-center">
+            <Icon
+              class="shrink-0 h-4 w-4"
+              name="tabler:file-text"
+            />
+            {{ t("co-write") }}
+          </dt>
+          <dd class="text-gray-700 ml-5 min-w-0 break-words sm:ml-0">
+            <a
+              v-if="coWrite?.startsWith('http')"
+              class="underline cursor-pointer break-all"
+              :href="coWrite"
+            >{{ coWrite }}</a>
+            <span v-else>{{ coWrite }}</span>
+          </dd>
+        </div>
+      </dl>
       <div
         class="mt-5 pb-3 border-b border-gray-200 flex flex-wrap gap-2"
       >
@@ -94,7 +102,7 @@ const speakerNames = computed(() =>
         {{ t("abstract") }}
       </h2>
       <div
-        class="text-gray-700 leading-relaxed whitespace-pre-wrap"
+        class="text-gray-700 leading-relaxed whitespace-pre-wrap break-words"
       >
         <MDC :value="description" />
       </div>
@@ -136,7 +144,7 @@ const speakerNames = computed(() =>
             </div>
           </div>
           <div
-            class="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap"
+            class="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap break-words"
           >
             <MDC :value="speaker.bio" />
           </div>
