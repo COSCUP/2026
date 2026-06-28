@@ -10,7 +10,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
     .filter((submission: Submission) => submission.state === 'confirmed')
     .map((submission: Submission) => {
       const answer = parseAnswer(submission.answers, pretalxData)
-      const slot = parseSlot(submission.slots[0]!, pretalxData)
+      const slot = submission.slots[0] ? parseSlot(submission.slots[0]!, pretalxData) : null
 
       submission.speakers.forEach((id) => speakerIds.add(id))
 
