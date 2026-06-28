@@ -79,8 +79,8 @@ export const SlotSchema = z.object({
   start: z.string().nullable().transform((value) => value),
   end: z.string().nullable().transform((value) => value),
   duration: z.number(),
-  description: z.string().nullable().transform((value) => value),
-  submission: SubmissionSchema.shape.code,
+  description: PretalxLocaleSchema.nullable(),
+  submission: SubmissionSchema.shape.code.nullable(),
   schedule: z.number(),
 })
 

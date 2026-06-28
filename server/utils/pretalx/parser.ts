@@ -79,12 +79,7 @@ export function parseSlot(slotId: Slot['id'], pretalxData: PretalxResult): Parse
   }
 
   const roomId = slot.room
-
-  if (!roomId) {
-    throw createError(`Room not found for slot: ${slotId}`)
-  }
-
-  const room = roomMap[roomId]
+  const room = roomId ? roomMap[roomId] : undefined
 
   return { ...slot, room }
 }
