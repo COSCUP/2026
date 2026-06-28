@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { prerenderRoutes } from 'nuxt/app'
 import { useI18n } from 'vue-i18n'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute, useRouter } from '#imports'
 import CpFavoriteImportBanner from '~/components/feature/CpFavoriteImportBanner.vue'
 import CpSessionDaySelector from '~/components/feature/CpSessionDaySelector.vue'
 import CpSessionEmptyBanner from '~/components/feature/CpSessionEmptyBanner.vue'
@@ -10,14 +10,14 @@ import CpSessionList from '~/components/feature/CpSessionList.vue'
 import CpSessionShareButton from '~/components/feature/CpSessionShareButton.vue'
 import CpSessionTable from '~/components/feature/CpSessionTable.vue'
 import CpSessionViewToggle from '~/components/feature/CpSessionViewToggle.vue'
-import { decodeFavorites, useFavorites } from '~/composables/useFavorites'
+import { decodeFavorites, provideFavorites } from '~/composables/useFavorites'
 import { useSessionFilter } from '~/composables/useSessionFilter'
 
 const { locale, t } = useI18n()
 
 const { data } = await useFetch('/api/session')
 
-const { isFavorite, setFavorites, favorites } = useFavorites()
+const { isFavorite, setFavorites, favorites } = provideFavorites()
 const route = useRoute()
 const router = useRouter()
 
