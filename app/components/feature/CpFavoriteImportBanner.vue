@@ -18,7 +18,9 @@ const { t } = useI18n()
 <template>
   <div
     v-if="invalid"
+    aria-live="assertive"
     class="p-4 border border-gray-300 rounded-lg bg-gray-50 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+    role="alert"
   >
     <div class="flex gap-2 items-start sm:items-center">
       <Icon
@@ -41,7 +43,9 @@ const { t } = useI18n()
   </div>
   <div
     v-else
+    aria-live="polite"
     class="p-4 border border-cp-orange-300 rounded-lg bg-cp-orange-50 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+    role="status"
   >
     <div class="flex gap-2 items-start sm:items-center">
       <Icon
