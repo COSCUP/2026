@@ -12,7 +12,7 @@ const props = defineProps<{
 
 const { t } = useI18n()
 
-const selectedDay = defineModel<string>()
+const selectedDay = defineModel<string>({ required: true })
 
 function formatDayLabel(day: string) {
   return new Intl.DateTimeFormat('en-US', {
@@ -57,6 +57,7 @@ const activeDay = computed(() => selectedDay.value ?? props.days[0] ?? '')
         <button
           v-for="day in days"
           :key="day"
+          :aria-pressed="day === activeDay"
           class="text-sm font-medium px-3 py-1.5 border rounded-lg cursor-pointer transition-colors"
           :class="day === activeDay
             ? 'bg-primary-700 text-white border-primary-700'
@@ -77,7 +78,7 @@ const activeDay = computed(() => selectedDay.value ?? props.days[0] ?? '')
           class="h-4 w-4"
           name="tabler:map-pin"
         />
-        <span>{{ rooms.join('、') }}</span>
+        <span>{{ rooms.join(t('separator')) }}</span>
       </div>
 
       <!-- 社群連結 -->
@@ -110,8 +111,10 @@ const activeDay = computed(() => selectedDay.value ?? props.days[0] ?? '')
     count: '{count} sessions'
     days: 'Days'
     links: 'Community'
+    separator: ', '
   zh:
     count: '{count} 場議程'
     days: '議程日數'
     links: '社群連結'
+    separator: '、'
 </i18n>

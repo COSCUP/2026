@@ -3,10 +3,12 @@ import type { SessionSummary, TrackDetail } from '#shared/types/session'
 import { useI18n } from 'vue-i18n'
 import CpTrackHeader from '~/components/feature/CpTrackHeader.vue'
 import CpTrackSchedule from '~/components/feature/CpTrackSchedule.vue'
+import CpTrackSessionPanel from '~/components/feature/CpTrackSessionPanel.vue'
 import { getTrackMeta } from '~/data/trackMeta'
 
 const { t, locale } = useI18n()
 const route = useRoute()
+const router = useRouter()
 const localePath = useLocalePath()
 
 const { data } = await useFetch<TrackDetail>(`/api/track/${route.params.id}`)
@@ -35,13 +37,32 @@ const count = computed(() =>
 
 const manualSelectedDay = ref<string | null>(null)
 const selectedDay = computed({
-  get: () => manualSelectedDay.value ?? days.value[0] ?? '',
+  get: () => {
+    if (manualSelectedDay.value && days.value.includes(manualSelectedDay.value)) {
+      return manualSelectedDay.value
+    }
+    return days.value[0] ?? ''
+  },
   set: (value) => void (manualSelectedDay.value = value),
 })
 
 const daySessions = computed<SessionSummary[]>(() => data.value?.sessions[selectedDay.value] ?? [])
 
-const dayIndex = computed(() => days.value.indexOf(selectedDay.value) + 1)
+const dayIndex = computed(() => {
+  const idx = days.value.indexOf(selectedDay.value)
+  return idx >= 0 ? idx + 1 : 1
+})
+
+// 被展開的議程（由 query string ?session=<id> 控制），直接展開成側邊面板。
+const allSessions = computed(() => Object.values(data.value?.sessions ?? {}).flat())
+const selectedSession = computed(() =>
+  allSessions.value.find((session) => session.id === route.query.session) ?? null)
+
+function closeSession() {
+  const query = { ...route.query }
+  delete query.session
+  router.replace({ query })
+}
 
 const dayRooms = computed(() => {
   const key = localeKey.value === 'zh' ? 'zh-hans' : 'en'
@@ -139,13 +160,21 @@ useSeoMeta({
         <p class="text-sm text-gray-500 mt-1">
           {{ formatFullDate(selectedDay) }}
           <template v-if="dayRooms.length">
-            · {{ dayRooms.join('、') }}
+            · {{ dayRooms.join(t('separator')) }}
           </template>
         </p>
       </div>
 
       <CpTrackSchedule :sessions="daySessions" />
     </section>
+
+    <ClientOnly>
+      <CpTrackSessionPanel
+        v-if="selectedSession"
+        :session="selectedSession"
+        @close="closeSession"
+      />
+    </ClientOnly>
   </article>
 
   <p
@@ -161,8 +190,10 @@ useSeoMeta({
     back: 'Back to tracks'
     day: 'Day {n}'
     notFound: 'Track not found.'
+    separator: ', '
   zh:
     back: '返回議程軌列表'
-    day: 'Day {n}'
+    day: '第 {n} 天'
     notFound: '找不到這個議程軌。'
+    separator: '、'
 </i18n>

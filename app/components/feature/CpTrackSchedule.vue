@@ -8,7 +8,7 @@ const { sessions } = defineProps<{
 }>()
 
 const { t, locale } = useI18n()
-const localePath = useLocalePath()
+const route = useRoute()
 
 // 時間軸尺寸。以「分鐘 → grid 列」為共同基準，刻度線與卡片同列才會對齊。
 const SLOT_MINUTES = 5 // 一列代表的分鐘數，對齊 Pretalx 排程粒度
@@ -24,7 +24,7 @@ const roomKey = computed(() => (localeKey.value === 'zh' ? 'zh-hans' : 'en') as 
 function parseMinutes(iso: string) {
   const match = iso.match(/T(\d{2}):(\d{2})/)
   if (!match) {
-    return 0
+    return null
   }
   return Number(match[1]) * 60 + Number(match[2])
 }
@@ -50,10 +50,16 @@ const range = computed(() => {
   let max = 18 * 60
   for (const session of sessions) {
     if (session.start) {
-      min = Math.min(min, parseMinutes(session.start))
+      const start = parseMinutes(session.start)
+      if (start !== null) {
+        min = Math.min(min, start)
+      }
     }
     if (session.end) {
-      max = Math.max(max, parseMinutes(session.end))
+      const end = parseMinutes(session.end)
+      if (end !== null) {
+        max = Math.max(max, end)
+      }
     }
   }
   return {
@@ -90,21 +96,28 @@ function roomSessions(room: string) {
   return sessions
     .filter((session) => roomName(session) === room && session.start && session.end)
     .map((session) => {
+      const startMins = parseMinutes(session.start!)
+      const endMins = parseMinutes(session.end!)
+      if (startMins === null || endMins === null) {
+        return null
+      }
+
       const difficulty = session.tags.find((tag): tag is SessionDifficulty =>
         (DIFFICULTIES as string[]).includes(tag))
 
       return {
         id: session.id,
-        startMins: parseMinutes(session.start!),
+        startMins,
         title: session[localeKey.value].title,
-        speaker: session.speakers.map((s) => s[localeKey.value].name).join('、'),
+        speaker: session.speakers.map((s) => s[localeKey.value].name).join(t('separator')),
         start: session.start!.slice(11, 16),
         end: session.end!.slice(11, 16),
         difficulty: difficulty ? t(`difficulty.${difficulty}`) : undefined,
-        rowStart: toRow(parseMinutes(session.start!)),
-        rowEnd: toRow(parseMinutes(session.end!)),
+        rowStart: toRow(startMins),
+        rowEnd: toRow(endMins),
       }
     })
+    .filter((session): session is NonNullable<typeof session> => session !== null)
     .sort((a, b) => a.startMins - b.startMins)
 }
 </script>
@@ -166,7 +179,7 @@ function roomSessions(room: string) {
             gridRow: `${session.rowStart} / ${session.rowEnd}`,
             paddingBottom: `${CARD_GAP}px`,
           }"
-          :to="localePath(`/session/${session.id}`)"
+          :to="{ query: { ...route.query, session: session.id } }"
         >
           <CpTrackSessionBlock
             :difficulty="session.difficulty"
@@ -191,6 +204,7 @@ function roomSessions(room: string) {
 <i18n lang="yaml">
   en:
     noSession: 'No sessions on this day.'
+    separator: ', '
     difficulty:
       Elementary: 'Elementary'
       Intermediate: 'Intermediate'
@@ -198,6 +212,7 @@ function roomSessions(room: string) {
       Professional: 'Professional'
   zh:
     noSession: '這天沒有議程。'
+    separator: '、'
     difficulty:
       Elementary: '入門'
       Intermediate: '中階'
