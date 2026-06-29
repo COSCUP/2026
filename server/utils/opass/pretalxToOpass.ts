@@ -1,5 +1,6 @@
 import type { OpassTag } from '#server/utils/opass/tags'
 import type { PretalxResult, Room, Speaker, Submission, SubmissionType } from '#shared/types/pretalx'
+import { sessionTags } from '#server/utils/opass/tags'
 import { parseAnswer, parseSlot } from '#server/utils/pretalx/parser'
 
 export function pretalxToOpass(pretalxData: PretalxResult) {
