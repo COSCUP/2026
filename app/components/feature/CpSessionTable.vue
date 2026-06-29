@@ -16,9 +16,14 @@ const { sessions: _sessions, day, timeRange, interval, rowHeight, columnWidth } 
 
 const { locale } = useI18n()
 const { time } = useRealtime()
+const route = useRoute()
 const localePath = useLocalePath()
 
 const { containerRef, isDragging } = useDragScroll({ scrollTarget: 'window' })
+
+function sessionPath(id: string) {
+  return localePath({ path: `/session/${id}`, query: route.query })
+}
 
 function parseMinutes(isoStr: string) {
   const match = isoStr.match(/T(\d{2}):(\d{2})/)
@@ -182,7 +187,7 @@ const showRealtimeLine = computed(() => {
         'grid-row': `${session.row[0]} / ${session.row[1]}`,
         'grid-column': session.col,
       }"
-      :to="localePath(`/session/${session.id}`)"
+      :to="sessionPath(session.id)"
       @dragstart.prevent
     >
       <CpSessionItem

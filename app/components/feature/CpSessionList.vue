@@ -6,7 +6,12 @@ import CpSessionItem from './CpSessionItem.vue'
 const { sessions: _sessions } = defineProps<{ sessions: SessionSummary[] }>()
 
 const { locale } = useI18n()
+const route = useRoute()
 const localePath = useLocalePath()
+
+function sessionPath(id: string) {
+  return localePath({ path: `/session/${id}`, query: route.query })
+}
 
 const sessions = computed(() => {
   if (!_sessions) {
@@ -46,7 +51,7 @@ const times = Object.keys(sessions.value).sort()
         <NuxtLink
           v-for="session in sessions[time]"
           :key="session.id"
-          :to="localePath(`/session/${session.id}`)"
+          :to="sessionPath(session.id)"
         >
           <CpSessionItem
             :end="session.end"
