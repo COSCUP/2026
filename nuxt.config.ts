@@ -95,9 +95,15 @@ export default defineNuxtConfig({
       publicDir: process.env.NUXT_OUTPUT_DIR || '.output/public',
     },
     prerender: {
-      failOnError: false,
       concurrency: 4,
     },
+  },
+
+  experimental: {
+    // nuxt-og-image breaks payload-route rendering on pages that call defineOgImage
+    // under baseURL "/2026" (its isInternalRoute misses "/2026/.../_payload.json"),
+    // making the renderer return no response (500). Disable payload extraction.
+    payloadExtraction: false,
   },
 
   imports: {

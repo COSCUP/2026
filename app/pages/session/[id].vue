@@ -52,13 +52,13 @@ useSeoMeta({
   twitterDescription: () => sessionInfo.value?.description,
 })
 
-// Data is awaited via useFetch, so sessionInfo is populated at prerender time.
-defineOgImage('Session', {
+const ogImageProps = {
   title: sessionInfo.value?.title ?? '',
   speakers: sessionInfo.value?.speakers.map((speaker) => speaker.name).join(', ') ?? '',
   room: sessionInfo.value?.room ?? '',
   time: sessionInfo.value?.time ?? '',
-})
+}
+defineOgImage('Session', ogImageProps)
 
 function close() {
   router.push(localePath('/session'))
