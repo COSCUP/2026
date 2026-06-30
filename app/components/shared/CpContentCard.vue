@@ -1,20 +1,37 @@
 <script setup lang="ts">
-import type { Sponsor } from '#shared/types/sponsor'
 import { useI18n } from 'vue-i18n'
 
-const { sponsor } = defineProps<{
-  sponsor: Sponsor
+export interface ContentCardItem {
+  id: string
+  title: {
+    zh: string
+    en: string
+  }
+  intro: {
+    zh: string
+    en: string
+  }
+  link: string
+  image: string
+  reward_type?: string
+  reward_data?: number
+}
+
+const { item } = defineProps<{
+  item: ContentCardItem
 }>()
 
 const { locale, t } = useI18n()
+const activeLocale = computed(() => locale.value === 'zh' ? 'zh' : 'en')
 
-const needsExpand = computed(() => sponsor.intro[locale.value]?.length > 200)
-const hasRibbon = computed(() => sponsor.reward_type !== 'Null' && sponsor.reward_data > 0)
+const needsExpand = computed(() => item.intro[activeLocale.value]?.length > 200)
+
+const hasRibbon = computed(() => item.reward_type !== 'Null' && item.reward_data && item.reward_data > 0)
 const ribbonColorClass = computed(() =>
-  sponsor.reward_type === '連續贊助' ? 'bg-amber-400' : 'bg-teal-500',
+  item.reward_type === '連續贊助' ? 'bg-amber-400' : 'bg-teal-500',
 )
 const ribbonTypeKey = computed(() =>
-  sponsor.reward_type === '連續贊助' ? 'consecutive' : 'cumulative',
+  item.reward_type === '連續贊助' ? 'consecutive' : 'cumulative',
 )
 </script>
 
@@ -26,19 +43,19 @@ const ribbonTypeKey = computed(() =>
       :class="ribbonColorClass"
     >
       <span class="block">{{ t(`ribbon.${ribbonTypeKey}`) }}</span>
-      <span class="block">{{ t('ribbon.years', { n: sponsor.reward_data }) }}</span>
+      <span class="block">{{ t('ribbon.years', { n: item.reward_data }) }}</span>
     </span>
     <NuxtLink
       class="p-4 rounded-xl bg-white flex shrink-0 w-full aspect-[3/2] items-center justify-center md:w-60 md:aspect-[3/2]"
       external
       rel="noreferrer"
       target="_blank"
-      :to="sponsor.link"
+      :to="item.link"
     >
       <NuxtImg
-        :alt="sponsor.name[locale]"
+        :alt="item.title[locale]"
         class="h-full w-full object-contain"
-        :src="sponsor.image"
+        :src="item.image"
       />
     </NuxtLink>
 
@@ -49,31 +66,31 @@ const ribbonTypeKey = computed(() =>
           external
           rel="noreferrer"
           target="_blank"
-          :to="sponsor.link"
+          :to="item.link"
         >
-          {{ sponsor.name[locale] }}
+          {{ item.title[locale] }}
         </NuxtLink>
       </h3>
 
       <template v-if="needsExpand">
         <input
-          :id="`expand-${sponsor.id}`"
+          :id="`expand-${item.id}`"
           class="peer sr-only"
           type="checkbox"
         >
         <MDC
           class="text-sm text-primary-700 leading-7 mt-3 text-left line-clamp-5 prose peer-checked:line-clamp-none"
-          :value="sponsor.intro[locale]"
+          :value="item.intro[locale]"
         />
         <label
           class="text-xs text-primary-500 mt-1 block cursor-pointer hover:underline peer-checked:hidden"
-          :for="`expand-${sponsor.id}`"
+          :for="`expand-${item.id}`"
         >
           {{ t('read_more') }}
         </label>
         <label
           class="text-xs text-primary-500 mt-1 hidden cursor-pointer hover:underline peer-checked:block"
-          :for="`expand-${sponsor.id}`"
+          :for="`expand-${item.id}`"
         >
           {{ t('show_less') }}
         </label>
@@ -82,7 +99,7 @@ const ribbonTypeKey = computed(() =>
       <MDC
         v-else
         class="text-sm text-primary-700 leading-7 mt-3 text-left prose"
-        :value="sponsor.intro[locale]"
+        :value="item.intro[locale]"
       />
     </div>
   </article>
