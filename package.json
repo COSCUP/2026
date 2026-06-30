@@ -22,7 +22,7 @@
     "@nuxtjs/i18n": "10.4.0",
     "@nuxtjs/mdc": "0.22.0",
     "@vueuse/core": "14.3.0",
-    "csv-parse": "6.2.1",
+    "csv-parse": "7.0.0",
     "eslint": "10.6.0",
     "leaflet": "1.9.4",
     "nuxt": "4.4.8",
