@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import CpFooter from '~/components/shared/CpFooter.vue'
 import CpNavbar from '~/components/shared/CpNavbar.vue'
+import CpSponsorFooter from '~/components/shared/CpSponsorFooter.vue'
 
 function updateViewportWidth() {
   document.documentElement.style.setProperty('--viewport-width', `${document.documentElement.clientWidth}px`)
@@ -24,6 +25,7 @@ onUnmounted(() => {
       <slot />
     </main>
 
+    <CpSponsorFooter class="w-[var(--viewport-width,100vw)] left-0 sticky" />
     <CpFooter class="w-[var(--viewport-width,100vw)] left-0 sticky" />
   </div>
 </template>
