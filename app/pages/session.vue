@@ -9,15 +9,42 @@ import CpSessionTable from '~/components/feature/CpSessionTable.vue'
 import { useSessionFilter } from '~/composables/useSessionFilter'
 
 const { locale, t } = useI18n()
+const route = useRoute()
+const router = useRouter()
 
 const { data } = await useFetch('/api/session')
 
-const manualSelectedDay = ref<string | null>(null)
 const days = computed(() => Object.keys(data?.value ?? {}).sort())
+const queryDay = computed(() => {
+  const day = route.query.day
+  return typeof day === 'string' && days.value.includes(day) ? day : null
+})
 
 const selectedDay = computed({
-  get: () => manualSelectedDay.value ?? days.value[0] ?? null,
-  set: (value) => void (manualSelectedDay.value = value),
+  get: () => queryDay.value ?? days.value[0] ?? null,
+  set: (value) => {
+    const nextQuery = { ...route.query }
+
+    if (value && days.value.includes(value)) {
+      nextQuery.day = value
+    } else {
+      delete nextQuery.day
+    }
+
+    if (nextQuery.day === route.query.day) {
+      return
+    }
+
+    void router.replace({ query: nextQuery })
+  },
+})
+
+watchEffect(() => {
+  if (route.query.day && !queryDay.value) {
+    const nextQuery = { ...route.query }
+    delete nextQuery.day
+    void router.replace({ query: nextQuery })
+  }
 })
 
 const {
