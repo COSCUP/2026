@@ -139,20 +139,22 @@ function nowMinutes() {
 
 const nowMins = computed(() => nowMinutes())
 
-const nowLineLeft = computed(() => LABEL_WIDTH + ((nowMinutes() - timeStart.value) / interval) * columnWidth)
+const nowLineLeft = computed(() => LABEL_WIDTH + ((nowMins.value - timeStart.value) / interval) * columnWidth)
 
 const nowLabel = computed(() => {
-  const mins = Math.floor(nowMinutes())
+  const mins = Math.floor(nowMins.value)
   return `${String(Math.floor(mins / 60)).padStart(2, '0')}:${String(mins % 60).padStart(2, '0')}`
 })
 
-const showRealtimeLine = computed(() => {
-  // Gate on Taipei-local date/time so it stays consistent with nowLineLeft/nowMinutes (also Taipei);
-  // toISOString() is UTC and would put the line 8h out of range during the conference day.
-  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Taipei' }).format(time.value)
-  const mins = nowMinutes()
-  return day === today && timeStart.value <= mins && mins <= timeEnd.value
-})
+// Taipei-local date (YYYY-MM-DD, lexically comparable to `day`); toISOString() is UTC and
+// would be 8h off during the conference day.
+const todayTaipei = computed(() =>
+  new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Taipei' }).format(time.value),
+)
+
+const showRealtimeLine = computed(() =>
+  day === todayTaipei.value && timeStart.value <= nowMins.value && nowMins.value <= timeEnd.value,
+)
 
 const sessions = computed(() =>
   daySessions.value.map((session) => {
@@ -161,7 +163,10 @@ const sessions = computed(() =>
     const key = session.track?.id != null ? String(session.track.id) : NO_TRACK
     const index = trackIndex.value.get(key) ?? 0
     // Past / in-progress sessions render dimmed (State A); future sessions render bright (State B).
-    const isPast = showRealtimeLine.value ? startMins <= nowMins.value : false
+    // Judge by Taipei date/time so a finished day stays dimmed even when the now line is out of range.
+    const isPast = day < todayTaipei.value
+      ? true
+      : day > todayTaipei.value ? false : startMins <= nowMins.value
 
     return {
       id: session.id,
