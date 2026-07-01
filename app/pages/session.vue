@@ -5,7 +5,7 @@ import CpSessionDaySelector from '~/components/feature/CpSessionDaySelector.vue'
 import CpSessionEmptyBanner from '~/components/feature/CpSessionEmptyBanner.vue'
 import CpSessionFilterBar from '~/components/feature/CpSessionFilterBar.vue'
 import CpSessionList from '~/components/feature/CpSessionList.vue'
-import CpSessionTable from '~/components/feature/CpSessionTable.vue'
+import CpSessionTrackTable from '~/components/feature/CpSessionTrackTable.vue'
 import { useSessionFilter } from '~/composables/useSessionFilter'
 
 const { locale, t } = useI18n()
@@ -102,13 +102,13 @@ definePageMeta({
             class="sm:hidden"
             :sessions="filteredSessions"
           />
-          <CpSessionTable
+          <CpSessionTrackTable
             v-if="filteredSessions.length > 0"
             class="hidden sm:grid"
-            :column-width="200"
+            :column-width="20"
             :day="selectedDay"
             :interval="5"
-            :row-height="50"
+            :row-height="80"
             :sessions="filteredSessions"
             :time-range="['09:00', '17:30']"
           />
