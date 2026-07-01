@@ -198,8 +198,9 @@ const HEADER_HEIGHT = 47
   >
     <!-- Time-axis header: 議程軌 corner cell -->
     <div
-      class="px-4 py-3 border-b border-b-[rgba(26,26,26,0.12)] bg-white flex items-center left-0 top-0 justify-between sticky z-modal"
+      class="px-4 py-3 border-b border-b-[rgba(26,26,26,0.12)] bg-white flex cursor-default items-center left-0 top-0 justify-between sticky z-modal"
       :style="{ 'grid-row': 1, 'grid-column': 1 }"
+      @pointerdown.stop
     >
       <span
         class="text-[14px] text-[#1a1a1a] leading-[20px] tracking-[0.35px] font-semibold whitespace-nowrap"
@@ -251,8 +252,9 @@ const HEADER_HEIGHT = 47
     <div
       v-for="(track, i) in tracks"
       :key="track.key"
-      class="border-b border-r border-b-[rgba(26,26,26,0.06)] border-r-[#bedbff] bg-white flex gap-3 items-center left-0 sticky z-dropdown"
+      class="border-b border-r border-b-[rgba(26,26,26,0.06)] border-r-[#bedbff] bg-white flex gap-3 cursor-default items-center left-0 sticky z-dropdown"
       :style="{ 'grid-row': i + 2, 'grid-column': 1, 'padding': '12px 17px 12px 16px' }"
+      @pointerdown.stop
     >
       <div class="flex flex-1 flex-col min-w-0">
         <div class="flex gap-1.5 items-center">
