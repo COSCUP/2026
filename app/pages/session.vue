@@ -8,7 +8,7 @@ import CpSessionEmptyBanner from '~/components/feature/CpSessionEmptyBanner.vue'
 import CpSessionFilterBar from '~/components/feature/CpSessionFilterBar.vue'
 import CpSessionList from '~/components/feature/CpSessionList.vue'
 import CpSessionShareButton from '~/components/feature/CpSessionShareButton.vue'
-import CpSessionTable from '~/components/feature/CpSessionTable.vue'
+import CpSessionTrackTable from '~/components/feature/CpSessionTrackTable.vue'
 import CpSessionViewToggle from '~/components/feature/CpSessionViewToggle.vue'
 import { decodeFavorites, provideFavorites } from '~/composables/useFavorites'
 import { useSessionFilter } from '~/composables/useSessionFilter'
@@ -204,14 +204,13 @@ definePageMeta({
             :preview="isSharing"
             :sessions="displayedSessions"
           />
-          <CpSessionTable
+          <CpSessionTrackTable
             v-if="displayedSessions.length > 0"
             class="hidden sm:grid"
-            :column-width="200"
+            :column-width="20"
             :day="selectedDay"
             :interval="5"
-            :preview="isSharing"
-            :row-height="50"
+            :row-height="80"
             :sessions="displayedSessions"
             :time-range="['09:00', '17:30']"
           />
