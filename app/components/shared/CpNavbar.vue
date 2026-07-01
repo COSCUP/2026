@@ -7,6 +7,7 @@ const switchLocalePath = useSwitchLocalePath()
 type MenuItem = {
   key: string
   external?: boolean
+  newPage?: boolean
 } & (
   | { path: string, children?: never } |
   { path?: never, children: { label: string, path: string }[] }
@@ -20,9 +21,18 @@ const menu = computed<MenuItem[]>(() => [
   {
     key: 'participate',
     children: [
+      { label: t('menu.participate_index'), path: '/participate' },
+      { label: t('menu.participate_first_time'), path: '/participate/first-time' },
+      { label: t('menu.participate_activity'), path: '/participate/activity' },
+      { label: t('menu.participate_speaker_participation'), path: '/participate/speaker-participation' },
+      { label: t('menu.participate_welcome_party'), path: '/participate/welcome-party' },
+      { label: t('menu.participate_oversea'), path: '/participate/oversea' },
+      { label: t('menu.participate_open_source_community'), path: '/participate/open-source-community' },
+      { label: t('menu.participate_sponsor_partner'), path: '/participate/sponsor-partner' },
       { label: t('menu.invitation_letter_guide'), path: '/participate/invitation-letter-guide' },
     ],
   },
+  { key: 'bof', path: 'https://docs.google.com/document/d/1ZerJ-5QYcEJ5guhxtK-SBW2BA6RMHtVJnqNIWxRCz18/edit?tab=t.0', external: true, newPage: true },
   { key: 'blog', path: 'https://blog.coscup.org/', external: true },
   { key: 'coc', path: `https://hackmd.io/@coscup/cococo-${locale.value}`, external: true },
 ])
@@ -61,6 +71,8 @@ function closeMenu() {
           v-if="!item.children"
           class="flex gap-1 whitespace-nowrap items-center"
           :external="item.external"
+          :rel="item.newPage ? 'noopener noreferrer' : undefined"
+          :target="item.newPage ? '_blank' : undefined"
           :to="item.path"
         >
           {{ t(`menu.${item.key}`) }}
@@ -125,6 +137,8 @@ function closeMenu() {
             <NuxtLinkLocale
               class="px-4 py-3 flex gap-1 items-center hover:bg-gray-50"
               :external="item.external"
+              :rel="item.newPage ? 'noopener noreferrer' : undefined"
+              :target="item.newPage ? '_blank' : undefined"
               :to="item.path"
               @click="closeMenu"
             >
@@ -189,8 +203,17 @@ en:
     about: "About"
     transportation: "Transportation"
     participate: "Participate"
+    participate_index: "Participate Guide"
+    participate_first_time: "First Timer"
+    participate_activity: "Activity"
+    participate_speaker_participation: "Speaker Participation"
+    participate_welcome_party: "Welcome Party"
+    participate_oversea: "For Overseas Visitors"
+    participate_open_source_community: "Open Source Communities"
+    participate_sponsor_partner: "Sponsorship Partners"
     invitation_letter_guide: "Invitation Letter Guide"
     sponsors: "Sponsors"
+    bof: "Fringe Events / BoF"
     blog: "Blog"
     coc: "CoC"
 zh:
@@ -201,7 +224,16 @@ zh:
     about: "關於我們"
     transportation: "交通"
     participate: "參與指南"
+    participate_index: "參與指南"
+    participate_first_time: "第一次參與"
+    participate_activity: "活動參與"
+    participate_speaker_participation: "講者參與"
+    participate_welcome_party: "前夜派對"
+    participate_oversea: "海外參與者"
+    participate_open_source_community: "開源社群、攤位及議程軌"
+    participate_sponsor_partner: "贊助夥伴"
     sponsors: "贊助夥伴"
+    bof: "周邊活動 / BoF"
     invitation_letter_guide: "邀請函申請指南"
     blog: "部落格"
     coc: "社群守則"
