@@ -32,12 +32,17 @@ const { t } = useI18n()
       />
     </div>
 
-    <CpTextField
-      v-model="searchQuery"
-      class="min-w-0 w-full sm:flex-none sm:h-9 sm:w-80"
-      :clear-label="t('clear')"
-      :placeholder="t('placeholder')"
-    />
+    <!-- Controls below the search field on mobile, to its left on desktop. -->
+    <div class="flex flex-col-reverse gap-3 items-center sm:flex-row sm:items-center">
+      <slot name="controls" />
+
+      <CpTextField
+        v-model="searchQuery"
+        class="min-w-0 w-full sm:flex-none sm:h-9 sm:w-80"
+        :clear-label="t('clear')"
+        :placeholder="t('placeholder')"
+      />
+    </div>
   </div>
 </template>
 

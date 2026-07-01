@@ -1,12 +1,19 @@
 <script lang="ts" setup>
 import type { SessionSummary } from '#shared/types/session'
 import { useI18n } from '#imports'
+import { useFavoriteLabel, useFavorites } from '~/composables/useFavorites'
 import CpSessionItem from './CpSessionItem.vue'
 
-const { sessions: _sessions } = defineProps<{ sessions: SessionSummary[] }>()
+const { sessions: _sessions, preview = false } = defineProps<{
+  sessions: SessionSummary[]
+  // Shared-list preview: render every session as a read-only favorite.
+  preview?: boolean
+}>()
 
 const { locale } = useI18n()
 const localePath = useLocalePath()
+const { isFavorite, toggleFavorite } = useFavorites()
+const favoriteLabel = useFavoriteLabel()
 
 const sessions = computed(() => {
   if (!_sessions) {
@@ -30,7 +37,7 @@ const sessions = computed(() => {
   )
 })
 
-const times = Object.keys(sessions.value).sort()
+const times = computed(() => Object.keys(sessions.value).sort())
 </script>
 
 <template>
@@ -43,20 +50,21 @@ const times = Object.keys(sessions.value).sort()
         {{ time }}
       </h3>
       <div class="flex flex-col gap-2">
-        <NuxtLink
+        <CpSessionItem
           v-for="session in sessions[time]"
           :key="session.id"
+          :end="session.end"
+          :favorite="preview || isFavorite(session.id)"
+          :favorite-label="favoriteLabel(session.id, preview)"
+          :readonly="preview"
+          :room="session.room"
+          :speaker="session.speakers"
+          :start="session.start"
+          :tags="session.tags"
+          :title="session.title"
           :to="localePath(`/session/${session.id}`)"
-        >
-          <CpSessionItem
-            :end="session.end"
-            :room="session.room"
-            :speaker="session.speakers"
-            :start="session.start"
-            :tags="session.tags"
-            :title="session.title"
-          />
-        </NuxtLink>
+          @toggle-favorite="toggleFavorite(session.id)"
+        />
       </div>
     </section>
   </div>
