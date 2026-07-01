@@ -53,9 +53,9 @@ const localizedContent = computed(() => {
 zh:
   meta:
     title: 邀請函申請指南
-    description: COSCUP 2026 x UbuCon Asia 參加者邀請函的申請說明。
+    description: COSCUP x UbuCon Asia 2026 參加者邀請函的申請說明。
 en:
   meta:
     title: Invitation Letter Guide
-    description: How to request an invitation letter for attending COSCUP 2026 x UbuCon Asia.
+    description: How to request an invitation letter for attending COSCUP x UbuCon Asia 2026.
 </i18n>

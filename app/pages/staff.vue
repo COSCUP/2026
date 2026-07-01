@@ -59,7 +59,7 @@ zh:
   noStaff: 工作人員目前尚未公布
   meta:
     title: 工作人員
-    description: 認識籌備 COSCUP 2026 x UbuCon Asia 的志工團隊。
+    description: 認識籌備 COSCUP x UbuCon Asia 2026 的志工團隊。
   group:
     coordinator: 總召組
     secretary: 行政組
@@ -77,7 +77,7 @@ en:
   noStaff: The staff information has not been announced yet.
   meta:
     title: Staff
-    description: Meet the volunteer teams organizing COSCUP 2026 x UbuCon Asia.
+    description: Meet the volunteer teams organizing COSCUP x UbuCon Asia 2026.
   group:
     coordinator: General Coordinator
     secretary: Secretary

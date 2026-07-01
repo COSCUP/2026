@@ -1,8 +1,8 @@
 import { defineNuxtConfig } from 'nuxt/config'
 
 const YEAR = '2026'
-const TITLE = 'COSCUP 2026 x UbuCon Asia'
-const TITLE_ZH = '開源人年會 2026 x UbuCon Asia'
+const TITLE = 'COSCUP x UbuCon Asia 2026'
+const TITLE_ZH = '開源人年會 x UbuCon Asia 2026'
 const DESC = 'Conference for Open Source Coders, Users, and Promoters is a free annual conference providing a platform to connect FLOSS folks across Asia since 2006. It\'s a major force of free software movement advocacy in Taiwan.'
 const URL = `https://coscup.org/${YEAR}`
 
@@ -164,7 +164,7 @@ export default defineNuxtConfig({
     id: 'G-C9EMTMDSS1',
     enabled: process.env.NODE_ENV === 'production',
     config: {
-      page_title: 'COSCUP 2026',
+      page_title: 'COSCUP x UbuCon Asia 2026',
     },
   },
 })

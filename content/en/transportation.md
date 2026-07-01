@@ -1,6 +1,6 @@
 ---
 title: Transportation
-description: How to reach the COSCUP 2026 x UbuCon Asia venue at National Taiwan University of Science and Technology.
+description: How to reach the COSCUP x UbuCon Asia 2026 venue at National Taiwan University of Science and Technology.
 ---
 
 # Transportation

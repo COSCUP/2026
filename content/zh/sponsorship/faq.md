@@ -1,6 +1,6 @@
 ---
 title: 贊助常見問答
-description: 關於 COSCUP 2026 x UbuCon Asia 贊助方案的常見問題。
+description: 關於 COSCUP x UbuCon Asia 2026 贊助方案的常見問題。
 ---
 
 ## 常見問答
