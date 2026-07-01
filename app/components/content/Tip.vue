@@ -5,7 +5,7 @@ defineProps<{
 </script>
 
 <template>
-  <aside class="text-sm text-primary-800 my-4 px-4 py-3 border-l-4 border-primary-400 rounded bg-primary-50">
+  <aside class="text-sm text-green-900 my-4 px-4 py-3 border-l-4 border-cp-green rounded bg-green-50">
     <p
       v-if="title"
       class="font-bold my-0"
