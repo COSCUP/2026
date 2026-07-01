@@ -1,0 +1,14 @@
+.prose :where(:not(pre) > code) {
+  color: #1f2937;
+  font-size: 0.875em;
+  font-weight: 600;
+  padding: 0.125rem 0.35rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  background: #f3f4f6;
+}
+
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: '';
+}
