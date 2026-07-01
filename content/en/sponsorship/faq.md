@@ -39,4 +39,4 @@ If the sponsorship benefits are not utilized within the year (no materials provi
 
 ### What's OCF?
 
-OCF, short for [Open Culture Foundation](https://ocf.tw/), is a non-profit organization that helps communities access administrative and financial services. COSCUP 2026 is co-organized with the Open Culture Foundation (OCF) to issue sponsorship receipts, electronic invoices, sponsorship contracts, and other legal documents.
+OCF, short for [Open Culture Foundation](https://ocf.tw/), is a non-profit organization that helps communities access administrative and financial services. COSCUP x UbuCon Asia 2026 is co-organized with the Open Culture Foundation (OCF) to issue sponsorship receipts, electronic invoices, sponsorship contracts, and other legal documents.
