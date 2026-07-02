@@ -182,7 +182,7 @@ function closeMenu() {
 
 <i18n lang="yaml">
 en:
-  logo_alt: "COSCUP 2026 Logo"
+  logo_alt: "COSCUP x UbuCon Asia 2026 Logo"
   menu_toggle: "Toggle menu"
   menu:
     home: "Home"
@@ -194,7 +194,7 @@ en:
     blog: "Blog"
     coc: "CoC"
 zh:
-  logo_alt: "COSCUP 2026 標誌"
+  logo_alt: "COSCUP x UbuCon Asia 2026 標誌"
   menu_toggle: "切換選單"
   menu:
     home: "首頁"

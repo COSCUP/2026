@@ -236,7 +236,7 @@ definePageMeta({
     noSession: 'Not announced yet, stay tuned.'
     meta:
       title: 'Sessions'
-      description: 'Browse the full session schedule for COSCUP 2026 x UbuCon Asia.'
+      description: 'Browse the full session schedule for COSCUP x UbuCon Asia 2026.'
     view:
       all: 'Sessions'
       favorite: 'Favorites'
@@ -244,7 +244,7 @@ definePageMeta({
     noSession: '尚未公布，敬請期待。'
     meta:
       title: '議程'
-      description: '瀏覽 COSCUP 2026 x UbuCon Asia 的完整議程時間表。'
+      description: '瀏覽 COSCUP x UbuCon Asia 2026 的完整議程時間表。'
     view:
       all: '議程'
       favorite: '收藏'

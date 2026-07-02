@@ -220,8 +220,8 @@ const addOnFigures = computed(() => [
 
 <i18n lang="yaml">
 zh:
-  title: "COSCUP 2026 x UbuCon Asia 贊助方案"
-  metaDescription: "瞭解 COSCUP 2026 x UbuCon Asia 的贊助方案、級別與加價購選項。"
+  title: "COSCUP x UbuCon Asia 2026 贊助方案"
+  metaDescription: "瞭解 COSCUP x UbuCon Asia 2026 的贊助方案、級別與加價購選項。"
   tiers:
     heading: "贊助方案（單位：新台幣，外稅）"
     hint: ""
@@ -244,8 +244,8 @@ zh:
   deadline: "因應相關製作物所需的工作時間，贊助截止日期：2026 年 7 月 06 日。"
   contact: "聯絡我們："
 en:
-  title: "COSCUP 2026 x UbuCon Asia Sponsorship Program"
-  metaDescription: "Explore sponsorship packages, tiers, and add-ons for COSCUP 2026 x UbuCon Asia."
+  title: "COSCUP x UbuCon Asia 2026 Sponsorship Program"
+  metaDescription: "Explore sponsorship packages, tiers, and add-ons for COSCUP x UbuCon Asia 2026."
   tiers:
     heading: "Sponsorship Package"
     hint: "(Unit: USD. Please note that actual foreign exchange rates will be applied to your sponsor fee, which will differ from the following prices that take 1 USD = 28 TWD)"
