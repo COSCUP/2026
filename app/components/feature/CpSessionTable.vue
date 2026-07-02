@@ -48,6 +48,28 @@ function toRow(minutes: number) {
   return Math.round((minutes - timeStart.value) / interval) + 2
 }
 
+function roomSortRank(room: string) {
+  if (room === 'RB105') {
+    // Put the room with an opening first
+    return 0
+  }
+  if (room.startsWith('RB')) {
+    return 1
+  }
+  if (room.startsWith('AU')) {
+    return 2
+  }
+  if (room.startsWith('TR')) {
+    return 3
+  }
+  return 4
+}
+
+function compareRooms(a: string, b: string) {
+  const rankDiff = roomSortRank(a) - roomSortRank(b)
+  return rankDiff || a.localeCompare(b)
+}
+
 const rooms = computed(() => {
   if (!_sessions) {
     return []
@@ -57,7 +79,7 @@ const rooms = computed(() => {
     .map((session) => session.room?.en)
     .filter((value) => value !== undefined)
 
-  return [...new Set(rooms)].sort() satisfies string[]
+  return [...new Set(rooms)].sort(compareRooms) satisfies string[]
 })
 
 const timeLabels = computed(() => {
