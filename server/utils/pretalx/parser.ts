@@ -6,15 +6,15 @@ import type { SessionDifficulty, SessionSpeaker, SessionTrack } from '#shared/ty
 // 這個對應表會被 `parseAnswer` 使用，將 pretalx 的 answers
 // 轉換為以 key 為索引的 Record 物件並回傳。
 const QUESTION_MAP = {
-  language: 269,
-  languageOther: 300,
-  enTitle: 257,
-  enDesc: 259,
-  difficulty: 270,
-  zhName: 45,
-  enName: 46,
-  zhBio: 47,
-  enBio: 48,
+  language: 380,
+  languageOther: 381,
+  enTitle: 377,
+  enDesc: 378,
+  difficulty: 379,
+  zhName: null,
+  enName: null,
+  zhBio: null,
+  enBio: null,
   coWrite: null,
   qa: null,
   slide: null,
@@ -75,7 +75,8 @@ export function parseSlot(slotId: Slot['id'], pretalxData: PretalxResult): Parse
   const slot = slotMap[slotId]
 
   if (!slot) {
-    throw createError(`Slot not found: ${slotId}`)
+    console.error(`Slot not found: ${slotId}`)
+    return null
   }
 
   const roomId = slot.room

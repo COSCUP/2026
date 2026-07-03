@@ -2,21 +2,26 @@
 import type { SessionSummary } from '#shared/types/session'
 import { useI18n } from '#imports'
 import { useDragScroll } from '~/composables/useDragScroll'
+import { useFavoriteLabel, useFavorites } from '~/composables/useFavorites'
 import { useRealtime } from '~/composables/useRealtime'
 import CpSessionItem from './CpSessionItem.vue'
 
-const { sessions: _sessions, day, timeRange, interval, rowHeight, columnWidth } = defineProps<{
+const { sessions: _sessions, day, timeRange, interval, rowHeight, columnWidth, preview = false } = defineProps<{
   day: string
   timeRange: [string, string]
   sessions: SessionSummary[]
   interval: number
   rowHeight: number
   columnWidth: number
+  // Shared-list preview: render every session as a read-only favorite.
+  preview?: boolean
 }>()
 
 const { locale } = useI18n()
 const { time } = useRealtime()
 const localePath = useLocalePath()
+const { isFavorite, toggleFavorite } = useFavorites()
+const favoriteLabel = useFavoriteLabel()
 
 const { containerRef, isDragging } = useDragScroll({ scrollTarget: 'window' })
 
@@ -173,27 +178,25 @@ const showRealtimeLine = computed(() => {
       />
     </template>
 
-    <NuxtLink
+    <CpSessionItem
       v-for="session in sessions"
       :key="session.id"
-      class="overflow-hidden"
-      :draggable="false"
+      class="h-full overflow-hidden"
+      :end="session.end"
+      :favorite="preview || isFavorite(session.id)"
+      :favorite-label="favoriteLabel(session.id, preview)"
+      :readonly="preview"
+      :speaker="session.speaker"
+      :start="session.start"
       :style="{
         'grid-row': `${session.row[0]} / ${session.row[1]}`,
         'grid-column': session.col,
       }"
+      :tags="session.tags"
+      :title="session.title"
       :to="localePath(`/session/${session.id}`)"
-      @dragstart.prevent
-    >
-      <CpSessionItem
-        class="h-full"
-        :end="session.end"
-        :speaker="session.speaker"
-        :start="session.start"
-        :tags="session.tags"
-        :title="session.title"
-      />
-    </NuxtLink>
+      @toggle-favorite="toggleFavorite(session.id)"
+    />
 
     <ClientOnly>
       <div

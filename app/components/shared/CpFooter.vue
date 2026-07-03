@@ -42,7 +42,7 @@ const sitemaps = computed(() => tm('sitemap.items') as CommunityItem[])
     <div class="mx-auto gap-12 grid grid-cols-[2fr_repeat(3,1fr)] max-w-[1100px] lt-md:grid-cols-2 lt-sm:grid-cols-1">
       <div class="lt-md:col-span-2 lt-sm:col-span-1">
         <h2 class="text-2xl text-gray-900 font-bold mb-2">
-          COSCUP 2026
+          COSCUP x UbuCon Asia 2026
         </h2>
         <p class="text-sm text-gray-400 leading-relaxed max-w-[280px]">
           {{ t('tagline') }}
