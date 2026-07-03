@@ -136,7 +136,7 @@ onUnmounted(() => {
         />
       </NuxtLink>
 
-      <div class="p-3 h-full overflow-y-auto sm:w-120">
+      <div class="p-3 h-full w-full overflow-y-auto sm:w-120">
         <div class="flex top-0 justify-end sticky z-content">
           <button
             aria-label="close"
