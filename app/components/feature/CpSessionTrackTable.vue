@@ -131,11 +131,16 @@ const tracks = computed(() => {
     })
 })
 
+// Default main-track key, derived event-wide so the first-visit pin doesn't depend on which day loaded.
+const defaultMainKey = computed(() => {
+  const main = (_sessions ?? []).find((session) => isMainTrack(session.track?.name))
+  return main?.track?.id != null ? String(main.track.id) : null
+})
+
 // On first visit, pin the main track by default.
-watch(tracks, () => {
-  if (pinnedKeys.value === null) {
-    const main = tracks.value.find((track) => track.isMain)
-    pinnedKeys.value = main ? [main.key] : []
+watch(defaultMainKey, (key) => {
+  if (pinnedKeys.value === null && key != null) {
+    pinnedKeys.value = [key]
   }
 }, { immediate: true })
 
