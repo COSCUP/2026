@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Ad } from '#shared/types/ad'
+import { useMediaQuery } from '@vueuse/core'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -15,9 +17,11 @@ const props = defineProps<{
   coWrite?: string
   tags: string[]
   description: string
+  ad: Ad | null
 }>()
 
 const { t } = useI18n()
+const isMobile = useMediaQuery('(max-width: 639px)')
 
 const speakerNames = computed(() =>
   props.speakers.map((s) => s.name).join(', '),
@@ -106,6 +110,22 @@ const speakerNames = computed(() =>
       >
         <MDC :value="description" />
       </div>
+    </section>
+    <section
+      v-if="ad && isMobile"
+      class="w-full aspect-[18/5]"
+    >
+      <NuxtLink
+        class="h-full w-full block"
+        target="_blank"
+        :to="ad.link"
+      >
+        <NuxtImg
+          :alt="ad.id"
+          class="h-full w-full object-contain"
+          :src="ad.imageHorizontal"
+        />
+      </NuxtLink>
     </section>
     <section>
       <h2 class="text-lg text-primary-400 font-bold my-2">
