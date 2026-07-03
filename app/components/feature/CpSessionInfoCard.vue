@@ -117,8 +117,6 @@ const speakerNames = computed(() =>
     >
       <NuxtLink
         class="h-full w-full block"
-        external
-        rel="noreferrer"
         target="_blank"
         :to="ad.link"
       >

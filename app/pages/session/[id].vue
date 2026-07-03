@@ -125,8 +125,6 @@ onUnmounted(() => {
       <NuxtLink
         v-if="randomAd && isDesktop"
         class="shrink-0 h-full aspect-[1/4]"
-        external
-        rel="noreferrer"
         target="_blank"
         :to="randomAd.link"
       >
