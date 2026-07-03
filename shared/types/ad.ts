@@ -5,7 +5,7 @@ export const AdRowSchema = z.object({
   'newsId': z.string(),
   'image:vertical': z.string(),
   'image:horizontal': z.string(),
-  'link': z.url({ protocol: /^https?$/ }),
+  'link': z.string(),
   'weight': z.string().trim().transform((val) => Number(val) || 1),
   'publish': z.string().transform((val) => val.toLowerCase() === 'true'),
 })
@@ -16,7 +16,7 @@ export const AdSchema = z.object({
   id: z.string(),
   imageVertical: z.string(),
   imageHorizontal: z.string(),
-  link: z.url({ protocol: /^https?$/ }),
+  link: z.string(),
   weight: z.number(),
 })
 
