@@ -1,4 +1,9 @@
-﻿# 講者參與
+---
+title: "講者參與"
+description: "COSCUP 2026 講者指南：事前確認、設備、投影片格式、錄影與問答工具。"
+---
+
+# 講者參與
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
   <iframe src="https://www.flickr.com/photos/coscup/54865835376/player/" width="100%" height="387" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
@@ -23,11 +28,11 @@
 
 ## 簡報比例
 
-| Room | Projector Aspect Ratio |
-| --- | --- |
-| RB105 | 16:9 |
-| AU | 16:9 |
-| 其他演講廳 | 4:3 |
+| Room       | Projector Aspect Ratio |
+| ---------- | ---------------------- |
+| RB105      | 16:9                   |
+| AU         | 16:9                   |
+| 其他演講廳 | 4:3                    |
 
 直播和錄影時的比例無論哪間教室都是 16:9，解析度為 1920 x 1080。
 
@@ -54,6 +59,3 @@ Q&A 工具請自行準備。您可以使用投影片 QRCode、線上表單、Sli
 - 我們推薦您在簡報結束後，推薦 1 到 2 個您喜歡的議程；如果您認識的朋友也在活動其他場次演講，也可以告訴大家時間與地點。
 - 我們推薦您在簡報結束後準備 1 個問題。當現場沒有人提問時，您可以主動詢問台下觀眾，協助開啟討論。
 - 您也可以在結束時介紹自己的活動、攤位位置或其他想提醒大家的資訊。
-
-
-

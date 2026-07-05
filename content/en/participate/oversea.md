@@ -1,3 +1,8 @@
+---
+title: "For Overseas Visitors"
+description: "A guide for overseas COSCUP visitors: entry, transportation, payments, food, and emergency contacts."
+---
+
 # For Overseas Visitors
 
 This page summarizes information that participants coming to COSCUP from outside Taiwan may need, including overseas communities, speakers, attendees, sponsorship partners, and accompanying staff. Actual rules may vary depending on nationality, departure location, airline, and policies for the year. Please follow official announcements.

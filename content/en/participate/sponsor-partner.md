@@ -1,12 +1,17 @@
+---
+title: "Sponsorship Partners"
+description: "Guide for COSCUP sponsors: booth setup, operation rules, preparation tips, and contacts."
+---
+
 # Sponsorship Partners
 
 Thank you for supporting COSCUP, the Conference for Open Source Coders, Users, and Promoters. Whether you participate through individual sponsorship or corporate sponsorship, sponsorship partners help COSCUP remain free to attend, community co-organized, and fully staff-run. Sponsorship supports not only the venue, promotion, marketing, and documentation, but also staff accommodation, meals, attendee services, and onsite infrastructure.
 
 If this is your first time sponsoring or attending COSCUP, we also recommend reading:
 
-- [First Timer](./first-time.md)
-- [Activity](./activity.md)
-- [Open Source Communities](./open-source-community.md)
+- [First Timer](/en/participate/first-time)
+- [Activity](/en/participate/activity)
+- [Open Source Communities](/en/participate/open-source-community)
 
 ## Sponsor Booth
 
@@ -21,7 +26,7 @@ If your sponsorship package includes a Booth, please note the following:
 - Unloading and parking: The campus parking lot is operated by an external company. Logistics and temporary unloading instructions will be provided in the pre-event email.
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
-  <iframe src="https://www.flickr.com/photos/coscup/54865628901/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
+  <iframe title="Sponsor booth setup photo" src="https://www.flickr.com/photos/coscup/54865628901/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
 </figure>
 
 ## Setup and Teardown Notes
@@ -68,7 +73,7 @@ COSCUP attendees are usually highly interested in open source, technical practic
 - If you have a survey or raffle, make the rules, personal data usage, and contact information clearly visible.
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
-  <iframe src="https://www.flickr.com/photos/coscup/54865938025/player/" width="100%" height="457" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
+  <iframe title="Sponsor booth engagement photo" src="https://www.flickr.com/photos/coscup/54865938025/player/" width="100%" height="457" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
 </figure>
 
 ## Recommended Activities

@@ -1,4 +1,9 @@
-﻿# 前夜派對（Welcome Party）
+---
+title: "前夜派對"
+description: "COSCUP 2026 前夜派對資訊：時間、地點、酒券、報到與續攤。"
+---
+
+# 前夜派對（Welcome Party）
 
 前夜派對（Welcome Party）是 COSCUP 活動前一晚的暖身聚會。不論你是否參與隔天的 COSCUP，都歡迎來和大家喝一杯、聊開源，先認識社群夥伴，也讓接下來兩天的大會更容易開始交流。
 
@@ -10,7 +15,6 @@
 <figure style="margin:16px 0;width:100%;max-width:none;">
   <iframe src="https://www.flickr.com/photos/coscup/54864759012/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
 </figure>
-
 
 ## 派對有什麼
 
@@ -56,10 +60,10 @@
 - 可現場購票。
 - 購買酒券連結：待補
 
-| 酒券類型 | 價格 |
-| --- | --- |
+| 酒券類型                                                                       | 價格    |
+| ------------------------------------------------------------------------------ | ------- |
 | 早鳥預購前夜派對酒券<br>Early bird pre-order Pre-Party Drink Ticket (Location) | NTD$350 |
-| 現場購買前夜派對酒券<br>On-site Purchase of Pre-party Drink Ticket | NTD$400 |
+| 現場購買前夜派對酒券<br>On-site Purchase of Pre-party Drink Ticket             | NTD$400 |
 
 ## 報到方式
 
@@ -74,7 +78,7 @@
 
 我們不只有表面區域，歡迎您至酒店後面聊天。穿過酒店大堂到後面的室外區域，也備有水冷扇、飲料、桌椅。
 
-![前夜派對空間示意圖](/2026/participate/welcome-party/space-zh.png)
+:NuxtPicture{src="/participate/welcome-party/space-zh.png" alt="前夜派對空間示意圖"}
 
 ## 注意事項
 

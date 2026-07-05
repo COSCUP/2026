@@ -1,3 +1,8 @@
+---
+title: "First Timer"
+description: "A guide for first-time COSCUP attendees: what to prepare, how to plan your day, and where to get help."
+---
+
 # First Timer
 
 COSCUP is an annual open source conference organized by open source communities and staff. Since 2020, COSCUP has removed registration and ticket requirements so more people can participate freely. This also lets the spirit of open source extend from code to design, policy, education, community operation, open data, open culture, and many other fields.
@@ -14,11 +19,11 @@ Before the event, we recommend that you:
 2. Install or check the [OPass App](https://opass.app) so you can view Sessions, bookmark activities, and join In-Person interactions.
 3. Confirm your transportation and accommodation, and leave enough time to enter campus and find classrooms.
 4. Prepare business cards, stickers, a community introduction, or links to personal projects so you can exchange information with new people.
-5. If you are coming to Taiwan from overseas, read [For Overseas Visitors](./oversea.md) first to check visas, entry requirements, internet access, payments, and transportation cards.
+5. If you are coming to Taiwan from overseas, read [For Overseas Visitors](/en/participate/oversea) first to check visas, entry requirements, internet access, payments, and transportation cards.
 
 :::info{title="Overseas Visitors"}
 
-If you are coming to COSCUP from outside Taiwan, please refer to [For Overseas Visitors](./oversea.md) for visa, entry, accommodation, payment, transportation, food restriction, and City Tour information.
+If you are coming to COSCUP from outside Taiwan, please refer to [For Overseas Visitors](/en/participate/oversea) for visa, entry, accommodation, payment, transportation, food restriction, and City Tour information.
 
 :::
 
@@ -55,9 +60,9 @@ After the event, you can organize the people, communities, and projects you enco
 
 ## Related Pages
 
-- [Activity](./activity.md)
-- [Speaker Participation](./speaker-participation.md)
-- [Welcome Party](./welcome-party.md)
-- [For Overseas Visitors](./oversea.md)
-- [Open Source Communities, Booths, and Session Tracks](./open-source-community.md)
-- [Sponsorship Partners](./sponsor-partner.md)
+- [Activity](/en/participate/activity)
+- [Speaker Participation](/en/participate/speaker-participation)
+- [Welcome Party](/en/participate/welcome-party)
+- [For Overseas Visitors](/en/participate/oversea)
+- [Open Source Communities, Booths, and Session Tracks](/en/participate/open-source-community)
+- [Sponsorship Partners](/en/participate/sponsor-partner)

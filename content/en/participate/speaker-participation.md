@@ -1,3 +1,8 @@
+---
+title: "Speaker Participation"
+description: "Speaker guide for COSCUP 2026: pre-event checks, equipment, slide format, recording, and Q&A tools."
+---
+
 # Speaker Participation
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
@@ -23,11 +28,11 @@ This page summarizes what COSCUP speakers should confirm before and during the e
 
 ## Slide Aspect Ratio
 
-| Room | Projector Aspect Ratio |
-| --- | --- |
-| RB105 | 16:9 |
-| AU | 16:9 |
-| Other classrooms | 4:3 |
+| Room             | Projector Aspect Ratio |
+| ---------------- | ---------------------- |
+| RB105            | 16:9                   |
+| AU               | 16:9                   |
+| Other classrooms | 4:3                    |
 
 The livestream and recording aspect ratio is 16:9 for every classroom, with a resolution of 1920 x 1080.
 

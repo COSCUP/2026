@@ -1,3 +1,8 @@
+---
+title: "Open Source Communities, Booths, and Session Tracks"
+description: "Guide for communities hosting session tracks and booths at COSCUP: rules, setup, and decoration."
+---
+
 # Open Source Communities, Booths, and Session Tracks
 
 Your community can be part of the COSCUP open source community as long as it is related to open source, the spirit of openness, or open collaboration. COSCUP cares not only about code, but also about how the spirit of openness is practiced in design, education, policy, culture, data, hardware, community governance, public participation, and other fields.

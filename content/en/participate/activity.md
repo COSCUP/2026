@@ -1,6 +1,11 @@
+---
+title: "Activity"
+description: "Plan your COSCUP days: venue navigation, schedule, session formats, attendee services, and surveys."
+---
+
 # Activity
 
-This page summarizes information from a participant's point of view, including attendees, speakers, general community partners, overseas communities, temporary activity organizers, and anyone who wants to meet more open source communities In-Person. If this is your first time participating, we recommend reading [First Timer](./first-time.md) first, then returning to this page to plan transportation, Sessions, meals, and onsite activities.
+This page summarizes information from a participant's point of view, including attendees, speakers, general community partners, overseas communities, temporary activity organizers, and anyone who wants to meet more open source communities In-Person. If this is your first time participating, we recommend reading [First Timer](/en/participate/first-time) first, then returning to this page to plan transportation, Sessions, meals, and onsite activities.
 
 ## Getting There
 
@@ -19,7 +24,7 @@ You can move between the three venue areas through the basketball court, tennis 
 
 :::info{title="Conference Information"}
 
-  - Please refer to the venue map information page: [https://coscup.org/2026/venue](https://coscup.org/2026/venue)
+- Please refer to the venue map information page: [https://coscup.org/2026/venue](https://coscup.org/2026/venue)
 
 :::
 

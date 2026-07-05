@@ -1,3 +1,8 @@
+---
+title: "Welcome Party"
+description: "Everything about the COSCUP 2026 Welcome Party: time, location, drink tickets, check-in, and after-party."
+---
+
 # Welcome Party
 
 The Welcome Party is a warm-up gathering on the evening before COSCUP. Whether or not you are joining COSCUP the next day, you are welcome to have a drink, talk about open source, meet community partners, and make conversations easier for the two conference days ahead.
@@ -73,7 +78,7 @@ Prepare the check-in QR Code on KKTIX.
 
 There is more space beyond the front area. You are welcome to chat behind the bistro. Walk through the bistro lobby to the outdoor area in the back, where water-cooled fans, drinks, tables, and chairs are also available.
 
-![Welcome Party space map](/2026/participate/welcome-party/space-en.png)
+:NuxtPicture{src="/participate/welcome-party/space-en.png" alt="Welcome Party space map"}
 
 ## Notes
 
