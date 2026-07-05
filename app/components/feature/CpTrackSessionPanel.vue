@@ -78,6 +78,7 @@ onUnmounted(() => {
         </div>
 
         <CpSessionInfoCard
+          :ad="null"
           :description="sessionInfo.description"
           :room="sessionInfo.room"
           :speakers="sessionInfo.speakers"
