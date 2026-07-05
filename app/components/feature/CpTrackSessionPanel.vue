@@ -61,7 +61,7 @@ onUnmounted(() => {
     role="dialog"
     @click.self="emit('close')"
   >
-    <div class="bg-white flex flex-row-reverse h-full w-120 right-0 top-0 fixed">
+    <div class="bg-white flex flex-row-reverse h-full max-w-120 w-full right-0 top-0 fixed">
       <div class="p-3 h-full w-full overflow-y-auto">
         <div class="z-content flex top-0 justify-end sticky">
           <button
