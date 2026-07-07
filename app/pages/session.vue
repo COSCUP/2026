@@ -141,7 +141,7 @@ definePageMeta({
           </div>
 
           <!-- FilterBar -->
-          <div class="p-4 flex flex-col gap-3 w-[var(--viewport-width,100vw)] items-stretch left-0 sticky z-sticky sm:flex-row sm:items-center sm:justify-between">
+          <div class="p-4 flex flex-col gap-3 w-[var(--viewport-width,100vw)] items-stretch sm:flex-row sm:items-center sm:left-0 sm:justify-between sm:sticky sm:z-sticky">
             <div class="flex shrink-0 gap-3 items-center justify-center sm:justify-start">
               <div class="rounded-md bg-gray-200 h-12 w-18 animate-pulse sm:h-9" />
               <div class="rounded-md bg-gray-200 h-12 w-18 animate-pulse sm:h-9" />
@@ -182,7 +182,7 @@ definePageMeta({
             v-model:search-query="searchQuery"
             v-model:selected-room-ids="selectedRoomIds"
             v-model:selected-tag-ids="selectedTagIds"
-            class="p-4 left-0 sticky z-sticky"
+            class="p-4 sm:left-0 sm:sticky sm:z-sticky"
             :room-options="roomOptions"
             :tag-options="tagOptions"
           >
