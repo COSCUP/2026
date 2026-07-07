@@ -48,7 +48,6 @@ const firstSharedDay = computed(() => {
   return days.value.find((day) => (data?.value?.[day] ?? []).some((s) => shared.has(s.id))) ?? null
 })
 
-const manualSelectedDay = ref<string | null>(null)
 const selectedDay = computed({
   get: () => queryDay.value ?? firstSharedDay.value ?? days.value[0] ?? null,
   set: (value) => {
@@ -119,12 +118,17 @@ const emptyVariant = computed<'filter' | 'favorite' | 'shared'>(() => {
 })
 
 function clearShare() {
+  const query = { ...route.query }
+  const day = selectedDay.value
+
   // Pin the current day before the share query disappears; otherwise selectedDay
   // falls back to days[0], which may hold none of the imported sessions.
-  manualSelectedDay.value = selectedDay.value
-  const query = { ...route.query }
+  if (day && days.value.includes(day)) {
+    query.day = day
+  }
+
   delete query.filter
-  router.replace({ query })
+  void router.replace({ query })
 }
 
 function importShared() {
