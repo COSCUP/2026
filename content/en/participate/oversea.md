@@ -236,7 +236,7 @@ If you encounter an emergency in Taiwan, you can use the following phone numbers
 
 If you feel unwell, lose important items, experience harassment, conflict, or need urgent help at the venue, please contact the information desk or onsite staff as soon as possible.
 
-For emergency assistance from the COSCUP exchange team, send an email to `coscupengt+2701012 [at] gmail.com`. You do not need to write a polished message. Please send the information quickly:
+For emergency assistance from the COSCUP exchange team, send an email to `coscupengt+105105@gmail.com`. You do not need to write a polished message. Please send the information quickly:
 
 - Subject: `Emergency Contact - [Your Name]`
 - Who you are: the name you use at COSCUP.

@@ -11,7 +11,7 @@ The Welcome Party is a warm-up gathering on the evening before COSCUP. Whether o
   <iframe src="https://www.flickr.com/photos/coscup/54864759012/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
 </figure>
 
-## What to Expect
+## What's at the party?
 
 - A chance to meet many open source people.
 - A place to make new friends or meet old friends before the conference.
@@ -50,19 +50,21 @@ Yes. COSCUP has confirmed with the venue that outside food is allowed. You can b
 
 Drink tickets can be obtained through pre-purchase, invitation tickets, or onsite purchase.
 
-- Early bird period: 2025-07-10 21:00 to 2025-08-05 20:00 (UTC+8)
-- Pre-purchase period: 2025-07-10 21:00 to 2025-08-07 20:45
+- Early Bird Ticket: 2026-07-10 21:00 to 2026-08-05 20:00 (UTC+8)
+- Normal Ticket: 2026-07-10 21:00 to 2026-08-07 20:45 (UTC+8)
 - Onsite purchase is available.
-- Drink ticket purchase link: TBD
+- Drink ticket purchase link: https://coscup-tw.kktix.cc/events/2026-welcome-party
 
 | Drink Ticket Type | Price |
 | --- | --- |
-| Early bird pre-order Pre-Party Drink Ticket (Location) | NTD$350 |
-| On-site Purchase of Pre-party Drink Ticket | NTD$400 |
+| Early bird pre-order Pre-Party Drink Ticket | NTD$350 |
+| For normal ticket / On-site Purchase of Pre-party Drink Ticket | NTD$400 |
 
 ## Check-in
 
 If you have pre-purchased or received a drink ticket, please check in at the entrance counter.
+
+Prepare the check-in QR Code on KKTIX.
 
 - The left counter is for communities, speakers, and invited guests.
 - The right counter is for general drink ticket holders and onsite drink ticket purchases.
