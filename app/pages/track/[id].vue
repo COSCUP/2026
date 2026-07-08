@@ -142,12 +142,12 @@ useSeoMeta({
       <span>{{ announcement }}</span>
     </div>
 
-    <p
+    <div
       v-if="description"
-      class="text-gray-700 leading-relaxed whitespace-pre-line"
+      class="text-gray-700 leading-relaxed break-words"
     >
-      {{ description }}
-    </p>
+      <MDC :value="description" />
+    </div>
 
     <section
       v-if="selectedDay"
