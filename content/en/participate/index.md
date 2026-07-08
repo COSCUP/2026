@@ -16,4 +16,4 @@ Use this guide as the starting point for attending COSCUP, joining community act
 - [For Overseas Visitors](/en/participate/oversea)
 - [Open Source Communities, Booths, and Session Tracks](/en/participate/open-source-community)
 - [Sponsorship Partners](/en/participate/sponsor-partner)
-- [Invitation Letter Guide](/participate/invitation-letter-guide)
+- [Invitation Letter Guide](/en/participate/invitation-letter-guide)

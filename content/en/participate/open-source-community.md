@@ -81,6 +81,8 @@ XXX Open Source Session Track
 
 Example Session schedule:
 
+Sample download link: [https://docs.google.com/document/d/17SU8FqrAzEYE8LyPClm_95-vAmzsqVi7eEMU1Lrgp8Q/edit?usp=sharing](https://docs.google.com/document/d/17SU8FqrAzEYE8LyPClm_95-vAmzsqVi7eEMU1Lrgp8Q/edit?usp=sharing)
+
 <p style="font-size: 1.5em; font-weight: 700; margin-bottom: 0; text-align: center;">TR 515 (08/10 Sunday) - Agenda</p>
 <p style="font-size: 0.95em; margin-top: 4px; text-align: center;">XXX Open Source Session Track</p>
 
@@ -167,7 +169,7 @@ COSCUP gathers many participants over two days. A Community Booth is an effectiv
 - Setup time: Entry for setup opens after 14:00 on Friday, 08/07.
 - Teardown time: 16:00 on Sunday, 08/09.
 
-If your Booth has equipment over 150W, please let us know in advance. Logistics and temporary unloading instructions will be provided in the pre-event email.
+Large electrical appliances with instantaneous power over 330 W may not be used without permission. Logistics and temporary unloading instructions will be provided in the pre-event email.
 
 Booths can prepare:
 
@@ -219,7 +221,7 @@ If your Booth distributes food or other edible items, please label the following
 :::info{title="Booth Equipment"}
 
 - Tables and chairs are usually provided. The size and quantity depend on the announcement for the year.
-- 110V power outlets may be provided. Please pay attention to total power consumption limits.
+- 110V power outlets may be provided. Large electrical appliances with instantaneous power over 330 W may not be used without permission.
 - We recommend bringing your own extension cord, adapters, stand signs, tablecloth, items to secure tabletop displays, and backup power banks. Please do not attach tape to walls.
 
 :::

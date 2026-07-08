@@ -24,7 +24,7 @@ You can move between the three venue areas through the basketball court, tennis 
 
 :::info{title="Conference Information"}
 
-- Please refer to the venue map information page: [https://coscup.org/2026/venue](https://coscup.org/2026/venue)
+- Please refer to the venue map information page: [https://coscup.org/2026/venue](https://coscup.org/2026/venue) <span style="color:#000;background:#ff0;">[Coming soon. Stay tuned 07/25]</span>
 
 :::
 
@@ -46,7 +46,7 @@ You can plan in the following way:
 After the opening on the morning of the first day, the program continues with Prime Session. This is usually an important moment for the conference, often followed by several Prime Session talks. If you want to understand this year's themes, direction, and community perspectives, we recommend adding this block to your schedule.
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
-  <iframe src="https://www.flickr.com/photos/coscup/54866092769/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
+  <iframe title="Closing Prime Session speaker on stage" src="https://www.flickr.com/photos/coscup/54866092769/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
 </figure>
 
 <p style="margin-top:0;text-align:center;font-size:0.85em;color:#666;">The closing Prime Session speaker in 2025: Yukihiro Matsumoto, creator of Ruby</p>
@@ -56,7 +56,7 @@ After the opening on the morning of the first day, the program continues with Pr
 BoF stands for Birds of a Feather. It is an informal discussion gathering where participants with similar interests, technologies, community experiences, or project needs can meet and talk. It does not require a full presentation. It can be used to exchange experience, find collaborators, discuss governance topics, or hold a temporary meetup.
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
-  <iframe src="https://www.flickr.com/photos/coscup/54866086543/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
+  <iframe title="BoF discussion gathering" src="https://www.flickr.com/photos/coscup/54866086543/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
 </figure>
 
 You are welcome to reserve or check current BoF and Hacking Corner activities in [this document](https://docs.google.com/document/d/1ZerJ-5QYcEJ5guhxtK-SBW2BA6RMHtVJnqNIWxRCz18/edit?tab=t.0).
@@ -74,7 +74,7 @@ Examples of BoFs you can start:
 Hacking Corner is an open onsite space where attendees can spontaneously gather for co-creation, development, technical exchange, or documentation work. In most cases, no prior application is needed. You can use it if space is available.
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
-  <iframe src="https://www.flickr.com/photos/coscup/54865942518/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
+  <iframe title="Hacking Corner collaboration space" src="https://www.flickr.com/photos/coscup/54865942518/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
 </figure>
 
 You are welcome to reserve or check current BoF and Hacking Corner activities in [this document](https://docs.google.com/document/d/1ZerJ-5QYcEJ5guhxtK-SBW2BA6RMHtVJnqNIWxRCz18/edit?tab=t.0).
@@ -93,10 +93,10 @@ If you are interested, you can watch this sample video first: [https://www.youtu
 
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:16px 0;width:100%;">
   <figure style="margin:0;width:100%;max-width:none;">
-    <iframe src="https://www.flickr.com/photos/coscup/54047601765/player/" width="100%" height="375" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
+    <iframe title="Lightning Talk speaker presenting" src="https://www.flickr.com/photos/coscup/54047601765/player/" width="100%" height="375" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
   </figure>
   <figure style="margin:0;width:100%;max-width:none;">
-    <iframe src="https://www.flickr.com/photos/coscup/54047429329/player/" width="100%" height="375" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
+    <iframe title="Lightning Talk audience view" src="https://www.flickr.com/photos/coscup/54047429329/player/" width="100%" height="375" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
   </figure>
 </div>
 
@@ -116,10 +116,10 @@ Examples include:
 
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:16px 0;width:100%;">
   <figure style="margin:0;width:100%;max-width:none;">
-    <iframe src="https://www.flickr.com/photos/coscup/54711253529/player/" width="100%" height="375" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
+    <iframe title="Attendee service area" src="https://www.flickr.com/photos/coscup/54711253529/player/" width="100%" height="375" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
   </figure>
   <figure style="margin:0;width:100%;max-width:none;">
-    <iframe src="https://www.flickr.com/photos/coscup/54865693871/player/" width="100%" height="375" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
+    <iframe title="Attendee portrait photography service" src="https://www.flickr.com/photos/coscup/54865693871/player/" width="100%" height="375" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
   </figure>
 </div>
 
@@ -130,7 +130,7 @@ COSCUP prepares social stickers onsite so participants can express their interac
 <span style="color:#000;background:#ff0;">Social sticker / sticker exchange table location: Coming soon. Stay tuned (07/25).</span>
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
-  <iframe src="https://www.flickr.com/photos/coscup/54047128426/player/" width="100%" height="459" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
+  <iframe title="Social stickers at COSCUP" src="https://www.flickr.com/photos/coscup/54047128426/player/" width="100%" height="459" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
 </figure>
 
 ## Translation Tools
@@ -162,7 +162,7 @@ If you want to see past COSCUP photos or videos, refer to:
 <span style="color:#000;background:#ff0;">Souvenir booth and items will be announced soon (07/25).</span>
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
-  <iframe src="https://www.flickr.com/photos/coscup/54865856825/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
+  <iframe title="COSCUP official souvenir booth" src="https://www.flickr.com/photos/coscup/54865856825/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
 </figure>
 
 ## One Day Volunteers and Individual Contributions
@@ -172,7 +172,7 @@ During the two conference days, COSCUP may provide a "One Day Volunteers" mechan
 COSCUP is fully staff-organized, does not sell tickets, and is open to everyone for free. If you want to support the event's continuation, you can also watch for individual sponsorship, staff recruitment, and participation opportunities for next year.
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
-  <iframe src="https://www.flickr.com/photos/coscup/54864852852/player/" width="100%" height="387" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
+  <iframe title="One Day Volunteers and attendees" src="https://www.flickr.com/photos/coscup/54864852852/player/" width="100%" height="387" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
 </figure>
 
 ## Attendee Survey

@@ -13,7 +13,7 @@ The Welcome Party is a warm-up gathering on the evening before COSCUP. Whether o
 - Location: [Hua Shan Ding Bistro](https://www.google.com/maps/search/%E8%8F%AF%E5%B1%B1%E7%94%BA%E9%A4%90%E9%85%92%E9%A4%A8), No. 34, Sec. 1, Bade Rd., Zhongzheng Dist., Taipei City 100, Taiwan
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
-  <iframe src="https://www.flickr.com/photos/coscup/54864759012/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
+  <iframe title="Welcome Party venue entrance" src="https://www.flickr.com/photos/coscup/54864759012/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
 </figure>
 
 ## What's at the party?
@@ -23,7 +23,7 @@ The Welcome Party is a warm-up gathering on the evening before COSCUP. Whether o
 - Conversation stickers will be available onsite. Feel free to take and use them.
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
-  <iframe src="https://www.flickr.com/photos/coscup/54865907075/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
+  <iframe title="Welcome Party attendees gathering" src="https://www.flickr.com/photos/coscup/54865907075/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
 </figure>
 
 ## How to Join
@@ -38,13 +38,13 @@ Yes. COSCUP has confirmed with the venue that outside food is allowed. You can b
 
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:16px 0;">
   <figure style="margin:0;">
-    <iframe src="https://www.flickr.com/photos/coscup/54865858819/player/" width="100%" height="375" frameborder="0" allowfullscreen style="border:0;display:block;"></iframe>
+    <iframe title="Welcome Party shared food table" src="https://www.flickr.com/photos/coscup/54865858819/player/" width="100%" height="375" frameborder="0" allowfullscreen style="border:0;display:block;"></iframe>
     <figcaption style="text-align:center;margin-top:8px;">
       <a href="https://www.flickr.com/photos/coscup/54865858819/in/album-72177720329783428" target="_blank" rel="noreferrer">Flickr Photo 1</a>
     </figcaption>
   </figure>
   <figure style="margin:0;">
-    <iframe src="https://www.flickr.com/photos/coscup/54865862399/player/" width="100%" height="375" frameborder="0" allowfullscreen style="border:0;display:block;"></iframe>
+    <iframe title="Welcome Party food and drinks" src="https://www.flickr.com/photos/coscup/54865862399/player/" width="100%" height="375" frameborder="0" allowfullscreen style="border:0;display:block;"></iframe>
     <figcaption style="text-align:center;margin-top:8px;">
       <a href="https://www.flickr.com/photos/coscup/54865862399/in/album-72177720329783428" target="_blank" rel="noreferrer">Flickr Photo 2</a>
     </figcaption>
@@ -60,9 +60,9 @@ Drink tickets can be obtained through pre-purchase, invitation tickets, or onsit
 - Onsite purchase is available.
 - Drink ticket purchase link: https://coscup-tw.kktix.cc/events/2026-welcome-party
 
-| Drink Ticket Type | Price |
-| --- | --- |
-| Early bird pre-order Pre-Party Drink Ticket | NTD$350 |
+| Drink Ticket Type                                              | Price   |
+| -------------------------------------------------------------- | ------- |
+| Early bird pre-order Pre-Party Drink Ticket                    | NTD$350 |
 | For normal ticket / On-site Purchase of Pre-party Drink Ticket | NTD$400 |
 
 ## Check-in

@@ -21,7 +21,7 @@ If your sponsorship package includes a Booth, please note the following:
 - Teardown time: 16:00 on Sunday, 08/09.
 - Booth location: Please follow the official venue map and Sponsorship Team notice.
 - Booth setup: Please follow the Booth setup guide, power limits, and venue rules provided by COSCUP.
-- Power limit: If your Booth has equipment over 150W, please let us know in advance.
+- Power limit: Large electrical appliances with instantaneous power over 330 W may not be used without permission.
 - Internet: WiFi is not provided onsite. If your display, demo, registration form, raffle, or lead collection requires internet access, please prepare your own working network connection.
 - Unloading and parking: The campus parking lot is operated by an external company. Logistics and temporary unloading instructions will be provided in the pre-event email.
 
