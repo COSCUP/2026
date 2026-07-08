@@ -57,7 +57,7 @@ useSeoMeta({
 })
 
 function close() {
-  router.push(localePath('/session'))
+  router.push(localePath({ path: '/session', query: route.query }))
 }
 
 function pickWeightedAd(ads: Ad[]) {
