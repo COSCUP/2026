@@ -2,27 +2,32 @@
 import type { FilterOption } from '~/composables/useSessionFilter'
 import CpTextField from '~/components/shared/CpTextField.vue'
 import CpSessionFilterDropdown from './CpSessionFilterDropdown.vue'
+import CpSessionViewToggle from './CpSessionViewToggle.vue'
+
+export type TableViewMode = 'track' | 'table'
 
 defineProps<{
-  roomOptions: FilterOption[]
   tagOptions: FilterOption[]
 }>()
 
-const selectedRoomIds = defineModel<string[]>('selectedRoomIds', { default: () => [] })
+const viewMode = defineModel<TableViewMode>('viewMode', { default: () => 'track' })
 const selectedTagIds = defineModel<string[]>('selectedTagIds', { default: () => [] })
 const searchQuery = defineModel<string>('searchQuery', { default: '' })
 
 const { t } = useI18n()
+
+const viewModeItems = computed<{ key: TableViewMode, label: string, icon: string }[]>(() => [
+  { key: 'track', label: t('viewMode.track'), icon: 'tabler:layout-rows' },
+  { key: 'table', label: t('viewMode.table'), icon: 'tabler:layout-columns' },
+])
 </script>
 
 <template>
   <div class="flex flex-col gap-3 w-[var(--viewport-width,100vw)] items-stretch sm:flex-row sm:items-center sm:justify-between">
     <div class="flex shrink-0 gap-3 items-center justify-center sm:justify-start">
-      <CpSessionFilterDropdown
-        v-model="selectedRoomIds"
-        icon="tabler:map-pin"
-        :options="roomOptions"
-        type="rooms"
+      <CpSessionViewToggle
+        v-model="viewMode"
+        :items="viewModeItems"
       />
       <CpSessionFilterDropdown
         v-model="selectedTagIds"
@@ -47,10 +52,16 @@ const { t } = useI18n()
 </template>
 
 <i18n lang="yaml">
-  en:
-    placeholder: 'Search sessions…'
-    clear: 'Clear search'
-  zh:
-    placeholder: '搜尋議程……'
-    clear: '清除搜尋'
+en:
+  viewMode:
+    track: 'By Track'
+    table: 'By Room'
+  placeholder: 'Search sessions…'
+  clear: 'Clear search'
+zh:
+  viewMode:
+    track: '依議程軌'
+    table: '依教室'
+  placeholder: '搜尋議程……'
+  clear: '清除搜尋'
 </i18n>
