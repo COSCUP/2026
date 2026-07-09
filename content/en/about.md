@@ -5,7 +5,7 @@ description: Get to know COSCUP — Taiwan's largest open source community confe
 
 # About Us
 
-::info{title="COSCUP Code of Conduct"}
+::notification{type="info" title="COSCUP Code of Conduct"}
 To ensure all participants can engage in a safe and inclusive environment, we have established a Code of Conduct.\
 Please read: [COSCUP Code of Conduct](https://hackmd.io/@coscup/cococo-en)
 ::

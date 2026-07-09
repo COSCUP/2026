@@ -218,7 +218,7 @@ If your Booth distributes food or other edible items, please label the following
 - Gluten status
 - Beef / pork / lamb
 
-:::info{title="Booth Equipment"}
+:::notification{type="info" title="Booth Equipment"}
 
 - Tables and chairs are usually provided. The size and quantity depend on the announcement for the year.
 - 110V power outlets may be provided. Large electrical appliances with instantaneous power over 330 W may not be used without permission.
@@ -242,7 +242,7 @@ Recommended flyer sizes:
 - A5: suitable for community introductions, project introductions, or folded brochures.
 - A6: suitable for activity promotion, surveys, short-term QR Codes, or sticker exchange information.
 
-:::warning{title="Posting Restrictions"}
+:::notification{type="warning" title="Posting Restrictions"}
 
 Except for boards provided by COSCUP, please do not post documents anywhere else in the venue.
 

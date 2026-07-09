@@ -5,7 +5,7 @@ description: 認識 COSCUP——臺灣最大的開源社群年會——以及我
 
 # 認識我們
 
-::info{title="COSCUP 行為準則"}
+::notification{type="info" title="COSCUP 行為準則"}
 為了確保所有參與者都能在安全、包容的環境中參與活動，我們制定了行為準則。\
 請詳閱：[COSCUP 行為準則](https://hackmd.io/@coscup/cococo-zh)
 ::

@@ -30,7 +30,7 @@ The Welcome Party is a warm-up gathering on the evening before COSCUP. Whether o
 
 No registration is required. Please come directly to the venue. There is no minimum spend at the Welcome Party, but we still recommend purchasing an all-you-can-drink ticket to support the event. The drink ticket includes non-alcoholic beverages and helps cover the venue cost. Simple food will be available onsite so everyone can have something to eat.
 
-:::tip{title="Can I bring outside food?"}
+:::notification{type="tip" title="Can I bring outside food?"}
 
 Yes. COSCUP has confirmed with the venue that outside food is allowed. You can bring fried chicken, egg tarts, braised snacks, stinky tofu, or anything else you would like to share.
 
@@ -91,7 +91,7 @@ There is more space beyond the front area. You are welcome to chat behind the bi
 
 The Welcome Party is scheduled to end at 21:30 UTC+8. After the event, you can continue the evening at the nearby [Huashan 1914 Creative Park](https://www.google.com/maps/search/%E8%8F%AF%E5%B1%B11914%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%80), or visit our community partner [MozTW Space](https://moztw.org/space/).
 
-:::info{title="After-party Activities by Open Source Communities"}
+:::notification{type="info" title="After-party Activities by Open Source Communities"}
 
 Some Taiwan open source communities may also prepare after-party activities on the event day. We recommend asking people onsite where they are going next and joining directly.
 
