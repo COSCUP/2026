@@ -27,7 +27,7 @@ export default defineEventHandler(async (event): Promise<TrackDetail> => {
   return {
     id: track.id,
     name: track.name,
-    description: track.description ?? { 'en': '', 'zh-hans': '' },
+    description: track.description ?? { 'en': '', 'zh-hant': '' },
     sessions: groupSessionsByDay(sessions),
   }
 })

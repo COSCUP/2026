@@ -29,12 +29,12 @@ export function buildSessionSummary(submission: Submission, data: PretalxResult)
     zh: {
       title: submission.title,
       describe: submission.abstract,
-      type: type.name['zh-hans'] || type.name.en,
+      type: type.name['zh-hant'] || type.name.en,
     },
     en: {
       title: answers.enTitle || submission.title,
       describe: answers.enDesc || submission.abstract,
-      type: type.name.en || type.name['zh-hans'],
+      type: type.name.en || type.name['zh-hant'],
     },
     tags: parseTags(submission.tags, data, parseDifficulty(answers.difficulty)),
     uri: `https://coscup.org/2026/session/${submission.code}`,

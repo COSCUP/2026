@@ -19,7 +19,7 @@ const CARD_GAP = 2 // 相鄰卡片間的細縫 px
 const DIFFICULTIES: SessionDifficulty[] = ['Elementary', 'Intermediate', 'Advanced', 'Professional']
 
 const localeKey = computed(() => (locale.value === 'zh' ? 'zh' : 'en'))
-const roomKey = computed(() => (localeKey.value === 'zh' ? 'zh-hans' : 'en') as 'zh-hans' | 'en')
+const roomKey = computed(() => (localeKey.value === 'zh' ? 'zh-hant' : 'en') as 'zh-hant' | 'en')
 
 function parseMinutes(iso: string) {
   const match = iso.match(/T(\d{2}):(\d{2})/)
