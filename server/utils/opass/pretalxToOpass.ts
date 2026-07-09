@@ -1,10 +1,13 @@
+import type { OpassTag } from '#server/utils/opass/tags'
 import type { PretalxResult, Room, Speaker, Submission, SubmissionType } from '#shared/types/pretalx'
-import { parseAnswer, parseDifficulty, parseSlot, parseTags } from '#server/utils/pretalx/parser'
+import { sessionTags } from '#server/utils/opass/tags'
+import { parseAnswer, parseSlot } from '#server/utils/pretalx/parser'
 
 export function pretalxToOpass(pretalxData: PretalxResult) {
   const speakerIds: Set<Speaker['code']> = new Set()
   const roomIds: Set<Room['id']> = new Set()
   const typeIds: Set<SubmissionType['id']> = new Set()
+  const tagMap = new Map<string, OpassTag>()
 
   const sessions = pretalxData.submissions.arr
     .filter((submission: Submission) => submission.state === 'confirmed')
@@ -19,6 +22,9 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
       if (slot?.room?.id) {
         roomIds.add(slot.room.id)
       }
+
+      const tags = sessionTags(answer.language, answer.difficulty)
+      tags.forEach((tag) => tagMap.set(tag.id, tag))
 
       return {
         id: submission.code,
@@ -36,7 +42,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
           title: answer.enTitle || submission.title,
           describe: answer.enDesc || submission.abstract,
         },
-        tags: parseTags(submission.tags, pretalxData, parseDifficulty(answer.difficulty)),
+        tags: tags.map((tag) => tag.id),
         uri: `https://coscup.org/2026/session/${submission.code}`,
         co_write: null,
         qa: null,
@@ -112,5 +118,5 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
     })
     .filter((x): x is NonNullable<typeof x> => x !== null)
 
-  return { sessions, speakers, session_types: types, rooms }
+  return { sessions, speakers, session_types: types, rooms, tags: [...tagMap.values()] }
 }

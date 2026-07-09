@@ -73,6 +73,7 @@ zh:
     finance: 財務組
     service: 場務組
     production: 製播組
+    UCA: UCA
 en:
   noStaff: The staff information has not been announced yet.
   meta:
@@ -91,4 +92,5 @@ en:
     finance: Finance
     service: Service
     production: Production
+    UCA: UCA
 </i18n>

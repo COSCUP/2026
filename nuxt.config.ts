@@ -160,6 +160,12 @@ export default defineNuxtConfig({
     baseUrl: URL,
   },
 
+  vite: {
+    optimizeDeps: {
+      include: ['@vueuse/core', 'zod', 'leaflet'],
+    },
+  },
+
   gtag: {
     id: 'G-C9EMTMDSS1',
     enabled: process.env.NODE_ENV === 'production',

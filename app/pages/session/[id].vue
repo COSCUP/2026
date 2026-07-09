@@ -1,44 +1,48 @@
 <script setup lang="ts">
+import type { Ad } from '#shared/types/ad'
 import type { SessionDetail } from '#shared/types/session'
+import { useMediaQuery } from '@vueuse/core'
 import CpSessionInfoCard from '~/components/feature/CpSessionInfoCard.vue'
 
 const { locale } = useI18n()
 const route = useRoute()
 const router = useRouter()
 const localePath = useLocalePath()
+const isDesktop = useMediaQuery('(min-width: 640px)')
 
-const { data, error } = await useFetch<SessionDetail>(`/api/session/${route.params.id}`)
-
+const { data: sessionDetail, error } = await useFetch<SessionDetail>(`/api/session/${route.params.id}`)
 if (error.value) {
   throw error.value.statusCode === 404
     ? createError({ status: 404, statusText: 'Page Not Found' })
     : error.value
 }
+const { data: ad } = await useFetch<Ad[]>('/api/ad')
+const randomAd = ref<Ad | null>(null)
 
 const localeKey = computed(() => locale.value === 'zh' ? 'zh' : 'en')
 
 const sessionInfo = computed(() => {
-  if (!data.value) {
+  if (!sessionDetail.value) {
     return null
   }
 
-  const content = data.value[localeKey.value]
+  const content = sessionDetail.value[localeKey.value]
   const room = locale.value === 'zh'
-    ? (data.value.room?.['zh-hans'] || data.value.room?.en || '')
-    : (data.value.room?.en || data.value.room?.['zh-hans'] || '')
+    ? (sessionDetail.value.room?.['zh-hans'] || sessionDetail.value.room?.en || '')
+    : (sessionDetail.value.room?.en || sessionDetail.value.room?.['zh-hans'] || '')
 
   return {
-    coWrite: data.value.co_write ?? undefined,
+    coWrite: sessionDetail.value.co_write ?? undefined,
     description: content.describe,
     room,
-    speakers: data.value.speakers.map((speaker) => ({
+    speakers: sessionDetail.value.speakers.map((speaker) => ({
       id: speaker.id,
       avatar: speaker.avatar ?? undefined,
       bio: speaker[localeKey.value].bio,
       name: speaker[localeKey.value].name,
     })),
-    tags: data.value.tags,
-    time: `${data.value.start?.slice(11, 16) ?? ''} ~ ${data.value.end?.slice(11, 16) ?? ''}`,
+    tags: sessionDetail.value.tags,
+    time: `${sessionDetail.value.start?.slice(11, 16) ?? ''} ~ ${sessionDetail.value.end?.slice(11, 16) ?? ''}`,
     title: content.title,
   }
 })
@@ -53,7 +57,42 @@ useSeoMeta({
 })
 
 function close() {
-  router.push(localePath('/session'))
+  router.push(localePath({ path: '/session', query: route.query }))
+}
+
+function pickWeightedAd(ads: Ad[]) {
+  if (!ads.length) {
+    return null
+  }
+
+  const weightedAds = ads.map((ad) => ({
+    ad,
+    weight: ad.weight,
+  }))
+
+  const totalWeight = weightedAds.reduce((total, { weight }) => (
+    Number.isFinite(weight) && weight > 0 ? total + weight : total
+  ), 0)
+
+  if (totalWeight <= 0) {
+    return ads[Math.floor(Math.random() * ads.length)] ?? null
+  }
+
+  let random = Math.random() * totalWeight
+
+  for (const { ad, weight } of weightedAds) {
+    if (!Number.isFinite(weight) || weight <= 0) {
+      continue
+    }
+
+    random -= weight
+
+    if (random < 0) {
+      return ad
+    }
+  }
+
+  return ads.at(-1) ?? null
 }
 
 function onKeydown(e: KeyboardEvent) {
@@ -63,6 +102,7 @@ function onKeydown(e: KeyboardEvent) {
 }
 
 onMounted(() => {
+  randomAd.value = pickWeightedAd(ad.value ?? [])
   document.body.style.overflow = 'hidden'
   window.addEventListener('keydown', onKeydown)
 })
@@ -81,12 +121,22 @@ onUnmounted(() => {
     role="dialog"
     @click.self="close"
   >
-    <div class="bg-white flex flex-row-reverse h-full w-full right-0 top-0 fixed sm:w-120">
-      <div>
+    <div class="bg-white flex flex-row-reverse h-full w-full right-0 top-0 fixed sm:w-auto">
+      <NuxtLink
+        v-if="randomAd && isDesktop"
+        class="shrink-0 h-full aspect-[1/4]"
+        target="_blank"
+        :to="randomAd.link"
+      >
         <!-- AD -->
-      </div>
+        <NuxtImg
+          :alt="randomAd.id"
+          class="h-full w-full object-contain"
+          :src="randomAd.imageVertical"
+        />
+      </NuxtLink>
 
-      <div class="p-3 h-full w-full overflow-y-auto">
+      <div class="p-3 h-full w-full overflow-y-auto sm:w-120">
         <div class="flex top-0 justify-end sticky z-content">
           <button
             aria-label="close"
@@ -103,6 +153,7 @@ onUnmounted(() => {
 
         <CpSessionInfoCard
           v-if="sessionInfo"
+          :ad="randomAd"
           :co-write="sessionInfo.coWrite"
           :description="sessionInfo.description"
           :room="sessionInfo.room"

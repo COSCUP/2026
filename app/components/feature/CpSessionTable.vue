@@ -19,11 +19,16 @@ const { sessions: _sessions, day, timeRange, interval, rowHeight, columnWidth, p
 
 const { locale } = useI18n()
 const { time } = useRealtime()
+const route = useRoute()
 const localePath = useLocalePath()
 const { isFavorite, toggleFavorite } = useFavorites()
 const favoriteLabel = useFavoriteLabel()
 
 const { containerRef, isDragging } = useDragScroll({ scrollTarget: 'window' })
+
+function sessionPath(id: string) {
+  return localePath({ path: `/session/${id}`, query: route.query })
+}
 
 function parseMinutes(isoStr: string) {
   const match = isoStr.match(/T(\d{2}):(\d{2})/)
@@ -48,6 +53,28 @@ function toRow(minutes: number) {
   return Math.round((minutes - timeStart.value) / interval) + 2
 }
 
+function roomSortRank(room: string) {
+  if (room === 'RB105') {
+    // Put the room with an opening first
+    return 0
+  }
+  if (room.startsWith('RB')) {
+    return 1
+  }
+  if (room.startsWith('AU')) {
+    return 2
+  }
+  if (room.startsWith('TR')) {
+    return 3
+  }
+  return 4
+}
+
+function compareRooms(a: string, b: string) {
+  const rankDiff = roomSortRank(a) - roomSortRank(b)
+  return rankDiff || a.localeCompare(b)
+}
+
 const rooms = computed(() => {
   if (!_sessions) {
     return []
@@ -57,7 +84,7 @@ const rooms = computed(() => {
     .map((session) => session.room?.en)
     .filter((value) => value !== undefined)
 
-  return [...new Set(rooms)].sort() satisfies string[]
+  return [...new Set(rooms)].sort(compareRooms) satisfies string[]
 })
 
 const timeLabels = computed(() => {
@@ -194,7 +221,7 @@ const showRealtimeLine = computed(() => {
       }"
       :tags="session.tags"
       :title="session.title"
-      :to="localePath(`/session/${session.id}`)"
+      :to="sessionPath(session.id)"
       @toggle-favorite="toggleFavorite(session.id)"
     />
 
