@@ -79,16 +79,13 @@ export function useFavorites(): FavoritesStore {
  * The bookmark `aria-label` for a session, resolved by the parent list so the
  * per-card `CpSessionItem` stays free of an i18n scope (hundreds of cards would
  * otherwise OOM the prerender). Shared by both the table and list layouts.
+ *
+ * The caller must pass its own `t` so the keys (`add`, `remove`) live in the
+ * component's `<i18n>` block instead of inside this composable. This avoids the
+ * "Duplicate useI18n calling by local scope" warning that occurs when a composable
+ * creates its own local composer while the component already has one.
  */
-export function useFavoriteLabel(): (id: string, preview?: boolean) => string {
+export function useFavoriteLabel(t: (key: string) => string): (id: string, preview?: boolean) => string {
   const { isFavorite } = useFavorites()
-  const { t } = useI18n({
-    useScope: 'local',
-    messages: {
-      en: { add: 'Add to favorites', remove: 'Remove from favorites' },
-      zh: { add: '加入收藏', remove: '取消收藏' },
-    },
-  })
-
   return (id, preview = false) => (preview || isFavorite(id)) ? t('remove') : t('add')
 }

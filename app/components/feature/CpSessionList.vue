@@ -10,11 +10,11 @@ const { sessions: _sessions, preview = false } = defineProps<{
   preview?: boolean
 }>()
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const route = useRoute()
 const localePath = useLocalePath()
 const { isFavorite, toggleFavorite } = useFavorites()
-const favoriteLabel = useFavoriteLabel()
+const favoriteLabel = useFavoriteLabel(t)
 
 function sessionPath(id: string) {
   return localePath({ path: `/session/${id}`, query: route.query })
@@ -74,3 +74,12 @@ const times = computed(() => Object.keys(sessions.value).sort())
     </section>
   </div>
 </template>
+
+<i18n lang="yaml">
+  en:
+    add: 'Add to favorites'
+    remove: 'Remove from favorites'
+  zh:
+    add: '加入收藏'
+    remove: '取消收藏'
+</i18n>

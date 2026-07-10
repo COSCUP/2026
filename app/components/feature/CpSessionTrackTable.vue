@@ -3,21 +3,25 @@ import type { SessionSummary, SessionTrack } from '#shared/types/session'
 import { StorageSerializers, useLocalStorage } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
 import { useDragScroll } from '~/composables/useDragScroll'
+import { useFavoriteLabel, useFavorites } from '~/composables/useFavorites'
 import { useRealtime } from '~/composables/useRealtime'
 import { TRACK_COLORS } from '~/utils/tracks'
 
-const { sessions: _sessions, day, timeRange, interval, rowHeight, columnWidth } = defineProps<{
+const { sessions: _sessions, day, timeRange, interval, rowHeight, columnWidth, preview = false } = defineProps<{
   day: string
   timeRange: [string, string]
   sessions: SessionSummary[]
   interval: number
   rowHeight: number
   columnWidth: number
+  preview?: boolean
 }>()
 
 const { t, locale } = useI18n()
 const { time } = useRealtime()
 const localePath = useLocalePath()
+const { isFavorite, toggleFavorite } = useFavorites()
+const favoriteLabel = useFavoriteLabel(t)
 
 const { containerRef, isDragging } = useDragScroll({ scrollTarget: 'window' })
 
@@ -82,44 +86,70 @@ function isMainTrack(name?: SessionTrack['name']) {
   return MAIN_TRACK_NAMES.includes(name?.['zh-hant'] ?? '') || MAIN_TRACK_NAMES.includes(name?.en ?? '')
 }
 
+// Shared with CpSessionTable: both pin by English room code so switching views keeps pins in sync.
 // null = never visited (pin main by default); [] = user unpinned everything (respect it).
-// Explicit JSON serializer: a null default otherwise picks the String()-based `any` serializer.
-const pinnedKeys = useLocalStorage<string[] | null>('coscup-pinned-tracks', null, {
+const pinnedRooms = useLocalStorage<string[] | null>('coscup-pinned-rooms', null, {
   serializer: StorageSerializers.object,
 })
-const isPinned = (key: string) => (pinnedKeys.value ?? []).includes(key)
+const isPinned = (roomEn: string) => (pinnedRooms.value ?? []).includes(roomEn)
 
-function togglePin(key: string) {
-  const current = pinnedKeys.value ?? []
-  pinnedKeys.value = current.includes(key)
-    ? current.filter((k) => k !== key)
-    : [...current, key]
+function togglePin(roomEn: string) {
+  const current = pinnedRooms.value ?? []
+  pinnedRooms.value = current.includes(roomEn)
+    ? current.filter((r) => r !== roomEn)
+    : [...current, roomEn]
 }
 
 const tracks = computed(() => {
-  const byKey = new Map<string, { key: string, order: number, name: string, room: string, isMain: boolean }>()
+  const byKey = new Map<string, { key: string, trackId: string | null, order: number, name: string, room: string, roomEn: string, isMain: boolean }>()
   for (const session of daySessions.value) {
     const id = session.track?.id
-    const key = id != null ? String(id) : NO_TRACK
+    const trackId = id != null ? String(id) : null
+    const roomEn = session.room?.en ?? ''
+    const key = `${trackId ?? NO_TRACK}__${roomEn}`
     if (!byKey.has(key)) {
       byKey.set(key, {
         key,
+        trackId,
         order: id ?? Number.POSITIVE_INFINITY,
         name: session.track ? localeName(session.track.name) : t('other'),
         room: localeName(session.room),
+        roomEn,
         isMain: isMainTrack(session.track?.name),
       })
     }
   }
-  // Color by stable track-id order so a track keeps its color regardless of pin state. Pinned
-  // group is ordered by pin order (newest last); unpinned keep id order (Array.sort is stable).
-  const pinOrder = new Map((pinnedKeys.value ?? []).map((key, index) => [key, index]))
-  return [...byKey.values()]
-    .sort((a, b) => compareRooms(a.room, b.room) || a.order - b.order)
-    .map((track, index) => ({ ...track, color: TRACK_COLORS[index % TRACK_COLORS.length]! }))
+
+  const values = [...byKey.values()]
+
+  // Assign color by unique track order so same track always gets the same color,
+  // even when split across multiple rooms.
+  const uniqueOrders = [...new Set(values.map((t) => t.order))].sort((a, b) => a - b)
+  const colorByOrder = new Map(uniqueOrders.map((order, i) => [order, TRACK_COLORS[i % TRACK_COLORS.length]!]))
+
+  // For tracks spanning multiple rooms, use the highest-priority room in the group
+  // to determine the track group's position in the overall sort order.
+  const bestRoomByTrackId = new Map<string | null, string>()
+  for (const t of values) {
+    const existing = bestRoomByTrackId.get(t.trackId)
+    if (existing === undefined || roomSortRank(t.roomEn) < roomSortRank(existing)) {
+      bestRoomByTrackId.set(t.trackId, t.roomEn)
+    }
+  }
+
+  // Pinned rows float to front (in pin order); unpinned sort by room.
+  // Pin key is roomEn, shared with CpSessionTable.
+  const pinOrder = new Map((pinnedRooms.value ?? []).map((roomEn, index) => [roomEn, index]))
+  return values
     .sort((a, b) => {
-      const ai = pinOrder.get(a.key)
-      const bi = pinOrder.get(b.key)
+      const bestA = bestRoomByTrackId.get(a.trackId) ?? ''
+      const bestB = bestRoomByTrackId.get(b.trackId) ?? ''
+      return compareRooms(bestA, bestB) || compareRooms(a.roomEn, b.roomEn)
+    })
+    .map((track) => ({ ...track, color: colorByOrder.get(track.order)! }))
+    .sort((a, b) => {
+      const ai = pinOrder.get(a.roomEn)
+      const bi = pinOrder.get(b.roomEn)
       if (ai != null && bi != null) {
         return ai - bi
       }
@@ -127,16 +157,16 @@ const tracks = computed(() => {
     })
 })
 
-// Default main-track key, derived event-wide so the first-visit pin doesn't depend on which day loaded.
-const defaultMainKey = computed(() => {
-  const main = (_sessions ?? []).find((session) => isMainTrack(session.track?.name))
-  return main?.track?.id != null ? String(main.track.id) : null
+// Default main-track room, derived event-wide so the first-visit pin doesn't depend on which day loaded.
+const defaultMainRoom = computed(() => {
+  const main = (_sessions ?? []).find((session) => isMainTrack(session.track?.name) && session.room?.en)
+  return main?.room?.en ?? null
 })
 
-// On first visit, pin the main track by default.
-watch(defaultMainKey, (key) => {
-  if (pinnedKeys.value === null && key != null) {
-    pinnedKeys.value = [key]
+// On first visit, pin the main track's room by default.
+watch(defaultMainRoom, (roomEn) => {
+  if (pinnedRooms.value === null && roomEn != null) {
+    pinnedRooms.value = [roomEn]
   }
 }, { immediate: true })
 
@@ -202,7 +232,9 @@ const sessions = computed(() =>
   daySessions.value.map((session) => {
     const startMins = parseMinutes(session.start!)
     const endMins = parseMinutes(session.end!)
-    const key = session.track?.id != null ? String(session.track.id) : NO_TRACK
+    const trackId = session.track?.id != null ? String(session.track.id) : NO_TRACK
+    const roomEn = session.room?.en ?? ''
+    const key = `${trackId}__${roomEn}`
     const index = trackIndex.value.get(key) ?? 0
     // Past / in-progress sessions render dimmed (State A); future sessions render bright (State B).
     // Judge by Taipei date/time so a finished day stays dimmed even when the now line is out of range.
@@ -295,7 +327,7 @@ const HEADER_HEIGHT = 47
       v-for="(track, i) in tracks"
       :key="track.key"
       class="border-b border-r border-b-[rgba(26,26,26,0.06)] flex gap-3 cursor-default items-center left-0 sticky z-dropdown"
-      :class="isPinned(track.key)
+      :class="isPinned(track.roomEn)
         ? 'border-r-[#bedbff] bg-[#eff6ff] shadow-[inset_4px_0px_0px_0px_#3b82f6]'
         : 'border-r-[rgba(26,26,26,0.12)] bg-white'"
       :style="{ 'grid-row': i + 2, 'grid-column': 1, 'padding': '12px 17px 12px 16px' }"
@@ -303,15 +335,24 @@ const HEADER_HEIGHT = 47
     >
       <div class="flex flex-1 flex-col min-w-0">
         <div class="flex gap-1.5 items-center">
+          <NuxtLink
+            v-if="track.trackId !== null"
+            class="text-[14px] leading-[17.5px] font-semibold whitespace-nowrap truncate hover:underline"
+            :class="isPinned(track.roomEn) ? 'text-[#1447e6]' : 'text-[#1a1a1a]'"
+            :to="localePath(`/track/${track.trackId}`)"
+          >
+            {{ track.name }}
+          </NuxtLink>
           <span
+            v-else
             class="text-[14px] leading-[17.5px] font-semibold whitespace-nowrap truncate"
-            :class="isPinned(track.key) ? 'text-[#1447e6]' : 'text-[#1a1a1a]'"
+            :class="isPinned(track.roomEn) ? 'text-[#1447e6]' : 'text-[#1a1a1a]'"
           >{{ track.name }}</span>
         </div>
         <div
           v-if="track.room"
           class="pt-1 flex gap-0.5 items-center"
-          :class="isPinned(track.key) ? 'text-[#2b7fff]' : 'text-[#737373]'"
+          :class="isPinned(track.roomEn) ? 'text-[#2b7fff]' : 'text-[#737373]'"
         >
           <Icon
             class="text-[12px] shrink-0"
@@ -324,17 +365,17 @@ const HEADER_HEIGHT = 47
       </div>
       <div class="flex gap-1 items-center">
         <button
-          :aria-label="isPinned(track.key) ? t('unpinTrack') : t('pinTrack')"
-          :aria-pressed="isPinned(track.key)"
+          :aria-label="isPinned(track.roomEn) ? t('unpinRoom') : t('pinRoom')"
+          :aria-pressed="isPinned(track.roomEn)"
           class="p-1.5 rounded-[4px] flex cursor-pointer items-center"
-          :class="isPinned(track.key) ? 'bg-[#dbeafe] text-[#1447e6]' : 'text-[#99a1af]'"
-          :title="isPinned(track.key) ? t('unpinTrack') : t('pinTrack')"
+          :class="isPinned(track.roomEn) ? 'bg-[#dbeafe] text-[#1447e6]' : 'text-[#99a1af]'"
+          :title="isPinned(track.roomEn) ? t('unpinRoom') : t('pinRoom')"
           type="button"
-          @click="togglePin(track.key)"
+          @click="togglePin(track.roomEn)"
         >
           <Icon
             class="text-[14px]"
-            :name="isPinned(track.key) ? 'tabler:pin-filled' : 'tabler:pin'"
+            :name="isPinned(track.roomEn) ? 'tabler:pin-filled' : 'tabler:pin'"
           />
         </button>
         <span class="p-1 rounded-[4px] flex items-center">
@@ -347,17 +388,14 @@ const HEADER_HEIGHT = 47
     </div>
 
     <!-- Session cards -->
-    <NuxtLink
+    <div
       v-for="session in sessions"
       :key="session.id"
       class="flex items-stretch overflow-hidden"
-      :draggable="false"
       :style="{
         'grid-row': session.row,
         'grid-column': `${session.col[0]} / ${session.col[1]}`,
       }"
-      :to="localePath(`/session/${session.id}`)"
-      @dragstart.prevent
     >
       <div
         class="border border-black/10 flex flex-1 flex-col h-16 self-center box-border relative overflow-hidden"
@@ -372,20 +410,19 @@ const HEADER_HEIGHT = 47
           class="bg-black/30 pointer-events-none inset-0 absolute"
         />
 
+        <!-- Overlay link: covers the card; star button renders on top as a sibling. -->
+        <NuxtLink
+          :aria-label="session.title"
+          class="inset-0 absolute"
+          :draggable="false"
+          :to="localePath(`/session/${session.id}`)"
+          @dragstart.prevent
+        />
+
         <!-- Content -->
         <div
-          class="px-2 py-1.5 flex flex-1 flex-col w-full items-start justify-center relative overflow-clip"
+          class="px-2 py-1.5 flex flex-1 flex-col w-full pointer-events-none items-start justify-center relative overflow-clip"
         >
-          <!-- Favorite star (static visual element) -->
-          <span
-            class="p-1 rounded-[4px] bg-black/10 flex items-center left-1 top-1 absolute"
-          >
-            <Icon
-              class="text-[12px] text-white"
-              name="tabler:star"
-            />
-          </span>
-
           <h3
             class="text-[12px] text-white leading-[15px] font-semibold pl-5 whitespace-nowrap"
             :class="{ 'w-full overflow-hidden text-ellipsis': session.isPast }"
@@ -402,8 +439,23 @@ const HEADER_HEIGHT = 47
             class="text-[9px] text-white leading-[13.5px] font-mono pt-0.5 opacity-80 whitespace-nowrap"
           >{{ session.start }}-{{ session.end }}</time>
         </div>
+
+        <!-- Favorite star: sibling after NuxtLink so it renders on top. -->
+        <button
+          :aria-label="favoriteLabel(session.id, preview)"
+          :aria-pressed="preview || isFavorite(session.id)"
+          class="p-1 rounded-[4px] bg-black/10 flex cursor-pointer items-center left-1 top-1 absolute"
+          type="button"
+          @click.prevent.stop="!preview && toggleFavorite(session.id)"
+          @pointerdown.stop
+        >
+          <Icon
+            class="text-[12px] text-white"
+            :name="preview || isFavorite(session.id) ? 'tabler:star-filled' : 'tabler:star'"
+          />
+        </button>
       </div>
-    </NuxtLink>
+    </div>
 
     <!-- Current-time ("now") line -->
     <ClientOnly>
@@ -429,11 +481,15 @@ const HEADER_HEIGHT = 47
   en:
     other: 'Other'
     trackColumn: 'Track'
-    pinTrack: 'Pin track'
-    unpinTrack: 'Unpin track'
+    pinRoom: 'Pin room'
+    unpinRoom: 'Unpin room'
+    add: 'Add to favorites'
+    remove: 'Remove from favorites'
   zh:
     other: '其他'
     trackColumn: '議程軌'
-    pinTrack: '釘選議程軌'
-    unpinTrack: '取消釘選'
+    pinRoom: '釘選教室'
+    unpinRoom: '取消釘選'
+    add: '加入收藏'
+    remove: '取消收藏'
 </i18n>

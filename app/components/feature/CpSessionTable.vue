@@ -23,7 +23,7 @@ const { time } = useRealtime()
 const route = useRoute()
 const localePath = useLocalePath()
 const { isFavorite, toggleFavorite } = useFavorites()
-const favoriteLabel = useFavoriteLabel()
+const favoriteLabel = useFavoriteLabel(t)
 
 const { containerRef, isDragging } = useDragScroll({ scrollTarget: 'window' })
 
@@ -447,6 +447,8 @@ const sessions = computed(() =>
     other: 'Other'
     pinRoom: 'Pin room'
     unpinRoom: 'Unpin room'
+    add: 'Add to favorites'
+    remove: 'Remove from favorites'
     difficulty:
       Elementary: 'Beginner'
       Intermediate: 'Intermediate'
@@ -455,6 +457,8 @@ const sessions = computed(() =>
     other: '其他'
     pinRoom: '釘選教室'
     unpinRoom: '取消釘選'
+    add: '加入收藏'
+    remove: '取消收藏'
     difficulty:
       Elementary: '入門'
       Intermediate: '中階'

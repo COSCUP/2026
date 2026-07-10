@@ -8,6 +8,7 @@ export type TableViewMode = 'track' | 'table'
 
 defineProps<{
   tagOptions: FilterOption[]
+  preview?: boolean
 }>()
 
 const viewMode = defineModel<TableViewMode>('viewMode', { default: () => 'track' })
@@ -31,6 +32,7 @@ const viewModeItems = computed<{ key: TableViewMode, label: string, icon: string
         :items="viewModeItems"
       />
       <CpSessionFilterDropdown
+        v-if="!preview"
         v-model="selectedTagIds"
         icon="tabler:tag"
         :options="tagOptions"
@@ -39,7 +41,10 @@ const viewModeItems = computed<{ key: TableViewMode, label: string, icon: string
     </div>
 
     <!-- Controls below the search field on mobile, to its left on desktop. -->
-    <div class="flex flex-col-reverse gap-3 items-center sm:flex-row sm:items-center">
+    <div
+      v-if="!preview"
+      class="flex flex-col-reverse gap-3 items-center sm:flex-row sm:items-center"
+    >
       <slot name="controls" />
 
       <CpTextField

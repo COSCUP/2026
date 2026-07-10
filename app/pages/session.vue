@@ -210,9 +210,7 @@ definePageMeta({
             :days="days"
           />
 
-          <!-- Hidden while previewing a shared list. -->
           <CpSessionFilterBar
-            v-if="!isSharing"
             v-model:search-query="searchQuery"
             v-model:selected-tag-ids="selectedTagIds"
             v-model:view-mode="viewMode"
@@ -243,6 +241,7 @@ definePageMeta({
             :column-width="20"
             :day="selectedDay"
             :interval="5"
+            :preview="isSharing"
             :row-height="80"
             :sessions="displayedSessions"
             :time-range="['09:00', '17:30']"
@@ -254,7 +253,7 @@ definePageMeta({
             :day="selectedDay"
             :interval="5"
             :preview="isSharing"
-            :row-height="10"
+            :row-height="20"
             :sessions="displayedSessions"
             :time-range="['09:00', '17:30']"
           />
