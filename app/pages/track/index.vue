@@ -8,7 +8,7 @@ const localePath = useLocalePath()
 
 const { data } = await useFetch<TrackSummary[]>('/api/track')
 
-const localeKey = computed(() => (locale.value === 'zh' ? 'zh-hans' : 'en'))
+const localeKey = computed(() => (locale.value === 'zh' ? 'zh-hant' : 'en'))
 
 function trackName(track: TrackSummary) {
   return track.name[localeKey.value] || track.name.en || `#${track.id}`

@@ -18,8 +18,8 @@ const localeKey = computed(() => (locale.value === 'zh' ? 'zh' : 'en'))
 const sessionInfo = computed(() => {
   const content = session[localeKey.value]
   const room = locale.value === 'zh'
-    ? (session.room?.['zh-hans'] || session.room?.en || '')
-    : (session.room?.en || session.room?.['zh-hans'] || '')
+    ? (session.room?.['zh-hant'] || session.room?.en || '')
+    : (session.room?.en || session.room?.['zh-hant'] || '')
 
   return {
     description: content.describe,

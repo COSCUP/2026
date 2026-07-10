@@ -12,7 +12,7 @@ interface UseSessionFilterOptions {
 }
 
 function roomId(session: SessionSummary) {
-  return session.room?.en || session.room?.['zh-hans'] || ''
+  return session.room?.en || session.room?.['zh-hant'] || ''
 }
 
 export function useSessionFilter({ sessionsByDay, selectedDay, locale }: UseSessionFilterOptions) {
@@ -28,7 +28,7 @@ export function useSessionFilter({ sessionsByDay, selectedDay, locale }: UseSess
   })
 
   function roomLabel(session: SessionSummary) {
-    const { en = '', 'zh-hans': zh = '' } = session.room ?? {}
+    const { en = '', 'zh-hant': zh = '' } = session.room ?? {}
     return isZh.value ? zh || en : en || zh
   }
 

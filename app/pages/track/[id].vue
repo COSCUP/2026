@@ -17,12 +17,12 @@ const localeKey = computed(() => (locale.value === 'zh' ? 'zh' : 'en'))
 const meta = computed(() => getTrackMeta(Number(route.params.id)))
 
 const title = computed(() =>
-  data.value?.name[localeKey.value === 'zh' ? 'zh-hans' : 'en'] ||
+  data.value?.name[localeKey.value === 'zh' ? 'zh-hant' : 'en'] ||
   data.value?.name.en ||
   '')
 
 const description = computed(() =>
-  data.value?.description[localeKey.value === 'zh' ? 'zh-hans' : 'en'] ||
+  data.value?.description[localeKey.value === 'zh' ? 'zh-hant' : 'en'] ||
   data.value?.description.en ||
   '')
 
@@ -65,7 +65,7 @@ function closeSession() {
 }
 
 const dayRooms = computed(() => {
-  const key = localeKey.value === 'zh' ? 'zh-hans' : 'en'
+  const key = localeKey.value === 'zh' ? 'zh-hant' : 'en'
   const names = daySessions.value
     .map((session) => session.room?.[key] || session.room?.en)
     .filter((name): name is string => Boolean(name))
@@ -73,7 +73,7 @@ const dayRooms = computed(() => {
 })
 
 const allRooms = computed(() => {
-  const key = localeKey.value === 'zh' ? 'zh-hans' : 'en'
+  const key = localeKey.value === 'zh' ? 'zh-hant' : 'en'
   const names = Object.values(data.value?.sessions ?? {})
     .flat()
     .map((session) => session.room?.[key] || session.room?.en)

@@ -28,8 +28,8 @@ const sessionInfo = computed(() => {
 
   const content = sessionDetail.value[localeKey.value]
   const room = locale.value === 'zh'
-    ? (sessionDetail.value.room?.['zh-hans'] || sessionDetail.value.room?.en || '')
-    : (sessionDetail.value.room?.en || sessionDetail.value.room?.['zh-hans'] || '')
+    ? (sessionDetail.value.room?.['zh-hant'] || sessionDetail.value.room?.en || '')
+    : (sessionDetail.value.room?.en || sessionDetail.value.room?.['zh-hant'] || '')
 
   return {
     coWrite: sessionDetail.value.co_write ?? undefined,
