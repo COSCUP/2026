@@ -86,18 +86,18 @@ function isMainTrack(name?: SessionTrack['name']) {
   return MAIN_TRACK_NAMES.includes(name?.['zh-hant'] ?? '') || MAIN_TRACK_NAMES.includes(name?.en ?? '')
 }
 
+// Shared with CpSessionTable: both pin by English room code so switching views keeps pins in sync.
 // null = never visited (pin main by default); [] = user unpinned everything (respect it).
-// Explicit JSON serializer: a null default otherwise picks the String()-based `any` serializer.
-const pinnedKeys = useLocalStorage<string[] | null>('coscup-pinned-tracks', null, {
+const pinnedRooms = useLocalStorage<string[] | null>('coscup-pinned-rooms', null, {
   serializer: StorageSerializers.object,
 })
-const isPinned = (key: string) => (pinnedKeys.value ?? []).includes(key)
+const isPinned = (roomEn: string) => (pinnedRooms.value ?? []).includes(roomEn)
 
-function togglePin(key: string) {
-  const current = pinnedKeys.value ?? []
-  pinnedKeys.value = current.includes(key)
-    ? current.filter((k) => k !== key)
-    : [...current, key]
+function togglePin(roomEn: string) {
+  const current = pinnedRooms.value ?? []
+  pinnedRooms.value = current.includes(roomEn)
+    ? current.filter((r) => r !== roomEn)
+    : [...current, roomEn]
 }
 
 const tracks = computed(() => {
@@ -137,8 +137,9 @@ const tracks = computed(() => {
     }
   }
 
-  // Pinned rows are ordered by pin order (newest last); unpinned sort by room.
-  const pinOrder = new Map((pinnedKeys.value ?? []).map((key, index) => [key, index]))
+  // Pinned rows float to front (in pin order); unpinned sort by room.
+  // Pin key is roomEn, shared with CpSessionTable.
+  const pinOrder = new Map((pinnedRooms.value ?? []).map((roomEn, index) => [roomEn, index]))
   return values
     .sort((a, b) => {
       const bestA = bestRoomByTrackId.get(a.trackId) ?? ''
@@ -147,8 +148,8 @@ const tracks = computed(() => {
     })
     .map((track) => ({ ...track, color: colorByOrder.get(track.order)! }))
     .sort((a, b) => {
-      const ai = pinOrder.get(a.key)
-      const bi = pinOrder.get(b.key)
+      const ai = pinOrder.get(a.roomEn)
+      const bi = pinOrder.get(b.roomEn)
       if (ai != null && bi != null) {
         return ai - bi
       }
@@ -156,20 +157,16 @@ const tracks = computed(() => {
     })
 })
 
-// Default main-track key, derived event-wide so the first-visit pin doesn't depend on which day loaded.
-const defaultMainKey = computed(() => {
-  const main = (_sessions ?? []).find((session) => isMainTrack(session.track?.name))
-  if (main?.track?.id == null) {
-    return null
-  }
-  const roomEn = main.room?.en ?? ''
-  return `${String(main.track.id)}__${roomEn}`
+// Default main-track room, derived event-wide so the first-visit pin doesn't depend on which day loaded.
+const defaultMainRoom = computed(() => {
+  const main = (_sessions ?? []).find((session) => isMainTrack(session.track?.name) && session.room?.en)
+  return main?.room?.en ?? null
 })
 
-// On first visit, pin the main track by default.
-watch(defaultMainKey, (key) => {
-  if (pinnedKeys.value === null && key != null) {
-    pinnedKeys.value = [key]
+// On first visit, pin the main track's room by default.
+watch(defaultMainRoom, (roomEn) => {
+  if (pinnedRooms.value === null && roomEn != null) {
+    pinnedRooms.value = [roomEn]
   }
 }, { immediate: true })
 
@@ -330,7 +327,7 @@ const HEADER_HEIGHT = 47
       v-for="(track, i) in tracks"
       :key="track.key"
       class="border-b border-r border-b-[rgba(26,26,26,0.06)] flex gap-3 cursor-default items-center left-0 sticky z-dropdown"
-      :class="isPinned(track.key)
+      :class="isPinned(track.roomEn)
         ? 'border-r-[#bedbff] bg-[#eff6ff] shadow-[inset_4px_0px_0px_0px_#3b82f6]'
         : 'border-r-[rgba(26,26,26,0.12)] bg-white'"
       :style="{ 'grid-row': i + 2, 'grid-column': 1, 'padding': '12px 17px 12px 16px' }"
@@ -341,7 +338,7 @@ const HEADER_HEIGHT = 47
           <NuxtLink
             v-if="track.trackId !== null"
             class="text-[14px] leading-[17.5px] font-semibold whitespace-nowrap truncate hover:underline"
-            :class="isPinned(track.key) ? 'text-[#1447e6]' : 'text-[#1a1a1a]'"
+            :class="isPinned(track.roomEn) ? 'text-[#1447e6]' : 'text-[#1a1a1a]'"
             :to="localePath(`/track/${track.trackId}`)"
           >
             {{ track.name }}
@@ -349,13 +346,13 @@ const HEADER_HEIGHT = 47
           <span
             v-else
             class="text-[14px] leading-[17.5px] font-semibold whitespace-nowrap truncate"
-            :class="isPinned(track.key) ? 'text-[#1447e6]' : 'text-[#1a1a1a]'"
+            :class="isPinned(track.roomEn) ? 'text-[#1447e6]' : 'text-[#1a1a1a]'"
           >{{ track.name }}</span>
         </div>
         <div
           v-if="track.room"
           class="pt-1 flex gap-0.5 items-center"
-          :class="isPinned(track.key) ? 'text-[#2b7fff]' : 'text-[#737373]'"
+          :class="isPinned(track.roomEn) ? 'text-[#2b7fff]' : 'text-[#737373]'"
         >
           <Icon
             class="text-[12px] shrink-0"
@@ -368,17 +365,17 @@ const HEADER_HEIGHT = 47
       </div>
       <div class="flex gap-1 items-center">
         <button
-          :aria-label="isPinned(track.key) ? t('unpinTrack') : t('pinTrack')"
-          :aria-pressed="isPinned(track.key)"
+          :aria-label="isPinned(track.roomEn) ? t('unpinTrack') : t('pinTrack')"
+          :aria-pressed="isPinned(track.roomEn)"
           class="p-1.5 rounded-[4px] flex cursor-pointer items-center"
-          :class="isPinned(track.key) ? 'bg-[#dbeafe] text-[#1447e6]' : 'text-[#99a1af]'"
-          :title="isPinned(track.key) ? t('unpinTrack') : t('pinTrack')"
+          :class="isPinned(track.roomEn) ? 'bg-[#dbeafe] text-[#1447e6]' : 'text-[#99a1af]'"
+          :title="isPinned(track.roomEn) ? t('unpinTrack') : t('pinTrack')"
           type="button"
-          @click="togglePin(track.key)"
+          @click="togglePin(track.roomEn)"
         >
           <Icon
             class="text-[14px]"
-            :name="isPinned(track.key) ? 'tabler:pin-filled' : 'tabler:pin'"
+            :name="isPinned(track.roomEn) ? 'tabler:pin-filled' : 'tabler:pin'"
           />
         </button>
         <span class="p-1 rounded-[4px] flex items-center">
