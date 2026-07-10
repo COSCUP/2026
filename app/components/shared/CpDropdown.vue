@@ -33,7 +33,7 @@ onClickOutside(containerRef, () => {
       />
     </button>
     <ul
-      v-if="open"
+      v-show="open"
       class="mt-1 py-1 border border-gray-200 rounded-md bg-white min-w-32 shadow-md left-0 absolute z-dropdown"
     >
       <li

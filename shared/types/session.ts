@@ -52,8 +52,25 @@ export const SessionDetailSchema = SessionSummarySchema.extend({
   record: z.null(),
 })
 
+export const TrackSummarySchema = z.object({
+  id: z.number(),
+  name: PretalxLocaleSchema,
+  // 該議程軌的場次數量。
+  count: z.number(),
+})
+
+export const TrackDetailSchema = z.object({
+  id: z.number(),
+  name: PretalxLocaleSchema,
+  description: PretalxLocaleSchema,
+  // 該議程軌的場次，依日期（YYYY-MM-DD）分組。
+  sessions: z.record(z.string(), z.array(SessionSummarySchema)),
+})
+
 export type SessionSpeaker = z.infer<typeof SessionSpeakerSchema>
 export type SessionDifficulty = z.infer<typeof SessionDifficultySchema>
 export type SessionTrack = z.infer<typeof SessionTrackSchema>
 export type SessionSummary = z.infer<typeof SessionSummarySchema>
 export type SessionDetail = z.infer<typeof SessionDetailSchema>
+export type TrackSummary = z.infer<typeof TrackSummarySchema>
+export type TrackDetail = z.infer<typeof TrackDetailSchema>

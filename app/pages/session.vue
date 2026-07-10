@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { TableViewMode } from '~/components/feature/CpSessionFilterBar.vue'
+import { useStorage } from '@vueuse/core'
 import { prerenderRoutes } from 'nuxt/app'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from '#imports'
@@ -9,19 +11,23 @@ import CpSessionFilterBar from '~/components/feature/CpSessionFilterBar.vue'
 import CpSessionList from '~/components/feature/CpSessionList.vue'
 import CpSessionShareButton from '~/components/feature/CpSessionShareButton.vue'
 import CpSessionTable from '~/components/feature/CpSessionTable.vue'
+import CpSessionTrackTable from '~/components/feature/CpSessionTrackTable.vue'
 import CpSessionViewToggle from '~/components/feature/CpSessionViewToggle.vue'
 import { decodeFavorites, provideFavorites } from '~/composables/useFavorites'
 import { useSessionFilter } from '~/composables/useSessionFilter'
 
 const { locale, t } = useI18n()
-
-const { data } = await useFetch('/api/session')
-
-const { isFavorite, setFavorites, favorites } = provideFavorites()
 const route = useRoute()
 const router = useRouter()
 
+const { data } = await useFetch('/api/session')
+const { isFavorite, setFavorites, favorites } = provideFavorites()
+
 const days = computed(() => Object.keys(data?.value ?? {}).sort())
+const queryDay = computed(() => {
+  const day = route.query.day
+  return typeof day === 'string' && days.value.includes(day) ? day : null
+})
 
 // A `?filter=` link carries someone else's favorites, to preview and import.
 const hasShareLink = computed(() => String(route.query.filter ?? '').length > 0)
@@ -45,25 +51,48 @@ const firstSharedDay = computed(() => {
   return days.value.find((day) => (data?.value?.[day] ?? []).some((s) => shared.has(s.id))) ?? null
 })
 
-const manualSelectedDay = ref<string | null>(null)
 const selectedDay = computed({
-  get: () => manualSelectedDay.value ?? firstSharedDay.value ?? days.value[0] ?? null,
-  set: (value) => void (manualSelectedDay.value = value),
+  get: () => queryDay.value ?? firstSharedDay.value ?? days.value[0] ?? null,
+  set: (value) => {
+    const nextQuery = { ...route.query }
+
+    if (value && days.value.includes(value)) {
+      nextQuery.day = value
+    } else {
+      delete nextQuery.day
+    }
+
+    if (nextQuery.day === route.query.day) {
+      return
+    }
+
+    void router.replace({ query: nextQuery })
+  },
+})
+
+watchEffect(() => {
+  if (route.query.day && !queryDay.value) {
+    const nextQuery = { ...route.query }
+    delete nextQuery.day
+    void router.replace({ query: nextQuery })
+  }
 })
 
 const {
   searchQuery,
   daySessions,
   filteredSessions,
-  roomOptions,
   tagOptions,
-  selectedRoomIds,
   selectedTagIds,
 } = useSessionFilter({
   sessionsByDay: data,
   selectedDay,
   locale,
 })
+
+// Persist the table/track choice across refreshes and language switches. localStorage is
+// shared across the /en and /zh routes, and this toggle only renders inside <ClientOnly>.
+const viewMode = useStorage<TableViewMode>('coscup-session-view-mode', 'track')
 
 type SessionView = 'all' | 'favorite'
 const view = ref<SessionView>('all')
@@ -94,12 +123,17 @@ const emptyVariant = computed<'filter' | 'favorite' | 'shared'>(() => {
 })
 
 function clearShare() {
+  const query = { ...route.query }
+  const day = selectedDay.value
+
   // Pin the current day before the share query disappears; otherwise selectedDay
   // falls back to days[0], which may hold none of the imported sessions.
-  manualSelectedDay.value = selectedDay.value
-  const query = { ...route.query }
+  if (day && days.value.includes(day)) {
+    query.day = day
+  }
+
   delete query.filter
-  router.replace({ query })
+  void router.replace({ query })
 }
 
 function importShared() {
@@ -180,10 +214,9 @@ definePageMeta({
           <CpSessionFilterBar
             v-if="!isSharing"
             v-model:search-query="searchQuery"
-            v-model:selected-room-ids="selectedRoomIds"
             v-model:selected-tag-ids="selectedTagIds"
+            v-model:view-mode="viewMode"
             class="p-4 sm:left-0 sm:sticky sm:z-sticky"
-            :room-options="roomOptions"
             :tag-options="tagOptions"
           >
             <template #controls>
@@ -204,14 +237,24 @@ definePageMeta({
             :preview="isSharing"
             :sessions="displayedSessions"
           />
-          <CpSessionTable
-            v-if="displayedSessions.length > 0"
+          <CpSessionTrackTable
+            v-if="displayedSessions.length > 0 && viewMode !== 'table'"
             class="hidden sm:grid"
-            :column-width="200"
+            :column-width="20"
+            :day="selectedDay"
+            :interval="5"
+            :row-height="80"
+            :sessions="displayedSessions"
+            :time-range="['09:00', '17:30']"
+          />
+          <CpSessionTable
+            v-if="displayedSessions.length > 0 && viewMode === 'table'"
+            class="hidden sm:grid"
+            :column-width="180"
             :day="selectedDay"
             :interval="5"
             :preview="isSharing"
-            :row-height="50"
+            :row-height="10"
             :sessions="displayedSessions"
             :time-range="['09:00', '17:30']"
           />

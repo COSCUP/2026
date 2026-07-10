@@ -11,9 +11,14 @@ const { sessions: _sessions, preview = false } = defineProps<{
 }>()
 
 const { locale } = useI18n()
+const route = useRoute()
 const localePath = useLocalePath()
 const { isFavorite, toggleFavorite } = useFavorites()
 const favoriteLabel = useFavoriteLabel()
+
+function sessionPath(id: string) {
+  return localePath({ path: `/session/${id}`, query: route.query })
+}
 
 const sessions = computed(() => {
   if (!_sessions) {
@@ -29,8 +34,8 @@ const sessions = computed(() => {
         start: session.start!.slice(11, 16),
         end: session.end!.slice(11, 16),
         room: locale.value === 'zh'
-          ? (session.room?.['zh-hans'] || session.room?.en || '')
-          : (session.room?.en || session.room?.['zh-hans'] || ''),
+          ? (session.room?.['zh-hant'] || session.room?.en || '')
+          : (session.room?.en || session.room?.['zh-hant'] || ''),
         tags: [],
       })),
     (session) => session.start,
@@ -62,7 +67,7 @@ const times = computed(() => Object.keys(sessions.value).sort())
           :start="session.start"
           :tags="session.tags"
           :title="session.title"
-          :to="localePath(`/session/${session.id}`)"
+          :to="sessionPath(session.id)"
           @toggle-favorite="toggleFavorite(session.id)"
         />
       </div>
