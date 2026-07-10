@@ -101,26 +101,51 @@ function togglePin(key: string) {
 }
 
 const tracks = computed(() => {
-  const byKey = new Map<string, { key: string, order: number, name: string, room: string, isMain: boolean }>()
+  const byKey = new Map<string, { key: string, trackId: string | null, order: number, name: string, room: string, roomEn: string, isMain: boolean }>()
   for (const session of daySessions.value) {
     const id = session.track?.id
-    const key = id != null ? String(id) : NO_TRACK
+    const trackId = id != null ? String(id) : null
+    const roomEn = session.room?.en ?? ''
+    const key = `${trackId ?? NO_TRACK}__${roomEn}`
     if (!byKey.has(key)) {
       byKey.set(key, {
         key,
+        trackId,
         order: id ?? Number.POSITIVE_INFINITY,
         name: session.track ? localeName(session.track.name) : t('other'),
         room: localeName(session.room),
+        roomEn,
         isMain: isMainTrack(session.track?.name),
       })
     }
   }
-  // Color by stable track-id order so a track keeps its color regardless of pin state. Pinned
-  // group is ordered by pin order (newest last); unpinned keep id order (Array.sort is stable).
+
+  const values = [...byKey.values()]
+
+  // Assign color by unique track order so same track always gets the same color,
+  // even when split across multiple rooms.
+  const uniqueOrders = [...new Set(values.map((t) => t.order))].sort((a, b) => a - b)
+  const colorByOrder = new Map(uniqueOrders.map((order, i) => [order, TRACK_COLORS[i % TRACK_COLORS.length]!]))
+
+  // For tracks spanning multiple rooms, use the highest-priority room in the group
+  // to determine the track group's position in the overall sort order.
+  const bestRoomByTrackId = new Map<string | null, string>()
+  for (const t of values) {
+    const existing = bestRoomByTrackId.get(t.trackId)
+    if (existing === undefined || roomSortRank(t.roomEn) < roomSortRank(existing)) {
+      bestRoomByTrackId.set(t.trackId, t.roomEn)
+    }
+  }
+
+  // Pinned rows are ordered by pin order (newest last); unpinned sort by room.
   const pinOrder = new Map((pinnedKeys.value ?? []).map((key, index) => [key, index]))
-  return [...byKey.values()]
-    .sort((a, b) => compareRooms(a.room, b.room) || a.order - b.order)
-    .map((track, index) => ({ ...track, color: TRACK_COLORS[index % TRACK_COLORS.length]! }))
+  return values
+    .sort((a, b) => {
+      const bestA = bestRoomByTrackId.get(a.trackId) ?? ''
+      const bestB = bestRoomByTrackId.get(b.trackId) ?? ''
+      return compareRooms(bestA, bestB) || compareRooms(a.roomEn, b.roomEn)
+    })
+    .map((track) => ({ ...track, color: colorByOrder.get(track.order)! }))
     .sort((a, b) => {
       const ai = pinOrder.get(a.key)
       const bi = pinOrder.get(b.key)
@@ -134,7 +159,11 @@ const tracks = computed(() => {
 // Default main-track key, derived event-wide so the first-visit pin doesn't depend on which day loaded.
 const defaultMainKey = computed(() => {
   const main = (_sessions ?? []).find((session) => isMainTrack(session.track?.name))
-  return main?.track?.id != null ? String(main.track.id) : null
+  if (main?.track?.id == null) {
+    return null
+  }
+  const roomEn = main.room?.en ?? ''
+  return `${String(main.track.id)}__${roomEn}`
 })
 
 // On first visit, pin the main track by default.
@@ -206,7 +235,9 @@ const sessions = computed(() =>
   daySessions.value.map((session) => {
     const startMins = parseMinutes(session.start!)
     const endMins = parseMinutes(session.end!)
-    const key = session.track?.id != null ? String(session.track.id) : NO_TRACK
+    const trackId = session.track?.id != null ? String(session.track.id) : NO_TRACK
+    const roomEn = session.room?.en ?? ''
+    const key = `${trackId}__${roomEn}`
     const index = trackIndex.value.get(key) ?? 0
     // Past / in-progress sessions render dimmed (State A); future sessions render bright (State B).
     // Judge by Taipei date/time so a finished day stays dimmed even when the now line is out of range.
@@ -307,7 +338,16 @@ const HEADER_HEIGHT = 47
     >
       <div class="flex flex-1 flex-col min-w-0">
         <div class="flex gap-1.5 items-center">
+          <NuxtLink
+            v-if="track.trackId !== null"
+            class="text-[14px] leading-[17.5px] font-semibold whitespace-nowrap truncate hover:underline"
+            :class="isPinned(track.key) ? 'text-[#1447e6]' : 'text-[#1a1a1a]'"
+            :to="localePath(`/track/${track.trackId}`)"
+          >
+            {{ track.name }}
+          </NuxtLink>
           <span
+            v-else
             class="text-[14px] leading-[17.5px] font-semibold whitespace-nowrap truncate"
             :class="isPinned(track.key) ? 'text-[#1447e6]' : 'text-[#1a1a1a]'"
           >{{ track.name }}</span>
