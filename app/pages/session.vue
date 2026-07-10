@@ -247,11 +247,11 @@ definePageMeta({
           <CpSessionTable
             v-if="displayedSessions.length > 0 && viewMode === 'table'"
             class="hidden sm:grid"
-            :column-width="200"
+            :column-width="180"
             :day="selectedDay"
             :interval="5"
             :preview="isSharing"
-            :row-height="50"
+            :row-height="10"
             :sessions="displayedSessions"
             :time-range="['09:00', '17:30']"
           />
