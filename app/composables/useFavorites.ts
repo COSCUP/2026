@@ -82,13 +82,7 @@ export function useFavorites(): FavoritesStore {
  */
 export function useFavoriteLabel(): (id: string, preview?: boolean) => string {
   const { isFavorite } = useFavorites()
-  const { t } = useI18n({
-    useScope: 'local',
-    messages: {
-      en: { add: 'Add to favorites', remove: 'Remove from favorites' },
-      zh: { add: '加入收藏', remove: '取消收藏' },
-    },
-  })
+  const { t } = useI18n({ useScope: 'local' })
 
   return (id, preview = false) => (preview || isFavorite(id)) ? t('remove') : t('add')
 }

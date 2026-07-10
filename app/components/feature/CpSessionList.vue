@@ -74,3 +74,12 @@ const times = computed(() => Object.keys(sessions.value).sort())
     </section>
   </div>
 </template>
+
+<i18n lang="yaml">
+  en:
+    add: 'Add to favorites'
+    remove: 'Remove from favorites'
+  zh:
+    add: '加入收藏'
+    remove: '取消收藏'
+</i18n>
