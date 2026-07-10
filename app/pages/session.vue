@@ -210,9 +210,7 @@ definePageMeta({
             :days="days"
           />
 
-          <!-- Hidden while previewing a shared list. -->
           <CpSessionFilterBar
-            v-if="!isSharing"
             v-model:search-query="searchQuery"
             v-model:selected-tag-ids="selectedTagIds"
             v-model:view-mode="viewMode"
