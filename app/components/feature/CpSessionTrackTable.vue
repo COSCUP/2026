@@ -73,6 +73,27 @@ function localeName(name: SessionTrack['name'] | SessionSummary['room']) {
   return isZh.value ? zh || en : en || zh
 }
 
+function roomSortRank(room: string) {
+  if (room === 'RB105') {
+    return 0
+  }
+  if (room.startsWith('RB')) {
+    return 1
+  }
+  if (room.startsWith('AU')) {
+    return 2
+  }
+  if (room.startsWith('TR')) {
+    return 3
+  }
+  return 4
+}
+
+function compareRooms(a: string, b: string) {
+  const rankDiff = roomSortRank(a) - roomSortRank(b)
+  return rankDiff || a.localeCompare(b)
+}
+
 const daySessions = computed(() =>
   (_sessions ?? []).filter((session) => session.start?.startsWith(day) && session.end),
 )
@@ -119,7 +140,7 @@ const tracks = computed(() => {
   // group is ordered by pin order (newest last); unpinned keep id order (Array.sort is stable).
   const pinOrder = new Map((pinnedKeys.value ?? []).map((key, index) => [key, index]))
   return [...byKey.values()]
-    .sort((a, b) => a.order - b.order)
+    .sort((a, b) => compareRooms(a.room, b.room) || a.order - b.order)
     .map((track, index) => ({ ...track, color: TRACK_COLORS[index % TRACK_COLORS.length]! }))
     .sort((a, b) => {
       const ai = pinOrder.get(a.key)
