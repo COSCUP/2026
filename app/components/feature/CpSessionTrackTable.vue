@@ -244,6 +244,7 @@ const sessions = computed(() =>
 
     return {
       id: session.id,
+      key,
       title: session[locale.value].title,
       speaker: session.speakers?.map((s) => s[locale.value].name).join(', '),
       start: session.start!.slice(11, 16).replace(/^0/, ''),
@@ -256,6 +257,19 @@ const sessions = computed(() =>
   }),
 )
 
+const sessionsByKey = computed(() => {
+  const result = new Map<string, typeof sessions.value[number][]>()
+  for (const session of sessions.value) {
+    const list = result.get(session.key)
+    if (list) {
+      list.push(session)
+    } else {
+      result.set(session.key, [session])
+    }
+  }
+  return result
+})
+
 // Header ruler is 47px (46px content + 1px bottom border) to match the Figma time-axis row.
 const HEADER_HEIGHT = 47
 </script>
@@ -267,7 +281,7 @@ const HEADER_HEIGHT = 47
     :class="isDragging ? 'cursor-grabbing select-none' : 'cursor-grab'"
     :style="{
       gridTemplateColumns: `${LABEL_WIDTH}px repeat(${totalGridCols}, ${columnWidth}px)`,
-      gridTemplateRows: `${HEADER_HEIGHT}px repeat(${tracks.length}, ${rowHeight}px)`,
+      gridTemplateRows: `${HEADER_HEIGHT}px ${tracks.map(() => `minmax(${rowHeight}px, auto)`).join(' ')}`,
     }"
   >
     <!-- Time-axis header: 議程軌 corner cell -->
@@ -306,156 +320,171 @@ const HEADER_HEIGHT = 47
       </div>
     </template>
 
-    <!-- Vertical column-separator gridlines (per row) -->
+    <!-- Per-track rows: gridlines → label cell → sessions (display:contents).
+         Label cell must be immediately before the sessions container so the
+         CSS `+` adjacent-sibling combinator can target sessions from the
+         label's expand checkbox state. -->
     <template
-      v-for="line in gridLines"
-      :key="`${line.col}-${line.dashed}`"
+      v-for="(track, i) in tracks"
+      :key="track.key"
     >
+      <!-- Vertical column-separator gridlines for this row -->
       <div
-        v-for="(_, i) in tracks"
-        :key="i"
+        v-for="line in gridLines"
+        :key="`${track.key}-${line.col}-${line.dashed}`"
         class="w-px pointer-events-none"
         :class="line.dashed
           ? 'border-l border-l-[#d2d2d2] border-dashed'
           : 'border-l border-l-[#a0a0a0]'"
         :style="{ 'grid-row': i + 2, 'grid-column': line.col }"
       />
-    </template>
 
-    <!-- Track-label column (sticky first column) -->
-    <div
-      v-for="(track, i) in tracks"
-      :key="track.key"
-      class="border-b border-r border-b-[rgba(26,26,26,0.06)] flex gap-3 cursor-default items-center left-0 sticky z-dropdown"
-      :class="isPinned(track.roomEn)
-        ? 'border-r-[#bedbff] bg-[#eff6ff] shadow-[inset_4px_0px_0px_0px_#3b82f6]'
-        : 'border-r-[rgba(26,26,26,0.12)] bg-white'"
-      :style="{ 'grid-row': i + 2, 'grid-column': 1, 'padding': '12px 17px 12px 16px' }"
-      @pointerdown.stop
-    >
-      <div class="flex flex-1 flex-col min-w-0">
-        <div class="flex gap-1.5 items-center">
-          <NuxtLink
-            v-if="track.trackId !== null"
-            class="text-[14px] leading-[17.5px] font-semibold whitespace-nowrap truncate hover:underline"
-            :class="isPinned(track.roomEn) ? 'text-[#1447e6]' : 'text-[#1a1a1a]'"
-            :to="localePath(`/track/${track.trackId}`)"
-          >
-            {{ track.name }}
-          </NuxtLink>
-          <span
-            v-else
-            class="text-[14px] leading-[17.5px] font-semibold whitespace-nowrap truncate"
-            :class="isPinned(track.roomEn) ? 'text-[#1447e6]' : 'text-[#1a1a1a]'"
-          >{{ track.name }}</span>
-        </div>
-        <div
-          v-if="track.room"
-          class="pt-1 flex gap-0.5 items-center"
-          :class="isPinned(track.roomEn) ? 'text-[#2b7fff]' : 'text-[#737373]'"
-        >
-          <Icon
-            class="text-[12px] shrink-0"
-            name="tabler:map-pin"
-          />
-          <span
-            class="text-[12px] leading-[16px] font-mono whitespace-nowrap"
-          >{{ track.room }}</span>
-        </div>
-      </div>
-      <div class="flex gap-1 items-center">
-        <button
-          :aria-label="isPinned(track.roomEn) ? t('unpinRoom') : t('pinRoom')"
-          :aria-pressed="isPinned(track.roomEn)"
-          class="p-1.5 rounded-[4px] flex cursor-pointer items-center"
-          :class="isPinned(track.roomEn) ? 'bg-[#dbeafe] text-[#1447e6]' : 'text-[#99a1af]'"
-          :title="isPinned(track.roomEn) ? t('unpinRoom') : t('pinRoom')"
-          type="button"
-          @click="togglePin(track.roomEn)"
-        >
-          <Icon
-            class="text-[14px]"
-            :name="isPinned(track.roomEn) ? 'tabler:pin-filled' : 'tabler:pin'"
-          />
-        </button>
-        <span class="p-1 rounded-[4px] flex items-center">
-          <Icon
-            class="text-[16px] text-[#99a1af]"
-            name="tabler:chevron-down"
-          />
-        </span>
-      </div>
-    </div>
-
-    <!-- Session cards -->
-    <div
-      v-for="session in sessions"
-      :key="session.id"
-      class="flex items-stretch overflow-hidden"
-      :style="{
-        'grid-row': session.row,
-        'grid-column': `${session.col[0]} / ${session.col[1]}`,
-      }"
-    >
+      <!-- Label cell (sticky first column) -->
       <div
-        class="border border-black/10 flex flex-1 flex-col h-16 self-center box-border relative overflow-hidden"
-        :style="{
-          backgroundColor: session.color,
-          filter: 'drop-shadow(0px 1px 1.5px rgba(0,0,0,0.1)) drop-shadow(0px 1px 1px rgba(0,0,0,0.1))',
-        }"
+        class="expand-cell border-b border-r border-b-[rgba(26,26,26,0.06)] flex gap-3 cursor-default items-start left-0 sticky z-dropdown"
+        :class="isPinned(track.roomEn)
+          ? 'border-r-[#bedbff] bg-[#eff6ff] shadow-[inset_4px_0px_0px_0px_#3b82f6]'
+          : 'border-r-[rgba(26,26,26,0.12)] bg-white'"
+        :style="{ 'grid-row': i + 2, 'grid-column': 1, 'padding': '12px 17px 12px 16px' }"
+        @pointerdown.stop
       >
-        <!-- Dark overlay (State A only) -->
-        <div
-          v-if="session.isPast"
-          class="bg-black/30 pointer-events-none inset-0 absolute"
-        />
-
-        <!-- Overlay link: covers the card; star button renders on top as a sibling. -->
-        <NuxtLink
-          :aria-label="session.title"
-          class="inset-0 absolute"
-          :draggable="false"
-          :to="localePath(`/session/${session.id}`)"
-          @dragstart.prevent
-        />
-
-        <!-- Content -->
-        <div
-          class="px-2 py-1.5 flex flex-1 flex-col w-full pointer-events-none items-start justify-center relative overflow-clip"
-        >
-          <h3
-            class="text-[12px] text-white leading-[15px] font-semibold pl-5 whitespace-nowrap"
-            :class="{ 'w-full overflow-hidden text-ellipsis': session.isPast }"
-            :style="{ filter: 'drop-shadow(0px 1px 2px rgba(0,0,0,0.15))' }"
+        <div class="pt-0.5 flex flex-1 flex-col min-w-0">
+          <div class="flex gap-1.5 items-center">
+            <NuxtLink
+              v-if="track.trackId !== null"
+              class="expand-name text-[14px] leading-[17.5px] font-semibold truncate hover:underline"
+              :class="isPinned(track.roomEn) ? 'text-[#1447e6]' : 'text-[#1a1a1a]'"
+              :to="localePath(`/track/${track.trackId}`)"
+            >
+              {{ track.name }}
+            </NuxtLink>
+            <span
+              v-else
+              class="expand-name text-[14px] leading-[17.5px] font-semibold truncate"
+              :class="isPinned(track.roomEn) ? 'text-[#1447e6]' : 'text-[#1a1a1a]'"
+            >{{ track.name }}</span>
+          </div>
+          <div
+            v-if="track.room"
+            class="pt-1 flex gap-0.5 items-center"
+            :class="isPinned(track.roomEn) ? 'text-[#2b7fff]' : 'text-[#737373]'"
           >
-            {{ session.title }}
-          </h3>
-          <p
-            class="text-[10px] text-white leading-[15px] pt-0.5 opacity-90 whitespace-nowrap"
-          >
-            {{ session.speaker || '\u00A0' }}
-          </p>
-          <time
-            class="text-[9px] text-white leading-[13.5px] font-mono pt-0.5 opacity-80 whitespace-nowrap"
-          >{{ session.start }}-{{ session.end }}</time>
+            <Icon
+              class="text-[12px] shrink-0"
+              name="tabler:map-pin"
+            />
+            <span
+              class="text-[12px] leading-[16px] font-mono whitespace-nowrap"
+            >{{ track.room }}</span>
+          </div>
         </div>
-
-        <!-- Favorite star: sibling after NuxtLink so it renders on top. -->
-        <button
-          :aria-label="favoriteLabel(session.id, preview)"
-          :aria-pressed="preview || isFavorite(session.id)"
-          class="p-1 rounded-[4px] bg-black/10 flex cursor-pointer items-center left-1 top-1 absolute"
-          type="button"
-          @click.prevent.stop="!preview && toggleFavorite(session.id)"
-          @pointerdown.stop
-        >
-          <Icon
-            class="text-[12px] text-white"
-            :name="preview || isFavorite(session.id) ? 'tabler:star-filled' : 'tabler:star'"
-          />
-        </button>
+        <div class="flex shrink-0 gap-1 items-center">
+          <button
+            :aria-label="isPinned(track.roomEn) ? t('unpinRoom') : t('pinRoom')"
+            :aria-pressed="isPinned(track.roomEn)"
+            class="p-1.5 rounded-[4px] flex cursor-pointer items-center"
+            :class="isPinned(track.roomEn) ? 'bg-[#dbeafe] text-[#1447e6]' : 'text-[#99a1af]'"
+            :title="isPinned(track.roomEn) ? t('unpinRoom') : t('pinRoom')"
+            type="button"
+            @click="togglePin(track.roomEn)"
+          >
+            <Icon
+              class="text-[14px]"
+              :name="isPinned(track.roomEn) ? 'tabler:pin-filled' : 'tabler:pin'"
+            />
+          </button>
+          <label class="expand-chevron-label text-[#99a1af] p-1 rounded-[4px] flex cursor-pointer transition-colors items-center">
+            <input
+              class="sr-only"
+              type="checkbox"
+            >
+            <span class="expand-chevron-icon inline-flex transition-transform">
+              <Icon
+                class="text-[16px]"
+                name="tabler:chevron-down"
+              />
+            </span>
+          </label>
+        </div>
       </div>
-    </div>
+
+      <!-- Sessions for this track. `display: contents` is transparent to the
+           grid but keeps these as DOM siblings of the label cell above,
+           so `.expand-cell:has(:checked) + .expand-sessions` targets only
+           this track's cards. -->
+      <div
+        class="expand-sessions"
+        style="display: contents"
+      >
+        <div
+          v-for="session in (sessionsByKey.get(track.key) ?? [])"
+          :key="session.id"
+          class="flex items-stretch overflow-hidden"
+          :style="{
+            'grid-row': i + 2,
+            'grid-column': `${session.col[0]} / ${session.col[1]}`,
+          }"
+        >
+          <div
+            class="session-card-inner border border-black/10 flex flex-1 flex-col h-16 self-center box-border relative overflow-hidden"
+            :style="{
+              backgroundColor: session.color,
+              filter: 'drop-shadow(0px 1px 1.5px rgba(0,0,0,0.1)) drop-shadow(0px 1px 1px rgba(0,0,0,0.1))',
+            }"
+          >
+            <!-- Dark overlay (State A only) -->
+            <div
+              v-if="session.isPast"
+              class="bg-black/30 pointer-events-none inset-0 absolute"
+            />
+
+            <!-- Overlay link: covers the card; star button renders on top as a sibling. -->
+            <NuxtLink
+              :aria-label="session.title"
+              class="inset-0 absolute"
+              :draggable="false"
+              :to="localePath(`/session/${session.id}`)"
+              @dragstart.prevent
+            />
+
+            <!-- Content -->
+            <div
+              class="px-2 py-1.5 flex flex-1 flex-col w-full pointer-events-none items-start justify-start relative overflow-clip"
+            >
+              <h3
+                class="session-card-title text-[12px] text-white leading-[15px] font-semibold pl-5 whitespace-nowrap"
+                :style="{ filter: 'drop-shadow(0px 1px 2px rgba(0,0,0,0.15))' }"
+              >
+                {{ session.title }}
+              </h3>
+              <p
+                class="session-card-speaker text-[10px] text-white leading-[15px] pt-0.5 opacity-90 whitespace-nowrap"
+              >
+                {{ session.speaker || '\u00A0' }}
+              </p>
+              <time
+                class="text-[9px] text-white leading-[13.5px] font-mono pt-0.5 opacity-80 whitespace-nowrap"
+              >{{ session.start }}-{{ session.end }}</time>
+            </div>
+
+            <!-- Favorite star: sibling after NuxtLink so it renders on top. -->
+            <button
+              :aria-label="favoriteLabel(session.id, preview)"
+              :aria-pressed="preview || isFavorite(session.id)"
+              class="p-1 rounded-[4px] bg-black/10 flex cursor-pointer items-center left-1 top-1 absolute"
+              type="button"
+              @click.prevent.stop="!preview && toggleFavorite(session.id)"
+              @pointerdown.stop
+            >
+              <Icon
+                class="text-[12px] text-white"
+                :name="preview || isFavorite(session.id) ? 'tabler:star-filled' : 'tabler:star'"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </template>
 
     <!-- Current-time ("now") line -->
     <ClientOnly>
@@ -493,3 +522,28 @@ const HEADER_HEIGHT = 47
     add: '加入收藏'
     remove: '取消收藏'
 </i18n>
+
+<style>
+/* Expand toggle: label cell contains a hidden checkbox; CSS :has() drives all visuals. */
+.expand-cell:has(input:checked) .expand-name {
+  white-space: normal;
+  overflow: visible;
+}
+.expand-cell:has(input:checked) .expand-chevron-label {
+  color: #1a1a1a;
+}
+.expand-cell:has(input:checked) .expand-chevron-icon {
+  transform: rotate(180deg);
+}
+
+/* `+` targets the .expand-sessions div that is the IMMEDIATE next sibling of
+   the label cell — only this track's cards, not other tracks'. */
+.expand-cell:has(input:checked) + .expand-sessions .session-card-inner {
+  align-self: stretch;
+  height: auto;
+}
+.expand-cell:has(input:checked) + .expand-sessions .session-card-title,
+.expand-cell:has(input:checked) + .expand-sessions .session-card-speaker {
+  white-space: normal;
+}
+</style>
