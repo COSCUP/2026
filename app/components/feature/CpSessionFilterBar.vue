@@ -27,6 +27,7 @@ const viewModeItems = computed<{ key: TableViewMode, label: string, icon: string
     <div class="flex shrink-0 gap-3 items-center justify-center sm:justify-start">
       <CpSessionViewToggle
         v-model="viewMode"
+        class="hidden sm:inline-flex"
         :items="viewModeItems"
       />
       <CpSessionFilterDropdown
