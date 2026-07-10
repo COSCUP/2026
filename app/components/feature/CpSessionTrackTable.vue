@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { SessionSummary, SessionTrack } from '#shared/types/session'
+import { StorageSerializers, useLocalStorage } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
 import { useDragScroll } from '~/composables/useDragScroll'
 import { useRealtime } from '~/composables/useRealtime'
@@ -79,8 +80,28 @@ const daySessions = computed(() =>
 // Rows are tracks. Track-less sessions collapse into one fallback bucket so nothing disappears.
 const NO_TRACK = '__none__'
 
+// Match by name (either locale) since Pretalx track ids aren't stable across events.
+const MAIN_TRACK_NAMES = ['主議程', 'Main Session Track']
+function isMainTrack(name?: SessionTrack['name']) {
+  return MAIN_TRACK_NAMES.includes(name?.['zh-hans'] ?? '') || MAIN_TRACK_NAMES.includes(name?.en ?? '')
+}
+
+// null = never visited (pin main by default); [] = user unpinned everything (respect it).
+// Explicit JSON serializer: a null default otherwise picks the String()-based `any` serializer.
+const pinnedKeys = useLocalStorage<string[] | null>('coscup-pinned-tracks', null, {
+  serializer: StorageSerializers.object,
+})
+const isPinned = (key: string) => (pinnedKeys.value ?? []).includes(key)
+
+function togglePin(key: string) {
+  const current = pinnedKeys.value ?? []
+  pinnedKeys.value = current.includes(key)
+    ? current.filter((k) => k !== key)
+    : [...current, key]
+}
+
 const tracks = computed(() => {
-  const byKey = new Map<string, { key: string, order: number, name: string, room: string }>()
+  const byKey = new Map<string, { key: string, order: number, name: string, room: string, isMain: boolean }>()
   for (const session of daySessions.value) {
     const id = session.track?.id
     const key = id != null ? String(id) : NO_TRACK
@@ -90,13 +111,38 @@ const tracks = computed(() => {
         order: id ?? Number.POSITIVE_INFINITY,
         name: session.track ? localeName(session.track.name) : t('other'),
         room: localeName(session.room),
+        isMain: isMainTrack(session.track?.name),
       })
     }
   }
+  // Color by stable track-id order so a track keeps its color regardless of pin state. Pinned
+  // group is ordered by pin order (newest last); unpinned keep id order (Array.sort is stable).
+  const pinOrder = new Map((pinnedKeys.value ?? []).map((key, index) => [key, index]))
   return [...byKey.values()]
     .sort((a, b) => a.order - b.order)
     .map((track, index) => ({ ...track, color: TRACK_COLORS[index % TRACK_COLORS.length]! }))
+    .sort((a, b) => {
+      const ai = pinOrder.get(a.key)
+      const bi = pinOrder.get(b.key)
+      if (ai != null && bi != null) {
+        return ai - bi
+      }
+      return (ai != null ? 0 : 1) - (bi != null ? 0 : 1)
+    })
 })
+
+// Default main-track key, derived event-wide so the first-visit pin doesn't depend on which day loaded.
+const defaultMainKey = computed(() => {
+  const main = (_sessions ?? []).find((session) => isMainTrack(session.track?.name))
+  return main?.track?.id != null ? String(main.track.id) : null
+})
+
+// On first visit, pin the main track by default.
+watch(defaultMainKey, (key) => {
+  if (pinnedKeys.value === null && key != null) {
+    pinnedKeys.value = [key]
+  }
+}, { immediate: true })
 
 const trackIndex = computed(() => new Map(tracks.value.map((track, index) => [track.key, index])))
 
@@ -252,36 +298,49 @@ const HEADER_HEIGHT = 47
     <div
       v-for="(track, i) in tracks"
       :key="track.key"
-      class="border-b border-r border-b-[rgba(26,26,26,0.06)] border-r-[#bedbff] bg-white flex gap-3 cursor-default items-center left-0 sticky z-dropdown"
+      class="border-b border-r border-b-[rgba(26,26,26,0.06)] flex gap-3 cursor-default items-center left-0 sticky z-dropdown"
+      :class="isPinned(track.key)
+        ? 'border-r-[#bedbff] bg-[#eff6ff] shadow-[inset_4px_0px_0px_0px_#3b82f6]'
+        : 'border-r-[rgba(26,26,26,0.12)] bg-white'"
       :style="{ 'grid-row': i + 2, 'grid-column': 1, 'padding': '12px 17px 12px 16px' }"
       @pointerdown.stop
     >
       <div class="flex flex-1 flex-col min-w-0">
         <div class="flex gap-1.5 items-center">
           <span
-            class="text-[14px] text-[#1a1a1a] leading-[17.5px] font-semibold whitespace-nowrap truncate"
+            class="text-[14px] leading-[17.5px] font-semibold whitespace-nowrap truncate"
+            :class="isPinned(track.key) ? 'text-[#1447e6]' : 'text-[#1a1a1a]'"
           >{{ track.name }}</span>
         </div>
         <div
           v-if="track.room"
           class="pt-1 flex gap-0.5 items-center"
+          :class="isPinned(track.key) ? 'text-[#2b7fff]' : 'text-[#737373]'"
         >
           <Icon
-            class="text-[12px] text-gray-500 shrink-0"
+            class="text-[12px] shrink-0"
             name="tabler:map-pin"
           />
           <span
-            class="text-[12px] text-gray-500 leading-[16px] font-mono whitespace-nowrap"
+            class="text-[12px] leading-[16px] font-mono whitespace-nowrap"
           >{{ track.room }}</span>
         </div>
       </div>
       <div class="flex gap-1 items-center">
-        <span class="p-1.5 rounded-[4px] flex items-center">
+        <button
+          :aria-label="isPinned(track.key) ? t('unpinTrack') : t('pinTrack')"
+          :aria-pressed="isPinned(track.key)"
+          class="p-1.5 rounded-[4px] flex cursor-pointer items-center"
+          :class="isPinned(track.key) ? 'bg-[#dbeafe] text-[#1447e6]' : 'text-[#99a1af]'"
+          :title="isPinned(track.key) ? t('unpinTrack') : t('pinTrack')"
+          type="button"
+          @click="togglePin(track.key)"
+        >
           <Icon
-            class="text-[14px] text-[#99a1af]"
-            name="tabler:pin"
+            class="text-[14px]"
+            :name="isPinned(track.key) ? 'tabler:pin-filled' : 'tabler:pin'"
           />
-        </span>
+        </button>
         <span class="p-1 rounded-[4px] flex items-center">
           <Icon
             class="text-[16px] text-[#99a1af]"
@@ -374,7 +433,11 @@ const HEADER_HEIGHT = 47
   en:
     other: 'Other'
     trackColumn: 'Track'
+    pinTrack: 'Pin track'
+    unpinTrack: 'Unpin track'
   zh:
     other: '其他'
     trackColumn: '議程軌'
+    pinTrack: '釘選議程軌'
+    unpinTrack: '取消釘選'
 </i18n>
