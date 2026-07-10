@@ -14,7 +14,7 @@ export const PretalxTableSchema = z.enum(PRETALX_TABLES)
 
 export const PretalxLocaleSchema = z.object({
   'en': z.string().optional().default(''),
-  'zh-hans': z.string().optional().default(''),
+  'zh-hant': z.string().optional().default(''),
 })
 
 export const SubmissionSchema = z.object({

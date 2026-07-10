@@ -34,8 +34,8 @@ const sessions = computed(() => {
         start: session.start!.slice(11, 16),
         end: session.end!.slice(11, 16),
         room: locale.value === 'zh'
-          ? (session.room?.['zh-hans'] || session.room?.en || '')
-          : (session.room?.en || session.room?.['zh-hans'] || ''),
+          ? (session.room?.['zh-hant'] || session.room?.en || '')
+          : (session.room?.en || session.room?.['zh-hant'] || ''),
         tags: [],
       })),
     (session) => session.start,

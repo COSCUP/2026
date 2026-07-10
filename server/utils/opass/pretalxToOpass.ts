@@ -87,10 +87,10 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
     return {
       id: type.id,
       zh: {
-        name: type.name['zh-hans'] || type.name.en,
+        name: type.name['zh-hant'] || type.name.en,
       },
       en: {
-        name: type.name.en || type.name['zh-hans'],
+        name: type.name.en || type.name['zh-hant'],
       },
     }
   })
@@ -109,10 +109,10 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
       return {
         id: room.id,
         zh: {
-          name: room.name['zh-hans'] || room.name.en,
+          name: room.name['zh-hant'] || room.name.en,
         },
         en: {
-          name: room.name.en || room.name['zh-hans'],
+          name: room.name.en || room.name['zh-hant'],
         },
       }
     })
