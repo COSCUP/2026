@@ -365,11 +365,11 @@ const HEADER_HEIGHT = 47
       </div>
       <div class="flex gap-1 items-center">
         <button
-          :aria-label="isPinned(track.roomEn) ? t('unpinTrack') : t('pinTrack')"
+          :aria-label="isPinned(track.roomEn) ? t('unpinRoom') : t('pinRoom')"
           :aria-pressed="isPinned(track.roomEn)"
           class="p-1.5 rounded-[4px] flex cursor-pointer items-center"
           :class="isPinned(track.roomEn) ? 'bg-[#dbeafe] text-[#1447e6]' : 'text-[#99a1af]'"
-          :title="isPinned(track.roomEn) ? t('unpinTrack') : t('pinTrack')"
+          :title="isPinned(track.roomEn) ? t('unpinRoom') : t('pinRoom')"
           type="button"
           @click="togglePin(track.roomEn)"
         >
@@ -481,15 +481,15 @@ const HEADER_HEIGHT = 47
   en:
     other: 'Other'
     trackColumn: 'Track'
-    pinTrack: 'Pin track'
-    unpinTrack: 'Unpin track'
+    pinRoom: 'Pin room'
+    unpinRoom: 'Unpin room'
     add: 'Add to favorites'
     remove: 'Remove from favorites'
   zh:
     other: '其他'
     trackColumn: '議程軌'
-    pinTrack: '釘選議程軌'
-    unpinTrack: '取消釘選'
+    pinRoom: '釘選教室'
+    unpinRoom: '取消釘選'
     add: '加入收藏'
     remove: '取消收藏'
 </i18n>
