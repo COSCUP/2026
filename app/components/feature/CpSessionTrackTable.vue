@@ -69,7 +69,7 @@ function toCol(minutes: number) {
 }
 
 function localeName(name: SessionTrack['name'] | SessionSummary['room']) {
-  const { en = '', 'zh-hans': zh = '' } = name ?? {}
+  const { en = '', 'zh-hant': zh = '' } = name ?? {}
   return isZh.value ? zh || en : en || zh
 }
 
@@ -104,7 +104,7 @@ const NO_TRACK = '__none__'
 // Match by name (either locale) since Pretalx track ids aren't stable across events.
 const MAIN_TRACK_NAMES = ['主議程', 'Main Session Track']
 function isMainTrack(name?: SessionTrack['name']) {
-  return MAIN_TRACK_NAMES.includes(name?.['zh-hans'] ?? '') || MAIN_TRACK_NAMES.includes(name?.en ?? '')
+  return MAIN_TRACK_NAMES.includes(name?.['zh-hant'] ?? '') || MAIN_TRACK_NAMES.includes(name?.en ?? '')
 }
 
 // null = never visited (pin main by default); [] = user unpinned everything (respect it).
