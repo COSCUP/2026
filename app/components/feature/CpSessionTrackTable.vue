@@ -4,6 +4,7 @@ import { StorageSerializers, useLocalStorage } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
 import { useDragScroll } from '~/composables/useDragScroll'
 import { useRealtime } from '~/composables/useRealtime'
+import { TRACK_COLORS } from '~/utils/tracks'
 
 const { sessions: _sessions, day, timeRange, interval, rowHeight, columnWidth } = defineProps<{
   day: string
@@ -22,32 +23,6 @@ const { containerRef, isDragging } = useDragScroll({ scrollTarget: 'window' })
 
 // Width of the sticky track-label column; keep in sync with the grid-template value below.
 const LABEL_WIDTH = 280
-
-// Per-track solid card background, ordered by sorted track index (from the Figma spec §5).
-const TRACK_COLORS = [
-  '#e76f51',
-  '#ff6b6b',
-  '#4ecdc4',
-  '#45b7d1',
-  '#ffa07a',
-  '#98d8c8',
-  '#f7dc6f',
-  '#bb8fce',
-  '#85c1e2',
-  '#f8b195',
-  '#f67280',
-  '#c06c84',
-  '#6c5b7b',
-  '#355c7d',
-  '#2a9d8f',
-  '#264653',
-  '#e9c46a',
-  '#f4a261',
-  '#e63946',
-  '#457b9d',
-  '#1d3557',
-  '#a8dadc',
-]
 
 const isZh = computed(() => locale.value !== 'en')
 
