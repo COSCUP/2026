@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { TableViewMode } from '~/components/feature/CpSessionFilterBar.vue'
+import { useStorage } from '@vueuse/core'
 import { prerenderRoutes } from 'nuxt/app'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from '#imports'
@@ -89,7 +90,9 @@ const {
   locale,
 })
 
-const viewMode = ref<TableViewMode>('track')
+// Persist the table/track choice across refreshes and language switches. localStorage is
+// shared across the /en and /zh routes, and this toggle only renders inside <ClientOnly>.
+const viewMode = useStorage<TableViewMode>('coscup-session-view-mode', 'track')
 
 type SessionView = 'all' | 'favorite'
 const view = ref<SessionView>('all')
@@ -235,7 +238,7 @@ definePageMeta({
             :sessions="displayedSessions"
           />
           <CpSessionTrackTable
-            v-if="displayedSessions.length > 0 && viewMode === 'track'"
+            v-if="displayedSessions.length > 0 && viewMode !== 'table'"
             class="hidden sm:grid"
             :column-width="20"
             :day="selectedDay"
