@@ -14,8 +14,8 @@ type MenuItem = {
 )
 
 const menu = computed<MenuItem[]>(() => [
-  { key: 'home', path: '/' },
   { key: 'about', path: '/about' },
+  { key: 'session', path: '/session' },
   { key: 'transportation', path: '/transportation' },
   { key: 'sponsors', path: '/sponsor' },
   {
@@ -53,13 +53,16 @@ function closeMenu() {
 
 <template>
   <nav class="text-gray-700 px-3 py-1 border-b border-gray-300 bg-white flex h-16 justify-between relative *:h-full">
-    <div class="flex flex-shrink-0 items-center">
+    <NuxtLinkLocale
+      class="flex flex-shrink-0 items-center"
+      to="/"
+    >
       <NuxtPicture
         :alt="t('logo_alt')"
         :img-attrs="{ class: 'object-contain h-8' }"
         src="/coscup_logo.png"
       />
-    </div>
+    </NuxtLinkLocale>
 
     <!-- Desktop menu -->
     <ul class="gap-3 hidden items-center justify-center sm:flex">
@@ -200,6 +203,7 @@ en:
   menu_toggle: "Toggle menu"
   menu:
     home: "Home"
+    session: "Session"
     about: "About"
     transportation: "Transportation"
     participate: "Participate"
@@ -221,6 +225,7 @@ zh:
   menu_toggle: "切換選單"
   menu:
     home: "首頁"
+    session: "議程"
     about: "關於我們"
     transportation: "交通"
     participate: "參與指南"
