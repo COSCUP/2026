@@ -19,9 +19,14 @@ const { sessions: _sessions, day, timeRange, interval, rowHeight, columnWidth, p
 
 const { t, locale } = useI18n()
 const { time } = useRealtime()
+const route = useRoute()
 const localePath = useLocalePath()
 const { isFavorite, toggleFavorite } = useFavorites()
 const favoriteLabel = useFavoriteLabel(t)
+
+function sessionPath(id: string) {
+  return localePath({ path: `/session/${id}`, query: route.query })
+}
 
 const { containerRef, isDragging } = useDragScroll({ scrollTarget: 'window' })
 
@@ -415,7 +420,7 @@ const HEADER_HEIGHT = 47
           :aria-label="session.title"
           class="inset-0 absolute"
           :draggable="false"
-          :to="localePath(`/session/${session.id}`)"
+          :to="sessionPath(session.id)"
           @dragstart.prevent
         />
 
