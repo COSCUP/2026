@@ -23,7 +23,7 @@ const { time } = useRealtime()
 const route = useRoute()
 const localePath = useLocalePath()
 const { isFavorite, toggleFavorite } = useFavorites()
-const favoriteLabel = useFavoriteLabel()
+const favoriteLabel = useFavoriteLabel(t)
 
 const { containerRef, isDragging } = useDragScroll({ scrollTarget: 'window' })
 

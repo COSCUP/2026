@@ -10,11 +10,11 @@ const { sessions: _sessions, preview = false } = defineProps<{
   preview?: boolean
 }>()
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const route = useRoute()
 const localePath = useLocalePath()
 const { isFavorite, toggleFavorite } = useFavorites()
-const favoriteLabel = useFavoriteLabel()
+const favoriteLabel = useFavoriteLabel(t)
 
 function sessionPath(id: string) {
   return localePath({ path: `/session/${id}`, query: route.query })
