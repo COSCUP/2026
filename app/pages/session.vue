@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { TableViewMode } from '~/components/feature/CpSessionFilterBar.vue'
 import { prerenderRoutes } from 'nuxt/app'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from '#imports'
@@ -9,6 +10,7 @@ import CpSessionFilterBar from '~/components/feature/CpSessionFilterBar.vue'
 import CpSessionList from '~/components/feature/CpSessionList.vue'
 import CpSessionShareButton from '~/components/feature/CpSessionShareButton.vue'
 import CpSessionTable from '~/components/feature/CpSessionTable.vue'
+import CpSessionTrackTable from '~/components/feature/CpSessionTrackTable.vue'
 import CpSessionViewToggle from '~/components/feature/CpSessionViewToggle.vue'
 import { decodeFavorites, provideFavorites } from '~/composables/useFavorites'
 import { useSessionFilter } from '~/composables/useSessionFilter'
@@ -79,15 +81,15 @@ const {
   searchQuery,
   daySessions,
   filteredSessions,
-  roomOptions,
   tagOptions,
-  selectedRoomIds,
   selectedTagIds,
 } = useSessionFilter({
   sessionsByDay: data,
   selectedDay,
   locale,
 })
+
+const viewMode = ref<TableViewMode>('track')
 
 type SessionView = 'all' | 'favorite'
 const view = ref<SessionView>('all')
@@ -209,10 +211,9 @@ definePageMeta({
           <CpSessionFilterBar
             v-if="!isSharing"
             v-model:search-query="searchQuery"
-            v-model:selected-room-ids="selectedRoomIds"
             v-model:selected-tag-ids="selectedTagIds"
+            v-model:view-mode="viewMode"
             class="p-4 left-0 sticky z-sticky"
-            :room-options="roomOptions"
             :tag-options="tagOptions"
           >
             <template #controls>
@@ -233,8 +234,18 @@ definePageMeta({
             :preview="isSharing"
             :sessions="displayedSessions"
           />
+          <CpSessionTrackTable
+            v-if="displayedSessions.length > 0 && viewMode === 'track'"
+            class="hidden sm:grid"
+            :column-width="20"
+            :day="selectedDay"
+            :interval="5"
+            :row-height="80"
+            :sessions="displayedSessions"
+            :time-range="['09:00', '17:30']"
+          />
           <CpSessionTable
-            v-if="displayedSessions.length > 0"
+            v-if="displayedSessions.length > 0 && viewMode === 'table'"
             class="hidden sm:grid"
             :column-width="200"
             :day="selectedDay"
