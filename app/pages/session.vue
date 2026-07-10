@@ -243,6 +243,7 @@ definePageMeta({
             :column-width="20"
             :day="selectedDay"
             :interval="5"
+            :preview="isSharing"
             :row-height="80"
             :sessions="displayedSessions"
             :time-range="['09:00', '17:30']"

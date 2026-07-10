@@ -3,21 +3,25 @@ import type { SessionSummary, SessionTrack } from '#shared/types/session'
 import { StorageSerializers, useLocalStorage } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
 import { useDragScroll } from '~/composables/useDragScroll'
+import { useFavoriteLabel, useFavorites } from '~/composables/useFavorites'
 import { useRealtime } from '~/composables/useRealtime'
 import { TRACK_COLORS } from '~/utils/tracks'
 
-const { sessions: _sessions, day, timeRange, interval, rowHeight, columnWidth } = defineProps<{
+const { sessions: _sessions, day, timeRange, interval, rowHeight, columnWidth, preview = false } = defineProps<{
   day: string
   timeRange: [string, string]
   sessions: SessionSummary[]
   interval: number
   rowHeight: number
   columnWidth: number
+  preview?: boolean
 }>()
 
 const { t, locale } = useI18n()
 const { time } = useRealtime()
 const localePath = useLocalePath()
+const { isFavorite, toggleFavorite } = useFavorites()
+const favoriteLabel = useFavoriteLabel()
 
 const { containerRef, isDragging } = useDragScroll({ scrollTarget: 'window' })
 
@@ -347,17 +351,14 @@ const HEADER_HEIGHT = 47
     </div>
 
     <!-- Session cards -->
-    <NuxtLink
+    <div
       v-for="session in sessions"
       :key="session.id"
       class="flex items-stretch overflow-hidden"
-      :draggable="false"
       :style="{
         'grid-row': session.row,
         'grid-column': `${session.col[0]} / ${session.col[1]}`,
       }"
-      :to="localePath(`/session/${session.id}`)"
-      @dragstart.prevent
     >
       <div
         class="border border-black/10 flex flex-1 flex-col h-16 self-center box-border relative overflow-hidden"
@@ -372,20 +373,19 @@ const HEADER_HEIGHT = 47
           class="bg-black/30 pointer-events-none inset-0 absolute"
         />
 
+        <!-- Overlay link: covers the card; star button renders on top as a sibling. -->
+        <NuxtLink
+          :aria-label="session.title"
+          class="inset-0 absolute"
+          :draggable="false"
+          :to="localePath(`/session/${session.id}`)"
+          @dragstart.prevent
+        />
+
         <!-- Content -->
         <div
-          class="px-2 py-1.5 flex flex-1 flex-col w-full items-start justify-center relative overflow-clip"
+          class="px-2 py-1.5 flex flex-1 flex-col w-full pointer-events-none items-start justify-center relative overflow-clip"
         >
-          <!-- Favorite star (static visual element) -->
-          <span
-            class="p-1 rounded-[4px] bg-black/10 flex items-center left-1 top-1 absolute"
-          >
-            <Icon
-              class="text-[12px] text-white"
-              name="tabler:star"
-            />
-          </span>
-
           <h3
             class="text-[12px] text-white leading-[15px] font-semibold pl-5 whitespace-nowrap"
             :class="{ 'w-full overflow-hidden text-ellipsis': session.isPast }"
@@ -402,8 +402,23 @@ const HEADER_HEIGHT = 47
             class="text-[9px] text-white leading-[13.5px] font-mono pt-0.5 opacity-80 whitespace-nowrap"
           >{{ session.start }}-{{ session.end }}</time>
         </div>
+
+        <!-- Favorite star: sibling after NuxtLink so it renders on top. -->
+        <button
+          :aria-label="favoriteLabel(session.id, preview)"
+          :aria-pressed="preview || isFavorite(session.id)"
+          class="p-1 rounded-[4px] bg-black/10 flex cursor-pointer items-center left-1 top-1 absolute"
+          type="button"
+          @click.prevent.stop="!preview && toggleFavorite(session.id)"
+          @pointerdown.stop
+        >
+          <Icon
+            class="text-[12px] text-white"
+            :name="preview || isFavorite(session.id) ? 'tabler:star-filled' : 'tabler:star'"
+          />
+        </button>
       </div>
-    </NuxtLink>
+    </div>
 
     <!-- Current-time ("now") line -->
     <ClientOnly>
@@ -431,9 +446,13 @@ const HEADER_HEIGHT = 47
     trackColumn: 'Track'
     pinTrack: 'Pin track'
     unpinTrack: 'Unpin track'
+    add: 'Add to favorites'
+    remove: 'Remove from favorites'
   zh:
     other: '其他'
     trackColumn: '議程軌'
     pinTrack: '釘選議程軌'
     unpinTrack: '取消釘選'
+    add: '加入收藏'
+    remove: '取消收藏'
 </i18n>
