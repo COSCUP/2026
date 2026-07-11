@@ -21,7 +21,7 @@ onUnmounted(() => {
 <template>
   <div class="w-max">
     <CpNavbar class="w-[var(--viewport-width,100vw)] left-0 sticky z-dropdown" />
-    <main class="w-max">
+    <main class="sm:w-max">
       <slot />
     </main>
 
