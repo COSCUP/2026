@@ -15,6 +15,7 @@ import CpSessionTrackTable from '~/components/feature/CpSessionTrackTable.vue'
 import CpSessionViewToggle from '~/components/feature/CpSessionViewToggle.vue'
 import { decodeFavorites, provideFavorites } from '~/composables/useFavorites'
 import { useSessionFilter } from '~/composables/useSessionFilter'
+import { buildTrackColorMap } from '~/utils/tracks'
 
 const { locale, t } = useI18n()
 const route = useRoute()
@@ -114,6 +115,8 @@ const displayedSessions = computed(() => {
   }
   return filteredSessions.value
 })
+
+const trackColors = computed(() => buildTrackColorMap(daySessions.value))
 
 const emptyVariant = computed<'filter' | 'favorite' | 'shared'>(() => {
   if (isSharing.value) {
@@ -245,6 +248,7 @@ definePageMeta({
             :row-height="80"
             :sessions="displayedSessions"
             :time-range="['09:00', '17:30']"
+            :track-colors="trackColors"
           />
           <CpSessionTable
             v-if="displayedSessions.length > 0 && viewMode === 'table'"
@@ -256,6 +260,7 @@ definePageMeta({
             :row-height="20"
             :sessions="displayedSessions"
             :time-range="['09:00', '17:30']"
+            :track-colors="trackColors"
           />
 
           <CpSessionEmptyBanner

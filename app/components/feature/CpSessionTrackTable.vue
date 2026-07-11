@@ -5,12 +5,13 @@ import { useI18n } from 'vue-i18n'
 import { useDragScroll } from '~/composables/useDragScroll'
 import { useFavoriteLabel, useFavorites } from '~/composables/useFavorites'
 import { useRealtime } from '~/composables/useRealtime'
-import { TRACK_COLORS } from '~/utils/tracks'
+import { NO_TRACK } from '~/utils/tracks'
 
-const { sessions: _sessions, day, timeRange, interval, rowHeight, columnWidth, preview = false } = defineProps<{
+const { sessions: _sessions, trackColors, day, timeRange, interval, rowHeight, columnWidth, preview = false } = defineProps<{
   day: string
   timeRange: [string, string]
   sessions: SessionSummary[]
+  trackColors: Map<string, string>
   interval: number
   rowHeight: number
   columnWidth: number
@@ -77,9 +78,6 @@ const daySessions = computed(() =>
   (_sessions ?? []).filter((session) => session.start?.startsWith(day) && session.end),
 )
 
-// Rows are tracks. Track-less sessions collapse into one fallback bucket so nothing disappears.
-const NO_TRACK = '__none__'
-
 // Match by name (either locale) since Pretalx track ids aren't stable across events.
 const MAIN_TRACK_NAMES = ['主議程', 'Main Session Track']
 function isMainTrack(name?: SessionTrack['name']) {
@@ -101,7 +99,7 @@ function togglePin(roomEn: string) {
 }
 
 const tracks = computed(() => {
-  const byKey = new Map<string, { key: string, trackId: string | null, order: number, name: string, room: string, roomEn: string, isMain: boolean }>()
+  const byKey = new Map<string, { key: string, trackId: string | null, name: string, room: string, roomEn: string, isMain: boolean }>()
   for (const session of daySessions.value) {
     const id = session.track?.id
     const trackId = id != null ? String(id) : null
@@ -111,7 +109,6 @@ const tracks = computed(() => {
       byKey.set(key, {
         key,
         trackId,
-        order: id ?? Number.POSITIVE_INFINITY,
         name: session.track ? localeName(session.track.name) : t('other'),
         room: localeName(session.room),
         roomEn,
@@ -121,11 +118,6 @@ const tracks = computed(() => {
   }
 
   const values = [...byKey.values()]
-
-  // Assign color by unique track order so same track always gets the same color,
-  // even when split across multiple rooms.
-  const uniqueOrders = [...new Set(values.map((t) => t.order))].sort((a, b) => a - b)
-  const colorByOrder = new Map(uniqueOrders.map((order, i) => [order, TRACK_COLORS[i % TRACK_COLORS.length]!]))
 
   // For tracks spanning multiple rooms, use the highest-priority room in the group
   // to determine the track group's position in the overall sort order.
@@ -146,7 +138,7 @@ const tracks = computed(() => {
       const bestB = bestRoomByTrackId.get(b.trackId) ?? ''
       return compareRooms(bestA, bestB) || compareRooms(a.roomEn, b.roomEn)
     })
-    .map((track) => ({ ...track, color: colorByOrder.get(track.order)! }))
+    .map((track) => ({ ...track, color: trackColors.get(track.trackId ?? NO_TRACK) ?? '#e76f51' }))
     .sort((a, b) => {
       const ai = pinOrder.get(a.roomEn)
       const bi = pinOrder.get(b.roomEn)
