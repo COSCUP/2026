@@ -5,6 +5,7 @@ import { useMediaQuery } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
 import CpSessionInfoCard from '~/components/feature/CpSessionInfoCard.vue'
 import { useFavorites } from '~/composables/useFavorites'
+import { DEFAULT_TRACK_COLOR } from '~/utils/tracks'
 
 const { t, locale } = useI18n()
 const route = useRoute()
@@ -206,7 +207,7 @@ onUnmounted(() => {
     >
       <div
         class="h-2"
-        :style="{ backgroundColor: sessionDetail?.trackColor ?? '#e76f51' }"
+        :style="{ backgroundColor: sessionDetail?.trackColor ?? DEFAULT_TRACK_COLOR }"
       />
 
       <div class="flex flex-1 min-h-0">

@@ -5,7 +5,7 @@ import { useI18n } from '#imports'
 import { useDragScroll } from '~/composables/useDragScroll'
 import { useFavoriteLabel, useFavorites } from '~/composables/useFavorites'
 import { useRealtime } from '~/composables/useRealtime'
-import { isMainTrack, trackKey } from '~/utils/tracks'
+import { DEFAULT_TRACK_COLOR, isMainTrack, trackKey } from '~/utils/tracks'
 
 const { sessions: _sessions, trackColors, day, timeRange, interval, rowHeight, columnWidth, preview = false } = defineProps<{
   day: string
@@ -241,7 +241,7 @@ const sessions = computed(() =>
       tag: difficultyLabel(session.tags),
       row: [toRow(startMins), toRow(endMins)],
       col: rooms.value.findIndex((r) => r.code === session.room!.en) + 2,
-      color: trackColors.get(trackKey(session)) ?? '#e76f51',
+      color: trackColors.get(trackKey(session)) ?? DEFAULT_TRACK_COLOR,
       isPast,
     }
   }),

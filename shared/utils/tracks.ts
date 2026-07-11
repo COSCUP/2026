@@ -27,6 +27,7 @@ export const TRACK_COLORS = [
   '#1d3557',
   '#a8dadc',
 ]
+export const DEFAULT_TRACK_COLOR = TRACK_COLORS[0]!
 
 // Track-less sessions collapse into one fallback bucket so nothing disappears.
 export const NO_TRACK = '__none__'

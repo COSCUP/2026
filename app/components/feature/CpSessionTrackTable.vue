@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n'
 import { useDragScroll } from '~/composables/useDragScroll'
 import { useFavoriteLabel, useFavorites } from '~/composables/useFavorites'
 import { useRealtime } from '~/composables/useRealtime'
-import { NO_TRACK } from '~/utils/tracks'
+import { DEFAULT_TRACK_COLOR, NO_TRACK } from '~/utils/tracks'
 
 const { sessions: _sessions, trackColors, day, timeRange, interval, rowHeight, columnWidth, preview = false } = defineProps<{
   day: string
@@ -138,7 +138,7 @@ const tracks = computed(() => {
       const bestB = bestRoomByTrackId.get(b.trackId) ?? ''
       return compareRooms(bestA, bestB) || compareRooms(a.roomEn, b.roomEn)
     })
-    .map((track) => ({ ...track, color: trackColors.get(track.trackId ?? NO_TRACK) ?? '#e76f51' }))
+    .map((track) => ({ ...track, color: trackColors.get(track.trackId ?? NO_TRACK) ?? DEFAULT_TRACK_COLOR }))
     .sort((a, b) => {
       const ai = pinOrder.get(a.roomEn)
       const bi = pinOrder.get(b.roomEn)
@@ -242,7 +242,7 @@ const sessions = computed(() =>
       end: session.end!.slice(11, 16).replace(/^0/, ''),
       col: [toCol(startMins), toCol(endMins)],
       row: index + 2,
-      color: tracks.value[index]?.color ?? '#e76f51',
+      color: tracks.value[index]?.color ?? DEFAULT_TRACK_COLOR,
       isPast,
     }
   }),

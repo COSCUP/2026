@@ -1,7 +1,7 @@
 import type { SessionSummary } from '#shared/types/session'
 import pretalxData from '#server/utils/pretalx'
 import { buildSessionSummary } from '#server/utils/pretalx/sessions'
-import { buildTrackColorMap, trackKey } from '#shared/utils/tracks'
+import { buildTrackColorMap, DEFAULT_TRACK_COLOR, trackKey } from '#shared/utils/tracks'
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')!
@@ -48,7 +48,7 @@ export default defineEventHandler(async (event) => {
 
   return {
     ...session,
-    trackColor: trackColors.get(trackKey(session)) ?? '#e76f51',
+    trackColor: trackColors.get(trackKey(session)) ?? DEFAULT_TRACK_COLOR,
     co_write: null,
     qa: null,
     slide: null,
