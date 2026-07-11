@@ -97,6 +97,12 @@ export default defineNuxtConfig({
     output: {
       publicDir: process.env.NUXT_OUTPUT_DIR || '.output/public',
     },
+    prerender: {
+      // ?session= is a client-side UI state (opens a session panel); prerendering those
+      // URLs is wasteful and bloats the build. Ignore them so the crawler doesn't follow
+      // the NuxtLinks in CpTrackSchedule that carry this query param.
+      ignore: [/\?/],
+    },
   },
 
   imports: {
