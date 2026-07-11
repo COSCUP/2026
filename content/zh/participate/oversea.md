@@ -237,7 +237,7 @@ If you encounter an emergency in Taiwan, you can use the following phone numbers
 
 - Police: 110
 - Fire department or ambulance: 119
-- 外來人士在臺生活諮詢服務熱線：1990
+- National Immigration Agency hotline for foreigners in Taiwan: 1990
 
 If you feel unwell, lose important items, experience harassment, conflict, or need urgent help at the venue, please contact the information desk or onsite volunteers as soon as possible.
 
