@@ -1,6 +1,6 @@
 ---
 title: "Welcome Party"
-description: "Everything about the COSCUP 2026 Welcome Party: time, location, drink tickets, check-in, and after-party."
+description: "Everything about the COSCUP 2026 Welcome Party: time, location, All-you-can-drink tickets, check-in, and after-party."
 ---
 
 # Welcome Party
@@ -28,7 +28,7 @@ The Welcome Party is a warm-up gathering on the evening before COSCUP. Whether o
 
 ## How to Join
 
-No registration is required. Please come directly to the venue. There is no minimum spend at the Welcome Party, but we still recommend purchasing an all-you-can-drink ticket to support the event. The drink ticket includes non-alcoholic beverages and helps cover the venue cost. Simple food will be available onsite so everyone can have something to eat.
+No registration is required. Please come directly to the venue. There is no minimum spend at the Welcome Party, but we still recommend purchasing an All-you-can-drink ticket to support the event. The All-you-can-drink ticket includes non-alcoholic beverages and helps cover the venue cost. Simple food will be available onsite so everyone can have something to eat.
 
 :::tip{title="Can I bring outside food?"}
 
@@ -51,28 +51,29 @@ Yes. COSCUP has confirmed with the venue that outside food is allowed. You can b
   </figure>
 </div>
 
-## How to Get Drink Tickets
+## How to Get All-you-can-drink Tickets
 
-Drink tickets can be obtained through pre-purchase, invitation tickets, or onsite purchase.
+All-you-can-drink tickets can be obtained through pre-purchase, invitation tickets, or onsite purchase.
 
 - Early Bird Ticket: 2026-07-10 21:00 to 2026-08-05 20:00 (UTC+8)
-- Normal Ticket: 2026-07-10 21:00 to 2026-08-07 20:45 (UTC+8)
+- Normal Ticket: 2026-08-05 20:00 to 2026-08-07 20:45 (UTC+8)
 - Onsite purchase is available.
-- Drink ticket purchase link: https://coscup-tw.kktix.cc/events/2026-welcome-party
+- All-you-can-drink ticket purchase link: https://coscup-tw.kktix.cc/events/2026-welcome-party
 
-| Drink Ticket Type                                              | Price   |
-| -------------------------------------------------------------- | ------- |
-| Early bird pre-order Pre-Party Drink Ticket                    | NTD$350 |
-| For normal ticket / On-site Purchase of Pre-party Drink Ticket | NTD$400 |
+| All-you-can-drink Ticket Type                                              | Price   |
+| -------------------------------------------------------------------------- | ------- |
+| Early bird pre-order Pre-Party All-you-can-drink Ticket                    | NTD$350 |
+| For normal ticket / On-site Purchase of Pre-party All-you-can-drink Ticket | NTD$400 |
 
 ## Check-in
 
-If you have pre-purchased or received a drink ticket, please check in at the entrance counter.
+If you have pre-purchased or received an All-you-can-drink ticket, please check in at the entrance counter.
 
 Prepare the check-in QR Code on KKTIX.
 
 - The left counter is for communities, speakers, and invited guests.
-- The right counter is for general drink ticket holders and onsite drink ticket purchases.
+- The right counter is for general All-you-can-drink ticket holders and onsite All-you-can-drink ticket purchases.
+- Staff may ask you to show identification and may mark no-alcohol on your ticket.
 
 ## Feeling Crowded?
 

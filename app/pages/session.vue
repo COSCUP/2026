@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { TableViewMode } from '~/components/feature/CpSessionFilterBar.vue'
+import { useStorage } from '@vueuse/core'
 import { prerenderRoutes } from 'nuxt/app'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from '#imports'
@@ -9,6 +11,7 @@ import CpSessionFilterBar from '~/components/feature/CpSessionFilterBar.vue'
 import CpSessionList from '~/components/feature/CpSessionList.vue'
 import CpSessionShareButton from '~/components/feature/CpSessionShareButton.vue'
 import CpSessionTable from '~/components/feature/CpSessionTable.vue'
+import CpSessionTrackTable from '~/components/feature/CpSessionTrackTable.vue'
 import CpSessionViewToggle from '~/components/feature/CpSessionViewToggle.vue'
 import { decodeFavorites, provideFavorites } from '~/composables/useFavorites'
 import { useSessionFilter } from '~/composables/useSessionFilter'
@@ -79,15 +82,17 @@ const {
   searchQuery,
   daySessions,
   filteredSessions,
-  roomOptions,
   tagOptions,
-  selectedRoomIds,
   selectedTagIds,
 } = useSessionFilter({
   sessionsByDay: data,
   selectedDay,
   locale,
 })
+
+// Persist the table/track choice across refreshes and language switches. localStorage is
+// shared across the /en and /zh routes, and this toggle only renders inside <ClientOnly>.
+const viewMode = useStorage<TableViewMode>('coscup-session-view-mode', 'track')
 
 type SessionView = 'all' | 'favorite'
 const view = ref<SessionView>('all')
@@ -170,7 +175,7 @@ definePageMeta({
           </div>
 
           <!-- FilterBar -->
-          <div class="p-4 flex flex-col gap-3 w-[var(--viewport-width,100vw)] items-stretch left-0 sticky z-sticky sm:flex-row sm:items-center sm:justify-between">
+          <div class="p-4 flex flex-col gap-3 w-[var(--viewport-width,100vw)] items-stretch sm:flex-row sm:items-center sm:left-0 sm:justify-between sm:sticky sm:z-sticky">
             <div class="flex shrink-0 gap-3 items-center justify-center sm:justify-start">
               <div class="rounded-md bg-gray-200 h-12 w-18 animate-pulse sm:h-9" />
               <div class="rounded-md bg-gray-200 h-12 w-18 animate-pulse sm:h-9" />
@@ -205,14 +210,11 @@ definePageMeta({
             :days="days"
           />
 
-          <!-- Hidden while previewing a shared list. -->
           <CpSessionFilterBar
-            v-if="!isSharing"
             v-model:search-query="searchQuery"
-            v-model:selected-room-ids="selectedRoomIds"
             v-model:selected-tag-ids="selectedTagIds"
-            class="p-4 left-0 sticky z-sticky"
-            :room-options="roomOptions"
+            v-model:view-mode="viewMode"
+            class="p-4 sm:left-0 sm:sticky sm:z-sticky"
             :tag-options="tagOptions"
           >
             <template #controls>
@@ -233,14 +235,25 @@ definePageMeta({
             :preview="isSharing"
             :sessions="displayedSessions"
           />
-          <CpSessionTable
-            v-if="displayedSessions.length > 0"
+          <CpSessionTrackTable
+            v-if="displayedSessions.length > 0 && viewMode !== 'table'"
             class="hidden sm:grid"
-            :column-width="200"
+            :column-width="20"
             :day="selectedDay"
             :interval="5"
             :preview="isSharing"
-            :row-height="50"
+            :row-height="80"
+            :sessions="displayedSessions"
+            :time-range="['09:00', '17:30']"
+          />
+          <CpSessionTable
+            v-if="displayedSessions.length > 0 && viewMode === 'table'"
+            class="hidden sm:grid"
+            :column-width="180"
+            :day="selectedDay"
+            :interval="5"
+            :preview="isSharing"
+            :row-height="20"
             :sessions="displayedSessions"
             :time-range="['09:00', '17:30']"
           />

@@ -58,18 +58,35 @@ useSeoMeta({
     </section>
     <section class="prose">
       <h3 class="text-center">
-        {{ t('call_for_participation.title') }}
+        {{ t('accepted_booths.title') }}
       </h3>
       <p>
-        {{ t('call_for_participation.desc') }}
+        {{ t('accepted_booths.desc') }}
       </p>
       <p>
         <NuxtLink
           class="not-prose text-white px-4 py-2 rounded bg-cp-green shadow hover:shadow-lg"
           target="_blank"
-          :to="`https://blog.coscup.org/2026/02/coscup-2026-call-for-participation.html#${t('call_for_participation.anchor')}`"
+          :to="t('accepted_booths.link')"
         >
-          {{ t('call_for_participation.link_text') }}
+          {{ t('accepted_booths.link_text') }}
+        </NuxtLink>
+      </p>
+    </section>
+    <section class="prose">
+      <h3 class="text-center">
+        {{ t('bof.title') }}
+      </h3>
+      <p>
+        {{ t('bof.desc') }}
+      </p>
+      <p>
+        <NuxtLink
+          class="not-prose text-white px-4 py-2 rounded bg-cp-green shadow hover:shadow-lg"
+          target="_blank"
+          :to="t('bof.link')"
+        >
+          {{ t('bof.link_text') }}
         </NuxtLink>
       </p>
     </section>
@@ -87,11 +104,16 @@ en:
     desc: "If you are interested in sponsoring COSCUP x UbuCon Asia 2026, please refer to our sponsorship package or contact us directly via email."
     link: "/en/sponsorship"
     link_text: "I want to sponsor"
-  call_for_participation:
-    title: "Call for Participation"
-    desc: "We're now accepting community track and booth applications — bring your community to COSCUP x UbuCon Asia 2026!"
+  accepted_booths:
+    title: "Full List of Accepted Community Booths at COSCUP x UbuCon Asia 2026"
+    desc: "Community track and booth applications are now closed — see the full list of accepted community booths at COSCUP x UbuCon Asia 2026!"
+    link: "https://blog.coscup.org/2026/06/coscup-x-ubucon-asia-2026-full-list-of.html"
+    link_text: "View the list"
+  bof:
+    title: "BoF / Hacking Corner"
+    desc: "Meet friends at the BoF sessions or hacking corners of COSCUP x UbuCon Asia 2026!"
+    link: "https://blog.coscup.org/2026/06/coscup-2026-bof-hacking-corners.html"
     link_text: "Learn more"
-    anchor: "anchor2"
   donate:
     title: "Individual Sponsorship"
     desc: "In the age of AI, help support the open-source community infrastructure and join us in supporting COSCUP x UbuCon Asia 2026!"
@@ -107,11 +129,16 @@ zh:
     desc: "若您對贊助 COSCUP x UbuCon Asia 2026 有興趣，歡迎參考贊助方案，或直接透過電子郵件與我們聯繫。"
     link: "/sponsorship"
     link_text: "我要贊助"
-  call_for_participation:
-    title: "徵求社群參與"
-    desc: "社群議程軌與社群攤位開放申請中，帶領您的社群參與 COSCUP x UbuCon Asia 2026！"
+  accepted_booths:
+    title: "COSCUP x UbuCon Asia 2026 錄取攤位公告"
+    desc: "社群議程軌與社群攤位申請已截止，一同來看 COSCUP x UbuCon Asia 2026 的錄取攤位名單！"
+    link: "https://blog.coscup.org/2026/06/coscup-x-ubucon-asia-2026-full-list-of.html"
+    link_text: "查看名單"
+  bof:
+    title: "BoF / Hacking Corner"
+    desc: "在 COSCUP x UbuCon Asia 2026，來與朋友一起參加 BoF 會議或 Hacking Corner 吧！"
+    link: "https://blog.coscup.org/2026/06/coscup-2026-bof-hacking-corners.html"
     link_text: "瞭解更多"
-    anchor: ""
   donate:
     title: "個人贊助"
     desc: "AI 時代，撐起開源舞台鷹架，一同支持 COSCUP x UbuCon Asia 2026 吧！"
