@@ -16,12 +16,20 @@ const props = defineProps<{
   room: string
   coWrite?: string
   tags: string[]
+  track?: {
+    id: number
+    name: string
+    color: string
+  }
   description: string
   ad: Ad | null
+  hasTitleMarginRight?: boolean
 }>()
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+const isZh = computed(() => locale.value === 'zh')
 const isMobile = useMediaQuery('(max-width: 639px)')
+const localePath = useLocalePath()
 
 const speakerNames = computed(() =>
   props.speakers.map((s) => s.name).join(', '),
@@ -29,57 +37,72 @@ const speakerNames = computed(() =>
 </script>
 
 <template>
-  <article class="bg-white flex flex-col gap-3 min-w-0 sm:p-6">
-    <header>
-      <h1 class="text-xl text-primary-400 leading-tight font-bold mb-4 break-words sm:text-2xl">
+  <article class="py-5 bg-white flex flex-col gap-3 min-w-0">
+    <header class="px-4 sm:px-6">
+      <h1
+        class="text-xl leading-tight font-bold mb-4 break-words sm:text-2xl"
+        :class="hasTitleMarginRight ? 'mr-24 sm:mr-34' : ''"
+      >
         {{ title }}
       </h1>
-      <dl class="flex flex-col gap-3">
-        <div class="gap-1 grid sm:gap-4 sm:grid-cols-[7rem_minmax(0,1fr)]">
-          <dt class="text-sm text-gray-400 flex gap-1.5 items-center">
+      <dl class="mb-3 flex flex-col gap-2">
+        <div
+          class="gap-4 grid"
+          :class="isZh ? 'grid-cols-[auto_minmax(0,1fr)]' : 'grid-cols-[6rem_minmax(0,1fr)]'"
+        >
+          <dt class="text-sm text-neutral-500 flex gap-1.5 items-center">
             <Icon
               class="shrink-0 h-4 w-4"
               name="tabler:clock"
             />
             {{ t("time") }}
           </dt>
-          <dd class="text-gray-700 ml-5 min-w-0 break-words sm:ml-0">
+          <dd class="text-zinc-900 min-w-0 break-words">
             {{ time }}
           </dd>
         </div>
-        <div class="gap-1 grid sm:gap-4 sm:grid-cols-[7rem_minmax(0,1fr)]">
-          <dt class="text-sm text-gray-400 flex gap-1.5 items-center">
+        <div
+          class="gap-4 grid"
+          :class="isZh ? 'grid-cols-[auto_minmax(0,1fr)]' : 'grid-cols-[6rem_minmax(0,1fr)]'"
+        >
+          <dt class="text-sm text-neutral-500 flex gap-1.5 items-center">
             <Icon
               class="shrink-0 h-4 w-4"
               name="tabler:user"
             />
             {{ t("speaker") }}
           </dt>
-          <dd class="text-gray-700 ml-5 min-w-0 break-words sm:ml-0">
+          <dd class="text-zinc-900 min-w-0 break-words">
             {{ speakerNames }}
           </dd>
         </div>
-        <div class="gap-1 grid sm:gap-4 sm:grid-cols-[7rem_minmax(0,1fr)]">
-          <dt class="text-sm text-gray-400 flex gap-1.5 items-center">
+        <div
+          class="gap-4 grid"
+          :class="isZh ? 'grid-cols-[auto_minmax(0,1fr)]' : 'grid-cols-[6rem_minmax(0,1fr)]'"
+        >
+          <dt class="text-sm text-neutral-500 flex gap-1.5 items-center">
             <Icon
               class="shrink-0 h-4 w-4"
               name="tabler:map-pin"
             />
             {{ t("room") }}
           </dt>
-          <dd class="text-gray-700 ml-5 min-w-0 break-words sm:ml-0">
+          <dd class="text-zinc-900 min-w-0 break-words">
             {{ room }}
           </dd>
         </div>
-        <div class="gap-1 grid sm:gap-4 sm:grid-cols-[7rem_minmax(0,1fr)]">
-          <dt class="text-sm text-gray-400 flex gap-1.5 items-center">
+        <div
+          class="gap-4 grid"
+          :class="isZh ? 'grid-cols-[auto_minmax(0,1fr)]' : 'grid-cols-[6rem_minmax(0,1fr)]'"
+        >
+          <dt class="text-sm text-neutral-500 flex gap-1.5 items-center">
             <Icon
               class="shrink-0 h-4 w-4"
               name="tabler:file-text"
             />
             {{ t("co-write") }}
           </dt>
-          <dd class="text-gray-700 ml-5 min-w-0 break-words sm:ml-0">
+          <dd class="text-zinc-900 min-w-0 break-words">
             <a
               v-if="coWrite?.startsWith('http')"
               class="underline cursor-pointer break-all"
@@ -90,19 +113,32 @@ const speakerNames = computed(() =>
         </div>
       </dl>
       <div
-        class="mt-5 pb-3 border-b border-gray-200 flex flex-wrap gap-2"
+        class="flex flex-wrap gap-2"
       >
+        <NuxtLink
+          v-if="track"
+          class="text-xs text-white font-medium px-3 py-1 rounded-full underline-offset-2 flex gap-0.5 items-center hover:underline"
+          :style="{ backgroundColor: track.color }"
+          :to="localePath(`/track/${track.id}`)"
+        >
+          {{ track.name }}
+          <Icon
+            class="h-4 w-4"
+            name="tabler:arrow-up-right"
+          />
+        </NuxtLink>
         <span
           v-for="tag in tags"
           :key="tag"
-          class="text-xs text-primary-700 font-medium px-3 py-1 rounded-full bg-primary-100"
+          class="text-xs text-zinc-900 font-medium px-3 py-1 rounded-full bg-stone-100"
         >
           {{ tag }}
         </span>
       </div>
     </header>
-    <section>
-      <h2 class="text-lg text-primary-400 font-bold my-3">
+    <div class="border-b border-gray-200" />
+    <section class="px-4 sm:px-6">
+      <h2 class="text-lg font-bold my-2">
         {{ t("abstract") }}
       </h2>
       <div
@@ -111,35 +147,19 @@ const speakerNames = computed(() =>
         <MDC :value="description" />
       </div>
     </section>
-    <section
-      v-if="ad && isMobile"
-      class="w-full aspect-[18/5]"
-    >
-      <NuxtLink
-        class="h-full w-full block"
-        target="_blank"
-        :to="ad.link"
-      >
-        <NuxtImg
-          :alt="ad.id"
-          class="h-full w-full object-contain"
-          :src="ad.imageHorizontal"
-        />
-      </NuxtLink>
-    </section>
-    <section>
-      <h2 class="text-lg text-primary-400 font-bold my-2">
+    <section class="px-4 sm:px-6">
+      <h2 class="text-lg font-bold my-2">
         {{ t("speaker") }}
       </h2>
-      <div class="flex flex-col gap-6">
+      <div class="flex flex-col gap-4">
         <div
           v-for="speaker in speakers"
           :key="speaker.name"
-          class="flex flex-col gap-4"
+          class="p-4 rounded bg-gray-50 flex flex-col gap-4"
         >
-          <div class="flex gap-4 items-center">
+          <div class="flex gap-4">
             <div
-              class="border-2 border-primary-100 rounded-full bg-gray-100 flex-shrink-0 h-16 w-16 overflow-hidden"
+              class="border-2 border-gray-100 rounded-full bg-gray-100 flex-shrink-0 h-16 w-16 top-3 sticky overflow-hidden"
             >
               <img
                 v-if="speaker.avatar"
@@ -158,18 +178,36 @@ const speakerNames = computed(() =>
               </div>
             </div>
             <div>
-              <h3 class="text-lg text-gray-700 font-bold">
-                {{ speaker.name }}
-              </h3>
+              <div>
+                <h3 class="text-lg text-gray-700 font-bold">
+                  {{ speaker.name }}
+                </h3>
+              </div>
+              <div
+                class="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap break-words"
+              >
+                <MDC :value="speaker.bio" />
+              </div>
             </div>
-          </div>
-          <div
-            class="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap break-words"
-          >
-            <MDC :value="speaker.bio" />
           </div>
         </div>
       </div>
+    </section>
+    <section
+      v-if="ad && isMobile"
+      class="px-4 w-full aspect-[18/5]"
+    >
+      <NuxtLink
+        class="h-full w-full block"
+        target="_blank"
+        :to="ad.link"
+      >
+        <NuxtImg
+          :alt="ad.id"
+          class="h-full w-full object-contain"
+          :src="ad.imageHorizontal"
+        />
+      </NuxtLink>
     </section>
   </article>
 </template>
@@ -182,7 +220,7 @@ en:
     speaker: Speaker
     time: time
 zh:
-    abstract: 摘要
+    abstract: 議程簡介
     room: 位置
     speaker: 講者
     time: 時間
