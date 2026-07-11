@@ -100,19 +100,20 @@ const trackColors = computed(() =>
   buildTrackColorMap((_sessions ?? []).filter((session) => session.start?.startsWith(day) && session.end)),
 )
 
-// Rooms are the columns. Each carries the track name(s) hosted there as a subtitle.
+// Rooms are the columns. Each carries the track(s) hosted there as subtitle links.
 const roomsRaw = computed(() => {
-  const byCode = new Map<string, { code: string, trackNames: Set<string>, isMain: boolean }>()
+  const byCode = new Map<string, { code: string, tracks: Map<string, string | null>, isMain: boolean }>()
   for (const session of daySessions.value) {
     const code = session.room!.en
     let info = byCode.get(code)
     if (!info) {
-      info = { code, trackNames: new Set(), isMain: false }
+      info = { code, tracks: new Map(), isMain: false }
       byCode.set(code, info)
     }
     const name = localeName(session.track?.name)
-    if (name) {
-      info.trackNames.add(name)
+    const trackId = session.track?.id != null ? String(session.track.id) : null
+    if (name && !info.tracks.has(name)) {
+      info.tracks.set(name, trackId)
     }
     if (isMainTrack(session.track?.name)) {
       info.isMain = true
@@ -120,7 +121,7 @@ const roomsRaw = computed(() => {
   }
   return [...byCode.values()].map((room) => ({
     code: room.code,
-    subtitle: [...room.trackNames].join('、'),
+    trackLinks: [...room.tracks.entries()].map(([name, id]) => ({ name, id })),
     isMain: room.isMain,
   }))
 })
@@ -310,10 +311,23 @@ const sessions = computed(() =>
         </button>
       </div>
       <p
-        v-if="room.subtitle"
+        v-if="room.trackLinks.length"
         class="text-[10px] text-[#737373] leading-[15px] pt-[2px] w-full whitespace-nowrap relative overflow-hidden"
       >
-        {{ room.subtitle }}
+        <template
+          v-for="(link, n) in room.trackLinks"
+          :key="link.name"
+        >
+          <NuxtLink
+            v-if="link.id"
+            class="hover:underline"
+            :to="localePath(`/track/${link.id}`)"
+          >
+            {{ link.name }}
+          </NuxtLink>
+          <span v-else>{{ link.name }}</span>
+          <span v-if="n < room.trackLinks.length - 1">、</span>
+        </template>
       </p>
     </div>
 

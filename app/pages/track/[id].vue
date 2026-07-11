@@ -110,7 +110,7 @@ useSeoMeta({
   >
     <NuxtLink
       class="text-sm text-gray-500 inline-flex gap-1.5 w-fit transition-colors items-center hover:text-primary-500"
-      :to="localePath('/track')"
+      :to="localePath('/session')"
     >
       <Icon
         class="h-4 w-4"
@@ -187,12 +187,12 @@ useSeoMeta({
 
 <i18n lang="yaml">
   en:
-    back: 'Back to tracks'
+    back: 'Back to sessions'
     day: 'Day {n}'
     notFound: 'Track not found.'
     separator: ', '
   zh:
-    back: '返回議程軌列表'
+    back: '返回議程'
     day: '第 {n} 天'
     notFound: '找不到這個議程軌。'
     separator: '、'
