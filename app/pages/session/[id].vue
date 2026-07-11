@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import type { Ad } from '#shared/types/ad'
-import type { SessionDetail, SessionSummary } from '#shared/types/session'
+import type { SessionDetail } from '#shared/types/session'
 import { useMediaQuery } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
 import CpSessionInfoCard from '~/components/feature/CpSessionInfoCard.vue'
 import { useFavorites } from '~/composables/useFavorites'
-import { buildTrackColorMap, trackKey } from '~/utils/tracks'
 
 const { t, locale } = useI18n()
 const route = useRoute()
@@ -28,24 +27,10 @@ if (error.value) {
     ? createError({ status: 404, statusText: 'Page Not Found' })
     : error.value
 }
-const { data: sessionsByDay } = await useFetch<Record<string, SessionSummary[]>>('/api/session')
 const { data: ad } = await useFetch<Ad[]>('/api/ad')
 const randomAd = ref<Ad | null>(null)
 
 const localeKey = computed(() => locale.value === 'zh' ? 'zh' : 'en')
-
-const sessionTrackColor = computed(() => {
-  const session = sessionDetail.value
-  if (!session?.start) {
-    return '#e76f51'
-  }
-
-  const day = session.start.slice(0, 10)
-  const daySessions = sessionsByDay.value?.[day] ?? []
-  const trackColors = buildTrackColorMap(daySessions)
-
-  return trackColors.get(trackKey(session)) ?? '#e76f51'
-})
 
 const sessionInfo = computed(() => {
   if (!sessionDetail.value) {
@@ -62,7 +47,7 @@ const sessionInfo = computed(() => {
         name: locale.value === 'zh'
           ? (sessionDetail.value.track?.name?.['zh-hant'] || sessionDetail.value.track?.name?.en || '')
           : (sessionDetail.value.track?.name?.en || sessionDetail.value.track?.name?.['zh-hant'] || ''),
-        color: sessionTrackColor.value,
+        color: sessionDetail.value.trackColor,
       }
     : undefined
 
@@ -221,7 +206,7 @@ onUnmounted(() => {
     >
       <div
         class="h-2"
-        :style="{ backgroundColor: sessionTrackColor }"
+        :style="{ backgroundColor: sessionDetail?.trackColor ?? '#e76f51' }"
       />
 
       <div class="flex flex-1 min-h-0">
