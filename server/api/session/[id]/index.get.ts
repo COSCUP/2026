@@ -31,14 +31,14 @@ export default defineEventHandler(async (event) => {
   }
 
   const session = buildSessionSummary(submission, data)
-  if (!session) {
+  if (!session?.start) {
     throw createError({
       statusCode: 404,
       statusMessage: 'Not Found',
     })
   }
 
-  const day = session.start!.slice(0, 10)
+  const day = session.start.slice(0, 10)
   const daySessions = data.submissions.arr
     .filter((item) => item.state === 'confirmed')
     .map((item) => buildSessionSummary(item, data))
