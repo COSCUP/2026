@@ -378,12 +378,13 @@ const HEADER_HEIGHT = 47
             :name="isPinned(track.roomEn) ? 'tabler:pin-filled' : 'tabler:pin'"
           />
         </button>
-        <span class="p-1 rounded-[4px] flex items-center">
+        <!-- TODO: expand toggle (temporarily hidden) -->
+        <!-- <span class="p-1 rounded-[4px] flex items-center">
           <Icon
             class="text-[16px] text-[#99a1af]"
             name="tabler:chevron-down"
           />
-        </span>
+        </span> -->
       </div>
     </div>
 
