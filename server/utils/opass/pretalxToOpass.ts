@@ -36,11 +36,11 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
         speakers: submission.speakers,
         zh: {
           title: submission.title,
-          describe: submission.abstract,
+          description: submission.abstract,
         },
         en: {
           title: answer.enTitle || submission.title,
-          describe: answer.enDesc || submission.abstract,
+          description: answer.enDesc || submission.abstract,
         },
         tags: tags.map((tag) => tag.id),
         uri: `https://coscup.org/2026/session/${submission.code}`,
