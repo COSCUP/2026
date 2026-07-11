@@ -28,8 +28,8 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
 
       return {
         id: submission.code,
-        type: submission.submission_type,
-        room: slot?.room?.id,
+        type: String(submission.submission_type),
+        room: slot?.room?.id != null ? String(slot.room.id) : undefined,
         start: slot?.start,
         end: slot?.end,
         language: answer.language,
@@ -85,7 +85,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
     }
 
     return {
-      id: type.id,
+      id: String(type.id),
       zh: {
         name: type.name['zh-hant'] || type.name.en,
       },
@@ -107,7 +107,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
       }
 
       return {
-        id: room.id,
+        id: String(room.id),
         zh: {
           name: room.name['zh-hant'] || room.name.en,
         },
