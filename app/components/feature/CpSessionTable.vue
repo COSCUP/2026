@@ -21,7 +21,6 @@ const { sessions: _sessions, trackColors, day, timeRange, interval, rowHeight, c
 
 const { t, locale } = useI18n()
 const { time } = useRealtime()
-const route = useRoute()
 const localePath = useLocalePath()
 const { isFavorite, toggleFavorite } = useFavorites()
 const favoriteLabel = useFavoriteLabel(t)
@@ -33,10 +32,6 @@ const TIME_COL_WIDTH = 64
 const HEADER_HEIGHT = 58
 
 const isZh = computed(() => locale.value !== 'en')
-
-function sessionPath(id: string) {
-  return localePath({ path: `/session/${id}`, query: route.query })
-}
 
 function parseMinutes(isoStr: string) {
   const match = isoStr.match(/T(\d{2}):(\d{2})/)
@@ -401,7 +396,7 @@ const sessions = computed(() =>
         :aria-label="session.title"
         class="inset-0 absolute"
         :draggable="false"
-        :to="sessionPath(session.id)"
+        :to="localePath(`/session/${session.id}`)"
         @dragstart.prevent
       />
 
