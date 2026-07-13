@@ -41,7 +41,7 @@ const speakerNames = computed(() =>
     <header class="px-4 sm:px-6">
       <h1
         class="text-xl leading-tight font-bold mb-4 break-words sm:text-2xl"
-        :class="hasTitleMarginRight ? 'mr-30 sm:mr-60' : ''"
+        :class="hasTitleMarginRight ? 'mr-36 sm:mr-60' : ''"
       >
         {{ title }}
       </h1>
