@@ -5,12 +5,13 @@ import { useI18n } from '#imports'
 import { useDragScroll } from '~/composables/useDragScroll'
 import { useFavoriteLabel, useFavorites } from '~/composables/useFavorites'
 import { useRealtime } from '~/composables/useRealtime'
-import { buildTrackColorMap, isMainTrack, trackKey } from '~/utils/tracks'
+import { DEFAULT_TRACK_COLOR, isMainTrack, trackKey } from '~/utils/tracks'
 
-const { sessions: _sessions, day, timeRange, interval, rowHeight, columnWidth, preview = false } = defineProps<{
+const { sessions: _sessions, trackColors, day, timeRange, interval, rowHeight, columnWidth, preview = false } = defineProps<{
   day: string
   timeRange: [string, string]
   sessions: SessionSummary[]
+  trackColors: Map<string, string>
   interval: number
   rowHeight: number
   columnWidth: number
@@ -94,13 +95,7 @@ const daySessions = computed(() =>
   ),
 )
 
-// A track keeps its colour across both table views (see ~/utils/tracks). Build from the whole
-// day (not just roomed sessions) so the index order matches CpSessionTrackTable exactly.
-const trackColors = computed(() =>
-  buildTrackColorMap((_sessions ?? []).filter((session) => session.start?.startsWith(day) && session.end)),
-)
-
-// Rooms are the columns. Each carries the track(s) hosted there as subtitle links.
+// Rooms are the columns. Each carries the track name(s) hosted there as a subtitle.
 const roomsRaw = computed(() => {
   const byCode = new Map<string, { code: string, tracks: Map<string, string | null>, isMain: boolean }>()
   for (const session of daySessions.value) {
@@ -246,7 +241,7 @@ const sessions = computed(() =>
       tag: difficultyLabel(session.tags),
       row: [toRow(startMins), toRow(endMins)],
       col: rooms.value.findIndex((r) => r.code === session.room!.en) + 2,
-      color: trackColors.value.get(trackKey(session)) ?? '#e76f51',
+      color: trackColors.get(trackKey(session)) ?? DEFAULT_TRACK_COLOR,
       isPast,
     }
   }),

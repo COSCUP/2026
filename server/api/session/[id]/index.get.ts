@@ -1,5 +1,7 @@
+import type { SessionSummary } from '#shared/types/session'
 import pretalxData from '#server/utils/pretalx'
-import { parseAnswer, parseDifficulty, parseSlot, parseSpeaker, parseTags, parseTrack, parseType } from '#server/utils/pretalx/parser'
+import { buildSessionSummary } from '#server/utils/pretalx/sessions'
+import { buildTrackColorMap, DEFAULT_TRACK_COLOR, trackKey } from '#shared/utils/tracks'
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')!
@@ -28,31 +30,25 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const answers = parseAnswer(submission.answers, data)
-  const slot = parseSlot(submission.slots[0], data)
-  const speakers = parseSpeaker(submission.speakers, data)
-  const type = parseType(submission.submission_type, data)
+  const session = buildSessionSummary(submission, data)
+  if (!session?.start) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: 'Not Found',
+    })
+  }
+
+  const day = session.start.slice(0, 10)
+  const daySessions = data.submissions.arr
+    .filter((item) => item.state === 'confirmed')
+    .map((item) => buildSessionSummary(item, data))
+    .filter((item): item is SessionSummary => item !== null && item.start?.startsWith(day) === true)
+
+  const trackColors = buildTrackColorMap(daySessions)
 
   return {
-    id: submission.code,
-    room: slot?.room?.name,
-    start: slot?.start,
-    end: slot?.end,
-    language: answers.language,
-    track: parseTrack(submission.track, data),
-    speakers,
-    zh: {
-      title: submission.title,
-      describe: submission.abstract,
-      type: type.name['zh-hant'] || type.name.en,
-    },
-    en: {
-      title: answers.enTitle || submission.title,
-      describe: answers.enDesc || submission.abstract,
-      type: type.name.en || type.name['zh-hant'],
-    },
-    tags: parseTags(submission.tags, data, parseDifficulty(answers.difficulty)),
-    uri: `https://coscup.org/2026/session/${submission.code}`,
+    ...session,
+    trackColor: trackColors.get(trackKey(session)) ?? DEFAULT_TRACK_COLOR,
     co_write: null,
     qa: null,
     slide: null,

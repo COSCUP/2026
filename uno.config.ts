@@ -49,6 +49,7 @@ export default defineConfig({
             'cp-orange-500': '#F97316',
             'cp-orange-600': '#EA580C',
             'cp-orange-700': '#C2410C',
+            'favorite': '#f0b100',
           },
         },
       },

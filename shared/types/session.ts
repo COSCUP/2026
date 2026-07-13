@@ -46,6 +46,7 @@ export const SessionSummarySchema = z.object({
 })
 
 export const SessionDetailSchema = SessionSummarySchema.extend({
+  trackColor: z.string(),
   co_write: z.null(),
   qa: z.null(),
   slide: z.null(),
