@@ -3,6 +3,7 @@ import type { Ad } from '#shared/types/ad'
 import type { SessionDetail } from '#shared/types/session'
 import { useMediaQuery } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
+import CpSessionDetailShareButton from '~/components/feature/CpSessionDetailShareButton.vue'
 import CpSessionInfoCard from '~/components/feature/CpSessionInfoCard.vue'
 import { useFavorites } from '~/composables/useFavorites'
 import { DEFAULT_TRACK_COLOR } from '~/utils/tracks'
@@ -237,6 +238,10 @@ onUnmounted(() => {
           </div>
 
           <div class="mr-4 flex gap-2 h-0 top-5 justify-end relative z-content overflow-visible sm:mr-6">
+            <CpSessionDetailShareButton
+              v-if="sessionInfo"
+              :title="sessionInfo.title"
+            />
             <button
               :aria-label="isFavorite(sessionId) ? t('removeFavorite') : t('addFavorite')"
               class="text-sm font-500 px-3 border-2 rounded flex gap-1 h-8 cursor-pointer transition-colors items-center"
