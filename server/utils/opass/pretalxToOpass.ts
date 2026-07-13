@@ -1,13 +1,13 @@
-import type { OpassTag } from '#server/utils/opass/tags'
+import type { OpassNamedEntity, OpassSchedule, OpassSession, OpassSpeaker } from '#server/utils/opass/types'
 import type { PretalxResult, Room, Speaker, Submission, SubmissionType } from '#shared/types/pretalx'
 import { sessionTags } from '#server/utils/opass/tags'
 import { parseAnswer, parseSlot } from '#server/utils/pretalx/parser'
 
-export function pretalxToOpass(pretalxData: PretalxResult) {
+export function pretalxToOpass(pretalxData: PretalxResult): OpassSchedule {
   const speakerIds: Set<Speaker['code']> = new Set()
   const roomIds: Set<Room['id']> = new Set()
   const typeIds: Set<SubmissionType['id']> = new Set()
-  const tagMap = new Map<string, OpassTag>()
+  const tagMap = new Map<string, OpassNamedEntity>()
 
   const sessions = pretalxData.submissions.arr
     .filter((submission: Submission) => submission.state === 'confirmed')
@@ -29,9 +29,9 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
       return {
         id: submission.code,
         type: String(submission.submission_type),
-        room: slot?.room?.id != null ? String(slot.room.id) : undefined,
-        start: slot?.start,
-        end: slot?.end,
+        room: slot?.room?.id?.toString() ?? '',
+        start: slot?.start ?? '2026-08-08T08:00:00Z',
+        end: slot?.end ?? '2026-08-08T08:00:00Z',
         language: answer.language,
         speakers: submission.speakers,
         zh: {
@@ -44,11 +44,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
         },
         tags: tags.map((tag) => tag.id),
         uri: `https://coscup.org/2026/session/${submission.code}`,
-        co_write: '',
-        qa: '',
-        slide: '',
-        record: '',
-      }
+      } satisfies OpassSession
     })
 
   const speakers = Array.from(speakerIds, (id: Speaker['code']) => {
@@ -63,7 +59,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
 
     return {
       id: speaker.code,
-      avatar: speaker.avatar_url ?? '',
+      avatar: speaker.avatar_url ?? 'https://placehold.co/300x300.png',
       zh: {
         name: answer.zhName || speaker.name,
         bio: answer.zhBio || speaker.biography,
@@ -72,7 +68,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
         name: answer.enName || speaker.name,
         bio: answer.enBio || speaker.biography,
       },
-    }
+    } satisfies OpassSpeaker
   })
     .filter((x): x is NonNullable<typeof x> => x !== null)
 
@@ -92,7 +88,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
       en: {
         name: type.name.en || type.name['zh-hant'],
       },
-    }
+    } satisfies OpassNamedEntity
   })
     .filter((x): x is NonNullable<typeof x> => x !== null)
 
@@ -114,9 +110,16 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
         en: {
           name: room.name.en || room.name['zh-hant'],
         },
-      }
+      } satisfies OpassNamedEntity
     })
     .filter((x): x is NonNullable<typeof x> => x !== null)
 
-  return { sessions, speakers, session_types: types, rooms, tags: [...tagMap.values()] }
+  // run schema check to ensure the structure is valid
+  return opassScheduleSchema.parse({
+    sessions,
+    speakers,
+    session_types: types,
+    rooms,
+    tags: [...tagMap.values()],
+  } satisfies OpassSchedule)
 }
