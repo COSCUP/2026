@@ -29,6 +29,17 @@ const queryDay = computed(() => {
   const day = route.query.day
   return typeof day === 'string' && days.value.includes(day) ? day : null
 })
+const routeSessionDay = computed(() => {
+  const id = route.params.id
+  const sessionId = typeof id === 'string' ? id : null
+  if (!sessionId) {
+    return null
+  }
+
+  return Object.entries(data.value ?? {})
+    .find(([, sessions]) => sessions.some((session) => session.id === sessionId))
+    ?.[0] ?? null
+})
 
 // A `?filter=` link carries someone else's favorites, to preview and import.
 const hasShareLink = computed(() => String(route.query.filter ?? '').length > 0)
@@ -53,7 +64,7 @@ const firstSharedDay = computed(() => {
 })
 
 const selectedDay = computed({
-  get: () => queryDay.value ?? firstSharedDay.value ?? days.value[0] ?? null,
+  get: () => queryDay.value ?? routeSessionDay.value ?? firstSharedDay.value ?? days.value[0] ?? null,
   set: (value) => {
     const nextQuery = { ...route.query }
 

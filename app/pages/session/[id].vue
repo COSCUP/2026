@@ -32,6 +32,7 @@ const { data: ad } = await useFetch<Ad[]>('/api/ad')
 const randomAd = ref<Ad | null>(null)
 
 const localeKey = computed(() => locale.value === 'zh' ? 'zh' : 'en')
+const sessionDay = computed(() => sessionDetail.value?.start?.slice(0, 10) ?? null)
 
 const sessionInfo = computed(() => {
   if (!sessionDetail.value) {
@@ -79,7 +80,8 @@ useSeoMeta({
 })
 
 function close() {
-  router.push(localePath({ path: '/session', query: route.query }))
+  const day = sessionDay.value
+  router.push(localePath(day ? { path: '/session', query: { day } } : { path: '/session' }))
 }
 
 const sheetStyle = computed(() => ({
