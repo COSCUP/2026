@@ -44,10 +44,10 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
         },
         tags: tags.map((tag) => tag.id),
         uri: `https://coscup.org/2026/session/${submission.code}`,
-        co_write: null,
-        qa: null,
-        slide: null,
-        record: null,
+        co_write: '',
+        qa: '',
+        slide: '',
+        record: '',
       }
     })
 
@@ -63,7 +63,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
 
     return {
       id: speaker.code,
-      avatar: speaker.avatar_url,
+      avatar: speaker.avatar_url ?? '',
       zh: {
         name: answer.zhName || speaker.name,
         bio: answer.zhBio || speaker.biography,
