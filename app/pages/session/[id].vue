@@ -32,6 +32,7 @@ const { data: ad } = await useFetch<Ad[]>('/api/ad')
 const randomAd = ref<Ad | null>(null)
 
 const localeKey = computed(() => locale.value === 'zh' ? 'zh' : 'en')
+// Extract the yyyy-MM-dd part from the session start date.
 const sessionDay = computed(() => sessionDetail.value?.start?.slice(0, 10) ?? null)
 
 const sessionInfo = computed(() => {
