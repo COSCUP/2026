@@ -1,6 +1,7 @@
 import type { OpassNamedEntity, OpassSchedule, OpassSession, OpassSpeaker } from '#server/utils/opass/types'
 import type { PretalxResult, Room, Speaker, Submission, SubmissionType } from '#shared/types/pretalx'
 import { sessionTags } from '#server/utils/opass/tags'
+import { opassScheduleSchema } from '#server/utils/opass/types'
 import { parseAnswer, parseSlot } from '#server/utils/pretalx/parser'
 
 export function pretalxToOpass(pretalxData: PretalxResult): OpassSchedule {
