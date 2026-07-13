@@ -11,84 +11,128 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="pa-4 text-center flex flex-col gap-4 items-center">
-    <section class="prose">
-      <h1 class="text-5xl text-cp-green">
+  <div class="mx-auto px-4 py-8 flex flex-col gap-12 max-w-4xl">
+    <section class="text-center flex flex-col gap-3 items-center">
+      <h1 class="text-5xl text-cp-green m-0">
         COSCUP x UbuCon Asia 2026
       </h1>
-      <p class="text-2xl text-cp-green">
+      <p class="text-2xl text-cp-green m-0">
         {{ t('co-host') }}
       </p>
-      <p class="text-2xl text-cp-green">
-        {{ t('coming_soon') }}
-      </p>
     </section>
-    <section class="prose">
-      <h3 class="text-center">
-        {{ t('donate.title') }}
-      </h3>
-      <p>
-        {{ t('donate.desc') }}
-      </p>
-      <p>
+
+    <section
+      :aria-label="t('event_details.title')"
+      class="py-6 border-y border-primary-200 gap-6 grid sm:grid-cols-2"
+    >
+      <div class="flex gap-3 items-start">
+        <Icon
+          class="text-primary-500 mt-1 shrink-0"
+          name="tabler:calendar-event"
+          size="28"
+        />
+        <div class="flex flex-col gap-1">
+          <h2 class="text-lg text-gray-900 font-semibold m-0">
+            {{ t('event_details.date.title') }}
+          </h2>
+          <time
+            class="text-lg text-gray-700"
+            datetime="2026-08-08/2026-08-09"
+          >
+            {{ t('event_details.date.value') }}
+          </time>
+        </div>
+      </div>
+
+      <div class="flex gap-3 items-start">
+        <Icon
+          class="text-primary-500 mt-1 shrink-0"
+          name="tabler:map-pin"
+          size="28"
+        />
+        <div class="flex flex-col gap-1">
+          <h2 class="text-lg text-gray-900 font-semibold m-0">
+            {{ t('event_details.venue.title') }}
+          </h2>
+          <p class="text-lg text-gray-700 m-0">
+            {{ t('event_details.venue.name') }}
+          </p>
+          <p class="text-sm text-gray-600 m-0">
+            {{ t('event_details.venue.address') }}
+          </p>
+          <NuxtLinkLocale
+            class="text-primary-600 font-medium mt-1 w-max hover:text-primary-700 hover:underline"
+            to="/transportation"
+          >
+            {{ t('event_details.venue.transportation') }}
+          </NuxtLinkLocale>
+        </div>
+      </div>
+    </section>
+
+    <section class="gap-6 grid md:grid-cols-2">
+      <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
+        <h2 class="text-xl text-gray-900 font-semibold m-0">
+          {{ t('donate.title') }}
+        </h2>
+        <p class="text-gray-700 leading-relaxed m-0">
+          {{ t('donate.desc') }}
+        </p>
         <NuxtLink
-          class="not-prose text-white px-4 py-2 rounded bg-cp-green shadow hover:shadow-lg"
+          class="text-white mt-auto px-4 py-2 rounded bg-cp-green w-max shadow-sm hover:shadow-md"
           target="_blank"
           to="https://s.coscup.org/individualsupporter"
         >
           {{ t('donate.link_text') }}
         </NuxtLink>
-      </p>
-    </section>
-    <section class="prose">
-      <h3 class="text-center">
-        {{ t('call_for_sponsor.title') }}
-      </h3>
-      <p>
-        {{ t('call_for_sponsor.desc') }}
-      </p>
-      <p>
+      </article>
+
+      <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
+        <h2 class="text-xl text-gray-900 font-semibold m-0">
+          {{ t('call_for_sponsor.title') }}
+        </h2>
+        <p class="text-gray-700 leading-relaxed m-0">
+          {{ t('call_for_sponsor.desc') }}
+        </p>
         <NuxtLink
-          class="not-prose text-white px-4 py-2 rounded bg-cp-green shadow hover:shadow-lg"
+          class="text-white mt-auto px-4 py-2 rounded bg-cp-green w-max shadow-sm hover:shadow-md"
           :to="t('call_for_sponsor.link')"
         >
           {{ t('call_for_sponsor.link_text') }}
         </NuxtLink>
-      </p>
-    </section>
-    <section class="prose">
-      <h3 class="text-center">
-        {{ t('accepted_booths.title') }}
-      </h3>
-      <p>
-        {{ t('accepted_booths.desc') }}
-      </p>
-      <p>
+      </article>
+
+      <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
+        <h2 class="text-xl text-gray-900 font-semibold m-0">
+          {{ t('accepted_booths.title') }}
+        </h2>
+        <p class="text-gray-700 leading-relaxed m-0">
+          {{ t('accepted_booths.desc') }}
+        </p>
         <NuxtLink
-          class="not-prose text-white px-4 py-2 rounded bg-cp-green shadow hover:shadow-lg"
+          class="text-white mt-auto px-4 py-2 rounded bg-cp-green w-max shadow-sm hover:shadow-md"
           target="_blank"
           :to="t('accepted_booths.link')"
         >
           {{ t('accepted_booths.link_text') }}
         </NuxtLink>
-      </p>
-    </section>
-    <section class="prose">
-      <h3 class="text-center">
-        {{ t('bof.title') }}
-      </h3>
-      <p>
-        {{ t('bof.desc') }}
-      </p>
-      <p>
+      </article>
+
+      <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
+        <h2 class="text-xl text-gray-900 font-semibold m-0">
+          {{ t('bof.title') }}
+        </h2>
+        <p class="text-gray-700 leading-relaxed m-0">
+          {{ t('bof.desc') }}
+        </p>
         <NuxtLink
-          class="not-prose text-white px-4 py-2 rounded bg-cp-green shadow hover:shadow-lg"
+          class="text-white mt-auto px-4 py-2 rounded bg-cp-green w-max shadow-sm hover:shadow-md"
           target="_blank"
           :to="t('bof.link')"
         >
           {{ t('bof.link_text') }}
         </NuxtLink>
-      </p>
+      </article>
     </section>
   </div>
 </template>
@@ -97,8 +141,17 @@ useSeoMeta({
 en:
   meta:
     description: "COSCUP x UbuCon Asia 2026 — Taiwan's largest open source community conference."
-  coming_soon: "August 8-9 — See you there."
   co-host: "Co-hosted with UbuCon Asia!"
+  event_details:
+    title: "Event details"
+    date:
+      title: "Date"
+      value: "August 8-9, 2026"
+    venue:
+      title: "Venue"
+      name: "National Taiwan University of Science and Technology"
+      address: "No. 43, Sec. 4, Keelung Rd., Da’an Dist., Taipei City"
+      transportation: "Transportation and venue map"
   call_for_sponsor:
     title: "Support COSCUP"
     desc: "If you are interested in sponsoring COSCUP x UbuCon Asia 2026, please refer to our sponsorship package or contact us directly via email."
@@ -122,8 +175,17 @@ en:
 zh:
   meta:
     description: "COSCUP x UbuCon Asia 2026——臺灣最大的開源社群年會。"
-  coming_soon: "敬請期待——COSCUP 將於 8/8 ~ 8/9 與你相見。"
   co-host: "UbuCon Asia 合辦確定！"
+  event_details:
+    title: "活動資訊"
+    date:
+      title: "活動日期"
+      value: "2026 年 8 月 8 日至 9 日"
+    venue:
+      title: "活動地點"
+      name: "國立臺灣科技大學"
+      address: "台北市大安區基隆路四段 43 號"
+      transportation: "交通方式與會場地圖"
   call_for_sponsor:
     title: "贊助 COSCUP"
     desc: "若您對贊助 COSCUP x UbuCon Asia 2026 有興趣，歡迎參考贊助方案，或直接透過電子郵件與我們聯繫。"
