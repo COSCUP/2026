@@ -12,7 +12,6 @@ const { copy, copied } = useClipboard()
 function currentUrl() {
   const url = new URL(window.location.href)
   url.hash = ''
-  url.search = ''
   return url.toString()
 }
 
