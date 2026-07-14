@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import type { Ad } from '#shared/types/ad'
 import type { SessionSummary, TrackDetail } from '#shared/types/session'
 import { useI18n } from 'vue-i18n'
+import CpSessionDetailModal from '~/components/feature/CpSessionDetailModal.vue'
 import CpTrackHeader from '~/components/feature/CpTrackHeader.vue'
 import CpTrackSchedule from '~/components/feature/CpTrackSchedule.vue'
-import CpTrackSessionPanel from '~/components/feature/CpTrackSessionPanel.vue'
+import { provideFavorites } from '~/composables/useFavorites'
 import { getTrackMeta } from '~/data/trackMeta'
+import { DEFAULT_TRACK_COLOR } from '~/utils/tracks'
 
 const { t, locale } = useI18n()
 const route = useRoute()
@@ -12,6 +15,9 @@ const router = useRouter()
 const localePath = useLocalePath()
 
 const { data } = await useFetch<TrackDetail>(`/api/track/${route.params.id}`)
+const { data: ad } = await useFetch<Ad[]>('/api/ad')
+
+provideFavorites()
 
 const localeKey = computed(() => (locale.value === 'zh' ? 'zh' : 'en'))
 const meta = computed(() => getTrackMeta(Number(route.params.id)))
@@ -48,21 +54,56 @@ const selectedDay = computed({
 
 const daySessions = computed<SessionSummary[]>(() => data.value?.sessions[selectedDay.value] ?? [])
 
-const dayIndex = computed(() => {
-  const idx = days.value.indexOf(selectedDay.value)
-  return idx >= 0 ? idx + 1 : 1
-})
+const dayColor = computed(() => data.value?.colors[selectedDay.value] ?? DEFAULT_TRACK_COLOR)
 
-// 被展開的議程（由 query string ?session=<id> 控制），直接展開成側邊面板。
-const allSessions = computed(() => Object.values(data.value?.sessions ?? {}).flat())
-const selectedSession = computed(() =>
-  allSessions.value.find((session) => session.id === route.query.session) ?? null)
+// Detail opens in place via ?session=<id>, built from the summary already loaded.
+const selectedSession = computed<SessionSummary | null>(() =>
+  Object.values(data.value?.sessions ?? {})
+    .flat()
+    .find((session) => session.id === route.query.session) ?? null)
+
+const selectedSessionInfo = computed(() => {
+  const session = selectedSession.value
+  if (!session) {
+    return null
+  }
+
+  const content = session[localeKey.value]
+  const room = locale.value === 'zh'
+    ? (session.room?.['zh-hant'] || session.room?.en || '')
+    : (session.room?.en || session.room?.['zh-hant'] || '')
+  const day = session.start?.slice(0, 10) ?? ''
+  const color = data.value?.colors[day] ?? DEFAULT_TRACK_COLOR
+
+  return {
+    sessionId: session.id,
+    coWrite: undefined,
+    description: content.describe,
+    room,
+    speakers: session.speakers.map((speaker) => ({
+      id: speaker.id,
+      avatar: speaker.avatar ?? undefined,
+      bio: speaker[localeKey.value].bio,
+      name: speaker[localeKey.value].name,
+    })),
+    tags: session.tags,
+    track: { id: data.value!.id, name: title.value, color },
+    time: `${session.start?.slice(0, 16).replace('T', ' ') ?? ''} ~ ${session.end?.slice(11, 16) ?? ''}`,
+    title: content.title,
+    trackColor: color,
+  }
+})
 
 function closeSession() {
   const query = { ...route.query }
   delete query.session
   router.replace({ query })
 }
+
+const dayIndex = computed(() => {
+  const idx = days.value.indexOf(selectedDay.value)
+  return idx >= 0 ? idx + 1 : 1
+})
 
 const dayRooms = computed(() => {
   const key = localeKey.value === 'zh' ? 'zh-hant' : 'en'
@@ -165,13 +206,27 @@ useSeoMeta({
         </p>
       </div>
 
-      <CpTrackSchedule :sessions="daySessions" />
+      <CpTrackSchedule
+        :color="dayColor"
+        :day="selectedDay"
+        :sessions="daySessions"
+      />
     </section>
 
     <ClientOnly>
-      <CpTrackSessionPanel
-        v-if="selectedSession"
-        :session="selectedSession"
+      <CpSessionDetailModal
+        v-if="selectedSessionInfo"
+        :ads="ad ?? []"
+        :co-write="selectedSessionInfo.coWrite"
+        :description="selectedSessionInfo.description"
+        :room="selectedSessionInfo.room"
+        :session-id="selectedSessionInfo.sessionId"
+        :speakers="selectedSessionInfo.speakers"
+        :tags="selectedSessionInfo.tags"
+        :time="selectedSessionInfo.time"
+        :title="selectedSessionInfo.title"
+        :track="selectedSessionInfo.track"
+        :track-color="selectedSessionInfo.trackColor"
         @close="closeSession"
       />
     </ClientOnly>

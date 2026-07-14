@@ -66,6 +66,8 @@ export const TrackDetailSchema = z.object({
   description: PretalxLocaleSchema,
   // 該議程軌的場次，依日期（YYYY-MM-DD）分組。
   sessions: z.record(z.string(), z.array(SessionSummarySchema)),
+  // 該議程軌卡片的顏色，依日期（YYYY-MM-DD）對應，與議程表使用同一組配色。
+  colors: z.record(z.string(), z.string()),
 })
 
 export type SessionSpeaker = z.infer<typeof SessionSpeakerSchema>

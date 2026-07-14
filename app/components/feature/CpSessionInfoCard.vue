@@ -218,7 +218,7 @@ en:
     co-write: Co-write
     room: Room
     speaker: Speaker
-    time: time
+    time: Time
 zh:
     abstract: 議程簡介
     room: 位置
