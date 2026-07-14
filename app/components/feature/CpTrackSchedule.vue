@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { SessionSummary } from '#shared/types/session'
 import { useI18n } from '#imports'
+import { useDragScroll } from '~/composables/useDragScroll'
 import { useFavoriteLabel, useFavorites } from '~/composables/useFavorites'
 import { useRealtime } from '~/composables/useRealtime'
 
@@ -16,6 +17,7 @@ const { time } = useRealtime()
 const route = useRoute()
 const { isFavorite, toggleFavorite } = useFavorites()
 const favoriteLabel = useFavoriteLabel(t)
+const { containerRef, isDragging } = useDragScroll({ scrollTarget: 'container', vertical: false })
 
 // Grid geometry, matching the session table's room-timeline spec.
 const TIME_COL_WIDTH = 56
@@ -184,10 +186,12 @@ function sessionLink(id: string) {
 <template>
   <div
     v-if="rooms.length"
-    class="overflow-x-auto"
+    ref="containerRef"
+    class="w-full overflow-auto"
+    :class="isDragging ? 'cursor-grabbing select-none' : 'cursor-grab'"
   >
     <div
-      class="border border-[rgba(26,26,26,0.12)] rounded-[8px] grid relative overflow-hidden isolate"
+      class="border border-[rgba(26,26,26,0.12)] rounded-[8px] grid relative isolate"
       :style="{
         gridTemplateColumns: `${TIME_COL_WIDTH}px repeat(${rooms.length}, minmax(200px, 1fr))`,
         gridTemplateRows: `${HEADER_HEIGHT}px repeat(${totalGridRows}, ${ROW_HEIGHT}px)`,
