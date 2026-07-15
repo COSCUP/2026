@@ -4,7 +4,9 @@ import type { TableViewMode } from '~/components/feature/CpSessionFilterBar.vue'
 import { useStorage } from '@vueuse/core'
 import { prerenderRoutes } from 'nuxt/app'
 import { useI18n } from 'vue-i18n'
+import { z } from 'zod'
 import { useRoute, useRouter } from '#imports'
+import { SessionSummarySchema } from '#shared/types/session'
 import CpFavoriteImportBanner from '~/components/feature/CpFavoriteImportBanner.vue'
 import CpSessionDaySelector from '~/components/feature/CpSessionDaySelector.vue'
 import CpSessionEmptyBanner from '~/components/feature/CpSessionEmptyBanner.vue'
@@ -23,8 +25,19 @@ const { locale, t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 
+type SessionsByDay = Record<string, SessionSummary[]>
+
+const SessionsByDaySchema = z.record(z.string(), z.array(SessionSummarySchema))
+
+function parseSessionsByDay(value: unknown): SessionsByDay {
+  const parsed = typeof value === 'string' ? JSON.parse(value) as unknown : value
+  return SessionsByDaySchema.parse(parsed)
+}
+
 const { data, status } = await useFetch('/api/session', {
   server: false,
+  transform: parseSessionsByDay,
+  default: (): SessionsByDay => ({}),
 })
 const isSessionLoading = computed(() => status.value === 'idle' || status.value === 'pending')
 const { isFavorite, setFavorites, favorites } = provideFavorites()
