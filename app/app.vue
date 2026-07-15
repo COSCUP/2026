@@ -2,7 +2,7 @@
 import { prerenderRoutes } from 'nuxt/app'
 import { useSecretFeature } from '~/secrets/useSecretFeature'
 
-prerenderRoutes(['/api/opass.json'])
+prerenderRoutes(['/api/opass.json', '/api/session'])
 useSecretFeature()
 
 const route = useRoute()

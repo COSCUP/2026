@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { SessionSummary } from '#shared/types/session'
 import type { TableViewMode } from '~/components/feature/CpSessionFilterBar.vue'
 import { useStorage } from '@vueuse/core'
 import { prerenderRoutes } from 'nuxt/app'
@@ -9,6 +10,7 @@ import CpSessionDaySelector from '~/components/feature/CpSessionDaySelector.vue'
 import CpSessionEmptyBanner from '~/components/feature/CpSessionEmptyBanner.vue'
 import CpSessionFilterBar from '~/components/feature/CpSessionFilterBar.vue'
 import CpSessionList from '~/components/feature/CpSessionList.vue'
+import CpSessionLoadingSkeleton from '~/components/feature/CpSessionLoadingSkeleton.vue'
 import CpSessionShareButton from '~/components/feature/CpSessionShareButton.vue'
 import CpSessionTable from '~/components/feature/CpSessionTable.vue'
 import CpSessionTrackTable from '~/components/feature/CpSessionTrackTable.vue'
@@ -21,7 +23,10 @@ const { locale, t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 
-const { data } = await useFetch('/api/session')
+const { data, status } = await useFetch('/api/session', {
+  server: false,
+})
+const isSessionLoading = computed(() => status.value === 'idle' || status.value === 'pending')
 const { isFavorite, setFavorites, favorites } = provideFavorites()
 
 const days = computed(() => Object.keys(data?.value ?? {}).sort())
@@ -156,11 +161,14 @@ function importShared() {
   view.value = 'favorite'
 }
 
-prerenderRoutes(
-  Object.values(data.value ?? {})
-    .flat()
-    .map((s) => `/session/${s.id}`),
-)
+if (import.meta.server && !route.params.id) {
+  const sessionsByDay = await $fetch<Record<string, SessionSummary[]>>('/api/session')
+  prerenderRoutes(
+    Object.values(sessionsByDay)
+      .flat()
+      .map((s) => `/session/${s.id}`),
+  )
+}
 
 useSeoMeta({
   title: () => t('meta.title'),
@@ -182,28 +190,12 @@ definePageMeta({
 
     <ClientOnly>
       <template #fallback>
-        <div class="flex flex-col">
-          <!-- DaySelector -->
-          <div class="px-6 pb-4 pt-3 flex w-[var(--viewport-width,100vw)] justify-center order-last sm:order-none">
-            <div class="rounded-full bg-gray-200 h-12 w-1/2 animate-pulse" />
-          </div>
-
-          <!-- FilterBar -->
-          <div class="p-4 flex flex-col gap-3 w-[var(--viewport-width,100vw)] items-stretch sm:flex-row sm:items-center sm:left-0 sm:justify-between sm:sticky sm:z-sticky">
-            <div class="flex shrink-0 gap-3 items-center justify-center sm:justify-start">
-              <div class="rounded-md bg-gray-200 h-12 w-18 animate-pulse sm:h-9" />
-              <div class="rounded-md bg-gray-200 h-12 w-18 animate-pulse sm:h-9" />
-            </div>
-
-            <div class="rounded-md bg-gray-200 h-12 w-full animate-pulse sm:flex-none sm:h-9 sm:w-80" />
-          </div>
-
-          <!-- Session -->
-          <div class="rounded-xl bg-gray-200 h-screen w-[var(--viewport-width,100vw)] animate-pulse" />
-        </div>
+        <CpSessionLoadingSkeleton />
       </template>
 
-      <template v-if="selectedDay">
+      <CpSessionLoadingSkeleton v-if="isSessionLoading" />
+
+      <template v-else-if="selectedDay">
         <div class="flex flex-col">
           <!-- A `?filter=` link carries shared favorites: preview them and offer import. -->
           <div
