@@ -34,10 +34,11 @@ function parseSessionsByDay(value: unknown): SessionsByDay {
   return SessionsByDaySchema.parse(parsed)
 }
 
-const { data, status } = await useFetch('/api/session', {
+const { data, status } = useFetch('/api/session', {
   server: false,
   transform: parseSessionsByDay,
   default: (): SessionsByDay => ({}),
+  lazy: true,
 })
 const isSessionLoading = computed(() => status.value === 'idle' || status.value === 'pending')
 const isSessionLoaded = computed(() => status.value === 'success')
