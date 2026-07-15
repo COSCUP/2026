@@ -196,7 +196,7 @@ onUnmounted(() => {
             <div class="rounded-full bg-gray-300 h-1 w-10" />
           </div>
 
-          <div class="mr-4 flex gap-2 h-0 top-5 justify-end relative z-content overflow-visible sm:mr-6">
+          <div class="mr-4 mt-2 flex gap-2 justify-end sm:mr-6 sm:mt-4">
             <CpSessionDetailShareButton :title="title" />
             <button
               :aria-label="isFavorite(sessionId) ? t('removeFavorite') : t('addFavorite')"
@@ -228,7 +228,6 @@ onUnmounted(() => {
             :ad="randomAd"
             :co-write="coWrite"
             :description="description"
-            has-title-margin-right
             :room="room"
             :speakers="speakers"
             :tags="tags"

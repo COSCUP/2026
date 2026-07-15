@@ -23,7 +23,6 @@ const props = defineProps<{
   }
   description: string
   ad: Ad | null
-  hasTitleMarginRight?: boolean
 }>()
 
 const { t, locale } = useI18n()
@@ -37,12 +36,9 @@ const speakerNames = computed(() =>
 </script>
 
 <template>
-  <article class="py-5 bg-white flex flex-col gap-3 min-w-0">
+  <article class="py-4 bg-white flex flex-col gap-3 min-w-0">
     <header class="px-4 sm:px-6">
-      <h1
-        class="text-xl leading-tight font-bold mb-4 break-words sm:text-2xl"
-        :class="hasTitleMarginRight ? 'mr-36 sm:mr-60' : ''"
-      >
+      <h1 class="text-xl leading-tight font-bold mb-4 break-words sm:text-2xl">
         {{ title }}
       </h1>
       <dl class="mb-3 flex flex-col gap-2">
