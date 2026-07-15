@@ -40,6 +40,7 @@ const { data, status } = await useFetch('/api/session', {
   default: (): SessionsByDay => ({}),
 })
 const isSessionLoading = computed(() => status.value === 'idle' || status.value === 'pending')
+const isSessionLoaded = computed(() => status.value === 'success')
 const { isFavorite, setFavorites, favorites } = provideFavorites()
 
 const days = computed(() => Object.keys(data?.value ?? {}).sort())
@@ -101,6 +102,10 @@ const selectedDay = computed({
 })
 
 watchEffect(() => {
+  if (!isSessionLoaded.value) {
+    return
+  }
+
   if (route.query.day && !queryDay.value) {
     const nextQuery = { ...route.query }
     delete nextQuery.day
