@@ -141,11 +141,10 @@ const speakerNames = computed(() =>
       <h2 class="text-lg font-bold my-2">
         {{ t("abstract") }}
       </h2>
-      <div
-        class="text-gray-700 leading-relaxed whitespace-pre-wrap break-words"
-      >
-        <MDC :value="description" />
-      </div>
+      <MDC
+        class="max-w-full break-words prose prose-zinc prose-sm"
+        :value="description"
+      />
     </section>
     <section class="px-4 sm:px-6">
       <h2 class="text-lg font-bold my-2">
@@ -183,11 +182,10 @@ const speakerNames = computed(() =>
                   {{ speaker.name }}
                 </h3>
               </div>
-              <div
-                class="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap break-words"
-              >
-                <MDC :value="speaker.bio" />
-              </div>
+              <MDC
+                class="max-w-full break-words prose prose-zinc prose-sm"
+                :value="speaker.bio"
+              />
             </div>
           </div>
         </div>
