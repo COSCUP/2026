@@ -29,8 +29,9 @@ type SessionsByDay = Record<string, SessionSummary[]>
 
 const SessionsByDaySchema = z.record(z.string(), z.array(SessionSummarySchema))
 
-function parseSessionsByDay(value: unknown): SessionsByDay {
-  const parsed = typeof value === 'string' ? JSON.parse(value) as unknown : value
+async function parseSessionsByDay(value: unknown): Promise<SessionsByDay> {
+  const response = value instanceof Blob ? await value.text() : value
+  const parsed = typeof response === 'string' ? JSON.parse(response) as unknown : response
   return SessionsByDaySchema.parse(parsed)
 }
 
