@@ -41,30 +41,59 @@ const times = computed(() => Object.keys(sessions.value).sort())
 </script>
 
 <template>
-  <div class="flex flex-col gap-6 w-[var(--viewport-width,100vw)] isolate">
+  <div class="pa-3 flex flex-col gap-6 w-[var(--viewport-width,100vw)] isolate">
     <section
       v-for="time in times"
       :key="time"
+      class="group/section"
     >
-      <h3 class="text-lg text-primary-400 font-medium mb-2 py-1 bg-white top-0 sticky z-content">
-        {{ time }}
+      <input
+        :id="`session-time-${time}`"
+        checked
+        class="sr-only"
+        type="checkbox"
+      >
+      <h3 class="text-sm font-medium mb-2 bg-white top-0 sticky z-content">
+        <label
+          class="text-primary-400 py-1 flex gap-1 w-full cursor-pointer select-none items-center justify-between"
+          :for="`session-time-${time}`"
+        >
+          <div class="flex gap-x-2 items-center">
+            <span class="w-[5ch] block">{{ time }}</span>
+            <Icon
+              class="text-md text-primary-400"
+              name="tabler:circle"
+            />
+            <span v-if="sessions?.[time] && sessions[time].length > 1">
+              {{ sessions[time].length }} 場同時開始
+            </span>
+          </div>
+          <Icon
+            class="text-sm transition-transform duration-300 group-has-[input:not(:checked)]/section:-rotate-180"
+            name="tabler:chevron-up"
+          />
+        </label>
       </h3>
-      <div class="flex flex-col gap-2">
-        <CpSessionItem
-          v-for="session in sessions[time]"
-          :key="session.id"
-          :end="session.end"
-          :favorite="preview || isFavorite(session.id)"
-          :favorite-label="favoriteLabel(session.id, preview)"
-          :readonly="preview"
-          :room="session.room"
-          :speaker="session.speakers"
-          :start="session.start"
-          :tags="session.tags"
-          :title="session.title"
-          :to="localePath(`/session/${session.id}`)"
-          @toggle-favorite="toggleFavorite(session.id)"
-        />
+      <div class="grid grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-in-out group-has-[input:not(:checked)]/section:grid-rows-[0fr]">
+        <div class="overflow-hidden">
+          <div class="pb-2 flex flex-col gap-2">
+            <CpSessionItem
+              v-for="session in sessions[time]"
+              :key="session.id"
+              :end="session.end"
+              :favorite="preview || isFavorite(session.id)"
+              :favorite-label="favoriteLabel(session.id, preview)"
+              :readonly="preview"
+              :room="session.room"
+              :speaker="session.speakers"
+              :start="session.start"
+              :tags="session.tags"
+              :title="session.title"
+              :to="localePath(`/session/${session.id}`)"
+              @toggle-favorite="toggleFavorite(session.id)"
+            />
+          </div>
+        </div>
       </div>
     </section>
   </div>
