@@ -62,7 +62,7 @@ When riding a bicycle, pay attention to road conditions, keep to the side, or us
 
 We recommend choosing accommodation with convenient access to Gongguan, NTU, Taiwan Tech, or stations along the MRT Green Line. If you want to join the Welcome Party, BoF, or Fringe Events during the event period, you can also consider areas with convenient transfers such as Taipei Main Station, Gongguan, Guting, Chiang Kai-shek Memorial Hall, and Dongmen.
 
-:::tip{title="Toiletries Reminder"}
+:::notification{type="tip" title="Toiletries Reminder"}
 
 Under Taiwan law, accommodation providers no longer provide disposable toiletries. We strongly recommend bringing your own toothbrush, slippers, razor, and other personal items.
 
@@ -255,7 +255,7 @@ In most situations, you can ask people nearby for help in English or by using a 
 
 If someone brings you to a convenience store after reading the note, please stay there and wait. COSCUP will try to contact the convenience store after receiving the email.
 
-:::info{title="給協助者看的中文紙條"}
+:::notification{type="info" title="給協助者看的中文紙條"}
 
 當您看到這個紙條表示你面前的這位朋友遇到麻煩需要協助，您是否可以開啟翻譯軟體簡單溝通問題。
 
