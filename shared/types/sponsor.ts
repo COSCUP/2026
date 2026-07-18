@@ -9,7 +9,7 @@ export const SPONSOR_LEVELS = [
 
 export const SponsorLevelSchema = z.enum(SPONSOR_LEVELS)
 
-const RewardTypeSchema = z.enum(['Null', '連續贊助', '累積贊助']).default('Null').catch('Null')
+const RewardTypeSchema = z.enum(['Null', '累計贊助', '連續贊助']).default('Null').catch('Null')
 const RewardDataSchema = z.coerce.number().int().nonnegative().default(0).catch(0)
 
 export const SponsorListRowSchema = z.object({
