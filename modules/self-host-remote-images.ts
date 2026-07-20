@@ -4,6 +4,7 @@ import { resolve } from 'node:path'
 import { parse } from 'csv-parse/sync'
 import { defineNuxtModule, useLogger } from 'nuxt/kit'
 import sharp from 'sharp'
+import { hasProtocol, joinURL } from 'ufo'
 import { normalizeRemoteImageUrl } from '../shared/utils/remoteImages'
 
 type ImageManifest = Record<string, string>
@@ -114,7 +115,7 @@ async function getPretalxImages(): Promise<string[]> {
   const images: string[] = []
   let url: string | null = 'speakers'
   while (url) {
-    const response = await fetch(new URL(url, baseURL), { headers: { Authorization: `Token ${token}` } })
+    const response = await fetch(hasProtocol(url) ? url : joinURL(baseURL, url), { headers: { Authorization: `Token ${token}` } })
     if (!response.ok) {
       throw new Error(`Unable to fetch Pretalx speakers: ${response.status} ${response.statusText}`)
     }
