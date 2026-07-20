@@ -126,6 +126,7 @@ export default defineNuxtConfig({
   },
 
   modules: [
+    './modules/self-host-remote-images',
     '@unocss/nuxt',
     '@nuxt/content',
     '@nuxt/eslint',

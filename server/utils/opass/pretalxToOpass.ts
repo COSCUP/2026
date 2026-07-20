@@ -2,6 +2,7 @@ import type { OpassTag } from '#server/utils/opass/tags'
 import type { PretalxResult, Room, Speaker, Submission, SubmissionType } from '#shared/types/pretalx'
 import { sessionTags } from '#server/utils/opass/tags'
 import { parseAnswer, parseSlot } from '#server/utils/pretalx/parser'
+import { selfHostedImageUrl } from '#server/utils/remoteImages'
 
 export function pretalxToOpass(pretalxData: PretalxResult) {
   const speakerIds: Set<Speaker['code']> = new Set()
@@ -63,7 +64,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
 
     return {
       id: speaker.code,
-      avatar: speaker.avatar_url ?? '',
+      avatar: speaker.avatar_url ? selfHostedImageUrl(speaker.avatar_url) : '',
       zh: {
         name: answer.zhName || speaker.name,
         bio: answer.zhBio || speaker.biography,

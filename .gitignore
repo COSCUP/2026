@@ -4,6 +4,7 @@
 .nuxt
 .nitro
 .cache
+public/_remote-images
 dist
 
 # Node dependencies

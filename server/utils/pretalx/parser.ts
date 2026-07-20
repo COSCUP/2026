@@ -1,5 +1,6 @@
 import type { Answer, PretalxResult, Room, Slot, Submission, SubmissionType, Tag, Track } from '#shared/types/pretalx'
 import type { SessionDifficulty, SessionSpeaker, SessionTrack } from '#shared/types/session'
+import { selfHostedImageUrl } from '#server/utils/remoteImages'
 
 // 對應 pretalx 的問題 ID。
 // key 為系統內使用的欄位名稱，value 為 pretalx 的 question id。
@@ -99,7 +100,7 @@ export function parseSpeaker(speakerIds: Submission['speakers'], pretalxData: Pr
 
     return {
       id: speaker.code,
-      avatar: speaker.avatar_url,
+      avatar: speaker.avatar_url ? selfHostedImageUrl(speaker.avatar_url) : null,
       zh: {
         name: answer.zhName || speaker.name,
         bio: answer.zhBio || speaker.biography,
