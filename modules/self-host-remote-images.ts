@@ -20,7 +20,12 @@ function cacheKey(url: string): string {
 }
 
 function driveThumbnailUrl(source: string): string | null {
-  const url = new URL(source)
+  let url: URL
+  try {
+    url = new URL(source)
+  } catch {
+    return null
+  }
   if (url.hostname !== 'drive.google.com') {
     return null
   }
@@ -30,7 +35,11 @@ function driveThumbnailUrl(source: string): string | null {
 }
 
 function isPretalxAvatar(source: string): boolean {
-  return new URL(source).hostname === 'pretalx.coscup.org'
+  try {
+    return new URL(source).hostname === 'pretalx.coscup.org'
+  } catch {
+    return false
+  }
 }
 
 async function downloadAsWebp(url: string): Promise<Buffer> {
@@ -152,6 +161,11 @@ export default defineNuxtModule({
       await runWithConcurrency(sources, async (source, index) => {
         const key = cacheKey(source)
         const cachedName = manifest[source]
+        if (cachedName === PRETALX_PLACEHOLDER) {
+          logger.debug(`${index + 1}/${sources.length} cache hit: ${source}`)
+          return
+        }
+
         const cachedPath = cachedName && resolve(cacheFilesDir, cachedName)
         if (cachedName?.endsWith('.webp') && cachedPath && await stat(cachedPath).then(() => true).catch(() => false)) {
           logger.debug(`${index + 1}/${sources.length} cache hit: ${source}`)
