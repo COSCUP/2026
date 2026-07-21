@@ -1,11 +1,13 @@
 <script lang="ts" setup>
-import type { SessionSummary } from '#shared/types/session'
+import type { SessionSummary, SessionTrack } from '#shared/types/session'
 import { useI18n } from '#imports'
 import { useFavoriteLabel, useFavorites } from '~/composables/useFavorites'
+import { DEFAULT_TRACK_COLOR, trackKey } from '~/utils/tracks'
 import CpSessionItem from './CpSessionItem.vue'
 
-const { sessions: _sessions, preview = false } = defineProps<{
+const { sessions: _sessions, trackColors, preview = false } = defineProps<{
   sessions: SessionSummary[]
+  trackColors: Map<string, string>
   // Shared-list preview: render every session as a read-only favorite.
   preview?: boolean
 }>()
@@ -14,6 +16,11 @@ const { locale, t } = useI18n()
 const localePath = useLocalePath()
 const { isFavorite, toggleFavorite } = useFavorites()
 const favoriteLabel = useFavoriteLabel(t)
+
+function localeName(name?: SessionTrack['name']) {
+  const { en = '', 'zh-hant': zh = '' } = name ?? {}
+  return locale.value === 'zh' ? zh || en : en || zh
+}
 
 const sessions = computed(() => {
   if (!_sessions) {
@@ -31,7 +38,12 @@ const sessions = computed(() => {
         room: locale.value === 'zh'
           ? (session.room?.['zh-hant'] || session.room?.en || '')
           : (session.room?.en || session.room?.['zh-hant'] || ''),
-        tags: [],
+        tags: session.tags,
+        track: {
+          id: session.track?.id,
+          name: localeName(session.track?.name),
+          color: trackColors.get(trackKey(session)) ?? DEFAULT_TRACK_COLOR,
+        },
       })),
     (session) => session.start,
   )

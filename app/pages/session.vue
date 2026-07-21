@@ -260,6 +260,7 @@ definePageMeta({
             class="sm:hidden"
             :preview="isSharing"
             :sessions="displayedSessions"
+            :track-colors="trackColors"
           />
           <CpSessionTrackTable
             v-if="displayedSessions.length > 0 && viewMode !== 'table'"
