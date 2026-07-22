@@ -70,6 +70,25 @@ useSeoMeta({
       </div>
     </section>
 
+    <section
+      :aria-label="t('ubucon.title')"
+      class="p-6 text-center border border-green-200 rounded-lg bg-green-50 flex flex-col gap-2 items-center"
+    >
+      <h2 class="text-xl text-gray-900 font-semibold m-0">
+        {{ t('ubucon.title') }}
+      </h2>
+      <p class="text-gray-700 leading-relaxed m-0">
+        {{ t('ubucon.desc') }}
+      </p>
+      <NuxtLink
+        class="text-cp-green font-medium mt-1 w-max hover:text-green-700 hover:underline"
+        target="_blank"
+        to="https://2026.ubucon.asia/"
+      >
+        {{ t('ubucon.link_text') }}
+      </NuxtLink>
+    </section>
+
     <section class="gap-6 grid md:grid-cols-2">
       <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
         <h2 class="text-xl text-gray-900 font-semibold m-0">
@@ -142,6 +161,10 @@ en:
   meta:
     description: "COSCUP x UbuCon Asia 2026 — Taiwan's largest open source community conference."
   co-host: "Co-hosted with UbuCon Asia!"
+  ubucon:
+    title: "About UbuCon Asia"
+    desc: "UbuCon Asia is a community-organized conference that brings together Ubuntu enthusiasts, engineers, creators, researchers, entrepreneurs, and contributors from across Asia, driven by volunteers from the Ubuntu community."
+    link_text: "Visit UbuCon Asia 2026"
   event_details:
     title: "Event details"
     date:
@@ -176,6 +199,10 @@ zh:
   meta:
     description: "COSCUP x UbuCon Asia 2026——臺灣最大的開源社群年會。"
   co-host: "UbuCon Asia 合辦確定！"
+  ubucon:
+    title: "關於 UbuCon Asia"
+    desc: "UbuCon Asia 是由 Ubuntu 社群志工發起的社群年會，集結來自亞洲各地的 Ubuntu 愛好者、工程師、創作者、研究者、創業者與貢獻者。"
+    link_text: "前往 UbuCon Asia 2026"
   event_details:
     title: "活動資訊"
     date:
