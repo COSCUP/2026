@@ -16,18 +16,15 @@ useSeoMeta({
       <h1 class="text-5xl text-cp-green m-0">
         COSCUP x UbuCon Asia 2026
       </h1>
-      <p class="text-2xl text-cp-green m-0">
-        {{ t('co-host') }}
-      </p>
     </section>
 
     <section
       :aria-label="t('event_details.title')"
-      class="py-6 border-y border-primary-200 gap-6 grid sm:grid-cols-2"
+      class="py-6 border-y border-cp-green gap-6 grid sm:grid-cols-2"
     >
       <div class="flex gap-3 items-start">
         <Icon
-          class="text-primary-500 mt-1 shrink-0"
+          class="text-cp-green mt-1 shrink-0"
           name="tabler:calendar-event"
           size="28"
         />
@@ -46,7 +43,7 @@ useSeoMeta({
 
       <div class="flex gap-3 items-start">
         <Icon
-          class="text-primary-500 mt-1 shrink-0"
+          class="text-cp-green mt-1 shrink-0"
           name="tabler:map-pin"
           size="28"
         />
@@ -61,7 +58,7 @@ useSeoMeta({
             {{ t('event_details.venue.address') }}
           </p>
           <NuxtLinkLocale
-            class="text-primary-600 font-medium mt-1 w-max hover:text-primary-700 hover:underline"
+            class="text-cp-green font-medium mt-1 w-max hover:text-primary-700 hover:underline"
             to="/transportation"
           >
             {{ t('event_details.venue.transportation') }}
@@ -160,7 +157,6 @@ useSeoMeta({
 en:
   meta:
     description: "COSCUP x UbuCon Asia 2026 — Taiwan's largest open source community conference."
-  co-host: "Co-hosted with UbuCon Asia!"
   ubucon:
     title: "About UbuCon Asia"
     desc: "UbuCon Asia is a community-organized conference that brings together Ubuntu enthusiasts, engineers, creators, researchers, entrepreneurs, and contributors from across Asia, driven by volunteers from the Ubuntu community."
@@ -198,7 +194,6 @@ en:
 zh:
   meta:
     description: "COSCUP x UbuCon Asia 2026——臺灣最大的開源社群年會。"
-  co-host: "UbuCon Asia 合辦確定！"
   ubucon:
     title: "關於 UbuCon Asia"
     desc: "UbuCon Asia 是由 Ubuntu 社群志工發起的社群年會，集結來自亞洲各地的 Ubuntu 愛好者、工程師、創作者、研究者、創業者與貢獻者。"
