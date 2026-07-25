@@ -31,7 +31,7 @@ const LANGUAGE_GENERALIZE_MAP: Record<string, string> = {
 }
 
 function buildTag(id: string, key: string): OpassTag {
-  const name = TAG_NAMES[key]!
+  const name = TAG_NAMES[key] ?? { zh: key, en: key }
   return { id, zh: { name: name.zh }, en: { name: name.en } }
 }
 
