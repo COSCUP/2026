@@ -137,7 +137,7 @@ export function parseTrack(trackId: Submission['track'], pretalxData: PretalxRes
 }
 
 // 解析議程標籤，並把正規化後的難度（若有）一併併入標籤清單，
-// 讓難度成為標籤的一部分而非獨立欄位。
+// 將 appends（難度、語言等）前置於 Pretalx 公開標籤之前。
 export function parseTags(tagIds: Submission['tags'], pretalxData: PretalxResult, appends: string[] = []): string[] {
   const tagMap = pretalxData.tags.map
 
@@ -146,7 +146,7 @@ export function parseTags(tagIds: Submission['tags'], pretalxData: PretalxResult
     .filter((tag): tag is Tag => tag !== undefined && tag.is_public)
     .map((tag) => tag.tag)
 
-  return appends ? [...appends, ...tags] : tags
+  return [...appends, ...tags]
 }
 
 // 將投稿者填寫的難度原始字串正規化成統一的英文 enum，無法對應時回傳 undefined。
