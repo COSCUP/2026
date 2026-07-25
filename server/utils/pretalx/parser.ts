@@ -169,7 +169,7 @@ export function parseLanguage(language: string | undefined): string | undefined 
     return 'English'
   }
 
-  if (lang === 'chinese' || lang === '中文' || lang === 'Mandarin') {
+  if (lang === '中文' || lang === 'mandarin') {
     return 'Mandarin'
   }
 
