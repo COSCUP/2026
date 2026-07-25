@@ -22,9 +22,9 @@ const desktopModeItems = computed<{ key: TableViewMode, label: string, icon: str
   { key: 'table', label: t('viewMode.table'), icon: 'tabler:layout-columns' },
 ])
 
-const mobileModeItems = computed<{ key: TableViewMode, label: string, icon: string }[]>(() => [
-  { key: 'track', label: '', icon: 'tabler:clock' },
-  { key: 'table', label: '', icon: 'tabler:list-details' },
+const mobileModeItems = computed<{ key: TableViewMode, label: string, icon: string, srOnlyLabel: boolean }[]>(() => [
+  { key: 'track', label: t('viewMode.track'), icon: 'tabler:clock', srOnlyLabel: true },
+  { key: 'table', label: t('viewMode.table'), icon: 'tabler:list-details', srOnlyLabel: true },
 ])
 </script>
 

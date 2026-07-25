@@ -5,6 +5,7 @@ export interface Item<T extends string> {
   key: T
   label: string
   icon?: string
+  srOnlyLabel?: boolean
 }
 
 defineProps<{
@@ -35,7 +36,7 @@ const model = defineModel<T>({ required: true })
           size="18"
         />
       </template>
-      {{ item.label }}
+      <span :class="{ 'sr-only': item.srOnlyLabel }">{{ item.label }}</span>
     </CpButton>
   </div>
 </template>
