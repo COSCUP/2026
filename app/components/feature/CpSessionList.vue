@@ -53,7 +53,7 @@ const times = computed(() => Object.keys(sessions.value).sort())
 </script>
 
 <template>
-  <div class="pa-3 flex flex-col gap-6 w-[var(--viewport-width,100vw)] isolate">
+  <div class="p-3 flex flex-col gap-6 w-[var(--viewport-width,100vw)] isolate">
     <section
       v-for="time in times"
       :key="time"

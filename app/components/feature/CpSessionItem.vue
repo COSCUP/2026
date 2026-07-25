@@ -27,7 +27,7 @@ defineEmits<{
 
 <template>
   <div
-    class="p-2 border border-l-5 border-gray-300 rounded transition-colors relative"
+    class="p-2 border border-l-4 border-gray-300 rounded transition-colors relative"
     :style="{ 'border-left-color': track.color }"
   >
     <!-- Overlay link, so the bookmark is a sibling rather than nested in the anchor.
