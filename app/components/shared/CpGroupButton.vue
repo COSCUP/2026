@@ -1,14 +1,15 @@
 <script setup lang="ts" generic="T extends string">
 import CpButton from '~/components/shared/CpButton.vue'
 
-export interface SessionViewItem<T extends string> {
+export interface Item<T extends string> {
   key: T
   label: string
   icon?: string
+  srOnlyLabel?: boolean
 }
 
 defineProps<{
-  items: SessionViewItem<T>[]
+  items: Item<T>[]
 }>()
 
 const model = defineModel<T>({ required: true })
@@ -35,7 +36,7 @@ const model = defineModel<T>({ required: true })
           size="18"
         />
       </template>
-      {{ item.label }}
+      <span :class="{ 'sr-only': item.srOnlyLabel }">{{ item.label }}</span>
     </CpButton>
   </div>
 </template>

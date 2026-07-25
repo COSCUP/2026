@@ -8,6 +8,7 @@ import { z } from 'zod'
 import { useRoute, useRouter } from '#imports'
 import { SessionSummarySchema } from '#shared/types/session'
 import CpFavoriteImportBanner from '~/components/feature/CpFavoriteImportBanner.vue'
+import CpFavoriteViewToggle from '~/components/feature/CpFavoriteViewToggle.vue'
 import CpSessionDaySelector from '~/components/feature/CpSessionDaySelector.vue'
 import CpSessionEmptyBanner from '~/components/feature/CpSessionEmptyBanner.vue'
 import CpSessionFilterBar from '~/components/feature/CpSessionFilterBar.vue'
@@ -16,7 +17,6 @@ import CpSessionLoadingSkeleton from '~/components/feature/CpSessionLoadingSkele
 import CpSessionShareButton from '~/components/feature/CpSessionShareButton.vue'
 import CpSessionTable from '~/components/feature/CpSessionTable.vue'
 import CpSessionTrackTable from '~/components/feature/CpSessionTrackTable.vue'
-import CpSessionViewToggle from '~/components/feature/CpSessionViewToggle.vue'
 import { decodeFavorites, provideFavorites } from '~/composables/useFavorites'
 import { useSessionFilter } from '~/composables/useSessionFilter'
 import { buildTrackColorMap } from '~/utils/tracks'
@@ -133,10 +133,6 @@ const viewMode = useStorage<TableViewMode>('coscup-session-view-mode', 'track')
 
 type SessionView = 'all' | 'favorite'
 const view = ref<SessionView>('all')
-const viewItems = computed<{ key: SessionView, label: string, icon?: string }[]>(() => [
-  { key: 'all', label: t('view.all') },
-  { key: 'favorite', label: t('view.favorite'), icon: 'tabler:bookmark' },
-])
 
 // The favorites / shared view on top of the room/tag/search filters.
 const displayedSessions = computed(() => {
@@ -246,9 +242,8 @@ definePageMeta({
             <template #controls>
               <!-- Mobile: toggle, then share. Desktop: share, then toggle. -->
               <div class="flex gap-3 items-center sm:flex-row-reverse">
-                <CpSessionViewToggle
+                <CpFavoriteViewToggle
                   v-model="view"
-                  :items="viewItems"
                 />
                 <CpSessionShareButton v-if="view === 'favorite' && favorites.size > 0" />
               </div>
@@ -260,6 +255,7 @@ definePageMeta({
             class="sm:hidden"
             :preview="isSharing"
             :sessions="displayedSessions"
+            :track-colors="trackColors"
           />
           <CpSessionTrackTable
             v-if="displayedSessions.length > 0 && viewMode !== 'table'"
@@ -307,15 +303,9 @@ definePageMeta({
     meta:
       title: 'Sessions'
       description: 'Browse the full session schedule for COSCUP x UbuCon Asia 2026.'
-    view:
-      all: 'Sessions'
-      favorite: 'Favorites'
   zh:
     noSession: '尚未公布，敬請期待。'
     meta:
       title: '議程'
       description: '瀏覽 COSCUP x UbuCon Asia 2026 的完整議程時間表。'
-    view:
-      all: '議程'
-      favorite: '收藏'
 </i18n>
