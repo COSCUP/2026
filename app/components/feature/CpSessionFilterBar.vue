@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { FilterOption } from '~/composables/useSessionFilter'
+import CpGroupButton from '~/components/shared/CpGroupButton.vue'
 import CpTextField from '~/components/shared/CpTextField.vue'
 import CpSessionFilterDropdown from './CpSessionFilterDropdown.vue'
-import CpSessionViewToggle from './CpSessionViewToggle.vue'
 
 export type TableViewMode = 'track' | 'table'
 
@@ -26,7 +26,7 @@ const viewModeItems = computed<{ key: TableViewMode, label: string, icon: string
 <template>
   <div class="flex flex-col gap-3 w-[var(--viewport-width,100vw)] items-stretch sm:flex-row sm:items-center sm:justify-between">
     <div class="flex shrink-0 gap-3 items-center justify-center sm:justify-start">
-      <CpSessionViewToggle
+      <CpGroupButton
         v-model="viewMode"
         class="hidden sm:inline-flex"
         :items="viewModeItems"

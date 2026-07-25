@@ -16,7 +16,7 @@ import CpSessionLoadingSkeleton from '~/components/feature/CpSessionLoadingSkele
 import CpSessionShareButton from '~/components/feature/CpSessionShareButton.vue'
 import CpSessionTable from '~/components/feature/CpSessionTable.vue'
 import CpSessionTrackTable from '~/components/feature/CpSessionTrackTable.vue'
-import CpSessionViewToggle from '~/components/feature/CpSessionViewToggle.vue'
+import CpGroupButton from '~/components/shared/CpGroupButton.vue'
 import { decodeFavorites, provideFavorites } from '~/composables/useFavorites'
 import { useSessionFilter } from '~/composables/useSessionFilter'
 import { buildTrackColorMap } from '~/utils/tracks'
@@ -246,7 +246,7 @@ definePageMeta({
             <template #controls>
               <!-- Mobile: toggle, then share. Desktop: share, then toggle. -->
               <div class="flex gap-3 items-center sm:flex-row-reverse">
-                <CpSessionViewToggle
+                <CpGroupButton
                   v-model="view"
                   :items="viewItems"
                 />
