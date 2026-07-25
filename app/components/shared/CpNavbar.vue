@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useResizeObserver } from '@vueuse/core'
 import CpDropdown from './CpDropdown.vue'
 
 const { locale, locales, defaultLocale, t } = useI18n()
@@ -32,6 +33,7 @@ const menu = computed<MenuItem[]>(() => [
       { label: t('menu.invitation_letter_guide'), path: '/participate/invitation-letter-guide' },
     ],
   },
+  { key: 'staff', path: '/staff' },
   { key: 'bof', path: 'https://docs.google.com/document/d/1ZerJ-5QYcEJ5guhxtK-SBW2BA6RMHtVJnqNIWxRCz18/edit?tab=t.0', external: true, newPage: true },
   { key: 'blog', path: 'https://blog.coscup.org/', external: true },
   { key: 'coc', path: `https://hackmd.io/@coscup/cococo-${locale.value}`, external: true },
@@ -49,23 +51,62 @@ function closeMenu() {
   menuOpen.value = false
   mobileDropdownOpen.value = false
 }
+
+// Overflow detection
+const navRef = ref<HTMLElement>()
+const logoRef = ref<HTMLElement>()
+const menuRef = ref<HTMLElement>()
+const localeRef = ref<HTMLElement>()
+const isOverflowing = ref(false)
+let cachedMenuWidth = 0
+let cachedLocaleWidth = 0
+
+function checkOverflow() {
+  if (!navRef.value || !menuRef.value || !logoRef.value || !localeRef.value) {
+    return
+  }
+
+  if (!isOverflowing.value) {
+    cachedMenuWidth = menuRef.value.scrollWidth
+    cachedLocaleWidth = localeRef.value.offsetWidth
+  }
+
+  const needed = logoRef.value.offsetWidth +
+    (cachedMenuWidth || menuRef.value.scrollWidth) +
+    (cachedLocaleWidth || localeRef.value.offsetWidth) +
+    24 // gap allowance
+  isOverflowing.value = needed > navRef.value.clientWidth
+}
+
+useResizeObserver(navRef, checkOverflow)
 </script>
 
 <template>
-  <nav class="text-gray-700 px-3 py-1 border-b border-gray-300 bg-white flex h-16 justify-between relative *:h-full">
-    <NuxtLinkLocale
+  <nav
+    ref="navRef"
+    class="text-gray-700 px-3 py-1 border-b border-gray-300 bg-white flex h-16 justify-between relative *:h-full"
+  >
+    <div
+      ref="logoRef"
       class="flex flex-shrink-0 items-center"
-      to="/"
     >
-      <NuxtPicture
-        :alt="t('logo_alt')"
-        :img-attrs="{ class: 'object-contain h-8' }"
-        src="/coscup_logo.png"
-      />
-    </NuxtLinkLocale>
+      <NuxtLinkLocale
+        class="flex h-full items-center"
+        to="/"
+      >
+        <NuxtPicture
+          :alt="t('logo_alt')"
+          :img-attrs="{ class: 'object-contain h-8' }"
+          src="/coscup_logo.png"
+        />
+      </NuxtLinkLocale>
+    </div>
 
     <!-- Desktop menu -->
-    <ul class="gap-3 hidden items-center justify-center sm:flex">
+    <ul
+      ref="menuRef"
+      :class="isOverflowing ? 'hidden' : 'flex gap-3 items-center justify-center'"
+    >
       <li
         v-for="item in menu"
         :key="item.key"
@@ -92,20 +133,23 @@ function closeMenu() {
       </li>
     </ul>
 
-    <!-- Desktop locale switcher -->
-    <div class="hidden items-center sm:flex">
-      <NuxtLink
-        class="flex gap-1 items-center"
-        :to="switchLocalePath(otherLocale.code)"
+    <!-- Right side: locale switcher (desktop) or hamburger -->
+    <div class="flex items-center">
+      <div
+        ref="localeRef"
+        :class="isOverflowing ? 'hidden' : 'flex items-center'"
       >
-        <Icon name="tabler:world" />
-        {{ otherLocale.name }}
-      </NuxtLink>
-    </div>
+        <NuxtLink
+          class="flex gap-1 items-center"
+          :to="switchLocalePath(otherLocale.code)"
+        >
+          <Icon name="tabler:world" />
+          {{ otherLocale.name }}
+        </NuxtLink>
+      </div>
 
-    <!-- Mobile hamburger button -->
-    <div class="flex items-center sm:hidden">
       <button
+        v-if="isOverflowing"
         :aria-expanded="menuOpen"
         :aria-label="t('menu_toggle')"
         class="p-2 rounded hover:bg-gray-100"
@@ -121,15 +165,15 @@ function closeMenu() {
 
     <!-- Mobile backdrop -->
     <div
-      v-if="menuOpen"
-      class="bg-black/30 inset-0 top-16 fixed z-modal sm:hidden"
+      v-if="menuOpen && isOverflowing"
+      class="bg-black/30 inset-0 top-16 fixed z-modal"
       @click="closeMenu"
     />
 
     <!-- Mobile dropdown -->
     <div
-      v-if="menuOpen"
-      class="border-b border-gray-300 bg-white h-max shadow-md left-0 right-0 top-16 absolute z-toast sm:hidden"
+      v-if="menuOpen && isOverflowing"
+      class="border-b border-gray-300 bg-white h-max shadow-md left-0 right-0 top-16 absolute z-toast"
     >
       <ul class="py-2 flex flex-col">
         <template
@@ -217,6 +261,7 @@ en:
     participate_sponsor_partner: "Sponsorship Partners"
     invitation_letter_guide: "Invitation Letter Guide"
     sponsors: "Sponsors"
+    staff: "Staff"
     bof: "Fringe Events / BoF"
     blog: "Blog"
     coc: "CoC"
@@ -238,6 +283,7 @@ zh:
     participate_open_source_community: "開源社群、攤位及議程軌"
     participate_sponsor_partner: "贊助夥伴"
     sponsors: "贊助夥伴"
+    staff: "工作人員"
     bof: "周邊活動 / BoF"
     invitation_letter_guide: "邀請函申請指南"
     blog: "部落格"
