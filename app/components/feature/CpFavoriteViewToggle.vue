@@ -29,6 +29,8 @@ function switchView() {
   />
   <div class="border border-gray-200 rounded-md bg-white inline-flex overflow-hidden md:hidden">
     <CpButton
+      :aria-label="model === 'favorite' ? t('view.favorite') : t('view.all')"
+      :aria-pressed="model === 'favorite'"
       :class="model === 'favorite' ? '!bg-yellow-400 !text-white' : '!bg-white !text-black'"
       variant="basic"
       @click="switchView"
