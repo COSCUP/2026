@@ -102,6 +102,7 @@ const times = computed(() => Object.keys(sessions.value).sort())
               :tags="session.tags"
               :title="session.title"
               :to="localePath(`/session/${session.id}`)"
+              :track="session.track"
               @toggle-favorite="toggleFavorite(session.id)"
             />
           </div>
