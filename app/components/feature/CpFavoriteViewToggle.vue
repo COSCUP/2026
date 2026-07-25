@@ -18,6 +18,10 @@ const viewItems = computed<SessionViewItem[]>(() => [
   { key: 'all', label: t('view.all') },
   { key: 'favorite', label: t('view.favorite'), icon: 'tabler:bookmark' },
 ])
+
+function switchView() {
+  model.value = model.value === 'all' ? 'favorite' : 'all'
+}
 </script>
 
 <template>
@@ -28,7 +32,7 @@ const viewItems = computed<SessionViewItem[]>(() => [
       :key="item.key"
       :active="model === item.key"
       :aria-pressed="model === item.key"
-      class="!rounded-none"
+      class="hidden !rounded-none md:inline-flex"
       variant="basic"
       @click="model = item.key"
     >
@@ -42,6 +46,17 @@ const viewItems = computed<SessionViewItem[]>(() => [
         />
       </template>
       {{ item.label }}
+    </CpButton>
+    <CpButton
+      class="inline-flex md:hidden"
+      :class="model === 'favorite' ? '!bg-yellow-400 !text-white' : '!bg-white !text-black'"
+      variant="basic"
+      @click="switchView"
+    >
+      <Icon
+        :name="model === 'favorite' ? 'tabler:star-filled' : 'tabler:star'"
+        size="18"
+      />
     </CpButton>
   </div>
 </template>

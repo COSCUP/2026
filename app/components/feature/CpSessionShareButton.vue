@@ -30,7 +30,7 @@ function share() {
         size="18"
       />
     </template>
-    <span class="hidden sm:inline">{{ copied ? t('copied') : t('share') }}</span>
+    <span class="hidden md:inline">{{ copied ? t('copied') : t('share') }}</span>
   </CpButton>
 </template>
 
