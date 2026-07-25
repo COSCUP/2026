@@ -1,6 +1,6 @@
 import type { PretalxResult, Submission } from '#shared/types/pretalx'
 import type { SessionSummary } from '#shared/types/session'
-import { parseAnswer, parseDifficulty, parseSlot, parseSpeaker, parseTags, parseTrack, parseType } from './parser'
+import { parseAnswer, parseDifficulty, parseLanguage, parseSlot, parseSpeaker, parseTags, parseTrack, parseType } from './parser'
 
 // 將單一 pretalx submission 轉換成 SessionSummary。
 // 若 submission 沒有有效的時段（slot/start/end/room），回傳 null。
@@ -13,6 +13,10 @@ export function buildSessionSummary(submission: Submission, data: PretalxResult)
   const slot = parseSlot(submission.slots[0], data)
   const speakers = parseSpeaker(submission.speakers, data)
   const type = parseType(submission.submission_type, data)
+  const difficulty = parseDifficulty(answers.difficulty)
+  const language = parseLanguage(answers.language) || ''
+
+  const appendedTags = [difficulty, language].filter(Boolean) as string[]
 
   if (!slot || !slot.start || !slot.end || !slot.room) {
     return null
@@ -23,7 +27,7 @@ export function buildSessionSummary(submission: Submission, data: PretalxResult)
     room: slot.room.name,
     start: slot.start,
     end: slot.end,
-    language: answers.language,
+    language,
     track: parseTrack(submission.track, data),
     speakers,
     zh: {
@@ -36,7 +40,7 @@ export function buildSessionSummary(submission: Submission, data: PretalxResult)
       describe: answers.enDesc || submission.abstract,
       type: type.name.en || type.name['zh-hant'],
     },
-    tags: parseTags(submission.tags, data, parseDifficulty(answers.difficulty)),
+    tags: parseTags(submission.tags, data, appendedTags),
     uri: `https://coscup.org/2026/session/${submission.code}`,
   }
 }

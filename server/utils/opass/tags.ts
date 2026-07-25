@@ -1,4 +1,5 @@
 import { parseDifficulty } from '#server/utils/pretalx/parser'
+import { TAG_NAMES } from '#shared/utils/session'
 
 // OPass app 的 tag 分類沿用 2025：議程以 slug id 參照 tag，
 // 而頂層 `tags` 字典提供每個 slug 的多語名稱。分類僅含語言與難度，
@@ -27,19 +28,6 @@ const LANGUAGE_GENERALIZE_MAP: Record<string, string> = {
   其他: 'others',
   Others: 'others',
   その他: 'others',
-}
-
-// 各通用鍵（語言 + 難度）的多語顯示名稱（沿用 2025 tagTranslations）。
-const TAG_NAMES: Record<string, { zh: string, en: string }> = {
-  'zh-tw': { zh: '漢語', en: 'Mandarin' },
-  'en': { zh: '英語', en: 'English' },
-  'ja-JP': { zh: '日本語', en: '日本語' },
-  'taiwanese': { zh: '台語', en: '台語' },
-  'others': { zh: '其他', en: '其他' },
-  'Elementary': { zh: '入門', en: 'Elementary' },
-  'Intermediate': { zh: '中階', en: 'Intermediate' },
-  'Advanced': { zh: '進階', en: 'Advanced' },
-  'Professional': { zh: '專業', en: 'Professional' },
 }
 
 function buildTag(id: string, key: string): OpassTag {

@@ -1,4 +1,5 @@
 import type { SessionSummary } from '#shared/types/session'
+import { TAG_NAMES } from '#shared/utils/session'
 
 export interface FilterOption {
   id: string
@@ -32,13 +33,6 @@ export function useSessionFilter({ sessionsByDay, selectedDay, locale }: UseSess
     return isZh.value ? zh || en : en || zh
   }
 
-  const DIFFICULTY_LABELS: Record<string, { zh: string, en: string }> = {
-    Elementary: { zh: '入門', en: 'Beginner' },
-    Intermediate: { zh: '中階', en: 'Intermediate' },
-    Advanced: { zh: '進階', en: 'Advanced' },
-    Professional: { zh: '專業', en: 'Professional' },
-  }
-
   // The session type is offered as a filterable tag alongside its real tags.
   function sessionTags(session: SessionSummary): FilterOption[] {
     const lang = toValue(locale)
@@ -46,7 +40,7 @@ export function useSessionFilter({ sessionsByDay, selectedDay, locale }: UseSess
       { id: `type:${session.zh.type}\u0000${session.en.type}`, label: session[lang].type },
       ...session.tags.map((tag) => ({
         id: `tag:${tag}`,
-        label: DIFFICULTY_LABELS[tag]?.[lang] ?? tag,
+        label: TAG_NAMES[tag]?.[lang] ?? tag,
       })),
     ].filter((tag) => tag.label)
   }
