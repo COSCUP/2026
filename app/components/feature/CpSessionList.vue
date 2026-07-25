@@ -77,7 +77,7 @@ const times = computed(() => Object.keys(sessions.value).sort())
               name="tabler:circle"
             />
             <span v-if="sessions?.[time] && sessions[time].length > 1">
-              {{ sessions[time].length }} 場同時開始
+              {{ t('concurrent', { count: sessions[time].length }) }}
             </span>
           </div>
           <Icon
@@ -116,7 +116,9 @@ const times = computed(() => Object.keys(sessions.value).sort())
   en:
     add: 'Add to favorites'
     remove: 'Remove from favorites'
+    concurrent: '{count} sessions starting at the same time'
   zh:
     add: '加入收藏'
     remove: '取消收藏'
+    concurrent: '{count} 場同時開始'
 </i18n>
