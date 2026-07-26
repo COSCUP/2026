@@ -173,13 +173,5 @@ export function parseLanguage(language: string | undefined): string | undefined 
     return 'Mandarin'
   }
 
-  if (lang === 'japanese' || lang === '日文' || lang === '日語') {
-    return 'Japanese'
-  }
-
-  if (lang === 'chinese' || lang === '中国語') {
-    return 'Chinese'
-  }
-
   return 'others'
 }
