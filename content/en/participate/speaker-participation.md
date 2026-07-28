@@ -36,6 +36,12 @@ This page summarizes what COSCUP speakers should confirm before and during the e
 
 The livestream and recording aspect ratio is 16:9 for every classroom, with a resolution of 1920 x 1080.
 
+## Slide Template
+
+There is no required slide style — feel free to use your own. If you prefer a unified look, you are welcome to download and use the official slide template: <https://s.coscup.org/26slide>
+
+The slide template is released under CC BY 4.0.
+
 ## Slide Content Notes
 
 - Do not use music with copyright concerns.
