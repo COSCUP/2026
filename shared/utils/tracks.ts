@@ -37,9 +37,10 @@ export function trackKey(session: SessionSummary): string {
 }
 
 // Match by name (either locale) since Pretalx track ids aren't stable across events.
-const MAIN_TRACK_NAMES = ['主議程', 'Main Session Track']
 export function isMainTrack(name?: SessionTrack['name']): boolean {
-  return MAIN_TRACK_NAMES.includes(name?.['zh-hant'] ?? '') || MAIN_TRACK_NAMES.includes(name?.en ?? '')
+  const zhName = name?.['zh-hant'] ?? ''
+  const enName = name?.en ?? ''
+  return zhName.includes('主議程軌') || enName.includes('Main Session Track')
 }
 
 /**
