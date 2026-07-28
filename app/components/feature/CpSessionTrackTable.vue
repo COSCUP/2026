@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n'
 import { useDragScroll } from '~/composables/useDragScroll'
 import { useFavoriteLabel, useFavorites } from '~/composables/useFavorites'
 import { useRealtime } from '~/composables/useRealtime'
-import { DEFAULT_TRACK_COLOR, NO_TRACK } from '~/utils/tracks'
+import { DEFAULT_TRACK_COLOR, isMainTrack, NO_TRACK } from '~/utils/tracks'
 
 const { sessions: _sessions, trackColors, day, timeRange, interval, rowHeight, columnWidth, preview = false } = defineProps<{
   day: string
@@ -78,12 +78,6 @@ const daySessions = computed(() =>
   (_sessions ?? []).filter((session) => session.start?.startsWith(day) && session.end),
 )
 
-// Match by name (either locale) since Pretalx track ids aren't stable across events.
-const MAIN_TRACK_NAMES = ['主議程', 'Main Session Track']
-function isMainTrack(name?: SessionTrack['name']) {
-  return MAIN_TRACK_NAMES.includes(name?.['zh-hant'] ?? '') || MAIN_TRACK_NAMES.includes(name?.en ?? '')
-}
-
 // Shared with CpSessionTable: both pin by English room code so switching views keeps pins in sync.
 // null = never visited (pin main by default); [] = user unpinned everything (respect it).
 const pinnedRooms = useLocalStorage<string[] | null>('coscup-pinned-rooms', null, {
@@ -136,7 +130,7 @@ const tracks = computed(() => {
     .sort((a, b) => {
       const bestA = bestRoomByTrackId.get(a.trackId) ?? ''
       const bestB = bestRoomByTrackId.get(b.trackId) ?? ''
-      return compareRooms(bestA, bestB) || compareRooms(a.roomEn, b.roomEn)
+      return Number(b.isMain) - Number(a.isMain) || compareRooms(bestA, bestB) || compareRooms(a.roomEn, b.roomEn)
     })
     .map((track) => ({ ...track, color: trackColors.get(track.trackId ?? NO_TRACK) ?? DEFAULT_TRACK_COLOR }))
     .sort((a, b) => {
