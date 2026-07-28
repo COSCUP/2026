@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useResizeObserver } from '@vueuse/core'
+import { useRoute } from 'vue-router'
 import CpDropdown from './CpDropdown.vue'
 
+const route = useRoute()
 const { locale, locales, defaultLocale, t } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 
@@ -13,6 +15,8 @@ type MenuItem = {
   | { path: string, children?: never } |
   { path?: never, children: { label: string, path: string }[] }
 )
+
+const isApp = computed(() => route.query.mode === 'app')
 
 const menu = computed<MenuItem[]>(() => [
   { key: 'about', path: '/about' },
@@ -83,6 +87,7 @@ useResizeObserver(navRef, checkOverflow)
 
 <template>
   <nav
+    v-if="!isApp"
     ref="navRef"
     class="text-gray-700 px-3 py-1 border-b border-gray-300 bg-white flex h-16 justify-between relative *:h-full"
   >
