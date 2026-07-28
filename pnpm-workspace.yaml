@@ -7,3 +7,5 @@ allowBuilds:
   esbuild: true
   sharp: true
   unrs-resolver: true
+overrides:
+  h3: 1.15.11

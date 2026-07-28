@@ -94,7 +94,7 @@ zh:
   read_more: "更多"
   ribbon:
     consecutive: "連續贊助"
-    cumulative: "累積贊助"
+    cumulative: "累計贊助"
     years: "{n} 年"
 en:
   show_less: "Show less"

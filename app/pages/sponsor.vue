@@ -92,7 +92,7 @@ useSeoMeta({
 zh:
   meta:
     title: "贊助夥伴"
-    description: "感謝支持 COSCUP 2026 x UbuCon Asia 的贊助夥伴。"
+    description: "感謝支持 COSCUP x UbuCon Asia 2026 的贊助夥伴。"
   hero:
     title: "成為贊助夥伴"
     description: "COSCUP 是由社群主導的開源年會，致力於促進台灣開源生態的發展。我們誠摯邀請企業與組織加入我們的贊助行列，一同支持這個充滿活力的社群。無論您是大型企業還是新創公司，我們都歡迎您的參與，讓我們一起為台灣的開源未來努力！"
@@ -111,7 +111,7 @@ zh:
 en:
   meta:
     title: "Sponsors"
-    description: "Thanks to the sponsors supporting COSCUP 2026 x UbuCon Asia."
+    description: "Thanks to the sponsors supporting COSCUP x UbuCon Asia 2026."
   hero:
     title: "Become a Sponsor"
     description: "COSCUP is a community-driven open source conference dedicated to promoting the development of the open source ecosystem in Taiwan. We sincerely invite companies and organizations to join us as sponsors and support this vibrant community. Whether you are a large enterprise or a startup, we welcome your participation. Let's work together for the future of open source in Taiwan!"

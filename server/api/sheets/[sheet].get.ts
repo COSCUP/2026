@@ -16,7 +16,7 @@ export default defineCachedEventHandler(
     const { sheet } = await getValidatedRouterParams(event, requestSchema.parse)
     const name = SHEET_NAMES[sheet]
 
-    const url = `https://docs.google.com/spreadsheets/d/${googleSheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(name)}`
+    const url = `https://docs.google.com/spreadsheets/d/${googleSheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(name)}&headers=1`
     const csv = await $fetch<string>(url, { responseType: 'text' })
     const records = parse(csv, { columns: true, skip_empty_lines: true })
     return records

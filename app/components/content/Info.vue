@@ -4,13 +4,16 @@ defineProps<{
 }>()
 </script>
 
-<!-- TODO use theme colors -->
-
 <template>
-  <div class="text-sm my-4 px-4 pb-2 pt-4 rounded-md bg-gray-200">
-    <p class="font-bold my-0">
+  <aside class="text-sm text-primary-800 my-4 px-4 py-3 border-l-4 border-primary-400 rounded bg-primary-50">
+    <p
+      v-if="title"
+      class="font-bold my-0"
+    >
       {{ title }}
     </p>
-    <slot />
-  </div>
+    <div class="[&>:first-child]:mt-0 [&>:last-child]:mb-0">
+      <slot />
+    </div>
+  </aside>
 </template>

@@ -1,10 +1,13 @@
+import type { OpassTag } from '#server/utils/opass/tags'
 import type { PretalxResult, Room, Speaker, Submission, SubmissionType } from '#shared/types/pretalx'
-import { parseAnswer, parseDifficulty, parseSlot, parseTags } from '#server/utils/pretalx/parser'
+import { sessionTags } from '#server/utils/opass/tags'
+import { parseAnswer, parseSlot } from '#server/utils/pretalx/parser'
 
 export function pretalxToOpass(pretalxData: PretalxResult) {
   const speakerIds: Set<Speaker['code']> = new Set()
   const roomIds: Set<Room['id']> = new Set()
   const typeIds: Set<SubmissionType['id']> = new Set()
+  const tagMap = new Map<string, OpassTag>()
 
   const sessions = pretalxData.submissions.arr
     .filter((submission: Submission) => submission.state === 'confirmed')
@@ -20,28 +23,31 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
         roomIds.add(slot.room.id)
       }
 
+      const tags = sessionTags(answer.language, answer.difficulty)
+      tags.forEach((tag) => tagMap.set(tag.id, tag))
+
       return {
         id: submission.code,
-        type: submission.submission_type,
-        room: slot?.room?.id,
+        type: String(submission.submission_type),
+        room: slot?.room?.id != null ? String(slot.room.id) : undefined,
         start: slot?.start,
         end: slot?.end,
         language: answer.language,
         speakers: submission.speakers,
         zh: {
           title: submission.title,
-          describe: submission.abstract,
+          description: submission.abstract,
         },
         en: {
           title: answer.enTitle || submission.title,
-          describe: answer.enDesc || submission.abstract,
+          description: answer.enDesc || submission.abstract,
         },
-        tags: parseTags(submission.tags, pretalxData, parseDifficulty(answer.difficulty)),
+        tags: tags.map((tag) => tag.id),
         uri: `https://coscup.org/2026/session/${submission.code}`,
-        co_write: null,
-        qa: null,
-        slide: null,
-        record: null,
+        co_write: '',
+        qa: '',
+        slide: '',
+        record: '',
       }
     })
 
@@ -57,7 +63,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
 
     return {
       id: speaker.code,
-      avatar: speaker.avatar_url,
+      avatar: speaker.avatar_url ?? '',
       zh: {
         name: answer.zhName || speaker.name,
         bio: answer.zhBio || speaker.biography,
@@ -79,12 +85,12 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
     }
 
     return {
-      id: type.id,
+      id: String(type.id),
       zh: {
-        name: type.name['zh-hans'] || type.name.en,
+        name: type.name['zh-hant'] || type.name.en,
       },
       en: {
-        name: type.name.en || type.name['zh-hans'],
+        name: type.name.en || type.name['zh-hant'],
       },
     }
   })
@@ -101,16 +107,16 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
       }
 
       return {
-        id: room.id,
+        id: String(room.id),
         zh: {
-          name: room.name['zh-hans'] || room.name.en,
+          name: room.name['zh-hant'] || room.name.en,
         },
         en: {
-          name: room.name.en || room.name['zh-hans'],
+          name: room.name.en || room.name['zh-hant'],
         },
       }
     })
     .filter((x): x is NonNullable<typeof x> => x !== null)
 
-  return { sessions, speakers, session_types: types, rooms }
+  return { sessions, speakers, session_types: types, rooms, tags: [...tagMap.values()] }
 }

@@ -1,44 +1,60 @@
 <script setup lang="ts">
+import type { Ad } from '#shared/types/ad'
 import type { SessionDetail } from '#shared/types/session'
-import CpSessionInfoCard from '~/components/feature/CpSessionInfoCard.vue'
+import { useI18n } from 'vue-i18n'
+import CpSessionDetailModal from '~/components/feature/CpSessionDetailModal.vue'
+import { DEFAULT_TRACK_COLOR } from '~/utils/tracks'
 
 const { locale } = useI18n()
 const route = useRoute()
 const router = useRouter()
 const localePath = useLocalePath()
+const sessionId = computed(() => String(route.params.id ?? ''))
 
-const { data, error } = await useFetch<SessionDetail>(`/api/session/${route.params.id}`)
-
+const { data: sessionDetail, error } = await useFetch<SessionDetail>(`/api/session/${sessionId.value}`)
 if (error.value) {
   throw error.value.statusCode === 404
     ? createError({ status: 404, statusText: 'Page Not Found' })
     : error.value
 }
+const { data: ad } = await useFetch<Ad[]>('/api/ad')
 
 const localeKey = computed(() => locale.value === 'zh' ? 'zh' : 'en')
+// Extract the yyyy-MM-dd part from the session start date.
+const sessionDay = computed(() => sessionDetail.value?.start?.slice(0, 10) ?? null)
 
 const sessionInfo = computed(() => {
-  if (!data.value) {
+  if (!sessionDetail.value) {
     return null
   }
 
-  const content = data.value[localeKey.value]
+  const content = sessionDetail.value[localeKey.value]
   const room = locale.value === 'zh'
-    ? (data.value.room?.['zh-hans'] || data.value.room?.en || '')
-    : (data.value.room?.en || data.value.room?.['zh-hans'] || '')
+    ? (sessionDetail.value.room?.['zh-hant'] || sessionDetail.value.room?.en || '')
+    : (sessionDetail.value.room?.en || sessionDetail.value.room?.['zh-hant'] || '')
+  const track = sessionDetail.value.track
+    ? {
+        id: sessionDetail.value.track.id,
+        name: locale.value === 'zh'
+          ? (sessionDetail.value.track?.name?.['zh-hant'] || sessionDetail.value.track?.name?.en || '')
+          : (sessionDetail.value.track?.name?.en || sessionDetail.value.track?.name?.['zh-hant'] || ''),
+        color: sessionDetail.value.trackColor,
+      }
+    : undefined
 
   return {
-    coWrite: data.value.co_write ?? undefined,
+    coWrite: sessionDetail.value.co_write ?? undefined,
     description: content.describe,
     room,
-    speakers: data.value.speakers.map((speaker) => ({
+    speakers: sessionDetail.value.speakers.map((speaker) => ({
       id: speaker.id,
       avatar: speaker.avatar ?? undefined,
       bio: speaker[localeKey.value].bio,
       name: speaker[localeKey.value].name,
     })),
-    tags: data.value.tags,
-    time: `${data.value.start?.slice(11, 16) ?? ''} ~ ${data.value.end?.slice(11, 16) ?? ''}`,
+    tags: sessionDetail.value.tags,
+    track,
+    time: `${sessionDetail.value.start?.slice(0, 16).replace('T', ' ') ?? ''} ~ ${sessionDetail.value.end?.slice(11, 16) ?? ''}`,
     title: content.title,
   }
 })
@@ -61,65 +77,25 @@ const ogImageProps = {
 defineOgImage('Session', ogImageProps)
 
 function close() {
-  router.push(localePath('/session'))
+  const day = sessionDay.value
+  router.push(localePath(day ? { path: '/session', query: { day } } : { path: '/session' }))
 }
-
-function onKeydown(e: KeyboardEvent) {
-  if (e.key === 'Escape') {
-    close()
-  }
-}
-
-onMounted(() => {
-  document.body.style.overflow = 'hidden'
-  window.addEventListener('keydown', onKeydown)
-})
-
-onUnmounted(() => {
-  document.body.style.overflow = ''
-  window.removeEventListener('keydown', onKeydown)
-})
 </script>
 
 <template>
-  <div
-    :aria-label="sessionInfo?.title"
-    aria-modal="true"
-    class="bg-black/50 inset-0 fixed z-modal"
-    role="dialog"
-    @click.self="close"
-  >
-    <div class="bg-white flex flex-row-reverse h-full w-full right-0 top-0 fixed sm:w-120">
-      <div>
-        <!-- AD -->
-      </div>
-
-      <div class="p-3 h-full w-full overflow-y-auto">
-        <div class="flex top-0 justify-end sticky z-content">
-          <button
-            aria-label="close"
-            class="text-gray-500 rounded-full flex h-8 w-8 transition-colors items-center justify-center hover:bg-gray-100"
-            type="button"
-            @click="close"
-          >
-            <Icon
-              class="h-4 w-4"
-              name="tabler:x"
-            />
-          </button>
-        </div>
-
-        <CpSessionInfoCard
-          v-if="sessionInfo"
-          :co-write="sessionInfo.coWrite"
-          :description="sessionInfo.description"
-          :room="sessionInfo.room"
-          :speakers="sessionInfo.speakers"
-          :tags="sessionInfo.tags"
-          :time="sessionInfo.time"
-          :title="sessionInfo.title"
-        />
-      </div>
-    </div>
-  </div>
+  <CpSessionDetailModal
+    v-if="sessionInfo"
+    :ads="ad ?? []"
+    :co-write="sessionInfo.coWrite"
+    :description="sessionInfo.description"
+    :room="sessionInfo.room"
+    :session-id="sessionId"
+    :speakers="sessionInfo.speakers"
+    :tags="sessionInfo.tags"
+    :time="sessionInfo.time"
+    :title="sessionInfo.title"
+    :track="sessionInfo.track"
+    :track-color="sessionDetail?.trackColor ?? DEFAULT_TRACK_COLOR"
+    @close="close"
+  />
 </template>

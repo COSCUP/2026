@@ -1,4 +1,5 @@
 import type { SessionSummary } from '#shared/types/session'
+import { TAG_NAMES } from '#shared/utils/session'
 
 export interface FilterOption {
   id: string
@@ -12,7 +13,7 @@ interface UseSessionFilterOptions {
 }
 
 function roomId(session: SessionSummary) {
-  return session.room?.en || session.room?.['zh-hans'] || ''
+  return session.room?.en || session.room?.['zh-hant'] || ''
 }
 
 export function useSessionFilter({ sessionsByDay, selectedDay, locale }: UseSessionFilterOptions) {
@@ -28,15 +29,19 @@ export function useSessionFilter({ sessionsByDay, selectedDay, locale }: UseSess
   })
 
   function roomLabel(session: SessionSummary) {
-    const { en = '', 'zh-hans': zh = '' } = session.room ?? {}
+    const { en = '', 'zh-hant': zh = '' } = session.room ?? {}
     return isZh.value ? zh || en : en || zh
   }
 
   // The session type is offered as a filterable tag alongside its real tags.
   function sessionTags(session: SessionSummary): FilterOption[] {
+    const lang = toValue(locale)
     return [
-      { id: `type:${session.zh.type}\u0000${session.en.type}`, label: session[toValue(locale)].type },
-      ...session.tags.map((tag) => ({ id: `tag:${tag}`, label: tag })),
+      { id: `type:${session.zh.type}\u0000${session.en.type}`, label: session[lang].type },
+      ...session.tags.map((tag) => ({
+        id: `tag:${tag}`,
+        label: TAG_NAMES[tag]?.[lang] ?? tag,
+      })),
     ].filter((tag) => tag.label)
   }
 
@@ -99,6 +104,7 @@ export function useSessionFilter({ sessionsByDay, selectedDay, locale }: UseSess
 
   return {
     searchQuery,
+    daySessions,
     filteredSessions,
     roomOptions,
     tagOptions,

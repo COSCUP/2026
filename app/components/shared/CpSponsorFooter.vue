@@ -81,7 +81,7 @@ zh:
     thanks: 特別感謝
   ribbon:
     consecutive: 連續贊助
-    cumulative: 累積贊助
+    cumulative: 累計贊助
     years: "{n} 年"
 en:
   title: Sponsors

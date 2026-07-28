@@ -6,15 +6,15 @@ import type { SessionDifficulty, SessionSpeaker, SessionTrack } from '#shared/ty
 // 這個對應表會被 `parseAnswer` 使用，將 pretalx 的 answers
 // 轉換為以 key 為索引的 Record 物件並回傳。
 const QUESTION_MAP = {
-  language: 269,
-  languageOther: 300,
-  enTitle: 257,
-  enDesc: 259,
-  difficulty: 270,
-  zhName: 45,
-  enName: 46,
-  zhBio: 47,
-  enBio: 48,
+  language: 380,
+  languageOther: 381,
+  enTitle: 377,
+  enDesc: 378,
+  difficulty: 379,
+  zhName: null,
+  enName: null,
+  zhBio: null,
+  enBio: null,
   coWrite: null,
   qa: null,
   slide: null,
@@ -75,7 +75,8 @@ export function parseSlot(slotId: Slot['id'], pretalxData: PretalxResult): Parse
   const slot = slotMap[slotId]
 
   if (!slot) {
-    throw createError(`Slot not found: ${slotId}`)
+    console.error(`Slot not found: ${slotId}`)
+    return null
   }
 
   const roomId = slot.room
@@ -136,8 +137,8 @@ export function parseTrack(trackId: Submission['track'], pretalxData: PretalxRes
 }
 
 // 解析議程標籤，並把正規化後的難度（若有）一併併入標籤清單，
-// 讓難度成為標籤的一部分而非獨立欄位。
-export function parseTags(tagIds: Submission['tags'], pretalxData: PretalxResult, difficulty?: SessionDifficulty): string[] {
+// 將 appends（難度、語言等）前置於 Pretalx 公開標籤之前。
+export function parseTags(tagIds: Submission['tags'], pretalxData: PretalxResult, appends: string[] = []): string[] {
   const tagMap = pretalxData.tags.map
 
   const tags = tagIds
@@ -145,7 +146,7 @@ export function parseTags(tagIds: Submission['tags'], pretalxData: PretalxResult
     .filter((tag): tag is Tag => tag !== undefined && tag.is_public)
     .map((tag) => tag.tag)
 
-  return difficulty ? [difficulty, ...tags] : tags
+  return [...appends, ...tags]
 }
 
 // 將投稿者填寫的難度原始字串正規化成統一的英文 enum，無法對應時回傳 undefined。
@@ -155,4 +156,22 @@ export function parseDifficulty(difficulty: string | undefined): SessionDifficul
   }
 
   return DIFFICULTY_GENERALIZE_MAP[difficulty.trim()]
+}
+
+export function parseLanguage(language: string | undefined): string | undefined {
+  if (!language) {
+    return undefined
+  }
+
+  const lang = language.trim().toLowerCase()
+
+  if (lang === 'english' || lang === '英文' || lang === '英語') {
+    return 'English'
+  }
+
+  if (lang === '中文' || lang === 'mandarin') {
+    return 'Mandarin'
+  }
+
+  return 'others'
 }

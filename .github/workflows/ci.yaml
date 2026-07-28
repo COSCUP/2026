@@ -31,3 +31,5 @@ jobs:
       - run: pnpm typecheck
 
       - run: pnpm build
+        env:
+          NODE_OPTIONS: --max-old-space-size=8192

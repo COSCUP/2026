@@ -1,6 +1,6 @@
 ---
 title: 交通
-description: 前往 COSCUP 2026 x UbuCon Asia 活動地點——國立臺灣科技大學的交通方式。
+description: 前往 COSCUP x UbuCon Asia 2026 活動地點——國立臺灣科技大學的交通方式。
 ---
 
 # 交通
