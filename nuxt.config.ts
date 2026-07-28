@@ -96,19 +96,14 @@ export default defineNuxtConfig({
       publicDir: process.env.NUXT_OUTPUT_DIR || '.output/public',
     },
     prerender: {
-      concurrency: 4,
+      // Keep at 1: nuxt-og-image has a prerender race that 500s a random session
+      // _payload.json route under concurrency > 1. Raise only once that's fixed upstream.
+      concurrency: 1,
       // ?session= is a client-side UI state (opens a session panel); prerendering those
       // URLs is wasteful and bloats the build. Ignore them so the crawler doesn't follow
       // the NuxtLinks in CpTrackSchedule that carry this query param.
       ignore: [/\?/],
     },
-  },
-
-  experimental: {
-    // nuxt-og-image breaks payload-route rendering on pages that call defineOgImage
-    // under baseURL "/2026" (its isInternalRoute misses "/2026/.../_payload.json"),
-    // making the renderer return no response (500). Disable payload extraction.
-    payloadExtraction: false,
   },
 
   imports: {
