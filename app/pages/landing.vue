@@ -3,6 +3,39 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
+const eventStartAt = new Date('2026-08-08T09:00:00+08:00').getTime()
+const remainingMs = ref(0)
+let countdownInterval: ReturnType<typeof setInterval> | null = null
+
+function updateCountdown() {
+  remainingMs.value = Math.max(eventStartAt - Date.now(), 0)
+}
+
+function padTime(value: number) {
+  return String(value).padStart(2, '0')
+}
+
+const countdownText = computed(() => {
+  const totalSeconds = Math.floor(remainingMs.value / 1000)
+  const days = Math.floor(totalSeconds / 86_400)
+  const hours = Math.floor((totalSeconds % 86_400) / 3600)
+  const minutes = Math.floor((totalSeconds % 3600) / 60)
+  const seconds = totalSeconds % 60
+
+  return `${days} ${t('hero.countdown_days')} ${padTime(hours)}:${padTime(minutes)}:${padTime(seconds)}`
+})
+
+onMounted(() => {
+  updateCountdown()
+  countdownInterval = setInterval(updateCountdown, 1000)
+})
+
+onBeforeUnmount(() => {
+  if (countdownInterval) {
+    clearInterval(countdownInterval)
+  }
+})
+
 useSeoMeta({
   description: () => t('meta.description'),
   ogDescription: () => t('meta.description'),
@@ -11,145 +44,170 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="mx-auto px-4 py-8 flex flex-col gap-12 max-w-4xl">
-    <section class="text-center flex flex-col gap-3 items-center">
-      <h1 class="text-5xl text-cp-green m-0">
-        COSCUP x UbuCon Asia 2026
-      </h1>
-    </section>
-
+  <div>
     <section
-      :aria-label="t('event_details.title')"
-      class="py-6 border-y border-cp-green gap-6 grid sm:grid-cols-2"
+      class="mb-20 hidden md:block"
     >
-      <div class="flex gap-3 items-start">
-        <Icon
-          class="text-cp-green mt-1 shrink-0"
-          name="tabler:calendar-event"
-          size="28"
-        />
-        <div class="flex flex-col gap-1">
-          <h2 class="text-lg text-gray-900 font-semibold m-0">
-            {{ t('event_details.date.title') }}
-          </h2>
-          <time
-            class="text-lg text-gray-700"
-            datetime="2026-08-08/2026-08-09"
-          >
-            {{ t('event_details.date.value') }}
-          </time>
-        </div>
-      </div>
-
-      <div class="flex gap-3 items-start">
-        <Icon
-          class="text-cp-green mt-1 shrink-0"
-          name="tabler:map-pin"
-          size="28"
-        />
-        <div class="flex flex-col gap-1">
-          <h2 class="text-lg text-gray-900 font-semibold m-0">
-            {{ t('event_details.venue.title') }}
-          </h2>
-          <p class="text-lg text-gray-700 m-0">
-            {{ t('event_details.venue.name') }}
-          </p>
-          <p class="text-sm text-gray-600 m-0">
-            {{ t('event_details.venue.address') }}
-          </p>
-          <NuxtLinkLocale
-            class="text-cp-green font-medium mt-1 w-max hover:text-primary-700 hover:underline"
-            to="/transportation"
-          >
-            {{ t('event_details.venue.transportation') }}
-          </NuxtLinkLocale>
-        </div>
+      <NuxtImg
+        alt="banner"
+        class="w-full"
+        height="832"
+        src="/banner.png"
+        width="1900"
+      />
+      <div class="bg-landing-green px-3 py-3 rounded-b-2xl flex items-center">
+        <span class="text-2xl text-white font-bold ml-8 mr-auto">
+          {{ countdownText }}
+        </span>
+        <NuxtLinkLocale
+          class="bg-landing-accent hover:bg-landing-accent-hover text-white font-semibold px-6 py-2 text-center rounded-lg transition-colors"
+          to="/session"
+        >
+          {{ t('hero.cta') }}
+        </NuxtLinkLocale>
       </div>
     </section>
 
-    <section
-      :aria-label="t('ubucon.title')"
-      class="p-6 text-center border border-green-200 rounded-lg bg-green-50 flex flex-col gap-2 items-center"
-    >
-      <h2 class="text-xl text-gray-900 font-semibold m-0">
-        {{ t('ubucon.title') }}
-      </h2>
-      <p class="text-gray-700 leading-relaxed m-0">
-        {{ t('ubucon.desc') }}
-      </p>
-      <NuxtLink
-        class="text-cp-green font-medium mt-1 w-max hover:text-green-700 hover:underline"
-        target="_blank"
-        to="https://2026.ubucon.asia/"
+    <div class="mx-auto px-4 py-8 flex flex-col gap-12 max-w-4xl">
+      <section class="text-center flex flex-col gap-3 items-center">
+        <h1 class="text-landing-green text-5xl m-0">
+          COSCUP x UbuCon Asia 2026
+        </h1>
+      </section>
+
+      <section
+        :aria-label="t('event_details.title')"
+        class="py-6 gap-6 grid sm:grid-cols-2"
       >
-        {{ t('ubucon.link_text') }}
-      </NuxtLink>
-    </section>
+        <div class="flex gap-3 items-start">
+          <Icon
+            class="text-landing-green mt-1 shrink-0"
+            name="tabler:calendar-event"
+            size="28"
+          />
+          <div class="flex flex-col gap-1">
+            <h2 class="text-landing-green text-lg font-semibold m-0">
+              {{ t('event_details.date.title') }}
+            </h2>
+            <time
+              class="text-lg text-gray-700"
+              datetime="2026-08-08/2026-08-09"
+            >
+              {{ t('event_details.date.value') }}
+            </time>
+          </div>
+        </div>
 
-    <section class="gap-6 grid md:grid-cols-2">
-      <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
-        <h2 class="text-xl text-gray-900 font-semibold m-0">
-          {{ t('donate.title') }}
+        <div class="flex gap-3 items-start">
+          <Icon
+            class="text-landing-green mt-1 shrink-0"
+            name="tabler:map-pin"
+            size="28"
+          />
+          <div class="flex flex-col gap-1">
+            <h2 class="text-landing-green text-lg font-semibold m-0">
+              {{ t('event_details.venue.title') }}
+            </h2>
+            <p class="text-lg text-gray-700 m-0">
+              {{ t('event_details.venue.name') }}
+            </p>
+            <p class="text-sm text-gray-600 m-0">
+              {{ t('event_details.venue.address') }}
+            </p>
+            <NuxtLinkLocale
+              class="font-medium mt-1 w-max hover:text-green-700 hover:underline"
+              to="/transportation"
+            >
+              {{ t('event_details.venue.transportation') }}
+            </NuxtLinkLocale>
+          </div>
+        </div>
+      </section>
+
+      <section
+        :aria-label="t('ubucon.title')"
+        class="p-6 text-center border border-green-200 rounded-lg bg-green-50 flex flex-col gap-2 items-center"
+      >
+        <h2 class="text-landing-green text-xl font-semibold m-0">
+          {{ t('ubucon.title') }}
         </h2>
         <p class="text-gray-700 leading-relaxed m-0">
-          {{ t('donate.desc') }}
+          {{ t('ubucon.desc') }}
         </p>
         <NuxtLink
-          class="text-white mt-auto px-4 py-2 rounded bg-cp-green w-max shadow-sm hover:shadow-md"
+          class="text-black font-medium mt-1 w-max hover:text-green-700 hover:underline"
           target="_blank"
-          to="https://s.coscup.org/individualsupporter"
+          to="https://2026.ubucon.asia/"
         >
-          {{ t('donate.link_text') }}
+          {{ t('ubucon.link_text') }}
         </NuxtLink>
-      </article>
+      </section>
 
-      <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
-        <h2 class="text-xl text-gray-900 font-semibold m-0">
-          {{ t('call_for_sponsor.title') }}
-        </h2>
-        <p class="text-gray-700 leading-relaxed m-0">
-          {{ t('call_for_sponsor.desc') }}
-        </p>
-        <NuxtLink
-          class="text-white mt-auto px-4 py-2 rounded bg-cp-green w-max shadow-sm hover:shadow-md"
-          :to="t('call_for_sponsor.link')"
-        >
-          {{ t('call_for_sponsor.link_text') }}
-        </NuxtLink>
-      </article>
+      <section class="gap-6 grid md:grid-cols-2">
+        <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
+          <h2 class="text-landing-green text-xl font-semibold m-0">
+            {{ t('donate.title') }}
+          </h2>
+          <p class="text-gray-700 leading-relaxed m-0">
+            {{ t('donate.desc') }}
+          </p>
+          <NuxtLink
+            class="text-white mt-auto px-4 py-2 rounded bg-cp-green w-max shadow-sm hover:shadow-md"
+            target="_blank"
+            to="https://s.coscup.org/individualsupporter"
+          >
+            {{ t('donate.link_text') }}
+          </NuxtLink>
+        </article>
 
-      <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
-        <h2 class="text-xl text-gray-900 font-semibold m-0">
-          {{ t('accepted_booths.title') }}
-        </h2>
-        <p class="text-gray-700 leading-relaxed m-0">
-          {{ t('accepted_booths.desc') }}
-        </p>
-        <NuxtLink
-          class="text-white mt-auto px-4 py-2 rounded bg-cp-green w-max shadow-sm hover:shadow-md"
-          target="_blank"
-          :to="t('accepted_booths.link')"
-        >
-          {{ t('accepted_booths.link_text') }}
-        </NuxtLink>
-      </article>
+        <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
+          <h2 class="text-landing-green text-xl font-semibold m-0">
+            {{ t('call_for_sponsor.title') }}
+          </h2>
+          <p class="text-gray-700 leading-relaxed m-0">
+            {{ t('call_for_sponsor.desc') }}
+          </p>
+          <NuxtLink
+            class="text-white mt-auto px-4 py-2 rounded bg-cp-green w-max shadow-sm hover:shadow-md"
+            :to="t('call_for_sponsor.link')"
+          >
+            {{ t('call_for_sponsor.link_text') }}
+          </NuxtLink>
+        </article>
 
-      <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
-        <h2 class="text-xl text-gray-900 font-semibold m-0">
-          {{ t('bof.title') }}
-        </h2>
-        <p class="text-gray-700 leading-relaxed m-0">
-          {{ t('bof.desc') }}
-        </p>
-        <NuxtLink
-          class="text-white mt-auto px-4 py-2 rounded bg-cp-green w-max shadow-sm hover:shadow-md"
-          target="_blank"
-          :to="t('bof.link')"
-        >
-          {{ t('bof.link_text') }}
-        </NuxtLink>
-      </article>
-    </section>
+        <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
+          <h2 class="text-landing-green text-xl font-semibold m-0">
+            {{ t('accepted_booths.title') }}
+          </h2>
+          <p class="text-gray-700 leading-relaxed m-0">
+            {{ t('accepted_booths.desc') }}
+          </p>
+          <NuxtLink
+            class="text-white mt-auto px-4 py-2 rounded bg-cp-green w-max shadow-sm hover:shadow-md"
+            target="_blank"
+            :to="t('accepted_booths.link')"
+          >
+            {{ t('accepted_booths.link_text') }}
+          </NuxtLink>
+        </article>
+
+        <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
+          <h2 class="text-landing-green text-xl font-semibold m-0">
+            {{ t('bof.title') }}
+          </h2>
+          <p class="text-gray-700 leading-relaxed m-0">
+            {{ t('bof.desc') }}
+          </p>
+          <NuxtLink
+            class="text-white mt-auto px-4 py-2 rounded bg-cp-green w-max shadow-sm hover:shadow-md"
+            target="_blank"
+            :to="t('bof.link')"
+          >
+            {{ t('bof.link_text') }}
+          </NuxtLink>
+        </article>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -157,6 +215,9 @@ useSeoMeta({
 en:
   meta:
     description: "COSCUP x UbuCon Asia 2026 — Taiwan's largest open source community conference."
+  hero:
+    cta: "Join the event"
+    countdown_days: "days"
   ubucon:
     title: "About UbuCon Asia"
     desc: "UbuCon Asia is a community-organized conference that brings together Ubuntu enthusiasts, engineers, creators, researchers, entrepreneurs, and contributors from across Asia, driven by volunteers from the Ubuntu community."
@@ -194,6 +255,9 @@ en:
 zh:
   meta:
     description: "COSCUP x UbuCon Asia 2026——臺灣最大的開源社群年會。"
+  hero:
+    cta: "參與活動"
+    countdown_days: "天"
   ubucon:
     title: "關於 UbuCon Asia"
     desc: "UbuCon Asia 是由 Ubuntu 社群志工發起的社群年會，集結來自亞洲各地的 Ubuntu 愛好者、工程師、創作者、研究者、創業者與貢獻者。"
