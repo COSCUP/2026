@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
 definePageMeta({
-  layout: 'landing',
+  layout: 'homepage',
 })
 
 const eventStartAt = new Date('2026-08-08T09:00:00+08:00').getTime()
