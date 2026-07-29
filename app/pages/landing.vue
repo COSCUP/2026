@@ -55,12 +55,14 @@ useSeoMeta({
         src="/banner.png"
         width="1900"
       />
-      <div class="bg-landing-green px-3 py-3 rounded-b-2xl flex items-center">
-        <span class="text-2xl text-white font-bold ml-8 mr-auto">
-          {{ countdownText }}
-        </span>
+      <div class="px-3 py-3 rounded-b-2xl bg-landing-green flex items-center">
+        <ClientOnly>
+          <span class="text-2xl text-white font-bold ml-8">
+            {{ countdownText }}
+          </span>
+        </ClientOnly>
         <NuxtLinkLocale
-          class="bg-landing-accent hover:bg-landing-accent-hover text-white font-semibold px-6 py-2 text-center rounded-lg transition-colors"
+          class="text-white font-semibold ml-auto px-6 py-2 text-center rounded-lg bg-landing-accent transition-colors hover:bg-landing-accent-hover"
           to="/session"
         >
           {{ t('hero.cta') }}
@@ -70,7 +72,7 @@ useSeoMeta({
 
     <div class="mx-auto px-4 py-8 flex flex-col gap-12 max-w-4xl">
       <section class="text-center flex flex-col gap-3 items-center">
-        <h1 class="text-landing-green text-5xl m-0">
+        <h1 class="text-5xl text-landing-green m-0">
           COSCUP x UbuCon Asia 2026
         </h1>
       </section>
@@ -86,7 +88,7 @@ useSeoMeta({
             size="28"
           />
           <div class="flex flex-col gap-1">
-            <h2 class="text-landing-green text-lg font-semibold m-0">
+            <h2 class="text-lg text-landing-green font-semibold m-0">
               {{ t('event_details.date.title') }}
             </h2>
             <time
@@ -105,7 +107,7 @@ useSeoMeta({
             size="28"
           />
           <div class="flex flex-col gap-1">
-            <h2 class="text-landing-green text-lg font-semibold m-0">
+            <h2 class="text-lg text-landing-green font-semibold m-0">
               {{ t('event_details.venue.title') }}
             </h2>
             <p class="text-lg text-gray-700 m-0">
@@ -128,7 +130,7 @@ useSeoMeta({
         :aria-label="t('ubucon.title')"
         class="p-6 text-center border border-green-200 rounded-lg bg-green-50 flex flex-col gap-2 items-center"
       >
-        <h2 class="text-landing-green text-xl font-semibold m-0">
+        <h2 class="text-xl text-landing-green font-semibold m-0">
           {{ t('ubucon.title') }}
         </h2>
         <p class="text-gray-700 leading-relaxed m-0">
@@ -145,7 +147,7 @@ useSeoMeta({
 
       <section class="gap-6 grid md:grid-cols-2">
         <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
-          <h2 class="text-landing-green text-xl font-semibold m-0">
+          <h2 class="text-xl text-landing-green font-semibold m-0">
             {{ t('donate.title') }}
           </h2>
           <p class="text-gray-700 leading-relaxed m-0">
@@ -161,7 +163,7 @@ useSeoMeta({
         </article>
 
         <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
-          <h2 class="text-landing-green text-xl font-semibold m-0">
+          <h2 class="text-xl text-landing-green font-semibold m-0">
             {{ t('call_for_sponsor.title') }}
           </h2>
           <p class="text-gray-700 leading-relaxed m-0">
@@ -176,7 +178,7 @@ useSeoMeta({
         </article>
 
         <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
-          <h2 class="text-landing-green text-xl font-semibold m-0">
+          <h2 class="text-xl text-landing-green font-semibold m-0">
             {{ t('accepted_booths.title') }}
           </h2>
           <p class="text-gray-700 leading-relaxed m-0">
@@ -192,7 +194,7 @@ useSeoMeta({
         </article>
 
         <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
-          <h2 class="text-landing-green text-xl font-semibold m-0">
+          <h2 class="text-xl text-landing-green font-semibold m-0">
             {{ t('bof.title') }}
           </h2>
           <p class="text-gray-700 leading-relaxed m-0">
