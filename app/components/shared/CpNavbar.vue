@@ -3,6 +3,10 @@ import { useResizeObserver } from '@vueuse/core'
 import { useRoute } from 'vue-router'
 import CpDropdown from './CpDropdown.vue'
 
+const props = defineProps<{
+  variant?: 'landing'
+}>()
+
 const route = useRoute()
 const { locale, locales, defaultLocale, t } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
@@ -17,6 +21,7 @@ type MenuItem = {
 )
 
 const isApp = computed(() => route.query.mode === 'app')
+const isLanding = computed(() => props.variant === 'landing')
 
 const menu = computed<MenuItem[]>(() => [
   { key: 'about', path: '/about' },
@@ -89,7 +94,10 @@ useResizeObserver(navRef, checkOverflow)
   <nav
     v-if="!isApp"
     ref="navRef"
-    class="text-gray-700 px-3 py-1 border-b border-gray-300 bg-white flex h-16 justify-between relative *:h-full"
+    class="px-3 py-1 border-b flex h-16 justify-between relative *:h-full"
+    :class="isLanding
+      ? 'border-landing-accent bg-landing-accent text-white'
+      : 'border-gray-300 bg-white text-gray-700'"
   >
     <div
       ref="logoRef"
@@ -102,7 +110,7 @@ useResizeObserver(navRef, checkOverflow)
         <NuxtPicture
           :alt="t('logo_alt')"
           :img-attrs="{ class: 'object-contain h-8' }"
-          src="/coscup_logo.png"
+          :src="isLanding ? '/coscup_logo_white.png' : '/coscup_logo.png'"
         />
       </NuxtLinkLocale>
     </div>
@@ -157,7 +165,8 @@ useResizeObserver(navRef, checkOverflow)
         v-if="isOverflowing"
         :aria-expanded="menuOpen"
         :aria-label="t('menu_toggle')"
-        class="p-2 rounded hover:bg-gray-100"
+        class="p-2 rounded"
+        :class="isLanding ? 'hover:bg-white/15' : 'hover:bg-gray-100'"
         type="button"
         @click="menuOpen = !menuOpen"
       >
@@ -178,7 +187,7 @@ useResizeObserver(navRef, checkOverflow)
     <!-- Mobile dropdown -->
     <div
       v-if="menuOpen && isOverflowing"
-      class="border-b border-gray-300 bg-white h-max shadow-md left-0 right-0 top-16 absolute z-toast"
+      class="text-gray-700 border-b border-gray-300 bg-white h-max shadow-md left-0 right-0 top-16 absolute z-toast"
     >
       <ul class="py-2 flex flex-col">
         <template
