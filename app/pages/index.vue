@@ -65,12 +65,12 @@ useSeoMeta({
             {{ countdownText }}
           </span>
         </ClientOnly>
-        <NuxtLinkLocale
+        <NuxtLink
           class="text-white font-semibold ml-auto px-6 py-2 text-center rounded-lg bg-landing-accent transition-colors hover:bg-landing-accent-hover"
-          to="/session"
+          to="https://coscup-tw.kktix.cc/events/preregist"
         >
           {{ t('hero.cta') }}
-        </NuxtLinkLocale>
+        </NuxtLink>
       </div>
     </section>
 
