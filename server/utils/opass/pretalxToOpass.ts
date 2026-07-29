@@ -50,6 +50,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
         record: '',
       }
     })
+    .filter((session) => session.room && session.start && session.end)
 
   const speakers = Array.from(speakerIds, (id: Speaker['code']) => {
     const speaker = pretalxData.speakers.map[id]
