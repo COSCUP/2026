@@ -56,7 +56,7 @@ useSeoMeta({
         alt="banner"
         class="w-full"
         height="832"
-        src="/banner.png"
+        src="/banner.webp"
         width="1900"
       />
       <div class="px-3 py-3 rounded-b-2xl bg-landing-green flex items-center">
