@@ -33,3 +33,6 @@ jobs:
       - run: pnpm build
         env:
           NODE_OPTIONS: --max-old-space-size=8192
+
+      - name: Validate OPass JSON
+        run: pnpx --yes @ccip-app/schedule-json-validator --strict .output/public/2026/api/opass.json
