@@ -36,7 +36,7 @@ useSeoMeta({
 })
 
 const ogImageProps = {
-  title: page.value?.title || 'COSCUP 2026 x UbuCon Asia',
+  title: page.value?.title || 'COSCUP x UbuCon Asia 2026',
   subtitle: page.value?.description || '',
 }
 defineOgImage('Default', ogImageProps)

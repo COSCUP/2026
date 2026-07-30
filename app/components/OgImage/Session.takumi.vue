@@ -34,7 +34,7 @@ withDefaults(
         />
       </svg>
       <span :style="{ marginLeft: '24px', fontSize: '30px', fontWeight: 700, color: OG_COLORS.brand }">
-        COSCUP 2026 x UbuCon Asia
+        COSCUP x UbuCon Asia 2026
       </span>
     </div>
 

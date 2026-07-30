@@ -7,7 +7,7 @@ withDefaults(
     subtitle?: string
   }>(),
   {
-    title: 'COSCUP 2026 x UbuCon Asia',
+    title: 'COSCUP x UbuCon Asia 2026',
     subtitle: '',
   },
 )
@@ -30,7 +30,7 @@ withDefaults(
         />
       </svg>
       <span :style="{ marginLeft: '28px', fontSize: '34px', fontWeight: 700, color: OG_COLORS.brand }">
-        COSCUP 2026 x UbuCon Asia
+        COSCUP x UbuCon Asia 2026
       </span>
     </div>
 
