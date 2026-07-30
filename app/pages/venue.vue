@@ -32,7 +32,7 @@ useSeoMeta({
 
 <i18n lang="yaml">
 zh:
-  title: 場地
+  title: 會場地圖
   description: COSCUP x UbuCon Asia 2026 場地平面圖
 en:
   title: Venue
