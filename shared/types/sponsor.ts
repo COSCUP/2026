@@ -5,6 +5,8 @@ export const SPONSOR_LEVELS = [
   ...TIER_LEVELS,
   'community',
   'thanks',
+  'co-host',
+  'co-organizer',
 ] as const
 
 export const SponsorLevelSchema = z.enum(SPONSOR_LEVELS)
