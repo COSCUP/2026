@@ -27,6 +27,7 @@ const menu = computed<MenuItem[]>(() => [
   { key: 'about', path: '/about' },
   { key: 'session', path: '/session' },
   { key: 'transportation', path: '/transportation' },
+  { key: 'venue', path: '/venue' },
   { key: 'sponsors', path: '/sponsor' },
   {
     key: 'participate',
@@ -264,6 +265,7 @@ en:
     session: "Session"
     about: "About"
     transportation: "Transportation"
+    venue: "Venue"
     participate: "Participate"
     participate_index: "Participate Guide"
     participate_first_time: "First Timer"
@@ -287,6 +289,7 @@ zh:
     session: "議程"
     about: "關於我們"
     transportation: "交通"
+    venue: "會場地圖"
     participate: "參與指南"
     participate_index: "參與指南"
     participate_first_time: "第一次參與"
