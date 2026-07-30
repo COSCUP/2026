@@ -108,6 +108,8 @@ zh:
     friend: "好朋友級"
     community: "社群夥伴"
     thanks: "特別感謝"
+    co-host: "共同主辦單位"
+    co-organizer: "協辦單位"
 en:
   meta:
     title: "Sponsors"
@@ -127,4 +129,6 @@ en:
     friend: "Friend Sponsor"
     community: "Community Partner"
     thanks: "Special-thanks"
+    co-host: "Co-host"
+    co-organizer: "Co-organizer"
 </i18n>
