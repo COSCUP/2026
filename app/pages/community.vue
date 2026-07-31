@@ -7,6 +7,7 @@ interface Community {
   id: string
   tracks: { id: number, name: { 'en': string, 'zh-hant': string } }[]
   logo?: string
+  url?: string
   zh: { name: string, description: string }
   en: { name: string, description: string }
 }
@@ -80,7 +81,19 @@ useSeoMeta({
 
         <div class="flex-1 min-w-0">
           <h3 class="text-lg text-primary-500 font-700">
-            {{ communityName(community) }}
+            <NuxtLink
+              v-if="community.url"
+              class="hover:underline"
+              external
+              rel="noreferrer noopener"
+              target="_blank"
+              :to="community.url"
+            >
+              {{ communityName(community) }}
+            </NuxtLink>
+            <template v-else>
+              {{ communityName(community) }}
+            </template>
           </h3>
           <div class="mt-1.5 flex flex-wrap gap-1.5">
             <span

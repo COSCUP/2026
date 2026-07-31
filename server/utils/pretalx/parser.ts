@@ -27,6 +27,7 @@ export const ANSWER_MAP = {
     enDesc: 400,
     zhDesc: 398,
     logo: 402,
+    url: 401,
   },
 } as const satisfies Record<'session' | 'community', Record<string, number | null>>
 

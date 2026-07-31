@@ -9,6 +9,7 @@ export default defineEventHandler(async () => {
     id: string
     tracks: { id: number, name: { 'en': string, 'zh-hant': string } }[]
     logo?: string
+    url?: string
     zh: { name: string, description: string }
     en: { name: string, description: string }
   }>()
@@ -31,6 +32,7 @@ export default defineEventHandler(async () => {
           id: submission.code,
           tracks: track ? [{ id: track.id, name: track.name }] : [],
           logo: answers.logo,
+          url: answers.url,
           zh: {
             name: answers.zhName || submission.title,
             description: answers.zhDesc || submission.abstract,
