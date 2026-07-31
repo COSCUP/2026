@@ -14,7 +14,7 @@ export default defineEventHandler(async () => {
   }>()
 
   data.submissions.arr
-    .filter((submission: Submission) => submission.state === 'confirmed')
+    .filter((submission: Submission) => submission.state === 'confirmed' || submission.state === 'accepted')
     .forEach((submission: Submission) => {
       const answers = parseAnswer(submission.answers, 'community', data)
       const enName = answers.enName || submission.title
