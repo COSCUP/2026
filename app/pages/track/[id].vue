@@ -14,6 +14,14 @@ const route = useRoute()
 const router = useRouter()
 const localePath = useLocalePath()
 
+function goBack() {
+  if (window.history.length > 1) {
+    router.back()
+  } else {
+    navigateTo(localePath('/session'))
+  }
+}
+
 const { data } = await useFetch<TrackDetail>(`/api/track/${route.params.id}`)
 const { data: ad } = await useFetch<Ad[]>('/api/ad')
 
@@ -149,16 +157,17 @@ useSeoMeta({
     v-if="data"
     class="mx-auto flex flex-col gap-6 max-w-3xl"
   >
-    <NuxtLink
-      class="text-sm text-gray-500 inline-flex gap-1.5 w-fit transition-colors items-center hover:text-primary-500"
-      :to="localePath('/session')"
+    <button
+      class="text-sm text-gray-500 inline-flex gap-1.5 w-fit cursor-pointer transition-colors items-center hover:text-primary-500"
+      type="button"
+      @click="goBack()"
     >
       <Icon
         class="h-4 w-4"
         name="tabler:arrow-left"
       />
       {{ t('back') }}
-    </NuxtLink>
+    </button>
 
     <CpTrackHeader
       v-model="selectedDay"
@@ -242,12 +251,12 @@ useSeoMeta({
 
 <i18n lang="yaml">
   en:
-    back: 'Back to sessions'
+    back: 'Back'
     day: 'Day {n}'
     notFound: 'Track not found.'
     separator: ', '
   zh:
-    back: '返回議程'
+    back: '上一頁'
     day: '第 {n} 天'
     notFound: '找不到這個議程軌。'
     separator: '、'

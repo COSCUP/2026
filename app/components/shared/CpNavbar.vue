@@ -28,6 +28,7 @@ const menu = computed<MenuItem[]>(() => [
   { key: 'session', path: '/session' },
   { key: 'transportation', path: '/transportation' },
   { key: 'venue', path: '/venue' },
+  { key: 'community', path: '/community' },
   { key: 'sponsors', path: '/sponsor' },
   {
     key: 'participate',
@@ -276,6 +277,7 @@ en:
     participate_open_source_community: "Open Source Communities"
     participate_sponsor_partner: "Sponsorship Partners"
     invitation_letter_guide: "Invitation Letter Guide"
+    community: "Communities"
     sponsors: "Sponsors"
     staff: "Staff"
     bof: "Fringe Events / BoF"
@@ -299,6 +301,7 @@ zh:
     participate_oversea: "海外參與者"
     participate_open_source_community: "開源社群、攤位及議程軌"
     participate_sponsor_partner: "贊助夥伴"
+    community: "社群"
     sponsors: "贊助夥伴"
     staff: "工作人員"
     bof: "周邊活動 / BoF"

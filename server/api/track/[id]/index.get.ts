@@ -1,6 +1,6 @@
 import type { Submission } from '#shared/types/pretalx'
 import type { SessionSummary, TrackDetail } from '#shared/types/session'
-import pretalxData from '#server/utils/pretalx'
+import { sessions as pretalxData } from '#server/utils/pretalx'
 import { buildSessionSummary, groupSessionsByDay } from '#server/utils/pretalx/sessions'
 import { buildTrackColorMap, DEFAULT_TRACK_COLOR } from '#shared/utils/tracks'
 

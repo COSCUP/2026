@@ -71,6 +71,7 @@ export const AnswerSchema = z.object({
   id: z.number(),
   question: z.number(),
   answer: z.string(),
+  answer_file: z.string().nullable(),
 })
 
 export const SlotSchema = z.object({

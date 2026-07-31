@@ -1,5 +1,5 @@
 import type { SessionSummary } from '#shared/types/session'
-import pretalxData from '#server/utils/pretalx'
+import { sessions as pretalxData } from '#server/utils/pretalx'
 import { buildSessionSummary } from '#server/utils/pretalx/sessions'
 import { buildTrackColorMap, DEFAULT_TRACK_COLOR, trackKey } from '#shared/utils/tracks'
 
