@@ -39,12 +39,12 @@ export default defineEventHandler(async () => {
         booth: sheet?.booth ?? '',
         track: sheet?.track ?? '',
         zh: {
-          name: answers.zhName || submission.title,
-          description: answers.zhDesc || submission.abstract,
+          name: answers.zhName || answers.enName || '',
+          description: answers.zhDesc || answers.enDesc || '',
         },
         en: {
-          name: enName,
-          description: answers.enDesc || submission.abstract,
+          name: answers.enName || answers.zhName || '',
+          description: answers.enDesc || answers.zhDesc || '',
         },
       })
     })
