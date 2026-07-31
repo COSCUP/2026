@@ -18,6 +18,9 @@ useHead({
     { property: 'og:url', content: canonicalUrl },
   ],
 })
+
+// Site-wide fallback OG image; individual pages override it with their own.
+defineOgImage('Default')
 </script>
 
 <template>

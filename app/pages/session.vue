@@ -182,7 +182,7 @@ if (import.meta.server && !route.params.id) {
   prerenderRoutes(
     Object.values(sessionsByDay)
       .flat()
-      .map((s) => `/session/${s.id}`),
+      .flatMap((s) => [`/session/${s.id}`, `/en/session/${s.id}`]),
   )
 }
 

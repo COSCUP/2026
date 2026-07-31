@@ -52,12 +52,10 @@ export default defineNuxtConfig({
         { property: 'og:description', content: DESC },
         { property: 'og:site_name', content: TITLE },
         { property: 'og:type', content: 'website' },
-        { property: 'og:image', content: `${URL}/coscup_logo.png` },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: TITLE },
         { name: 'twitter:description', content: DESC },
         { name: 'twitter:site', content: '@coscup' },
-        { name: 'twitter:image', content: `${URL}/coscup_logo.png` },
       ],
       script: [
         {
@@ -98,6 +96,9 @@ export default defineNuxtConfig({
       publicDir: process.env.NUXT_OUTPUT_DIR || '.output/public',
     },
     prerender: {
+      // Keep at 1: nuxt-og-image has a prerender race that 500s a random session
+      // _payload.json route under concurrency > 1. Raise only once that's fixed upstream.
+      concurrency: 1,
       // ?session= is a client-side UI state (opens a session panel); prerendering those
       // URLs is wasteful and bloats the build. Ignore them so the crawler doesn't follow
       // the NuxtLinks in CpTrackSchedule that carry this query param.
@@ -129,11 +130,33 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     '@nuxt/content',
     '@nuxt/eslint',
+    '@nuxt/fonts',
     '@nuxt/image',
     '@nuxt/icon',
     '@nuxtjs/i18n',
     'nuxt-gtag',
+    'nuxt-og-image',
   ],
+
+  // Origin only — app.baseURL ('/2026') is appended automatically by nuxt-site-config.
+  site: {
+    url: 'https://coscup.org',
+    name: TITLE,
+  },
+
+  fonts: {
+    // global: true required so nuxt-og-image's renderer can use these fonts.
+    // Only weight 400: the Takumi renderer corrupts the 700-weight CJK glyphs
+    // (double-draw artifacts), so OG templates render CJK at regular weight.
+    // Order matters: Takumi picks one font per script run, so the widest-coverage
+    // CJK font (SC) must be first.
+    families: [
+      { name: 'Noto Sans SC', weights: [400], global: true },
+      { name: 'Noto Sans TC', weights: [400], global: true },
+      { name: 'Noto Sans JP', weights: [400], global: true },
+      { name: 'Noto Sans KR', weights: [400], global: true },
+    ],
+  },
 
   content: {
     experimental: { nativeSqlite: true },
@@ -152,6 +175,8 @@ export default defineNuxtConfig({
   },
 
   i18n: {
+    // Match site.url so nuxt-site-config can build absolute hreflang/canonical links.
+    baseUrl: 'https://coscup.org',
     locales: [
       { code: 'en', name: 'English', language: 'en-US' },
       { code: 'zh', name: '中文', language: 'zh-Hant-TW' },
