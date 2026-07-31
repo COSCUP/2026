@@ -12,6 +12,15 @@ import { DEFAULT_TRACK_COLOR } from '~/utils/tracks'
 const { t, locale } = useI18n()
 const route = useRoute()
 const router = useRouter()
+const localePath = useLocalePath()
+
+function goBack() {
+  if (window.history.length > 1) {
+    router.back()
+  } else {
+    navigateTo(localePath('/session'))
+  }
+}
 
 const { data } = await useFetch<TrackDetail>(`/api/track/${route.params.id}`)
 const { data: ad } = await useFetch<Ad[]>('/api/ad')
@@ -151,7 +160,7 @@ useSeoMeta({
     <button
       class="text-sm text-gray-500 inline-flex gap-1.5 w-fit cursor-pointer transition-colors items-center hover:text-primary-500"
       type="button"
-      @click="router.back()"
+      @click="goBack()"
     >
       <Icon
         class="h-4 w-4"
