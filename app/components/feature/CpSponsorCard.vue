@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Sponsor } from '#shared/types/sponsor'
+import type { RewardType, Sponsor } from '#shared/types/sponsor'
 import { useI18n } from 'vue-i18n'
 
 const { sponsor } = defineProps<{
@@ -9,23 +9,38 @@ const { sponsor } = defineProps<{
 const { locale, t } = useI18n()
 
 const needsExpand = computed(() => sponsor.intro[locale.value]?.length > 200)
-const hasRibbon = computed(() => sponsor.reward_type !== 'Null' && sponsor.reward_data > 0)
-const ribbonColorClass = computed(() =>
-  sponsor.reward_type === '連續贊助' ? 'bg-amber-400' : 'bg-teal-500',
-)
-const ribbonTypeKey = computed(() =>
-  sponsor.reward_type === '連續贊助' ? 'consecutive' : 'cumulative',
-)
+
+const rewardStyle: Record<Exclude<RewardType, 'Null'>, string> = {
+  連續贊助: 'bg-amber-400',
+  累計贊助: 'bg-teal-500',
+  累計合作: 'bg-teal-500',
+}
+
+const rewardI18nKey: Record<Exclude<RewardType, 'Null'>, string> = {
+  連續贊助: 'consecutive',
+  累計贊助: 'cumulative',
+  累計合作: 'collaborator',
+}
+
+const ribbon = computed(() => {
+  if (sponsor.reward_type === 'Null' || sponsor.reward_data <= 0) {
+    return null
+  }
+  return {
+    style: rewardStyle[sponsor.reward_type],
+    key: `ribbon.${rewardI18nKey[sponsor.reward_type]}`,
+  }
+})
 </script>
 
 <template>
   <article class="p-4 border border-primary-200 rounded-lg flex flex-col gap-4 relative overflow-hidden md:flex-row md:items-start">
     <span
-      v-if="hasRibbon"
+      v-if="ribbon"
       class="text-[10px] text-white leading-tight font-700 py-1.5 text-center w-[140px] shadow-sm left-[-35px] top-[17px] absolute -rotate-45"
-      :class="ribbonColorClass"
+      :class="ribbon.style"
     >
-      <span class="block">{{ t(`ribbon.${ribbonTypeKey}`) }}</span>
+      <span class="block">{{ t(ribbon.key) }}</span>
       <span class="block">{{ t('ribbon.years', { n: sponsor.reward_data }) }}</span>
     </span>
     <NuxtLink
@@ -95,6 +110,7 @@ zh:
   ribbon:
     consecutive: "連續贊助"
     cumulative: "累計贊助"
+    collaborator: "累計合作"
     years: "{n} 年"
 en:
   show_less: "Show less"
@@ -102,5 +118,6 @@ en:
   ribbon:
     consecutive: "Consecutive"
     cumulative: "Cumulative"
+    collaborator: "Collaborator"
     years: "{n} Yrs"
 </i18n>
