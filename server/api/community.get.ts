@@ -1,12 +1,12 @@
-import type { CommunityRow } from '#shared/types/community'
 import type { Submission } from '#shared/types/pretalx'
 import { communities as pretalxData } from '#server/utils/pretalx'
 import { parseAnswer } from '#server/utils/pretalx/parser'
+import { fetchSheet } from '#server/utils/sheets'
 
 export default defineEventHandler(async () => {
   const [data, sheetRows] = await Promise.all([
     pretalxData(),
-    $fetch<CommunityRow[]>('/api/sheets/community'),
+    fetchSheet('community'),
   ])
 
   const sheetMap = new Map(sheetRows.map((row) => [row.id, row]))
