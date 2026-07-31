@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Sponsor } from '#shared/types/sponsor'
+import type { RewardType, Sponsor } from '#shared/types/sponsor'
 import { useI18n } from 'vue-i18n'
 import { SPONSOR_LEVELS } from '#shared/types/sponsor'
 
@@ -18,6 +18,28 @@ const sponsorGroups = computed(() => {
 })
 
 const hasSponsor = computed(() => !!data.value?.length)
+
+const rewardStyle: Record<Exclude<RewardType, 'Null'>, string> = {
+  連續贊助: 'bg-amber-400',
+  累計贊助: 'bg-teal-500',
+  累計合作: 'bg-teal-500',
+}
+
+const rewardI18nKey: Record<Exclude<RewardType, 'Null'>, string> = {
+  連續贊助: 'consecutive',
+  累計贊助: 'cumulative',
+  累計合作: 'collaborator',
+}
+
+function getRibbon(sponsor: Sponsor) {
+  if (sponsor.reward_type === 'Null' || sponsor.reward_data <= 0) {
+    return null
+  }
+  return {
+    style: rewardStyle[sponsor.reward_type],
+    key: `ribbon.${rewardI18nKey[sponsor.reward_type]}`,
+  }
+}
 </script>
 
 <template>
@@ -48,11 +70,11 @@ const hasSponsor = computed(() => !!data.value?.length)
             :to="sponsor.link"
           >
             <span
-              v-if="sponsor.reward_type !== 'Null' && sponsor.reward_data > 0"
+              v-if="getRibbon(sponsor)"
               class="text-[8px] text-white leading-tight font-700 py-1 text-center w-[90px] pointer-events-none left-[-24px] top-[8px] absolute -rotate-45"
-              :class="sponsor.reward_type === '連續贊助' ? 'bg-amber-400' : 'bg-teal-500'"
+              :class="getRibbon(sponsor)!.style"
             >
-              <span class="block">{{ t(`ribbon.${sponsor.reward_type === '連續贊助' ? 'consecutive' : 'cumulative'}`) }}</span>
+              <span class="block">{{ t(getRibbon(sponsor)!.key) }}</span>
               <span class="block">{{ t('ribbon.years', { n: sponsor.reward_data }) }}</span>
             </span>
             <NuxtImg
@@ -79,9 +101,12 @@ zh:
     friend: 好朋友級
     community: 社群夥伴
     thanks: 特別感謝
+    co-host: "共同主辦單位"
+    co-organizer: "協辦單位"
   ribbon:
     consecutive: 連續贊助
     cumulative: 累計贊助
+    collaborator: 累計合作
     years: "{n} 年"
 en:
   title: Sponsors
@@ -94,8 +119,11 @@ en:
     friend: Friend
     community: Community Partner
     thanks: Special Thanks
+    co-host: "Co-host"
+    co-organizer: "Co-organizer"
   ribbon:
     consecutive: Consecutive
     cumulative: Cumulative
+    collaborator: Collaborator
     years: "{n} Yrs"
 </i18n>
