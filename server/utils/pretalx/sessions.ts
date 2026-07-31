@@ -9,7 +9,7 @@ export function buildSessionSummary(submission: Submission, data: PretalxResult)
     return null
   }
 
-  const answers = parseAnswer(submission.answers, data)
+  const answers = parseAnswer(submission.answers, 'session', data)
   const slot = parseSlot(submission.slots[0], data)
   const speakers = parseSpeaker(submission.speakers, data)
   const type = parseType(submission.submission_type, data)

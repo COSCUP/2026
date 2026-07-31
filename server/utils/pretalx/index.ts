@@ -33,6 +33,22 @@ export const sessions = defineCachedFunction(
   },
   {
     maxAge: Infinity,
-    name: 'pretalxData',
+    name: 'pretalxSessionsData',
+  },
+)
+
+export const communities = defineCachedFunction(
+  async () => {
+    const [submissions, tracks, answers] = await Promise.all([
+      fetchPretalxTable('coscup-2026-call-for-participation', 'submissions'),
+      fetchPretalxTable('coscup-2026-call-for-participation', 'tracks'),
+      fetchPretalxTable('coscup-2026-call-for-participation', 'answers'),
+    ])
+
+    return { submissions, tracks, answers } satisfies Pick<PretalxResult, 'submissions' | 'tracks' | 'answers'>
+  },
+  {
+    maxAge: Infinity,
+    name: 'pretalxCommunitiesData',
   },
 )

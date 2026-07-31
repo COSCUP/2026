@@ -5,24 +5,34 @@ import type { SessionDifficulty, SessionSpeaker, SessionTrack } from '#shared/ty
 // key 為系統內使用的欄位名稱，value 為 pretalx 的 question id。
 // 這個對應表會被 `parseAnswer` 使用，將 pretalx 的 answers
 // 轉換為以 key 為索引的 Record 物件並回傳。
-const QUESTION_MAP = {
-  language: 380,
-  languageOther: 381,
-  enTitle: 377,
-  enDesc: 378,
-  difficulty: 379,
-  zhName: null,
-  enName: null,
-  zhBio: null,
-  enBio: null,
-  coWrite: null,
-  qa: null,
-  slide: null,
-  record: null,
-} as const satisfies Record<string, number | null>
+export const ANSWER_MAP = {
+  session: {
+    language: 380,
+    languageOther: 381,
+    enTitle: 377,
+    enDesc: 378,
+    difficulty: 379,
+    zhName: null,
+    enName: null,
+    zhBio: null,
+    enBio: null,
+    coWrite: null,
+    qa: null,
+    slide: null,
+    record: null,
+  },
+  community: {
+    enName: 399,
+    zhName: 397,
+    enDesc: 400,
+    zhDesc: 398,
+    logo: 402,
+  },
+} as const satisfies Record<'session' | 'community', Record<string, number | null>>
 
-type QuestionKey = keyof typeof QUESTION_MAP
-type ParsedAnswer = Partial<Record<QuestionKey, string>>
+type SessionQuestionKey = keyof typeof ANSWER_MAP['session']
+type CommunityQuestionKey = keyof typeof ANSWER_MAP['community']
+type ParsedAnswer = Partial<Record<SessionQuestionKey | CommunityQuestionKey, string>>
 type ParsedSlot = Omit<Slot, 'room'> & { room?: Room }
 
 // 議程難度正規化表。pretalx 的難度欄位是一個有固定選項的自訂問題答案。
@@ -39,7 +49,7 @@ const DIFFICULTY_GENERALIZE_MAP: Record<string, SessionDifficulty> = {
   Professional: 'Professional',
 }
 
-export function parseAnswer(answers: Answer['id'][], pretalxData: PretalxResult): ParsedAnswer {
+export function parseAnswer(answers: Answer['id'][], map: 'session' | 'community', pretalxData: Pick<PretalxResult, 'answers'>): ParsedAnswer {
   const answerMap = pretalxData.answers.map
   const results: ParsedAnswer = {}
 
@@ -55,14 +65,12 @@ export function parseAnswer(answers: Answer['id'][], pretalxData: PretalxResult)
     return acc
   }, {})
 
-  for (const question of Object.keys(QUESTION_MAP) as QuestionKey[]) {
-    const questionId = QUESTION_MAP[question]
-
+  for (const [question, questionId] of Object.entries(ANSWER_MAP[map]) as [SessionQuestionKey | CommunityQuestionKey, number | null][]) {
     if (!questionId) {
       continue
     }
 
-    results[question] = questionMap[questionId]?.answer
+    results[question] = questionMap[questionId]?.answer_file || questionMap[questionId]?.answer
   }
 
   return results
@@ -95,7 +103,7 @@ export function parseSpeaker(speakerIds: Submission['speakers'], pretalxData: Pr
       throw createError(`Speaker not found: ${speakerId}`)
     }
 
-    const answer = parseAnswer(speaker.answers, pretalxData)
+    const answer = parseAnswer(speaker.answers, 'session', pretalxData)
 
     return {
       id: speaker.code,
