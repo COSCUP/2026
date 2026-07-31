@@ -5,9 +5,10 @@ const { t, locale } = useI18n()
 
 interface Community {
   id: string
-  tracks: { id: number, name: { 'en': string, 'zh-hant': string } }[]
   logo?: string
   url?: string
+  booth: string
+  track: string
   zh: { name: string, description: string }
   en: { name: string, description: string }
 }
@@ -27,14 +28,6 @@ function communityDescription(community: Community) {
 function needsExpand(community: Community) {
   const desc = communityDescription(community)
   return desc.length > 200
-}
-
-function trackType(track: Community['tracks'][number]) {
-  const name = track.name['zh-hant'] + track.name.en
-  if (name.includes('攤位') || name.toLowerCase().includes('booth')) {
-    return 'booth'
-  }
-  return 'session'
 }
 
 useSeoMeta({
@@ -97,12 +90,18 @@ useSeoMeta({
           </h3>
           <div class="mt-1.5 flex flex-wrap gap-1.5">
             <span
-              v-for="track in community.tracks"
-              :key="track.id"
+              v-if="community.booth"
               class="text-xs text-primary-500 font-600 px-2 py-0.5 border border-primary-200 rounded-full bg-primary-50"
             >
-              {{ t(`track.${trackType(track)}`) }}
+              {{ t('track.booth') }}
             </span>
+            <NuxtLinkLocale
+              v-if="community.track"
+              class="text-xs text-primary-500 font-600 px-2 py-0.5 border border-primary-200 rounded-full bg-primary-50 transition hover:bg-primary-100"
+              :to="`/track/${community.track}`"
+            >
+              {{ t('track.session') }}
+            </NuxtLinkLocale>
           </div>
           <template v-if="needsExpand(community)">
             <input
