@@ -16,7 +16,10 @@ export default defineEventHandler(async () => {
     logo?: string
     url?: string
     booth: string
-    track: string
+    track: {
+      title: { zh: string, en: string }
+      id: string
+    }
     zh: { name: string, description: string }
     en: { name: string, description: string }
   }>()
@@ -37,7 +40,13 @@ export default defineEventHandler(async () => {
         logo: answers.logo,
         url: answers.url,
         booth: sheet?.booth ?? '',
-        track: sheet?.track ?? '',
+        track: {
+          title: {
+            zh: submission.title,
+            en: answers.enTrack || submission.title,
+          },
+          id: sheet?.track ?? '',
+        },
         zh: {
           name: answers.zhName || answers.enName || '',
           description: answers.zhDesc || answers.enDesc || '',

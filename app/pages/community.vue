@@ -8,7 +8,10 @@ interface Community {
   logo?: string
   url?: string
   booth: string
-  track: string
+  track: {
+    title: { zh: string, en: string }
+    id: string
+  }
   zh: { name: string, description: string }
   en: { name: string, description: string }
 }
@@ -96,11 +99,11 @@ useSeoMeta({
               {{ t('track.booth') }}
             </span>
             <NuxtLinkLocale
-              v-if="community.track"
+              v-if="community.track.id"
               class="text-xs text-primary-500 font-600 px-2 py-0.5 border border-primary-200 rounded-full bg-primary-50 transition hover:bg-primary-100"
-              :to="`/track/${community.track}`"
+              :to="`/track/${community.track.id}`"
             >
-              {{ t('track.session') }}
+              {{ t('track.session') }}: {{ locale === 'zh' ? community.track.title.zh : community.track.title.en }}
             </NuxtLinkLocale>
           </div>
           <template v-if="needsExpand(community)">
