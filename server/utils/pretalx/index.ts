@@ -2,7 +2,7 @@ import type { PretalxResult } from '#shared/types/pretalx'
 
 import { fetchPretalxTable } from './fetch'
 
-export default defineCachedFunction(
+export const sessions = defineCachedFunction(
   async () => {
     const { pretalxApiUrl, pretalxApiToken } = useRuntimeConfig()
     if (!pretalxApiUrl || !pretalxApiToken) {
@@ -10,14 +10,14 @@ export default defineCachedFunction(
     }
 
     const [submissions, submissionTypes, speakers, rooms, answers, slots, tracks, tags] = await Promise.all([
-      fetchPretalxTable('submissions'),
-      fetchPretalxTable('submission-types'),
-      fetchPretalxTable('speakers'),
-      fetchPretalxTable('rooms'),
-      fetchPretalxTable('answers'),
-      fetchPretalxTable('slots'),
-      fetchPretalxTable('tracks'),
-      fetchPretalxTable('tags'),
+      fetchPretalxTable('coscup-2026', 'submissions'),
+      fetchPretalxTable('coscup-2026', 'submission-types'),
+      fetchPretalxTable('coscup-2026', 'speakers'),
+      fetchPretalxTable('coscup-2026', 'rooms'),
+      fetchPretalxTable('coscup-2026', 'answers'),
+      fetchPretalxTable('coscup-2026', 'slots'),
+      fetchPretalxTable('coscup-2026', 'tracks'),
+      fetchPretalxTable('coscup-2026', 'tags'),
     ])
 
     return {

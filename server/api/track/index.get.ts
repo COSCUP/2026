@@ -1,6 +1,6 @@
 import type { Submission } from '#shared/types/pretalx'
 import type { SessionSummary, TrackSummary } from '#shared/types/session'
-import pretalxData from '#server/utils/pretalx'
+import { sessions as pretalxData } from '#server/utils/pretalx'
 import { buildSessionSummary } from '#server/utils/pretalx/sessions'
 
 export default defineEventHandler(async (): Promise<TrackSummary[]> => {

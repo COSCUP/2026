@@ -23,6 +23,7 @@ function getPretalxItemKey<T extends PretalxTable>(item: TableTypeMap[T]): strin
 }
 
 export async function fetchPretalxTable<T extends PretalxTable>(
+  event: string,
   table: T,
 ): Promise<PretalxData<T>> {
   const { pretalxApiUrl, pretalxApiToken } = useRuntimeConfig()
@@ -40,7 +41,7 @@ export async function fetchPretalxTable<T extends PretalxTable>(
       await $fetch(
         url,
         {
-          baseURL: pretalxApiUrl,
+          baseURL: `${pretalxApiUrl}/events/${event}/`,
           headers: {
             Authorization: `Token ${pretalxApiToken}`,
           },
