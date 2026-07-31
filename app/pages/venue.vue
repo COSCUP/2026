@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import tr309 from '~/assets/venue/TR309.svg'
 import tr312 from '~/assets/venue/TR312.svg'
-import tr409 from '~/assets/venue/TR409.svg'
+import tr409_1 from '~/assets/venue/TR409-1.webp'
 
 const { t } = useI18n()
 
@@ -25,7 +25,7 @@ useSeoMeta({
     >
     <img
       alt="TR409"
-      :src="tr409"
+      :src="tr409_1"
     >
   </div>
 </template>
