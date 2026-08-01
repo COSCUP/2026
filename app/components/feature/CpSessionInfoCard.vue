@@ -3,6 +3,7 @@ import type { Ad } from '#shared/types/ad'
 import { useMediaQuery } from '@vueuse/core'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { TAG_NAMES } from '#shared/utils/session'
 
 const props = defineProps<{
   title: string
@@ -33,6 +34,14 @@ const localePath = useLocalePath()
 const speakerNames = computed(() =>
   props.speakers.map((s) => s.name).join(', '),
 )
+
+function localizeTag(tag: string) {
+  const names = TAG_NAMES[tag]
+  if (names) {
+    return locale.value === 'zh' ? names.zh : names.en
+  }
+  return tag
+}
 </script>
 
 <template>
@@ -128,7 +137,7 @@ const speakerNames = computed(() =>
           :key="tag"
           class="text-xs text-zinc-900 font-medium px-3 py-1 rounded-full bg-stone-100"
         >
-          {{ tag }}
+          {{ localizeTag(tag) }}
         </span>
       </div>
     </header>
