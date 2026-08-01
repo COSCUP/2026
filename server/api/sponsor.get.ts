@@ -1,15 +1,5 @@
+import { selfHostedImageUrl } from '#server/utils/remoteImages'
 import { fetchSheet } from '../utils/sheets'
-
-function transformImageUrl(source: string) {
-  if (source.startsWith('https://drive.google.com/file/d/')) {
-    const id = source.split('/')[5]
-    const url = `https://drive.google.com/thumbnail?id=${id}`
-
-    return url
-  }
-
-  return source
-}
 
 export default defineEventHandler(async () => {
   const sheets = await fetchSheet('sponsor-list')
@@ -22,6 +12,6 @@ export default defineEventHandler(async () => {
     ...attr,
     name: { zh: name_zh, en: name_en },
     intro: { zh: intro_zh, en: intro_en },
-    image: transformImageUrl(image),
+    image: selfHostedImageUrl(image),
   }))
 })
