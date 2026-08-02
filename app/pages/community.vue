@@ -3,6 +3,13 @@ import { useI18n } from 'vue-i18n'
 
 const { t, locale } = useI18n()
 
+interface CommunitySponsor {
+  id: string
+  name: { zh: string, en: string }
+  link: string
+  image: string
+}
+
 interface Community {
   id: string
   logo?: string
@@ -12,6 +19,7 @@ interface Community {
     title: { zh: string, en: string }
     id: string
   }
+  sponsors: CommunitySponsor[]
   zh: { name: string, description: string }
   en: { name: string, description: string }
 }
@@ -105,6 +113,22 @@ useSeoMeta({
             >
               {{ t('track.session') }}: {{ locale === 'zh' ? community.track.title.zh : community.track.title.en }}
             </NuxtLinkLocale>
+            <NuxtLink
+              v-for="s in community.sponsors"
+              :key="s.id"
+              class="text-xs text-primary-500 font-600 px-2 py-0.5 border border-primary-200 rounded-full bg-primary-50 inline-flex gap-1 transition items-center hover:bg-primary-100"
+              external
+              rel="noreferrer"
+              target="_blank"
+              :to="s.link"
+            >
+              <NuxtImg
+                :alt="locale === 'zh' ? s.name.zh : s.name.en"
+                class="rounded-sm h-3.5 w-3.5 object-contain"
+                :src="s.image"
+              />
+              {{ t('sponsored_by_name', { name: locale === 'zh' ? s.name.zh : s.name.en }) }}
+            </NuxtLink>
           </div>
           <template v-if="needsExpand(community)">
             <input
@@ -148,6 +172,7 @@ zh:
   empty: "社群資料尚未公布。"
   read_more: "更多"
   show_less: "收折"
+  sponsored_by_name: "贊助：{name}"
   track:
     booth: "攤位"
     session: "議程軌"
@@ -158,6 +183,7 @@ en:
   empty: "Community information has not been announced yet."
   read_more: "Read more"
   show_less: "Show less"
+  sponsored_by_name: "Sponsor: {name}"
   track:
     booth: "Booth"
     session: "Session Track"

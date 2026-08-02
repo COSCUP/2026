@@ -27,11 +27,18 @@ export const SponsorListRowSchema = z.object({
   reward_type: RewardTypeSchema,
   reward_data: RewardDataSchema,
   track: z.string().default(''),
+  community: z.string().default(''),
 })
 
 export const SponsorTrackSchema = z.object({
   id: z.number(),
   name: z.record(z.string(), z.string()),
+}).nullable()
+
+export const SponsorCommunitySchema = z.object({
+  id: z.string(),
+  name: z.object({ zh: z.string(), en: z.string() }),
+  logo: z.string().optional(),
 }).nullable()
 
 export const SponsorSchema = z.object({
@@ -50,6 +57,7 @@ export const SponsorSchema = z.object({
   reward_type: RewardTypeSchema,
   reward_data: RewardDataSchema,
   track: SponsorTrackSchema.default(null),
+  community: SponsorCommunitySchema.default(null),
 })
 
 export type SponsorListRow = z.infer<typeof SponsorListRowSchema>

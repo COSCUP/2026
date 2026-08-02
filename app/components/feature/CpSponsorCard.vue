@@ -10,6 +10,7 @@ const { locale, t } = useI18n()
 
 const localeKey = computed(() => locale.value === 'zh' ? 'zh-hant' : 'en')
 const trackName = computed(() => sponsor.track?.name[localeKey.value] || sponsor.track?.name.en || '')
+const communityName = computed(() => sponsor.community?.name[locale.value] || sponsor.community?.name.en || '')
 
 const needsExpand = computed(() => sponsor.intro[locale.value]?.length > 200)
 
@@ -80,6 +81,13 @@ const ribbon = computed(() => {
         >
           {{ t('sponsor_track', { name: trackName }) }}
         </NuxtLinkLocale>
+        <NuxtLinkLocale
+          v-if="sponsor.community"
+          class="text-xs text-primary-600 font-500 px-2 py-0.5 border border-primary-200 rounded-full bg-primary-50 transition hover:bg-primary-100"
+          to="/community"
+        >
+          {{ t('sponsor_community', { name: communityName }) }}
+        </NuxtLinkLocale>
       </div>
 
       <template v-if="needsExpand">
@@ -120,6 +128,7 @@ zh:
   show_less: "收合"
   read_more: "更多"
   sponsor_track: "贊助：{name}"
+  sponsor_community: "社群：{name}"
   ribbon:
     consecutive: "連續贊助"
     cumulative: "累計贊助"
@@ -129,6 +138,7 @@ en:
   show_less: "Show less"
   read_more: "Read more"
   sponsor_track: "Sponsor: {name}"
+  sponsor_community: "Community: {name}"
   ribbon:
     consecutive: "Consecutive"
     cumulative: "Cumulative"
