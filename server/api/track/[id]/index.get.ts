@@ -1,5 +1,6 @@
 import type { Submission } from '#shared/types/pretalx'
 import type { SessionSummary, TrackDetail } from '#shared/types/session'
+import type { Sponsor } from '#shared/types/sponsor'
 import { sessions as pretalxData } from '#server/utils/pretalx'
 import { buildSessionSummary, groupSessionsByDay } from '#server/utils/pretalx/sessions'
 import { buildTrackColorMap, DEFAULT_TRACK_COLOR } from '#shared/utils/tracks'
@@ -11,7 +12,11 @@ export default defineEventHandler(async (event): Promise<TrackDetail> => {
     throw createError({ statusCode: 400, statusMessage: 'Invalid track id' })
   }
 
-  const data = await pretalxData()
+  const [data, allSponsors] = await Promise.all([
+    pretalxData(),
+    $fetch<Sponsor[]>('/api/sponsor'),
+  ])
+
   const track = data.tracks.map[id]
 
   if (!track) {
@@ -36,11 +41,16 @@ export default defineEventHandler(async (event): Promise<TrackDetail> => {
     colors[day] = dayColors.get(String(id)) ?? DEFAULT_TRACK_COLOR
   }
 
+  const sponsors = allSponsors
+    .filter((s) => s.track?.id === id)
+    .map(({ id: sponsorId, name, link, image }) => ({ id: sponsorId, name, link, image }))
+
   return {
     id: track.id,
     name: track.name,
     description: track.description ?? { 'en': '', 'zh-hant': '' },
     sessions: sessionsByDay,
     colors,
+    sponsors,
   }
 })

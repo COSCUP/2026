@@ -179,6 +179,29 @@ useSeoMeta({
       :title="title"
     />
 
+    <div
+      v-if="data.sponsors.length"
+      class="text-sm text-gray-600 flex flex-wrap gap-2 items-center"
+    >
+      <span>{{ t('sponsored_by') }}</span>
+      <NuxtLink
+        v-for="s in data.sponsors"
+        :key="s.id"
+        class="text-primary-500 font-500 px-2 py-0.5 border border-primary-200 rounded-full bg-primary-50 inline-flex gap-1.5 transition items-center hover:bg-primary-100"
+        external
+        rel="noreferrer"
+        target="_blank"
+        :to="s.link"
+      >
+        <NuxtImg
+          :alt="s.name[localeKey]"
+          class="rounded-sm h-4 w-4 object-contain"
+          :src="s.image"
+        />
+        {{ s.name[localeKey] }}
+      </NuxtLink>
+    </div>
+
     <hr class="border-gray-200">
 
     <div
@@ -255,9 +278,11 @@ useSeoMeta({
     day: 'Day {n}'
     notFound: 'Track not found.'
     separator: ', '
+    sponsored_by: 'Sponsored by'
   zh:
     back: '上一頁'
     day: '第 {n} 天'
     notFound: '找不到這個議程軌。'
     separator: '、'
+    sponsored_by: '由以下夥伴贊助'
 </i18n>

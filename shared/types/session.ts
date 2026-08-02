@@ -60,6 +60,13 @@ export const TrackSummarySchema = z.object({
   count: z.number(),
 })
 
+export const TrackSponsorSchema = z.object({
+  id: z.string(),
+  name: z.object({ zh: z.string(), en: z.string() }),
+  link: z.string(),
+  image: z.string(),
+})
+
 export const TrackDetailSchema = z.object({
   id: z.number(),
   name: PretalxLocaleSchema,
@@ -68,6 +75,8 @@ export const TrackDetailSchema = z.object({
   sessions: z.record(z.string(), z.array(SessionSummarySchema)),
   // 該議程軌卡片的顏色，依日期（YYYY-MM-DD）對應，與議程表使用同一組配色。
   colors: z.record(z.string(), z.string()),
+  // 贊助該議程軌的夥伴。
+  sponsors: z.array(TrackSponsorSchema),
 })
 
 export type SessionSpeaker = z.infer<typeof SessionSpeakerSchema>
