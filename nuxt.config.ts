@@ -5,6 +5,7 @@ const TITLE = 'COSCUP x UbuCon Asia 2026'
 const TITLE_ZH = '開源人年會 x UbuCon Asia 2026'
 const DESC = 'Conference for Open Source Coders, Users, and Promoters is a free annual conference providing a platform to connect FLOSS folks across Asia since 2006. It\'s a major force of free software movement advocacy in Taiwan.'
 const URL = `https://coscup.org/${YEAR}`
+const THEME_COLOR = '#2ac173'
 
 const EVENT_COMMON = {
   startDate: '2026-08-08T09:00:00+08:00',
@@ -45,9 +46,11 @@ export default defineNuxtConfig({
       titleTemplate: `%s | ${TITLE}`,
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/2026/favicon.svg' },
+        { rel: 'apple-touch-icon', href: '/2026/pwa-apple-touch.png' },
       ],
       meta: [
         { name: 'description', content: DESC },
+        { name: 'theme-color', content: THEME_COLOR },
         { property: 'og:title', content: TITLE },
         { property: 'og:description', content: DESC },
         { property: 'og:site_name', content: TITLE },
@@ -136,6 +139,7 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     'nuxt-gtag',
     'nuxt-og-image',
+    '@vite-pwa/nuxt',
   ],
 
   // Origin only — app.baseURL ('/2026') is appended automatically by nuxt-site-config.
@@ -183,6 +187,27 @@ export default defineNuxtConfig({
     ],
     defaultLocale: 'zh',
     detectBrowserLanguage: false, // https://github.com/nuxt-modules/i18n/issues/3262
+  },
+
+  pwa: {
+    registerType: 'autoUpdate',
+    manifest: {
+      name: TITLE,
+      short_name: 'COSCUP 2026',
+      description: DESC,
+      lang: 'zh-Hant-TW',
+      theme_color: THEME_COLOR,
+      background_color: THEME_COLOR,
+      display: 'standalone',
+      icons: [
+        { src: 'pwa-192.png', sizes: '192x192', type: 'image/png' },
+        { src: 'pwa-512.png', sizes: '512x512', type: 'image/png' },
+        { src: 'pwa-512-markable.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+      ],
+    },
+    workbox: {
+      globPatterns: ['**/*.{js,css,html,png,svg,webp,woff2}'],
+    },
   },
 
   runtimeConfig: {

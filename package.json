@@ -47,6 +47,7 @@
     "@unocss/nuxt": "66.7.3",
     "@unocss/preset-wind4": "66.7.3",
     "@unocss/transformer-directives": "66.7.3",
+    "@vite-pwa/nuxt": "1.1.1",
     "cross-env": "10.1.0",
     "eslint-plugin-format": "2.0.1",
     "nuxt-og-image": "6.5.2",
