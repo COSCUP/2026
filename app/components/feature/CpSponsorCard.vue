@@ -8,6 +8,9 @@ const { sponsor } = defineProps<{
 
 const { locale, t } = useI18n()
 
+const localeKey = computed(() => locale.value === 'zh' ? 'zh-hant' : 'en')
+const trackName = computed(() => sponsor.track?.name[localeKey.value] || sponsor.track?.name.en || '')
+
 const needsExpand = computed(() => sponsor.intro[locale.value]?.length > 200)
 
 const rewardStyle: Record<Exclude<RewardType, 'Null'>, string> = {
@@ -58,17 +61,26 @@ const ribbon = computed(() => {
     </NuxtLink>
 
     <div class="flex-1 min-w-0">
-      <h3 class="text-lg text-primary-500 font-700">
-        <NuxtLink
-          class="hover:underline"
-          external
-          rel="noreferrer"
-          target="_blank"
-          :to="sponsor.link"
+      <div class="flex flex-wrap gap-2 items-center">
+        <h3 class="text-lg text-primary-500 font-700">
+          <NuxtLink
+            class="hover:underline"
+            external
+            rel="noreferrer"
+            target="_blank"
+            :to="sponsor.link"
+          >
+            {{ sponsor.name[locale] }}
+          </NuxtLink>
+        </h3>
+        <NuxtLinkLocale
+          v-if="sponsor.track"
+          class="text-xs text-primary-600 font-500 px-2 py-0.5 border border-primary-200 rounded-full bg-primary-50 transition hover:bg-primary-100"
+          :to="`/track/${sponsor.track.id}`"
         >
-          {{ sponsor.name[locale] }}
-        </NuxtLink>
-      </h3>
+          {{ t('sponsor_track', { name: trackName }) }}
+        </NuxtLinkLocale>
+      </div>
 
       <template v-if="needsExpand">
         <input
@@ -107,6 +119,7 @@ const ribbon = computed(() => {
 zh:
   show_less: "收合"
   read_more: "更多"
+  sponsor_track: "贊助：{name}"
   ribbon:
     consecutive: "連續贊助"
     cumulative: "累計贊助"
@@ -115,6 +128,7 @@ zh:
 en:
   show_less: "Show less"
   read_more: "Read more"
+  sponsor_track: "Sponsor: {name}"
   ribbon:
     consecutive: "Consecutive"
     cumulative: "Cumulative"

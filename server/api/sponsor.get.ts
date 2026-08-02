@@ -1,3 +1,4 @@
+import { sessions as pretalxData } from '#server/utils/pretalx'
 import { fetchSheet } from '../utils/sheets'
 
 function transformImageUrl(source: string) {
@@ -12,16 +13,24 @@ function transformImageUrl(source: string) {
 }
 
 export default defineEventHandler(async () => {
-  const sheets = await fetchSheet('sponsor-list')
+  const [sheets, data] = await Promise.all([
+    fetchSheet('sponsor-list'),
+    pretalxData(),
+  ])
+
+  const trackMap = new Map(
+    data.tracks.arr.map((track) => [String(track.id), { id: track.id, name: track.name }]),
+  )
 
   const sponsors = import.meta.dev
     ? sheets
     : sheets.filter(({ publish }) => publish)
 
-  return sponsors.map(({ name_en, name_zh, intro_en, intro_zh, image, ...attr }) => ({
+  return sponsors.map(({ name_en, name_zh, intro_en, intro_zh, image, track, ...attr }) => ({
     ...attr,
     name: { zh: name_zh, en: name_en },
     intro: { zh: intro_zh, en: intro_en },
     image: transformImageUrl(image),
+    track: track ? trackMap.get(track) ?? null : null,
   }))
 })
