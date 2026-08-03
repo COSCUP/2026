@@ -41,12 +41,12 @@ export default defineConfig({
             'cp-secondary-content': '#FFF',
             'cp-secondary-hover': '#239D5F',
 
-            'cp-accent': '#2AC173',
+            'cp-accent': '#1E2892',
             'cp-accent-content': '#FFF',
-            'cp-accent-hover': '#239D5F',
+            'cp-accent-hover': '#161F6E',
 
-            'cp-error': '',
-            'cp-error-conent': '',
+            'cp-error': '#E84393',
+            'cp-error-content': '#FFF',
 
             'cp-warn-50': '#FFF4E6',
             'cp-warn-100': '#FFE3C2',
@@ -55,11 +55,11 @@ export default defineConfig({
             'cp-warn-600': '#EA580C',
             'cp-warn-700': '#C2410C',
 
-            'cp-success': '',
-            'cp-success-content': '',
+            'cp-success': '#2AC173',
+            'cp-success-content': '#FFF',
 
-            'cp-info': '',
-            'cp-info-content': '',
+            'cp-info': '#4A9BE8',
+            'cp-info-content': '#FFF',
 
             'cp-green': '#3C9838',
           },
