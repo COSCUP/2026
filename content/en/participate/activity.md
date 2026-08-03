@@ -107,9 +107,6 @@ Besides Sessions, COSCUP provides a variety of attendee services so participants
 Examples include:
 
 - Welcome Party: an informal gathering on the evening before the event.
-- Pause Room: a space combining rest, massage station, childcare service, and related arrangements.
-- Massage Station: a place for attendees to relax while supporting a partner charity.
-- Childcare Service: helps participants attending with children arrange their event time.
 - Nitro coffee Booth or beverage service.
 - Mind-body balance talks, an inclusive participation guide, and emergency response resources.
 - Professional portrait photography: a photo studio built by the Documentation Team for personal portraits.
