@@ -41,7 +41,7 @@ defineEmits<{
     <span
       v-if="readonly"
       aria-hidden="true"
-      class="text-xl text-cp-orange-600 leading-none p-1 pointer-events-none right-1 top-1 absolute"
+      class="text-xl text-cp-warn-600 leading-none p-1 pointer-events-none right-1 top-1 absolute"
     >
       <Icon name="tabler:star-filled" />
     </span>

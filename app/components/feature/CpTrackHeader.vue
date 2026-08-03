@@ -31,7 +31,7 @@ const activeDay = computed(() => selectedDay.value ?? props.days[0] ?? '')
   <header class="flex flex-col gap-5">
     <div class="flex gap-4 items-start justify-between">
       <div class="flex flex-col gap-2">
-        <h1 class="text-3xl text-primary-700 font-bold sm:text-4xl">
+        <h1 class="text-3xl text-cp-primary font-bold sm:text-4xl">
           {{ title }}
         </h1>
         <p
@@ -60,8 +60,8 @@ const activeDay = computed(() => selectedDay.value ?? props.days[0] ?? '')
           :aria-pressed="day === activeDay"
           class="text-sm font-medium px-3 py-1.5 border rounded-lg cursor-pointer transition-colors"
           :class="day === activeDay
-            ? 'bg-primary-700 text-white border-primary-700'
-            : 'bg-white text-gray-700 border-gray-300 hover:border-primary-400'"
+            ? 'bg-cp-primary text-white border-cp-primary'
+            : 'bg-white text-gray-700 border-gray-300 hover:border-cp-secondary'"
           type="button"
           @click="selectedDay = day"
         >
@@ -90,7 +90,7 @@ const activeDay = computed(() => selectedDay.value ?? props.days[0] ?? '')
         <a
           v-for="link in links"
           :key="link.url"
-          class="text-sm text-white font-medium px-3 py-1.5 rounded-lg bg-primary-400 inline-flex gap-1.5 transition-colors items-center hover:bg-primary-500"
+          class="text-sm text-white font-medium px-3 py-1.5 rounded-lg bg-cp-secondary inline-flex gap-1.5 transition-colors items-center hover:bg-cp-secondary-hover"
           :href="link.url"
           rel="noopener noreferrer"
           target="_blank"

@@ -21,7 +21,7 @@ useSeoMeta({
 
 <template>
   <div class="mx-auto flex flex-col gap-6 max-w-3xl">
-    <h1 class="text-3xl text-primary-700 font-bold">
+    <h1 class="text-3xl text-cp-primary font-bold">
       {{ t('title') }}
     </h1>
 
@@ -31,7 +31,7 @@ useSeoMeta({
         :key="track.id"
       >
         <NuxtLink
-          class="px-4 py-3 border border-gray-200 rounded-xl flex gap-3 transition-colors items-center justify-between hover:border-primary-400 hover:bg-primary-50"
+          class="px-4 py-3 border border-gray-200 rounded-xl flex gap-3 transition-colors items-center justify-between hover:border-cp-secondary hover:bg-cp-secondary/8"
           :to="localePath(`/track/${track.id}`)"
         >
           <span class="text-gray-800 font-medium">{{ trackName(track) }}</span>

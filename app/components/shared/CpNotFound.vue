@@ -27,7 +27,7 @@ function takeMeHome() {
           {{ t('pageNotFound') }}
         </p>
 
-        <div class="my-5 bg-primary-300 h-[2px] w-12" />
+        <div class="my-5 bg-cp-secondary h-[2px] w-12" />
 
         <p class="text-sm text-gray-500 leading-relaxed max-w-md">
           {{ t('description') }}
@@ -35,7 +35,7 @@ function takeMeHome() {
 
         <div class="mt-6">
           <button
-            class="text-sm text-primary-300 tracking-wide font-semibold px-8 py-2.5 border-2 border-primary-300 rounded-full inline-flex duration-200 items-center justify-center hover:text-white focus:outline-none hover:border-primary-400 hover:bg-primary-400"
+            class="text-sm text-cp-secondary tracking-wide font-semibold px-8 py-2.5 border-2 border-cp-secondary rounded-full inline-flex duration-200 items-center justify-center hover:text-white focus:outline-none hover:border-cp-secondary-hover hover:bg-cp-secondary-hover"
             @click="takeMeHome"
           >
             {{ t('takeMeHome') }}

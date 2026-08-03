@@ -201,7 +201,7 @@ onUnmounted(() => {
             <button
               :aria-label="isFavorite(sessionId) ? t('removeFavorite') : t('addFavorite')"
               class="text-sm font-500 px-3 border-2 rounded flex gap-1 h-8 cursor-pointer transition-colors items-center"
-              :class="isFavorite(sessionId) ? 'bg-favorite border-favorite text-white' : 'bg-gray-100 border-gray-300 hover:bg-gray-200'"
+              :class="isFavorite(sessionId) ? 'bg-cp-warn-500 border-cp-warn-500 text-white' : 'bg-gray-100 border-gray-300 hover:bg-gray-200'"
               @click="toggleFavorite(sessionId)"
             >
               <Icon

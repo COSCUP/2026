@@ -49,8 +49,8 @@ const activeImages = computed(() => activeCategory.value === 'floors' ? floorIma
         :aria-pressed="cat === activeCategory"
         class="text-sm font-bold px-4 py-2 border-b-2 cursor-pointer transition-colors"
         :class="cat === activeCategory
-          ? 'text-primary-700 border-primary-700'
-          : 'text-gray-500 border-transparent hover:text-primary-500'"
+          ? 'text-cp-primary border-cp-primary'
+          : 'text-gray-500 border-transparent hover:text-cp-secondary'"
         type="button"
         @click="activeCategory = cat"
       >

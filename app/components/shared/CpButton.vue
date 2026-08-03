@@ -17,15 +17,15 @@ const emit = defineEmits<{
 
 const variantClasses = computed(() => {
   if (props.variant === 'primary') {
-    return 'bg-primary-400 text-white hover:enabled:bg-primary-500'
+    return 'bg-cp-secondary text-white hover:enabled:bg-cp-secondary-hover'
   }
 
   if (props.variant === 'secondary') {
-    return 'border border-primary-400 bg-white text-primary-400 hover:enabled:bg-primary-50'
+    return 'border border-cp-secondary bg-white text-cp-secondary hover:enabled:bg-cp-secondary/8'
   }
 
   return props.active
-    ? 'bg-primary-50 text-primary-600'
+    ? 'bg-cp-secondary/8 text-cp-accent'
     : 'bg-transparent text-gray-500 hover:enabled:bg-gray-200 active:enabled:bg-gray-300'
 })
 </script>

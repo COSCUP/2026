@@ -38,7 +38,7 @@ const ribbon = computed(() => {
 </script>
 
 <template>
-  <article class="p-4 border border-primary-200 rounded-lg flex flex-col gap-4 relative overflow-hidden md:flex-row md:items-start">
+  <article class="p-4 border border-cp-primary/50 rounded-lg flex flex-col gap-4 relative overflow-hidden md:flex-row md:items-start">
     <span
       v-if="ribbon"
       class="text-[10px] text-white leading-tight font-700 py-1.5 text-center w-[140px] shadow-sm left-[-35px] top-[17px] absolute -rotate-45"
@@ -63,7 +63,7 @@ const ribbon = computed(() => {
 
     <div class="flex-1 min-w-0">
       <div class="flex flex-wrap gap-2 items-center">
-        <h3 class="text-lg text-primary-500 font-700">
+        <h3 class="text-lg text-cp-primary font-700">
           <NuxtLink
             class="hover:underline"
             external
@@ -76,14 +76,14 @@ const ribbon = computed(() => {
         </h3>
         <NuxtLinkLocale
           v-if="sponsor.track"
-          class="text-xs text-primary-600 font-500 px-2 py-0.5 border border-primary-200 rounded-full bg-primary-50 transition hover:bg-primary-100"
+          class="text-xs text-cp-accent font-500 px-2 py-0.5 border-1 border-cp-green/20 rounded-full bg-cp-accent/8 transition hover:bg-cp-accent/12"
           :to="`/track/${sponsor.track.id}`"
         >
           {{ t('sponsor_track', { name: trackName }) }}
         </NuxtLinkLocale>
         <NuxtLinkLocale
           v-if="sponsor.community"
-          class="text-xs text-primary-600 font-500 px-2 py-0.5 border border-primary-200 rounded-full bg-primary-50 transition hover:bg-primary-100"
+          class="text-xs text-cp-accent font-500 px-2 py-0.5 border-1 border-cp-green/20 rounded-full bg-cp-accent/8 transition hover:bg-cp-accent/12"
           to="/community"
         >
           {{ t('sponsor_community', { name: communityName }) }}
@@ -97,17 +97,17 @@ const ribbon = computed(() => {
           type="checkbox"
         >
         <MDC
-          class="text-sm text-primary-700 leading-7 mt-3 text-left line-clamp-5 prose peer-checked:line-clamp-none"
+          class="text-sm text-cp-primary leading-7 mt-3 text-left line-clamp-5 prose peer-checked:line-clamp-none"
           :value="sponsor.intro[locale]"
         />
         <label
-          class="text-xs text-primary-500 mt-1 block cursor-pointer hover:underline peer-checked:hidden"
+          class="text-xs text-cp-secondary mt-1 block cursor-pointer hover:underline peer-checked:hidden"
           :for="`expand-${sponsor.id}`"
         >
           {{ t('read_more') }}
         </label>
         <label
-          class="text-xs text-primary-500 mt-1 hidden cursor-pointer hover:underline peer-checked:block"
+          class="text-xs text-cp-secondary mt-1 hidden cursor-pointer hover:underline peer-checked:block"
           :for="`expand-${sponsor.id}`"
         >
           {{ t('show_less') }}
@@ -116,7 +116,7 @@ const ribbon = computed(() => {
 
       <MDC
         v-else
-        class="text-sm text-primary-700 leading-7 mt-3 text-left prose"
+        class="text-sm text-cp-primary leading-7 mt-3 text-left prose"
         :value="sponsor.intro[locale]"
       />
     </div>

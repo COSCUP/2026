@@ -32,17 +32,17 @@ useSeoMeta({
 
 <template>
   <main class="mx-auto my-8 max-w-[80vw] w-[1200px]">
-    <section class="p-8 border border-primary-100 rounded-2xl">
-      <h1 class="text-lg text-primary-500 font-700 mb-2">
+    <section class="p-8 border border-cp-primary/50 rounded-2xl">
+      <h1 class="text-lg text-cp-primary font-700 mb-2">
         {{ t('hero.title') }}
       </h1>
-      <p class="text-sm text-primary-700 leading-7 md:text-base">
+      <p class="text-sm text-cp-primary leading-7 md:text-base">
         {{ t('hero.description') }}
       </p>
-      <p class="text-sm text-primary-700 leading-7 mt-3 md:text-base">
+      <p class="text-sm text-cp-primary leading-7 mt-3 md:text-base">
         {{ t('hero.contact') }}
         <NuxtLink
-          class="text-primary-400 underline"
+          class="text-cp-secondary underline"
           to="mailto:sponsorship@coscup.org"
         >
           sponsorship@coscup.org
@@ -50,7 +50,7 @@ useSeoMeta({
       </p>
       <p class="mt-3 flex gap-4">
         <NuxtLink
-          class="text-sm text-primary-500 font-600 px-4 py-2 border border-primary-200 rounded-full bg-primary-50 transition hover:bg-primary-100"
+          class="text-sm text-cp-accent font-600 px-4 py-2 border border-cp-accent/20 rounded-full bg-cp-accent/8 transition hover:bg-cp-accent/12"
           :to="localePath('/sponsorship')"
         >
           {{ t('hero.package') }}
@@ -59,7 +59,7 @@ useSeoMeta({
     </section>
 
     <section v-if="!hasSponsor">
-      <p class="text-primary-500 mt-8 text-center">
+      <p class="text-cp-primary mt-8 text-center">
         {{ t('noSponsor') }}
       </p>
     </section>
@@ -72,7 +72,7 @@ useSeoMeta({
         :key="level"
         class="mb-6"
       >
-        <h2 class="text-md text-primary-500 font-600 mb-2">
+        <h2 class="text-md text-cp-primary font-600 mb-2">
           {{ t(`sponsorLevel.${level}`) }}
         </h2>
         <div class="gap-4 grid">

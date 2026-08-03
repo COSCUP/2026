@@ -67,13 +67,13 @@ const times = computed(() => Object.keys(sessions.value).sort())
       >
       <h3 class="text-sm font-medium mb-2 bg-white top-0 sticky z-content">
         <label
-          class="text-primary-400 py-1 flex gap-1 w-full cursor-pointer select-none items-center justify-between"
+          class="text-cp-secondary py-1 flex gap-1 w-full cursor-pointer select-none items-center justify-between"
           :for="`session-time-${time}`"
         >
           <div class="flex gap-x-2 items-center">
             <span class="w-[5ch] block">{{ time }}</span>
             <Icon
-              class="text-md text-primary-400"
+              class="text-md text-cp-secondary"
               name="tabler:circle"
             />
             <span v-if="sessions?.[time] && sessions[time].length > 1">

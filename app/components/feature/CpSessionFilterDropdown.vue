@@ -93,7 +93,7 @@ function clearSelection() {
       <button
         v-if="hasSelection"
         :aria-label="t(`${type}.clear`)"
-        class="text-primary-600 border border-gray-300 rounded-full bg-white flex h-4 w-4 cursor-pointer items-center justify-center absolute -right-2 -top-2 after:absolute after:-inset-2"
+        class="text-cp-accent border border-gray-300 rounded-full bg-white flex h-4 w-4 cursor-pointer items-center justify-center absolute -right-2 -top-2 after:absolute after:-inset-2"
         type="button"
         @click.stop="clearSelection"
       >

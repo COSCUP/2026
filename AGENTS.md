@@ -8,7 +8,7 @@ Follow @CONTRIBUTING.md for commit, branch, code style, and workflow conventions
 
 **Framework:** Nuxt 4 (Vue 3) with static generation, base URL `/2026/`.
 
-**Styling:** UnoCSS with Tailwind Wind4 preset. Theme colors: `primary-50` through `primary-800`, `cp-green`.
+**Styling:** UnoCSS with Tailwind Wind4 preset. Theme colors: `cp-primary`, `cp-secondary`, `cp-accent`, `cp-warn`, `cp-error`, `cp-success`, `cp-info` (with `-content` and `-hover` variants).
 
 **i18n:** Content collections are defined in `content.config.ts` as `content_en` and `content_zh`. The `useLocaleContent` composable fetches the right locale's markdown and falls back to the default locale.
 
