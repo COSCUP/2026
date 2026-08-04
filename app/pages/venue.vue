@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import overview from '~/assets/venue/overview.webp'
 import rbau from '~/assets/venue/RB-AU.webp'
 import tr2f from '~/assets/venue/TR2F.webp'
 import tr3f from '~/assets/venue/TR3F.webp'
@@ -18,10 +19,14 @@ useSeoMeta({
   ogDescription: t('description'),
 })
 
-type Category = 'floors' | 'booths'
+type Category = 'floors' | 'booths' | 'overview'
 
-const categories: Category[] = ['floors', 'booths']
-const activeCategory = ref<Category>('floors')
+const categories: Category[] = ['overview', 'floors', 'booths']
+const activeCategory = ref<Category>('overview')
+
+const overviewImage = [
+  { key: 'overview', alt: 'Overview', src: overview },
+]
 
 const floorImages = [
   { key: 'TR2F', alt: 'TR 2F', src: tr2f },
@@ -37,7 +42,15 @@ const boothImages = [
   { key: 'TR409-1', alt: 'TR409-1', src: tr409_1 },
 ]
 
-const activeImages = computed(() => activeCategory.value === 'floors' ? floorImages : boothImages)
+const activeImages = computed(() => {
+  if (activeCategory.value === 'floors') {
+    return floorImages
+  } else if (activeCategory.value === 'booths') {
+    return boothImages
+  } else {
+    return overviewImage
+  }
+})
 </script>
 
 <template>
@@ -73,11 +86,13 @@ const activeImages = computed(() => activeCategory.value === 'floors' ? floorIma
 zh:
   title: 會場地圖
   description: COSCUP x UbuCon Asia 2026 場地平面圖
+  overview: 會場總覽
   floors: 樓層平面圖
   booths: 攤位平面圖
 en:
   title: Venue
   description: COSCUP x UbuCon Asia 2026 venue floor plans
+  overview: Overview
   floors: Floor Plans
   booths: Booth Plans
 </i18n>
