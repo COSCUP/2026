@@ -24,7 +24,7 @@ COSCUP 會場通常分布在多個建築物。以 2025 年安排為例，RB 除�
 
 :::info{title="大會資訊"}
 
-- 會場地圖資訊：<span style="color:#000;background:#ff0;">[即將公開，敬請期待 07/25]</span>
+- 會場地圖資訊：<a href="/2026/venue">點擊看會場地圖資訊</a>
 
 :::
 
@@ -124,7 +124,7 @@ COSCUP 除了議程之外，也提供多元會眾服務，讓參與者在高密�
 
 COSCUP 現場會準備社交貼紙，讓參與者可以用更輕鬆的方式表達自己的交流狀態、語言能力或想聊的主題。你可以依照自己的狀況拿取適合的貼紙，貼在識別證、衣服或其他容易看到的位置，讓新的交流更容易開始。
 
-<span style="color:#000;background:#ff0;">社交貼紙 / 貼紙交換桌的地點：即將公開，敬請期待 (07/25)。</span>
+社交貼紙 / 貼紙交換桌的地點：TR 214 走廊區。
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
   <iframe src="https://www.flickr.com/photos/coscup/54047128426/player/" width="100%" height="459" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
@@ -156,7 +156,7 @@ COSCUP 現場的語言很多，除了中文與英文，也可能包含其他語�
 
 ## COSCUP 官方紀念品販賣攤位
 
-<span style="color:#000;background:#ff0;">紀念品攤位及內容即將公開 (07/25)。</span>
+紀念品攤位位於 4F（TR 413-1 與 TR 413-2 教室外的走廊）。
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
   <iframe src="https://www.flickr.com/photos/coscup/54865856825/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
@@ -174,4 +174,5 @@ COSCUP 由全志工籌備、不販售門票並開放所有人免費參加。若�
 
 ## 參與者調查
 
-<span style="color:#000;background:#ff0;">參與者調查表單將於活動第一日公開 (08/08)。</span>
+- 開放統計 Dashboard：[https://coscup.org/2026-survey](https://coscup.org/2026-survey)
+- 填寫調查：[https://coscup-tw.kktix.cc/events/preregist](https://coscup-tw.kktix.cc/events/preregist)
