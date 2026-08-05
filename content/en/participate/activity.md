@@ -25,6 +25,7 @@ You can move between the three venue areas through the basketball court, tennis 
 :::info{title="Conference Information"}
 
 - Venue map information: <a href="/venue">Click here for venue map information</a>
+- Information desk: 4F, in front of classrooms TR 413-2 and TR 413-1
 
 :::
 
@@ -91,6 +92,8 @@ Lightning Talk is usually a short-format sharing session. In 3 minutes, you can 
 
 If you are interested, you can watch this sample video first: [https://www.youtube.com/watch?v=jpXGf476Upg](https://www.youtube.com/watch?v=jpXGf476Upg)
 
+Lightning Talk sign-up instructions are posted at the 4F information desk, in front of classrooms TR 413-2 and TR 413-1.
+
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:16px 0;width:100%;">
   <figure style="margin:0;width:100%;max-width:none;">
     <iframe title="Lightning Talk speaker presenting" src="https://www.flickr.com/photos/coscup/54047601765/player/" width="100%" height="375" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
@@ -108,7 +111,7 @@ Examples include:
 
 - Welcome Party: an informal gathering on the evening before the event.
 - Nitro coffee Booth or beverage service.
-- Mind-body balance talks, an inclusive participation guide, and emergency response resources.
+- An inclusive participation guide and emergency response resources.
 - Professional portrait photography: a photo studio built by the Documentation Team for personal portraits.
 
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:16px 0;width:100%;">
