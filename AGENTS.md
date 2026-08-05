@@ -23,3 +23,5 @@ Follow @CONTRIBUTING.md for commit, branch, code style, and workflow conventions
 - `opass.json.get.ts` — OPass integration
 
 **Icons:** Custom icon collection in `app/assets/icons/`, referenced as `local:icon-name`.
+
+**Venue floor plans:** `app/assets/venue/raw/` holds the designer's Affinity Designer exports; `pnpm prepare:venue-svg` optimizes them into `app/assets/venue/` and regenerates `fonts.css`. Both directories are committed — do not edit the generated files by hand. `app/pages/venue.vue` inlines the plans with `v-html` rather than `<img>`, because an `<img>`-hosted SVG cannot reach the page's fonts and the exports hard-code a per-glyph `x` offset per character. `RB-AU` stays a webp: its SVG export contains no vector data. See the header comment in `scripts/prepare-venue-svg.mjs`.

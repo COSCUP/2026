@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import overview from '~/assets/venue/overview.webp'
+// The overview tab is what renders first, so its markup ships with the page
+// instead of costing an extra round trip.
+import overviewSvg from '~/assets/venue/overview.svg?raw'
 import rbau from '~/assets/venue/RB-AU.webp'
-import tr2f from '~/assets/venue/TR2F.webp'
-import tr3f from '~/assets/venue/TR3F.webp'
-import tr4f from '~/assets/venue/TR4F.webp'
-import tr5f from '~/assets/venue/TR5F.webp'
-import tr309 from '~/assets/venue/TR309.svg'
-import tr312 from '~/assets/venue/TR312.svg'
-import tr409_1 from '~/assets/venue/TR409-1.webp'
+import '~/assets/venue/fonts.css'
 
 const { t } = useI18n()
 
@@ -21,36 +17,78 @@ useSeoMeta({
 
 type Category = 'floors' | 'booths' | 'overview'
 
+interface Plan {
+  /** Matches the file name in `~/assets/venue/`. */
+  key: string
+  alt: string
+  /** Set only for plans that have no usable vector source and stay raster. */
+  src?: string
+}
+
+// Every plan shares this viewBox, so one ratio keeps the layout from shifting
+// while a plan's chunk is still loading.
+const ASPECT_RATIO = '7083 / 4753'
+
 const categories: Category[] = ['overview', 'floors', 'booths']
 const activeCategory = ref<Category>('overview')
 
-const overviewImage = [
-  { key: 'overview', alt: 'Overview', src: overview },
-]
+const plans: Record<Category, Plan[]> = {
+  overview: [
+    { key: 'overview', alt: 'Overview' },
+  ],
+  floors: [
+    // RB-AU's SVG export holds no vector data at all — it is one embedded PNG in
+    // an <svg> wrapper, 1.1 MB against 235 KB for the webp — so this plan alone
+    // stays a raster image. See scripts/prepare-venue-svg.mjs.
+    { key: 'RB-AU', alt: 'RB/AU', src: rbau },
+    { key: 'TR2F', alt: 'TR 2F' },
+    { key: 'TR3F', alt: 'TR 3F' },
+    { key: 'TR4F', alt: 'TR 4F' },
+    { key: 'TR5F', alt: 'TR 5F' },
+  ],
+  booths: [
+    { key: 'TR309', alt: 'TR309' },
+    { key: 'TR312', alt: 'TR312' },
+    { key: 'TR409-1', alt: 'TR409-1' },
+  ],
+}
 
-const floorImages = [
-  { key: 'RBAU', alt: 'RB/AU', src: rbau },
-  { key: 'TR2F', alt: 'TR 2F', src: tr2f },
-  { key: 'TR3F', alt: 'TR 3F', src: tr3f },
-  { key: 'TR4F', alt: 'TR 4F', src: tr4f },
-  { key: 'TR5F', alt: 'TR 5F', src: tr5f },
-]
+const activePlans = computed(() => plans[activeCategory.value])
 
-const boothImages = [
-  { key: 'TR309', alt: 'TR309', src: tr309 },
-  { key: 'TR312', alt: 'TR312', src: tr312 },
-  { key: 'TR409-1', alt: 'TR409-1', src: tr409_1 },
-]
-
-const activeImages = computed(() => {
-  if (activeCategory.value === 'floors') {
-    return floorImages
-  } else if (activeCategory.value === 'booths') {
-    return boothImages
-  } else {
-    return overviewImage
-  }
+// The plans are inlined rather than loaded through <img> because an <img>-hosted
+// SVG is an isolated document that cannot reach the page's fonts, and these
+// exports hard-code a per-glyph x offset for every character. Inlining lets
+// fonts.css apply and the labels keep their intended spacing.
+// overview is excluded because it is imported statically above; letting it match
+// here too would make Vite warn that the dynamic import cannot split it out.
+const svgLoaders = import.meta.glob<string>([
+  '../assets/venue/*.svg',
+  '!../assets/venue/overview.svg',
+], {
+  query: '?raw',
+  import: 'default',
 })
+
+const svgMarkup = reactive<Record<string, string>>({ overview: overviewSvg })
+
+async function loadPlan(key: string) {
+  if (svgMarkup[key]) {
+    return
+  }
+
+  const loader = svgLoaders[`../assets/venue/${key}.svg`]
+  if (loader) {
+    svgMarkup[key] = await loader()
+  }
+}
+
+watch(activeCategory, (category) => {
+  for (const plan of plans[category]) {
+    if (!plan.src) {
+      loadPlan(plan.key)
+    }
+  }
+}, { immediate: true })
 </script>
 
 <template>
@@ -72,15 +110,44 @@ const activeImages = computed(() => {
     </div>
 
     <div class="flex flex-col gap-4">
-      <img
-        v-for="img in activeImages"
-        :key="img.key"
-        :alt="img.alt"
-        :src="img.src"
+      <template
+        v-for="plan in activePlans"
+        :key="plan.key"
       >
+        <img
+          v-if="plan.src"
+          :alt="plan.alt"
+          class="h-auto w-full"
+          height="4753"
+          :src="plan.src"
+          width="7084"
+        >
+        <!-- eslint-disable-next-line vue/no-v-html -- build output of scripts/prepare-venue-svg.mjs, no user input involved -->
+        <div
+          v-else-if="svgMarkup[plan.key]"
+          :aria-label="plan.alt"
+          class="venue-plan w-full"
+          role="img"
+          :style="{ aspectRatio: ASPECT_RATIO }"
+          v-html="svgMarkup[plan.key]"
+        />
+        <div
+          v-else
+          class="rounded bg-gray-100 w-full animate-pulse"
+          :style="{ aspectRatio: ASPECT_RATIO }"
+        />
+      </template>
     </div>
   </div>
 </template>
+
+<style scoped>
+.venue-plan :deep(svg) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+</style>
 
 <i18n lang="yaml">
 zh:
