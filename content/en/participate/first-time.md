@@ -21,7 +21,7 @@ Before the event, we recommend that you:
 4. Prepare business cards, stickers, a community introduction, or links to personal projects so you can exchange information with new people.
 5. If you are coming to Taiwan from overseas, read [For Overseas Visitors](/en/participate/oversea) first to check visas, entry requirements, internet access, payments, and transportation cards.
 
-:::info{title="Overseas Visitors"}
+:::notification{type="info" title="Overseas Visitors"}
 
 If you are coming to COSCUP from outside Taiwan, please refer to [For Overseas Visitors](/en/participate/oversea) for visa, entry, accommodation, payment, transportation, food restriction, and City Tour information.
 

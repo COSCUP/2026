@@ -22,7 +22,7 @@ COSCUP is usually spread across multiple buildings. Using the 2025 layout as an 
 
 You can move between the three venue areas through the basketball court, tennis court, and campus paths. If you get lost, follow the onsite signs or ask staff for help.
 
-:::info{title="Conference Information"}
+:::notification{type="info" title="Conference Information"}
 
 - Venue map information: <span style="color:#000;background:#ff0;">[Coming soon. Stay tuned 07/25]</span>
 
