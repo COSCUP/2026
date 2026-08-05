@@ -54,7 +54,7 @@ useSeoMeta({
 <template>
   <main class="mx-auto my-8 max-w-[80vw] w-[1200px]">
     <section v-if="communities.length === 0">
-      <p class="text-primary-500 mt-8 text-center">
+      <p class="text-cp-primary mt-8 text-center">
         {{ t('empty') }}
       </p>
     </section>
@@ -66,7 +66,7 @@ useSeoMeta({
       <article
         v-for="community in communities"
         :key="community.id"
-        class="p-4 border border-primary-200 rounded-lg flex flex-col gap-4 md:flex-row md:items-start"
+        class="p-4 border-1 border-cp-primary/50 rounded-lg flex flex-col gap-4 md:flex-row md:items-start"
       >
         <div class="p-4 rounded-xl bg-white flex shrink-0 w-full aspect-[3/2] items-center justify-center md:w-40 md:aspect-square">
           <NuxtImg
@@ -77,14 +77,14 @@ useSeoMeta({
           />
           <Icon
             v-else
-            class="text-primary-200"
+            class="text-gray-300"
             name="tabler:users"
             size="48"
           />
         </div>
 
         <div class="flex-1 min-w-0">
-          <h3 class="text-lg text-primary-500 font-700">
+          <h3 class="text-lg text-cp-primary font-700">
             <NuxtLink
               v-if="community.url"
               class="hover:underline"
@@ -102,13 +102,13 @@ useSeoMeta({
           <div class="mt-1.5 flex flex-wrap gap-1.5">
             <span
               v-if="community.booth"
-              class="text-xs text-primary-500 font-600 px-2 py-0.5 border border-primary-200 rounded-full bg-primary-50"
+              class="text-xs text-cp-accent font-600 px-2 py-0.5 border-1 border-cp-accent/20 rounded-full bg-cp-accent/8"
             >
               {{ t('track.booth') }}
             </span>
             <NuxtLinkLocale
               v-if="community.track.id"
-              class="text-xs text-primary-500 font-600 px-2 py-0.5 border border-primary-200 rounded-full bg-primary-50 transition hover:bg-primary-100"
+              class="text-xs text-cp-accent font-600 px-2 py-0.5 border-1 border-cp-accent/20 rounded-full bg-cp-accent/8 transition hover:bg-cp-accent/12"
               :to="`/track/${community.track.id}`"
             >
               {{ t('track.session') }}: {{ locale === 'zh' ? community.track.title.zh : community.track.title.en }}
@@ -116,7 +116,7 @@ useSeoMeta({
             <NuxtLink
               v-for="s in community.sponsors"
               :key="s.id"
-              class="text-xs text-primary-500 font-600 px-2 py-0.5 border border-primary-200 rounded-full bg-primary-50 inline-flex gap-1 transition items-center hover:bg-primary-100"
+              class="text-xs text-cp-accent font-600 px-2 py-0.5 border-1 border-cp-accent/20 rounded-full bg-cp-accent/8 inline-flex gap-1 transition items-center hover:bg-cp-accent/12"
               external
               rel="noreferrer"
               target="_blank"
@@ -137,17 +137,17 @@ useSeoMeta({
               type="checkbox"
             >
             <MDC
-              class="text-sm text-primary-700 leading-7 mt-2 line-clamp-5 prose peer-checked:line-clamp-none"
+              class="text-sm text-cp-primary leading-7 mt-2 line-clamp-5 prose peer-checked:line-clamp-none"
               :value="communityDescription(community)"
             />
             <label
-              class="text-xs text-primary-500 mt-1 block cursor-pointer hover:underline peer-checked:hidden"
+              class="text-xs text-cp-secondary mt-1 block cursor-pointer hover:underline peer-checked:hidden"
               :for="`expand-${community.id}`"
             >
               {{ t('read_more') }}
             </label>
             <label
-              class="text-xs text-primary-500 mt-1 hidden cursor-pointer hover:underline peer-checked:block"
+              class="text-xs text-cp-secondary mt-1 hidden cursor-pointer hover:underline peer-checked:block"
               :for="`expand-${community.id}`"
             >
               {{ t('show_less') }}
@@ -155,7 +155,7 @@ useSeoMeta({
           </template>
           <MDC
             v-else
-            class="text-sm text-primary-700 leading-7 mt-2 prose"
+            class="text-sm text-cp-primary leading-7 mt-2 prose"
             :value="communityDescription(community)"
           />
         </div>

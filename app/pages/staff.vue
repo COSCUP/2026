@@ -19,7 +19,7 @@ useSeoMeta({
 <template>
   <div class="mx-auto my-8 max-w-[80vw] w-[1200px]">
     <section v-if="noStaff">
-      <p class="text-primary-500 mt-8 text-center">
+      <p class="text-cp-primary mt-8 text-center">
         {{ t('noStaff') }}
       </p>
     </section>

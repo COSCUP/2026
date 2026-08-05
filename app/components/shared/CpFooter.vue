@@ -52,7 +52,7 @@ const sitemaps = computed(() => tm('sitemap.items') as CommunityItem[])
             v-for="social in socials"
             :key="rt(social.name)"
             :aria-label="rt(social.label)"
-            class="text-gray-500 rounded-full bg-gray-100 flex size-9 transition-colors items-center justify-center hover:text-white hover:bg-cp-green"
+            class="text-gray-500 rounded-full bg-gray-100 flex size-9 transition-colors items-center justify-center hover:text-white hover:bg-cp-secondary"
             :href="rt(social.url)"
             target="_blank"
             :title="rt(social.label)"
@@ -63,7 +63,7 @@ const sitemaps = computed(() => tm('sitemap.items') as CommunityItem[])
       </div>
 
       <div>
-        <h3 class="text-xs text-cp-green tracking-wider font-semibold mb-5 uppercase">
+        <h3 class="text-xs text-cp-secondary tracking-wider font-semibold mb-5 uppercase">
           {{ t('contact.title') }}
         </h3>
         <ul class="space-y-3">
@@ -72,7 +72,7 @@ const sitemaps = computed(() => tm('sitemap.items') as CommunityItem[])
             :key="rt(contact.name)"
           >
             <NuxtLink
-              class="text-sm text-gray-600 transition-colors hover:text-cp-green"
+              class="text-sm text-gray-600 transition-colors hover:text-cp-secondary"
               :href="`mailto:${rt(contact.email)}`"
             >
               {{ rt(contact.name) }}
@@ -82,7 +82,7 @@ const sitemaps = computed(() => tm('sitemap.items') as CommunityItem[])
       </div>
 
       <div>
-        <h3 class="text-xs text-cp-green tracking-wider font-semibold mb-5 uppercase">
+        <h3 class="text-xs text-cp-secondary tracking-wider font-semibold mb-5 uppercase">
           {{ t('resources.title') }}
         </h3>
         <ul class="space-y-3">
@@ -91,7 +91,7 @@ const sitemaps = computed(() => tm('sitemap.items') as CommunityItem[])
             :key="rt(resource.name)"
           >
             <NuxtLink
-              class="text-sm text-gray-600 transition-colors hover:text-cp-green"
+              class="text-sm text-gray-600 transition-colors hover:text-cp-secondary"
               :href="rt(resource.url)"
               target="_blank"
             >
@@ -102,7 +102,7 @@ const sitemaps = computed(() => tm('sitemap.items') as CommunityItem[])
       </div>
 
       <div>
-        <h3 class="text-xs text-cp-green tracking-wider font-semibold mb-5 uppercase">
+        <h3 class="text-xs text-cp-secondary tracking-wider font-semibold mb-5 uppercase">
           {{ t('sitemap.title') }}
         </h3>
         <ul class="space-y-3">
@@ -111,7 +111,7 @@ const sitemaps = computed(() => tm('sitemap.items') as CommunityItem[])
             :key="rt(sitemap.name)"
           >
             <NuxtLink
-              class="text-sm text-gray-600 transition-colors hover:text-cp-green"
+              class="text-sm text-gray-600 transition-colors hover:text-cp-secondary"
               :href="rt(sitemap.url)"
             >
               {{ rt(sitemap.name) }}
@@ -125,7 +125,7 @@ const sitemaps = computed(() => tm('sitemap.items') as CommunityItem[])
       <NuxtLink
         v-for="year in pastYears"
         :key="year"
-        class="text-xs text-gray-400 px-2 py-1 rounded transition-colors hover:text-cp-green hover:bg-cp-green/6"
+        class="text-xs text-gray-400 px-2 py-1 rounded transition-colors hover:text-cp-secondary hover:bg-cp-secondary/6"
         :href="`https://coscup.org/${year}/`"
         target="_blank"
       >

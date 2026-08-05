@@ -98,7 +98,7 @@ useResizeObserver(navRef, checkOverflow)
     ref="navRef"
     class="px-3 py-1 border-b flex h-16 justify-between relative *:h-full"
     :class="isLanding
-      ? 'border-landing-accent bg-landing-accent text-white'
+      ? 'border-cp-secondary bg-cp-secondary text-cp-secondary-content'
       : 'border-gray-300 bg-white text-gray-700'"
   >
     <div

@@ -33,26 +33,32 @@ export default defineConfig({
       theme: {
         light: {
           colors: {
-            'primary-50': '#E5E3FF',
-            'primary-100': '#CCC7FF',
-            'primary-200': '#B2ABFE',
-            'primary-300': '#998FFE',
-            'primary-400': '#7F73FE',
-            'primary-500': '#665CCB',
-            'primary-600': '#4C4598',
-            'primary-700': '#332E66',
-            'primary-800': '#191733',
-            'cp-green': '#3C9838',
-            'landing-green': '#0C3C23',
-            'landing-accent': '#2AC173',
-            'landing-accent-hover': '#239D5F',
-            'cp-orange-50': '#FFF4E6',
-            'cp-orange-100': '#FFE3C2',
-            'cp-orange-300': '#FFB866',
-            'cp-orange-500': '#F97316',
-            'cp-orange-600': '#EA580C',
-            'cp-orange-700': '#C2410C',
-            'favorite': '#f0b100',
+            'cp-primary': '#0C3C23',
+            'cp-primary-content': '#FFF',
+
+            'cp-secondary': '#2AC173',
+            'cp-secondary-content': '#FFF',
+            'cp-secondary-hover': '#239D5F',
+
+            'cp-accent': '#1E2892',
+            'cp-accent-content': '#FFF',
+            'cp-accent-hover': '#161F6E',
+
+            'cp-error': '#E84393',
+            'cp-error-content': '#FFF',
+
+            'cp-warn-50': '#FFF4E6',
+            'cp-warn-100': '#FFE3C2',
+            'cp-warn-300': '#FFB866',
+            'cp-warn-500': '#F97316',
+            'cp-warn-600': '#EA580C',
+            'cp-warn-700': '#C2410C',
+
+            'cp-success': '#2AC173',
+            'cp-success-content': '#FFF',
+
+            'cp-info': '#4A9BE8',
+            'cp-info-content': '#FFF',
           },
         },
       },

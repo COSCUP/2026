@@ -44,28 +44,28 @@ const { t } = useI18n()
   <div
     v-else
     aria-live="polite"
-    class="p-4 border border-cp-orange-300 rounded-lg bg-cp-orange-50 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+    class="p-4 border border-cp-warn-300 rounded-lg bg-cp-warn-50 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
     role="status"
   >
     <div class="flex gap-2 items-start sm:items-center">
       <Icon
-        class="text-xl text-cp-orange-600 mt-0.5 shrink-0 sm:mt-0"
+        class="text-xl text-cp-warn-600 mt-0.5 shrink-0 sm:mt-0"
         name="tabler:bookmarks"
       />
-      <p class="text-sm text-cp-orange-700">
+      <p class="text-sm text-cp-warn-700">
         {{ t('message', { count }) }}
       </p>
     </div>
     <div class="flex shrink-0 gap-2">
       <button
-        class="text-sm text-white font-medium px-3 py-1.5 rounded-md bg-cp-orange-600 cursor-pointer transition-colors hover:bg-cp-orange-700"
+        class="text-sm text-white font-medium px-3 py-1.5 rounded-md bg-cp-warn-600 cursor-pointer transition-colors hover:bg-cp-warn-700"
         type="button"
         @click="$emit('import')"
       >
         {{ t('import') }}
       </button>
       <button
-        class="text-sm text-cp-orange-700 px-3 py-1.5 border border-cp-orange-300 rounded-md cursor-pointer transition-colors hover:bg-cp-orange-100"
+        class="text-sm text-cp-warn-700 px-3 py-1.5 border border-cp-warn-300 rounded-md cursor-pointer transition-colors hover:bg-cp-warn-100"
         type="button"
         @click="$emit('dismiss')"
       >

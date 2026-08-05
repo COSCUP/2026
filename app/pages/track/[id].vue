@@ -158,7 +158,7 @@ useSeoMeta({
     class="mx-auto flex flex-col gap-6 max-w-3xl"
   >
     <button
-      class="text-sm text-gray-500 inline-flex gap-1.5 w-fit cursor-pointer transition-colors items-center hover:text-primary-500"
+      class="text-sm text-gray-500 inline-flex gap-1.5 w-fit cursor-pointer transition-colors items-center hover:text-cp-secondary"
       type="button"
       @click="goBack()"
     >
@@ -187,7 +187,7 @@ useSeoMeta({
       <NuxtLink
         v-for="s in data.sponsors"
         :key="s.id"
-        class="text-primary-500 font-500 px-2 py-0.5 border border-primary-200 rounded-full bg-primary-50 inline-flex gap-1.5 transition items-center hover:bg-primary-100"
+        class="text-xs text-cp-accent font-600 px-2 py-0.5 border-1 border-cp-accent/20 rounded-full bg-cp-accent/8 inline-flex gap-1 transition items-center hover:bg-cp-accent/12"
         external
         rel="noreferrer"
         target="_blank"
@@ -209,7 +209,7 @@ useSeoMeta({
       class="text-sm text-gray-700 px-4 py-3 border border-gray-200 rounded-xl bg-gray-50 flex gap-3 items-center"
     >
       <Icon
-        class="text-primary-400 flex-shrink-0 h-5 w-5"
+        class="text-cp-secondary flex-shrink-0 h-5 w-5"
         name="tabler:speakerphone"
       />
       <span>{{ announcement }}</span>
@@ -227,7 +227,7 @@ useSeoMeta({
       class="flex flex-col gap-4"
     >
       <div>
-        <h2 class="text-2xl text-primary-700 font-bold">
+        <h2 class="text-2xl text-cp-primary font-bold">
           {{ t('day', { n: dayIndex }) }}
         </h2>
         <p class="text-sm text-gray-500 mt-1">

@@ -4,7 +4,7 @@ export const OG_COLORS = {
   background: '#191733', // primary-800
   brand: '#CCC7FF', // primary-100
   muted: '#B2ABFE', // primary-200
-  accent: '#3C9838', // cp-green
+  accent: '#2AC173', // cp-secondary
   text: '#ffffff',
 }
 
