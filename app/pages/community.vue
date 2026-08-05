@@ -102,13 +102,13 @@ useSeoMeta({
           <div class="mt-1.5 flex flex-wrap gap-1.5">
             <span
               v-if="community.booth"
-              class="text-xs text-cp-accent font-600 px-2 py-0.5 border-1 border-cp-green/20 rounded-full bg-cp-accent/8"
+              class="text-xs text-cp-accent font-600 px-2 py-0.5 border-1 border-cp-accent/20 rounded-full bg-cp-accent/8"
             >
               {{ t('track.booth') }}
             </span>
             <NuxtLinkLocale
               v-if="community.track.id"
-              class="text-xs text-cp-accent font-600 px-2 py-0.5 border-1 border-cp-green/20 rounded-full bg-cp-accent/8 transition hover:bg-cp-accent/12"
+              class="text-xs text-cp-accent font-600 px-2 py-0.5 border-1 border-cp-accent/20 rounded-full bg-cp-accent/8 transition hover:bg-cp-accent/12"
               :to="`/track/${community.track.id}`"
             >
               {{ t('track.session') }}: {{ locale === 'zh' ? community.track.title.zh : community.track.title.en }}
@@ -116,7 +116,7 @@ useSeoMeta({
             <NuxtLink
               v-for="s in community.sponsors"
               :key="s.id"
-              class="text-xs text-cp-accent font-600 px-2 py-0.5 border-1 border-cp-green/20 rounded-full bg-cp-accent/8 inline-flex gap-1 transition items-center hover:bg-cp-accent/12"
+              class="text-xs text-cp-accent font-600 px-2 py-0.5 border-1 border-cp-accent/20 rounded-full bg-cp-accent/8 inline-flex gap-1 transition items-center hover:bg-cp-accent/12"
               external
               rel="noreferrer"
               target="_blank"

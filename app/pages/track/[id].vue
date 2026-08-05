@@ -187,7 +187,7 @@ useSeoMeta({
       <NuxtLink
         v-for="s in data.sponsors"
         :key="s.id"
-        class="text-xs text-cp-accent font-600 px-2 py-0.5 border-1 border-cp-green/20 rounded-full bg-cp-accent/8 inline-flex gap-1 transition items-center hover:bg-cp-accent/12"
+        class="text-xs text-cp-accent font-600 px-2 py-0.5 border-1 border-cp-accent/20 rounded-full bg-cp-accent/8 inline-flex gap-1 transition items-center hover:bg-cp-accent/12"
         external
         rel="noreferrer"
         target="_blank"

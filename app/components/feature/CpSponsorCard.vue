@@ -76,14 +76,14 @@ const ribbon = computed(() => {
         </h3>
         <NuxtLinkLocale
           v-if="sponsor.track"
-          class="text-xs text-cp-accent font-500 px-2 py-0.5 border-1 border-cp-green/20 rounded-full bg-cp-accent/8 transition hover:bg-cp-accent/12"
+          class="text-xs text-cp-accent font-500 px-2 py-0.5 border-1 border-cp-accent/20 rounded-full bg-cp-accent/8 transition hover:bg-cp-accent/12"
           :to="`/track/${sponsor.track.id}`"
         >
           {{ t('sponsor_track', { name: trackName }) }}
         </NuxtLinkLocale>
         <NuxtLinkLocale
           v-if="sponsor.community"
-          class="text-xs text-cp-accent font-500 px-2 py-0.5 border-1 border-cp-green/20 rounded-full bg-cp-accent/8 transition hover:bg-cp-accent/12"
+          class="text-xs text-cp-accent font-500 px-2 py-0.5 border-1 border-cp-accent/20 rounded-full bg-cp-accent/8 transition hover:bg-cp-accent/12"
           to="/community"
         >
           {{ t('sponsor_community', { name: communityName }) }}

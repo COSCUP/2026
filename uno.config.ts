@@ -35,7 +35,6 @@ export default defineConfig({
           colors: {
             'cp-primary': '#0C3C23',
             'cp-primary-content': '#FFF',
-            'cp-primary-hover': '',
 
             'cp-secondary': '#2AC173',
             'cp-secondary-content': '#FFF',
@@ -60,8 +59,6 @@ export default defineConfig({
 
             'cp-info': '#4A9BE8',
             'cp-info-content': '#FFF',
-
-            'cp-green': '#3C9838',
           },
         },
       },
