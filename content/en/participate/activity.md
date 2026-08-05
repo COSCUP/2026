@@ -24,7 +24,8 @@ You can move between the three venue areas through the basketball court, tennis 
 
 :::info{title="Conference Information"}
 
-- Venue map information: <span style="color:#000;background:#ff0;">[Coming soon. Stay tuned 07/25]</span>
+- Venue map information: <a href="/venue">Click here for venue map information</a>
+- Information desk: 4F, in front of classrooms TR 413-2 and TR 413-1
 
 :::
 
@@ -91,6 +92,8 @@ Lightning Talk is usually a short-format sharing session. In 3 minutes, you can 
 
 If you are interested, you can watch this sample video first: [https://www.youtube.com/watch?v=jpXGf476Upg](https://www.youtube.com/watch?v=jpXGf476Upg)
 
+Lightning Talk sign-up instructions are posted at the 4F information desk, in front of classrooms TR 413-2 and TR 413-1.
+
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:16px 0;width:100%;">
   <figure style="margin:0;width:100%;max-width:none;">
     <iframe title="Lightning Talk speaker presenting" src="https://www.flickr.com/photos/coscup/54047601765/player/" width="100%" height="375" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
@@ -108,7 +111,7 @@ Examples include:
 
 - Welcome Party: an informal gathering on the evening before the event.
 - Nitro coffee Booth or beverage service.
-- Mind-body balance talks, an inclusive participation guide, and emergency response resources.
+- An inclusive participation guide and emergency response resources.
 - Professional portrait photography: a photo studio built by the Documentation Team for personal portraits.
 
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:16px 0;width:100%;">
@@ -124,7 +127,7 @@ Examples include:
 
 COSCUP prepares social stickers onsite so participants can express their interaction status, language abilities, or preferred conversation topics in a relaxed way. Pick stickers that fit your situation and place them on your badge, clothing, or somewhere visible so new conversations can start more easily.
 
-<span style="color:#000;background:#ff0;">Social sticker / sticker exchange table location: Coming soon. Stay tuned (07/25).</span>
+Social sticker / sticker exchange table location: the corridor area of TR 214.
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
   <iframe title="Social stickers at COSCUP" src="https://www.flickr.com/photos/coscup/54047128426/player/" width="100%" height="459" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
@@ -156,7 +159,7 @@ If you want to see past COSCUP photos or videos, refer to:
 
 ## COSCUP Official Souvenir Booth
 
-<span style="color:#000;background:#ff0;">Souvenir booth and items will be announced soon (07/25).</span>
+The souvenir booth is on 4F, in the corridor outside classrooms TR 413-1 and TR 413-2.
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
   <iframe title="COSCUP official souvenir booth" src="https://www.flickr.com/photos/coscup/54865856825/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
@@ -174,4 +177,5 @@ COSCUP is fully staff-organized, does not sell tickets, and is open to everyone 
 
 ## Attendee Survey
 
-<span style="color:#000;background:#ff0;">The attendee survey form will be published on the first day of the event (08/08).</span>
+- Open Statistics Dashboard: [https://coscup.org/2026-survey](https://coscup.org/2026-survey)
+- Fill in the survey: [https://coscup-tw.kktix.cc/events/preregist](https://coscup-tw.kktix.cc/events/preregist)
