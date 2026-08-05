@@ -24,7 +24,8 @@ COSCUP 會場通常分布在多個建築物。以 2025 年安排為例，RB 除�
 
 :::info{title="大會資訊"}
 
-- 會場地圖資訊：<span style="color:#000;background:#ff0;">[即將公開，敬請期待 07/25]</span>
+- 會場地圖資訊：<a href="/venue">點擊看會場地圖資訊</a>
+- 大會服務台：4F（TR 413-2 與 TR 413-1 教室前）
 
 :::
 
@@ -91,6 +92,8 @@ Hacking Corner 是現場開放空間，讓會眾可臨時揪團進行共創、�
 
 如果你有興趣，也可以先看看這段示例影片：[https://www.youtube.com/watch?v=jpXGf476Upg](https://www.youtube.com/watch?v=jpXGf476Upg)
 
+閃電秀的報名指示公告於 4F 大會服務台（TR 413-2 與 TR 413-1 教室前）。
+
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:16px 0;width:100%;">
   <figure style="margin:0;width:100%;max-width:none;">
     <iframe src="https://www.flickr.com/photos/coscup/54047601765/player/" width="100%" height="375" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
@@ -107,11 +110,8 @@ COSCUP 除了議程之外，也提供多元會眾服務，讓參與者在高密�
 像是：
 
 - 前夜派對：活動前一晚的非正式交流。
-- 小歇所：結合休息、按摩小棧、托育服務等安排。
-- 按摩小棧：讓參與者放鬆，並可支持合作公益單位。
-- 托育服務：協助有孩童同行的參與者安排活動時間。
 - 氮氣咖啡攤位或飲品服務。
-- 身心平衡講座、友善參與指南與緊急應變資源。
+- 友善參與指南與緊急應變資源。
 - 形象照拍攝：由大會紀錄組搭建攝影棚，提供個人形象照服務。
 
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:16px 0;width:100%;">
@@ -127,7 +127,7 @@ COSCUP 除了議程之外，也提供多元會眾服務，讓參與者在高密�
 
 COSCUP 現場會準備社交貼紙，讓參與者可以用更輕鬆的方式表達自己的交流狀態、語言能力或想聊的主題。你可以依照自己的狀況拿取適合的貼紙，貼在識別證、衣服或其他容易看到的位置，讓新的交流更容易開始。
 
-<span style="color:#000;background:#ff0;">社交貼紙 / 貼紙交換桌的地點：即將公開，敬請期待 (07/25)。</span>
+社交貼紙 / 貼紙交換桌的地點：TR 214 走廊區。
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
   <iframe src="https://www.flickr.com/photos/coscup/54047128426/player/" width="100%" height="459" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
@@ -159,7 +159,7 @@ COSCUP 現場的語言很多，除了中文與英文，也可能包含其他語�
 
 ## COSCUP 官方紀念品販賣攤位
 
-<span style="color:#000;background:#ff0;">紀念品攤位及內容即將公開 (07/25)。</span>
+紀念品攤位位於 4F（TR 413-1 與 TR 413-2 教室外的走廊）。
 
 <figure style="margin:16px 0;width:100%;max-width:none;">
   <iframe src="https://www.flickr.com/photos/coscup/54865856825/player/" width="100%" height="458" frameborder="0" allowfullscreen style="border:0;display:block;width:100%;max-width:none;"></iframe>
@@ -177,4 +177,5 @@ COSCUP 由全志工籌備、不販售門票並開放所有人免費參加。若�
 
 ## 參與者調查
 
-<span style="color:#000;background:#ff0;">參與者調查表單將於活動第一日公開 (08/08)。</span>
+- 開放統計 Dashboard：[https://coscup.org/2026-survey](https://coscup.org/2026-survey)
+- 填寫調查：[https://coscup-tw.kktix.cc/events/preregist](https://coscup-tw.kktix.cc/events/preregist)
