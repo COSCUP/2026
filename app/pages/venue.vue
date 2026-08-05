@@ -6,8 +6,8 @@ import tr2f from '~/assets/venue/TR2F.webp'
 import tr3f from '~/assets/venue/TR3F.webp'
 import tr4f from '~/assets/venue/TR4F.webp'
 import tr5f from '~/assets/venue/TR5F.webp'
-import tr309 from '~/assets/venue/TR309.svg'
-import tr312 from '~/assets/venue/TR312.svg'
+import tr309 from '~/assets/venue/TR309.webp'
+import tr312 from '~/assets/venue/TR312.webp'
 import tr409_1 from '~/assets/venue/TR409-1.webp'
 
 const { t } = useI18n()
