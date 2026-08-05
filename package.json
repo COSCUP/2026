@@ -11,6 +11,7 @@
     "dev": "nuxt dev",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "prepare:venue-svg": "node scripts/prepare-venue-svg.mjs",
     "lint": "eslint",
     "typecheck": "nuxt typecheck"
   },
@@ -50,6 +51,7 @@
     "cross-env": "10.1.0",
     "eslint-plugin-format": "2.0.1",
     "nuxt-og-image": "6.5.2",
+    "svgo": "4.0.2",
     "typescript": "6.0.3",
     "unocss": "66.7.3",
     "unocss-preset-theme": "0.14.1",
