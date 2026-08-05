@@ -24,7 +24,7 @@ You can move between the three venue areas through the basketball court, tennis 
 
 :::info{title="Conference Information"}
 
-- Venue map information: <a href="/2026/venue">Click here for venue map information</a>
+- Venue map information: <a href="/venue">Click here for venue map information</a>
 
 :::
 
