@@ -29,11 +29,11 @@ const overviewImage = [
 ]
 
 const floorImages = [
+  { key: 'RBAU', alt: 'RB/AU', src: rbau },
   { key: 'TR2F', alt: 'TR 2F', src: tr2f },
   { key: 'TR3F', alt: 'TR 3F', src: tr3f },
   { key: 'TR4F', alt: 'TR 4F', src: tr4f },
   { key: 'TR5F', alt: 'TR 5F', src: tr5f },
-  { key: 'RBAU', alt: 'RB/AU', src: rbau },
 ]
 
 const boothImages = [
