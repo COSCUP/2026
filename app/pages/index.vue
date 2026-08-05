@@ -168,32 +168,32 @@ useSeoMeta({
 
         <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
           <h2 class="text-xl text-landing-green font-semibold m-0">
-            {{ t('call_for_sponsor.title') }}
+            {{ t('attendee_survey.title') }}
           </h2>
           <p class="text-gray-700 leading-relaxed m-0">
-            {{ t('call_for_sponsor.desc') }}
+            {{ t('attendee_survey.desc') }}
           </p>
           <NuxtLink
             class="text-white mt-auto px-4 py-2 rounded bg-cp-green w-max shadow-sm hover:shadow-md"
-            :to="t('call_for_sponsor.link')"
+            :to="t('attendee_survey.link')"
           >
-            {{ t('call_for_sponsor.link_text') }}
+            {{ t('attendee_survey.link_text') }}
           </NuxtLink>
         </article>
 
         <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
           <h2 class="text-xl text-landing-green font-semibold m-0">
-            {{ t('accepted_booths.title') }}
+            {{ t('how_to_enjoy.title') }}
           </h2>
           <p class="text-gray-700 leading-relaxed m-0">
-            {{ t('accepted_booths.desc') }}
+            {{ t('how_to_enjoy.desc') }}
           </p>
           <NuxtLink
             class="text-white mt-auto px-4 py-2 rounded bg-cp-green w-max shadow-sm hover:shadow-md"
             target="_blank"
-            :to="t('accepted_booths.link')"
+            :to="t('how_to_enjoy.link')"
           >
-            {{ t('accepted_booths.link_text') }}
+            {{ t('how_to_enjoy.link_text') }}
           </NuxtLink>
         </article>
 
@@ -243,6 +243,16 @@ en:
     desc: "If you are interested in sponsoring COSCUP x UbuCon Asia 2026, please refer to our sponsorship package or contact us directly via email."
     link: "/en/sponsorship"
     link_text: "I want to sponsor"
+  how_to_enjoy:
+    title: "How to Enjoy COSCUP 2026"
+    desc: To help you make the most of your weekend, we've put together this "How to Enjoy COSCUP" Pre-Event Guide.
+    link: https://secretary.coscup.org/newsletters/coscup-x-ubucon-asia-2026-%E8%A1%8C%E5%89%8D%E9%80%9A%E7%9F%A5%E4%BF%A1-1785855826
+    link_text: "Visit the guide"
+  attendee_survey:
+    title: "Attendee Survey"
+    desc: COSCUP wants to better understand this year's attendees! Whether you're a long-time open source community member or a first-time visitor, we welcome you to fill out the survey and help us understand the composition and future direction of our community.
+    link: https://coscup-tw.kktix.cc/events/preregist
+    link_text: Go to Survey
   accepted_booths:
     title: "Full List of Accepted Community Booths at COSCUP x UbuCon Asia 2026"
     desc: "Community track and booth applications are now closed — see the full list of accepted community booths at COSCUP x UbuCon Asia 2026!"
@@ -283,6 +293,16 @@ zh:
     desc: "若您對贊助 COSCUP x UbuCon Asia 2026 有興趣，歡迎參考贊助方案，或直接透過電子郵件與我們聯繫。"
     link: "/sponsorship"
     link_text: "我要贊助"
+  how_to_enjoy:
+    title: "如何玩 COSCUP 2026"
+    desc: "我們整理了這份 「如何玩 COSCUP」行前指南，希望你有個充實又好玩的週末。"
+    link: https://secretary.coscup.org/newsletters/coscup-x-ubucon-asia-2026-%E8%A1%8C%E5%89%8D%E9%80%9A%E7%9F%A5%E4%BF%A1-1785855826
+    link_text: "查看指南"
+  attendee_survey:
+    title: "參與者大調查"
+    desc: COSCUP 想更了解今年的參與者樣貌!不論是長期參與開源社群，或是首次走進 COSCUP，都歡迎填寫問卷，一起關注開源社群的組成與未來方向。
+    link: https://coscup-tw.kktix.cc/events/preregist
+    link_text: 前往填寫
   accepted_booths:
     title: "COSCUP x UbuCon Asia 2026 錄取攤位公告"
     desc: "社群議程軌與社群攤位申請已截止，一同來看 COSCUP x UbuCon Asia 2026 的錄取攤位名單！"
