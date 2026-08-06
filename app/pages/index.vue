@@ -167,14 +167,14 @@ useSeoMeta({
         </article>
 
         <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
-          <h2 class="text-xl text-landing-green font-semibold m-0">
+          <h2 class="text-xl text-cp-primary font-semibold m-0">
             {{ t('attendee_survey.title') }}
           </h2>
           <p class="text-gray-700 leading-relaxed m-0">
             {{ t('attendee_survey.desc') }}
           </p>
           <NuxtLink
-            class="text-white mt-auto px-4 py-2 rounded bg-cp-green w-max shadow-sm hover:shadow-md"
+            class="text-white mt-auto px-4 py-2 rounded bg-cp-secondary w-max shadow-sm hover:shadow-md"
             :to="t('attendee_survey.link')"
           >
             {{ t('attendee_survey.link_text') }}
@@ -182,7 +182,7 @@ useSeoMeta({
         </article>
 
         <article class="p-6 border border-gray-200 rounded-lg bg-white flex flex-col gap-4 shadow-sm">
-          <h2 class="text-xl text-landing-green font-semibold m-0">
+          <h2 class="text-xl text-cp-primary font-semibold m-0">
             {{ t('how_to_enjoy.title') }}
           </h2>
           <p class="text-gray-700 leading-relaxed m-0">
