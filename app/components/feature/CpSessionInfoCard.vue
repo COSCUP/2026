@@ -16,6 +16,7 @@ const props = defineProps<{
   }[]
   room: string
   coWrite?: string
+  record?: string
   tags: string[]
   track?: {
     id: number
@@ -97,6 +98,7 @@ function localizeTag(tag: string) {
           </dd>
         </div>
         <div
+          v-if="coWrite"
           class="gap-4 grid"
           :class="isZh ? 'grid-cols-[auto_minmax(0,1fr)]' : 'grid-cols-[6rem_minmax(0,1fr)]'"
         >
@@ -109,11 +111,34 @@ function localizeTag(tag: string) {
           </dt>
           <dd class="text-zinc-900 min-w-0 break-words">
             <a
-              v-if="coWrite?.startsWith('http')"
+              v-if="coWrite.startsWith('http')"
               class="underline cursor-pointer break-all"
               :href="coWrite"
             >{{ coWrite }}</a>
             <span v-else>{{ coWrite }}</span>
+          </dd>
+        </div>
+        <div
+          v-if="record"
+          class="gap-4 grid"
+          :class="isZh ? 'grid-cols-[auto_minmax(0,1fr)]' : 'grid-cols-[6rem_minmax(0,1fr)]'"
+        >
+          <dt class="text-sm text-neutral-500 flex gap-1.5 items-center">
+            <Icon
+              class="shrink-0 h-4 w-4"
+              name="tabler:live-photo"
+            />
+            {{ t("record") }}
+          </dt>
+          <dd class="text-zinc-900 min-w-0 break-words">
+            <a
+              v-if="record.startsWith('http')"
+              class="underline cursor-pointer break-all"
+              :href="record"
+              rel="noreferrer noopener"
+              target="_blank"
+            >{{ record }}</a>
+            <span v-else>{{ record }}</span>
           </dd>
         </div>
       </dl>
@@ -219,6 +244,7 @@ function localizeTag(tag: string) {
 en:
     abstract: Abstract
     co-write: Co-write
+    record: Live Caption
     room: Room
     speaker: Speaker
     time: Time
@@ -228,4 +254,5 @@ zh:
     speaker: 講者
     time: 時間
     co-write: 共筆
+    record: 即時字幕
 </i18n>

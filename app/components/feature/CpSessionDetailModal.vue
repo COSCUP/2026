@@ -20,6 +20,7 @@ const props = defineProps<{
   }[]
   room: string
   coWrite?: string
+  record?: string
   tags: string[]
   track?: {
     id: number
@@ -228,6 +229,7 @@ onUnmounted(() => {
             :ad="randomAd"
             :co-write="coWrite"
             :description="description"
+            :record="record"
             :room="room"
             :speakers="speakers"
             :tags="tags"
