@@ -47,10 +47,10 @@ export const SessionSummarySchema = z.object({
 
 export const SessionDetailSchema = SessionSummarySchema.extend({
   trackColor: z.string(),
-  co_write: z.null(),
-  qa: z.null(),
-  slide: z.null(),
-  record: z.null(),
+  co_write: z.string().nullable(),
+  qa: z.string().nullable(),
+  slide: z.string().nullable(),
+  record: z.string().nullable(),
 })
 
 export const TrackSummarySchema = z.object({
@@ -77,6 +77,15 @@ export const TrackDetailSchema = z.object({
   colors: z.record(z.string(), z.string()),
   // 贊助該議程軌的夥伴。
   sponsors: z.array(TrackSponsorSchema),
+})
+
+// 該資訊來源自 Google Sheet 的「議程資訊」工作表，並非 Pretalx API。
+export const SessionInfoSchema = z.object({
+  id: z.string(),
+  record: z.string().nullable().optional(),
+  co_write: z.string().nullable().optional(),
+  slide: z.string().nullable().optional(),
+  qa: z.string().nullable().optional(),
 })
 
 export type SessionSpeaker = z.infer<typeof SessionSpeakerSchema>
