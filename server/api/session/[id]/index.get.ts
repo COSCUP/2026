@@ -1,12 +1,16 @@
 import type { SessionSummary } from '#shared/types/session'
 import { sessions as pretalxData } from '#server/utils/pretalx'
 import { buildSessionSummary } from '#server/utils/pretalx/sessions'
+import { fetchSheet } from '#server/utils/sheets'
 import { buildTrackColorMap, DEFAULT_TRACK_COLOR, trackKey } from '#shared/utils/tracks'
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')!
 
-  const data = await pretalxData()
+  const [data, sessionInfoRows] = await Promise.all([
+    pretalxData(),
+    fetchSheet('session-info'),
+  ])
   const submission = data.submissions?.map[id]
 
   if (!submission) {
@@ -45,13 +49,14 @@ export default defineEventHandler(async (event) => {
     .filter((item): item is SessionSummary => item !== null && item.start?.startsWith(day) === true)
 
   const trackColors = buildTrackColorMap(daySessions)
+  const sessionInfo = sessionInfoRows.find((row) => row.id === id)
 
   return {
     ...session,
     trackColor: trackColors.get(trackKey(session)) ?? DEFAULT_TRACK_COLOR,
-    co_write: null,
-    qa: null,
-    slide: null,
-    record: null,
+    co_write: sessionInfo?.co_write ?? null,
+    qa: sessionInfo?.qa ?? null,
+    slide: sessionInfo?.slide ?? null,
+    record: sessionInfo?.record ?? null,
   }
 })

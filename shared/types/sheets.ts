@@ -1,13 +1,14 @@
 import type * as z from 'zod'
 import { AdRowSchema } from './ad'
 import { CommunityRowSchema } from './community'
+import { SessionInfoSchema } from './session'
 import { SponsorListRowSchema } from './sponsor'
 import { SponsorshipAddOnSchema, SponsorshipTierSchema } from './sponsorship'
 import { StaffRowSchema } from './staff'
 
 export type SheetID = typeof SHEET_IDS[number]
 
-export const SHEET_IDS = Object.freeze(['sponsorship-tiers', 'sponsorship-add-ons-zh', 'sponsorship-add-ons-en', 'sponsor-list', 'staff', 'ad', 'community'] as const)
+export const SHEET_IDS = Object.freeze(['sponsorship-tiers', 'sponsorship-add-ons-zh', 'sponsorship-add-ons-en', 'sponsor-list', 'staff', 'ad', 'community', 'session-info'] as const)
 export const SHEET_NAMES = Object.freeze({
   'sponsorship-tiers': '贊助方案',
   'sponsorship-add-ons-zh': '贊助方案加價購（中文）',
@@ -16,6 +17,7 @@ export const SHEET_NAMES = Object.freeze({
   'staff': '工作夥伴',
   'ad': '廣告',
   'community': '社群資訊',
+  'session-info': '議程資訊',
 } satisfies Record<SheetID, string>)
 export const SHEET_SCHEMAS = Object.freeze({
   'sponsorship-tiers': SponsorshipTierSchema,
@@ -25,4 +27,5 @@ export const SHEET_SCHEMAS = Object.freeze({
   'staff': StaffRowSchema,
   'ad': AdRowSchema,
   'community': CommunityRowSchema,
+  'session-info': SessionInfoSchema,
 } satisfies Record<SheetID, z.Schema>)

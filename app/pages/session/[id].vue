@@ -44,6 +44,7 @@ const sessionInfo = computed(() => {
 
   return {
     coWrite: sessionDetail.value.co_write ?? undefined,
+    record: sessionDetail.value.record ?? undefined,
     description: content.describe,
     room,
     speakers: sessionDetail.value.speakers.map((speaker) => ({
@@ -88,6 +89,7 @@ function close() {
     :ads="ad ?? []"
     :co-write="sessionInfo.coWrite"
     :description="sessionInfo.description"
+    :record="sessionInfo.record"
     :room="sessionInfo.room"
     :session-id="sessionId"
     :speakers="sessionInfo.speakers"

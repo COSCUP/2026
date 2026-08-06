@@ -1,9 +1,13 @@
+import type { z } from 'zod'
 import type { OpassTag } from '#server/utils/opass/tags'
 import type { PretalxResult, Room, Speaker, Submission, SubmissionType } from '#shared/types/pretalx'
+import type { SessionInfoSchema } from '#shared/types/session'
 import { sessionTags } from '#server/utils/opass/tags'
 import { parseAnswer, parseSlot } from '#server/utils/pretalx/parser'
 
-export function pretalxToOpass(pretalxData: PretalxResult) {
+type SessionInfo = z.infer<typeof SessionInfoSchema>
+
+export function pretalxToOpass(pretalxData: PretalxResult, sessionInfoMap?: Map<string, SessionInfo>) {
   const speakerIds: Set<Speaker['code']> = new Set()
   const roomIds: Set<Room['id']> = new Set()
   const typeIds: Set<SubmissionType['id']> = new Set()
@@ -25,6 +29,7 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
 
       const tags = sessionTags(answer.language, answer.difficulty)
       tags.forEach((tag) => tagMap.set(tag.id, tag))
+      const info = sessionInfoMap?.get(submission.code)
 
       return {
         id: submission.code,
@@ -44,10 +49,10 @@ export function pretalxToOpass(pretalxData: PretalxResult) {
         },
         tags: tags.map((tag) => tag.id),
         uri: `https://coscup.org/2026/session/${submission.code}`,
-        co_write: '',
-        qa: '',
-        slide: '',
-        record: '',
+        co_write: info?.co_write ?? '',
+        qa: info?.qa ?? '',
+        slide: info?.slide ?? '',
+        record: info?.record ?? '',
       }
     })
     .filter((session) => session.room && session.start && session.end)
