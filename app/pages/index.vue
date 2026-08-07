@@ -67,6 +67,7 @@ useSeoMeta({
         </ClientOnly>
         <NuxtLink
           class="text-cp-secondary-content font-semibold ml-auto px-6 py-2 text-center rounded-lg bg-cp-secondary transition-colors hover:bg-cp-secondary-hover"
+          target="_blank"
           to="https://coscup-tw.kktix.cc/events/preregist"
         >
           {{ t('hero.cta') }}
