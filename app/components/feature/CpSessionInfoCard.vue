@@ -66,7 +66,7 @@ function localizeTag(tag: string) {
           v-for="field in infoFields"
           :key="field.key"
           class="gap-4 grid"
-          :class="isZh ? 'grid-cols-[5.5rem_minmax(0,1fr)]' : 'grid-cols-[6rem_minmax(0,1fr)]'"
+          :class="isZh ? 'grid-cols-[5.5rem_minmax(0,1fr)]' : 'grid-cols-[7.5rem_minmax(0,1fr)]'"
         >
           <dt class="text-sm text-neutral-500 flex gap-1.5 items-center">
             <Icon
