@@ -16,6 +16,7 @@ const props = defineProps<{
   }[]
   room: string
   coWrite?: string
+  slide?: string
   record?: string
   tags: string[]
   track?: {
@@ -116,6 +117,29 @@ function localizeTag(tag: string) {
               :href="coWrite"
             >{{ coWrite }}</a>
             <span v-else>{{ coWrite }}</span>
+          </dd>
+        </div>
+        <div
+          v-if="slide"
+          class="gap-4 grid"
+          :class="isZh ? 'grid-cols-[auto_minmax(0,1fr)]' : 'grid-cols-[6rem_minmax(0,1fr)]'"
+        >
+          <dt class="text-sm text-neutral-500 flex gap-1.5 items-center">
+            <Icon
+              class="shrink-0 h-4 w-4"
+              name="tabler:presentation"
+            />
+            {{ t("slide") }}
+          </dt>
+          <dd class="text-zinc-900 min-w-0 break-words">
+            <a
+              v-if="slide.startsWith('http')"
+              class="underline cursor-pointer break-all"
+              :href="slide"
+              rel="noreferrer noopener"
+              target="_blank"
+            >{{ slide }}</a>
+            <span v-else>{{ slide }}</span>
           </dd>
         </div>
         <div
@@ -244,6 +268,7 @@ function localizeTag(tag: string) {
 en:
     abstract: Abstract
     co-write: Co-write
+    slide: Slide
     record: Live Caption
     room: Room
     speaker: Speaker
@@ -254,5 +279,6 @@ zh:
     speaker: 講者
     time: 時間
     co-write: 共筆
+    slide: 簡報
     record: 即時字幕
 </i18n>

@@ -18,7 +18,7 @@ export const ANSWER_MAP = {
     enBio: null,
     coWrite: null,
     qa: null,
-    slide: null,
+    slide: 441,
     record: null,
   },
   community: {

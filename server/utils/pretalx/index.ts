@@ -1,5 +1,4 @@
 import type { PretalxResult } from '#shared/types/pretalx'
-
 import { fetchPretalxTable } from './fetch'
 
 export const sessions = defineCachedFunction(

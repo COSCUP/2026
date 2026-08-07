@@ -1,5 +1,6 @@
 import type { SessionSummary } from '#shared/types/session'
 import { sessions as pretalxData } from '#server/utils/pretalx'
+import { parseAnswer } from '#server/utils/pretalx/parser'
 import { buildSessionSummary } from '#server/utils/pretalx/sessions'
 import { fetchSheet } from '#server/utils/sheets'
 import { buildTrackColorMap, DEFAULT_TRACK_COLOR, trackKey } from '#shared/utils/tracks'
@@ -51,12 +52,14 @@ export default defineEventHandler(async (event) => {
   const trackColors = buildTrackColorMap(daySessions)
   const sessionInfo = sessionInfoRows.find((row) => row.id === id)
 
+  const answers = parseAnswer(submission.answers, 'session', data)
+
   return {
     ...session,
     trackColor: trackColors.get(trackKey(session)) ?? DEFAULT_TRACK_COLOR,
     co_write: sessionInfo?.co_write ?? null,
     qa: sessionInfo?.qa ?? null,
-    slide: sessionInfo?.slide ?? null,
+    slide: sessionInfo?.slide ?? answers.slide ?? null,
     record: sessionInfo?.record ?? null,
   }
 })

@@ -20,6 +20,7 @@ const props = defineProps<{
   }[]
   room: string
   coWrite?: string
+  slide?: string
   record?: string
   tags: string[]
   track?: {
@@ -231,6 +232,7 @@ onUnmounted(() => {
             :description="description"
             :record="record"
             :room="room"
+            :slide="slide"
             :speakers="speakers"
             :tags="tags"
             :time="time"
