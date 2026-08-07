@@ -37,6 +37,15 @@ const speakerNames = computed(() =>
   props.speakers.map((s) => s.name).join(', '),
 )
 
+const infoFields = computed(() => [
+  { key: 'time', icon: 'tabler:clock', text: props.time },
+  { key: 'speaker', icon: 'tabler:user', text: speakerNames.value },
+  { key: 'room', icon: 'tabler:map-pin', text: props.room },
+  { key: 'co-write', icon: 'tabler:file-text', text: props.coWrite },
+  { key: 'slide', icon: 'tabler:presentation', text: props.slide },
+  { key: 'record', icon: 'tabler:live-photo', text: props.record },
+].filter((f): f is { key: string, icon: string, text: string } => !!f.text))
+
 function localizeTag(tag: string) {
   const names = TAG_NAMES[tag]
   if (names) {
@@ -54,115 +63,27 @@ function localizeTag(tag: string) {
       </h1>
       <dl class="mb-3 flex flex-col gap-2">
         <div
+          v-for="field in infoFields"
+          :key="field.key"
           class="gap-4 grid"
-          :class="isZh ? 'grid-cols-[auto_minmax(0,1fr)]' : 'grid-cols-[6rem_minmax(0,1fr)]'"
+          :class="isZh ? 'grid-cols-[5.5rem_minmax(0,1fr)]' : 'grid-cols-[7.5rem_minmax(0,1fr)]'"
         >
           <dt class="text-sm text-neutral-500 flex gap-1.5 items-center">
             <Icon
               class="shrink-0 h-4 w-4"
-              name="tabler:clock"
+              :name="field.icon"
             />
-            {{ t("time") }}
-          </dt>
-          <dd class="text-zinc-900 min-w-0 break-words">
-            {{ time }}
-          </dd>
-        </div>
-        <div
-          class="gap-4 grid"
-          :class="isZh ? 'grid-cols-[auto_minmax(0,1fr)]' : 'grid-cols-[6rem_minmax(0,1fr)]'"
-        >
-          <dt class="text-sm text-neutral-500 flex gap-1.5 items-center">
-            <Icon
-              class="shrink-0 h-4 w-4"
-              name="tabler:user"
-            />
-            {{ t("speaker") }}
-          </dt>
-          <dd class="text-zinc-900 min-w-0 break-words">
-            {{ speakerNames }}
-          </dd>
-        </div>
-        <div
-          class="gap-4 grid"
-          :class="isZh ? 'grid-cols-[auto_minmax(0,1fr)]' : 'grid-cols-[6rem_minmax(0,1fr)]'"
-        >
-          <dt class="text-sm text-neutral-500 flex gap-1.5 items-center">
-            <Icon
-              class="shrink-0 h-4 w-4"
-              name="tabler:map-pin"
-            />
-            {{ t("room") }}
-          </dt>
-          <dd class="text-zinc-900 min-w-0 break-words">
-            {{ room }}
-          </dd>
-        </div>
-        <div
-          v-if="coWrite"
-          class="gap-4 grid"
-          :class="isZh ? 'grid-cols-[auto_minmax(0,1fr)]' : 'grid-cols-[6rem_minmax(0,1fr)]'"
-        >
-          <dt class="text-sm text-neutral-500 flex gap-1.5 items-center">
-            <Icon
-              class="shrink-0 h-4 w-4"
-              name="tabler:file-text"
-            />
-            {{ t("co-write") }}
+            {{ t(field.key) }}
           </dt>
           <dd class="text-zinc-900 min-w-0 break-words">
             <a
-              v-if="coWrite.startsWith('http')"
+              v-if="field.text.startsWith('http')"
               class="underline cursor-pointer break-all"
-              :href="coWrite"
-            >{{ coWrite }}</a>
-            <span v-else>{{ coWrite }}</span>
-          </dd>
-        </div>
-        <div
-          v-if="slide"
-          class="gap-4 grid"
-          :class="isZh ? 'grid-cols-[auto_minmax(0,1fr)]' : 'grid-cols-[6rem_minmax(0,1fr)]'"
-        >
-          <dt class="text-sm text-neutral-500 flex gap-1.5 items-center">
-            <Icon
-              class="shrink-0 h-4 w-4"
-              name="tabler:presentation"
-            />
-            {{ t("slide") }}
-          </dt>
-          <dd class="text-zinc-900 min-w-0 break-words">
-            <a
-              v-if="slide.startsWith('http')"
-              class="underline cursor-pointer break-all"
-              :href="slide"
+              :href="field.text"
               rel="noreferrer noopener"
               target="_blank"
-            >{{ slide }}</a>
-            <span v-else>{{ slide }}</span>
-          </dd>
-        </div>
-        <div
-          v-if="record"
-          class="gap-4 grid"
-          :class="isZh ? 'grid-cols-[auto_minmax(0,1fr)]' : 'grid-cols-[6rem_minmax(0,1fr)]'"
-        >
-          <dt class="text-sm text-neutral-500 flex gap-1.5 items-center">
-            <Icon
-              class="shrink-0 h-4 w-4"
-              name="tabler:live-photo"
-            />
-            {{ t("record") }}
-          </dt>
-          <dd class="text-zinc-900 min-w-0 break-words">
-            <a
-              v-if="record.startsWith('http')"
-              class="underline cursor-pointer break-all"
-              :href="record"
-              rel="noreferrer noopener"
-              target="_blank"
-            >{{ record }}</a>
-            <span v-else>{{ record }}</span>
+            >{{ field.text }}</a>
+            <span v-else>{{ field.text }}</span>
           </dd>
         </div>
       </dl>
