@@ -44,6 +44,7 @@ const sessionInfo = computed(() => {
 
   return {
     coWrite: sessionDetail.value.co_write ?? undefined,
+    slide: sessionDetail.value.slide ?? undefined,
     record: sessionDetail.value.record ?? undefined,
     description: content.describe,
     room,
@@ -92,6 +93,7 @@ function close() {
     :record="sessionInfo.record"
     :room="sessionInfo.room"
     :session-id="sessionId"
+    :slide="sessionInfo.slide"
     :speakers="sessionInfo.speakers"
     :tags="sessionInfo.tags"
     :time="sessionInfo.time"
