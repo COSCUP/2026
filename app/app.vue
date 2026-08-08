@@ -24,6 +24,7 @@ defineOgImage('Default')
 </script>
 
 <template>
+  <VitePwaManifest />
   <NuxtRouteAnnouncer />
   <NuxtLayout>
     <NuxtPage />
