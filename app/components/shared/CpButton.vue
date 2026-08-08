@@ -25,7 +25,7 @@ const variantClasses = computed(() => {
   }
 
   return props.active
-    ? 'bg-cp-secondary/8 text-cp-accent'
+    ? 'bg-cp-secondary/8 text-cp-primary'
     : 'bg-transparent text-gray-500 hover:enabled:bg-gray-200 active:enabled:bg-gray-300'
 })
 </script>
