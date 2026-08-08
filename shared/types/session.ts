@@ -43,6 +43,9 @@ export const SessionSummarySchema = z.object({
   en: SessionContentSchema,
   tags: z.array(z.string()),
   uri: z.string(),
+  co_write: z.string().nullable().optional(),
+  slide: z.string().nullable().optional(),
+  record: z.string().nullable().optional(),
 })
 
 export const SessionDetailSchema = SessionSummarySchema.extend({
