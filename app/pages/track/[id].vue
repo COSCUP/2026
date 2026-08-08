@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Ad } from '#shared/types/ad'
-import type { SessionSummary, TrackDetail } from '#shared/types/session'
+import type { SessionDetail, SessionSummary, TrackDetail } from '#shared/types/session'
 import { useI18n } from 'vue-i18n'
 import CpSessionDetailModal from '~/components/feature/CpSessionDetailModal.vue'
 import CpTrackHeader from '~/components/feature/CpTrackHeader.vue'
@@ -70,6 +70,16 @@ const selectedSession = computed<SessionSummary | null>(() =>
     .flat()
     .find((session) => session.id === route.query.session) ?? null)
 
+const selectedSessionId = computed(() => selectedSession.value?.id ?? null)
+const sessionDetail = ref<SessionDetail | null>(null)
+watch(selectedSessionId, async (id) => {
+  if (!id) {
+    sessionDetail.value = null
+    return
+  }
+  sessionDetail.value = await $fetch<SessionDetail>(`/api/session/${id}`)
+})
+
 const selectedSessionInfo = computed(() => {
   const session = selectedSession.value
   if (!session) {
@@ -85,7 +95,9 @@ const selectedSessionInfo = computed(() => {
 
   return {
     sessionId: session.id,
-    coWrite: undefined,
+    coWrite: sessionDetail.value?.co_write ?? undefined,
+    slide: sessionDetail.value?.slide ?? undefined,
+    record: sessionDetail.value?.record ?? undefined,
     description: content.describe,
     room,
     speakers: session.speakers.map((speaker) => ({
@@ -251,8 +263,10 @@ useSeoMeta({
         :ads="ad ?? []"
         :co-write="selectedSessionInfo.coWrite"
         :description="selectedSessionInfo.description"
+        :record="selectedSessionInfo.record"
         :room="selectedSessionInfo.room"
         :session-id="selectedSessionInfo.sessionId"
+        :slide="selectedSessionInfo.slide"
         :speakers="selectedSessionInfo.speakers"
         :tags="selectedSessionInfo.tags"
         :time="selectedSessionInfo.time"

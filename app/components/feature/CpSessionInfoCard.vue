@@ -68,17 +68,17 @@ function localizeTag(tag: string) {
           class="gap-4 grid"
           :class="isZh ? 'grid-cols-[5.5rem_minmax(0,1fr)]' : 'grid-cols-[7.5rem_minmax(0,1fr)]'"
         >
-          <dt class="text-sm text-neutral-500 flex gap-1.5 items-center">
+          <dt class="text-sm text-neutral-500 flex gap-1.5 items-start">
             <Icon
               class="shrink-0 h-4 w-4"
               :name="field.icon"
             />
             {{ t(field.key) }}
           </dt>
-          <dd class="text-zinc-900 min-w-0 break-words">
+          <dd class="text-zinc-900 min-w-0 break-all">
             <a
               v-if="field.text.startsWith('http')"
-              class="underline cursor-pointer break-all"
+              class="underline cursor-pointer"
               :href="field.text"
               rel="noreferrer noopener"
               target="_blank"
