@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { isMarkdown } from '~/utils/markdown'
 
 const { t, locale } = useI18n()
 
@@ -85,8 +86,13 @@ useSeoMeta({
 
         <div class="flex-1 min-w-0">
           <h3 class="text-lg text-cp-primary font-700">
+            <MDC
+              v-if="isMarkdown(communityName(community))"
+              class="inline [&>p]:inline [&_a]:hover:underline"
+              :value="communityName(community)"
+            />
             <NuxtLink
-              v-if="community.url"
+              v-else-if="community.url"
               class="hover:underline"
               external
               rel="noreferrer noopener"

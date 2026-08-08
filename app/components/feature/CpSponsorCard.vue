@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { RewardType, Sponsor } from '#shared/types/sponsor'
 import { useI18n } from 'vue-i18n'
+import { isMarkdown } from '~/utils/markdown'
 
 const { sponsor } = defineProps<{
   sponsor: Sponsor
@@ -64,7 +65,13 @@ const ribbon = computed(() => {
     <div class="flex-1 min-w-0">
       <div class="flex flex-wrap gap-2 items-center">
         <h3 class="text-lg text-cp-primary font-700">
+          <MDC
+            v-if="isMarkdown(sponsor.name[locale])"
+            class="inline [&>p]:inline [&_a]:hover:underline"
+            :value="sponsor.name[locale]"
+          />
           <NuxtLink
+            v-else
             class="hover:underline"
             external
             rel="noreferrer"
