@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { prerenderRoutes } from 'nuxt/app'
+import CpAnnouncementPopup from '~/components/feature/CpAnnouncementPopup.vue'
 import { useSecretFeature } from '~/secrets/useSecretFeature'
 
 prerenderRoutes(['/api/opass.json', '/api/session'])
@@ -28,4 +29,5 @@ defineOgImage('Default')
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
+  <CpAnnouncementPopup />
 </template>
