@@ -97,12 +97,12 @@ zh:
   title: "今日活動公告"
   status: "今日活動將照常進行。"
   detail: "受颱風影響，目前有強風及豪雨。志工已在現場巡視場地，並針對強風進行加強防護。請大家前往會場及活動期間務必注意自身安全。"
-  luggage: "另外，如果有雨具或行李需要暫放，可以帶到 TR413。"
+  luggage: "另外，如果有雨具或行李需要暫放，可以帶到 TR413-2。"
   close: "我知道了"
 en:
   title: "Today's Event Update"
   status: "Today's event will proceed as scheduled."
   detail: "Due to the typhoon, we are currently experiencing strong winds and heavy rain. Our volunteers are already on site checking the venue and taking additional precautions against the strong winds. Please take extra care when traveling to the venue and during the event."
-  luggage: "If you have umbrellas, rain gear, or luggage that you would like to leave somewhere, you can bring them to TR413."
+  luggage: "If you have umbrellas, rain gear, or luggage that you would like to leave somewhere, you can bring them to TR413-2."
   close: "Got it"
 </i18n>
