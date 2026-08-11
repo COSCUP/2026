@@ -74,6 +74,7 @@ zh:
     service: 場務組
     production: 製播組
     UCA: UCA
+    review: 審稿委員
 en:
   noStaff: The staff information has not been announced yet.
   meta:
@@ -93,4 +94,5 @@ en:
     service: Service
     production: Production
     UCA: UCA
+    review: Review Partners
 </i18n>
