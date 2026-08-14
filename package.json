@@ -50,7 +50,7 @@
     "cross-env": "10.1.0",
     "eslint-plugin-format": "2.0.1",
     "nuxt-og-image": "6.5.2",
-    "typescript": "6.0.3",
+    "typescript": "7.0.2",
     "unocss": "66.7.3",
     "unocss-preset-theme": "0.14.1",
     "vue-tsc": "3.3.5"
