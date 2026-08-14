@@ -16,6 +16,7 @@ const props = defineProps<{
   }[]
   room: string
   coWrite?: string
+  qa?: string
   slide?: string
   record?: string
   tags: string[]
@@ -42,6 +43,7 @@ const infoFields = computed(() => [
   { key: 'speaker', icon: 'tabler:user', text: speakerNames.value },
   { key: 'room', icon: 'tabler:map-pin', text: props.room },
   { key: 'co-write', icon: 'tabler:file-text', text: props.coWrite },
+  { key: 'qa', icon: 'tabler:message-chatbot', text: props.qa },
   { key: 'slide', icon: 'tabler:presentation', text: props.slide },
   { key: 'record', icon: 'tabler:live-photo', text: props.record },
 ].filter((f): f is { key: string, icon: string, text: string } => !!f.text))
@@ -189,6 +191,7 @@ function localizeTag(tag: string) {
 en:
     abstract: Abstract
     co-write: Co-write
+    qa: Feedback
     slide: Slide
     record: Live Caption
     room: Room
@@ -200,6 +203,7 @@ zh:
     speaker: 講者
     time: 時間
     co-write: 共筆
+    qa: 回饋表單
     slide: 簡報
     record: 即時字幕
 </i18n>

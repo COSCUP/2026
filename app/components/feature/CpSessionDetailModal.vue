@@ -20,6 +20,7 @@ const props = defineProps<{
   }[]
   room: string
   coWrite?: string
+  qa?: string
   slide?: string
   record?: string
   tags: string[]
@@ -230,6 +231,7 @@ onUnmounted(() => {
             :ad="randomAd"
             :co-write="coWrite"
             :description="description"
+            :qa="qa"
             :record="record"
             :room="room"
             :slide="slide"
