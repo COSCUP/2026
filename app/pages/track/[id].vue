@@ -27,6 +27,7 @@ const { data: ad } = await useFetch<Ad[]>('/api/ad')
 
 provideFavorites()
 
+const CONFERENCE_START_DAY = '2026-08-08'
 const localeKey = computed(() => (locale.value === 'zh' ? 'zh' : 'en'))
 const meta = computed(() => getTrackMeta(Number(route.params.id)))
 
@@ -111,8 +112,13 @@ function closeSession() {
 }
 
 const dayIndex = computed(() => {
-  const idx = days.value.indexOf(selectedDay.value)
-  return idx >= 0 ? idx + 1 : 1
+  if (!selectedDay.value) {
+    return 1
+  }
+
+  const start = new Date(`${CONFERENCE_START_DAY}T00:00:00+08:00`)
+  const selected = new Date(`${selectedDay.value}T00:00:00+08:00`)
+  return Math.round((selected.getTime() - start.getTime()) / 86_400_000) + 1
 })
 
 const dayRooms = computed(() => {
