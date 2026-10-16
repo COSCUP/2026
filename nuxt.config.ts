@@ -1,4 +1,5 @@
 import { defineNuxtConfig } from 'nuxt/config'
+import { withoutBase } from 'ufo'
 
 const YEAR = '2026'
 const TITLE = 'COSCUP x UbuCon Asia 2026'
@@ -106,6 +107,20 @@ export default defineNuxtConfig({
     },
   },
 
+  hooks: {
+    'nitro:init': function (nitro) {
+      // Nitro prerenders each page as both '/venue' and '/2026/venue', and
+      // @nuxtjs/sitemap uses that route verbatim as the loc. Strip the base so the
+      // copies merge with each other and with the i18n page entries; registered
+      // before the module's own prerender:generate hook, which keeps this loc.
+      nitro.hooks.hook('prerender:generate', (route) => {
+        // _sitemap is declared by the module's server-side types only.
+        const r = route as typeof route & { _sitemap?: Record<string, unknown> }
+        r._sitemap = { ...r._sitemap, loc: withoutBase(route.route, nitro.options.baseURL) }
+      })
+    },
+  },
+
   imports: {
     scan: false,
   },
@@ -134,6 +149,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/icon',
     '@nuxtjs/i18n',
+    '@nuxtjs/sitemap',
     'nuxt-gtag',
     'nuxt-og-image',
   ],
@@ -142,6 +158,14 @@ export default defineNuxtConfig({
   site: {
     url: 'https://coscup.org',
     name: TITLE,
+  },
+
+  sitemap: {
+    // One sitemap.xml with hreflang alternates instead of a per-locale index.
+    sitemaps: false,
+    // Discovered image URLs drop app.baseURL and are double-escaped; leave them out.
+    discoverImages: false,
+    discoverVideos: false,
   },
 
   fonts: {
